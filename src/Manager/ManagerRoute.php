@@ -7,10 +7,10 @@ class ManagerRoute {
 	
 
 	public function __construct ($authentication, $separation, $slim, $form, $manager) {
-		if (!$authentication->valid()) {
-			header('Location: /manager/login');
-			exit;
-		}
+		//if (!$authentication->valid()) {
+		//	header('Location: /manager/login');
+		//	exit;
+		//}
 		$this->slim = $slim;
 	}
 
