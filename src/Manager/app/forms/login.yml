@@ -1,0 +1,8 @@
+js:
+
+binding:
+    login:
+        url: '%dataAPI%/Manager/json-form/login'
+        args: []
+        partial: 'Manager/forms/login.hbs'
+        type: 'Form'
