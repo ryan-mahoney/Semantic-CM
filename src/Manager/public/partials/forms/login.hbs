@@ -1,37 +1,5 @@
 <h1>login</h1>
-
-<form class="ui form segment" data-xhr="true" data-marker="contact" method="post">
-
-    <div class="field">
-        <label>First Name</label>
-        <div class="ui left labeled input">
-            {{{first_name}}}
-            <div class="ui corner label">
-            	<i class="icon asterisk"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="field">
-        <label>Last Name</label>
-        <div class="ui left labeled input">
-            {{{last_name}}}
-            <div class="ui corner label">
-            	<i class="icon asterisk"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="field">
-        <label>Phone</label>
-        <div class="ui left labeled input">
-            {{{phone}}}
-            <div class="ui corner label">
-            	<i class="icon asterisk"></i>
-            </div>
-        </div>
-    </div>
-
+<form class="ui form segment" data-xhr="true" method="post" action="/Manager/form/login">
     <div class="field">
         <label>Email</label>
         <div class="ui left labeled input">
@@ -43,15 +11,14 @@
     </div>
 
     <div class="field">
-        <label>Message</label>
+        <label>Password</label>
         <div class="ui left labeled input">
-            {{{message}}}
+            {{{password}}}
             <div class="ui corner label">
-            	<i class="icon asterisk"></i>
+                <i class="icon asterisk"></i>
             </div>
         </div>
     </div>
-
     {{{id}}}
-	<input type="submit" class="ui blue submit button" value="Submit" />
+	<input type="submit" class="ui blue submit button" value="Login" />
 </form>
