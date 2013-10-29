@@ -24,7 +24,7 @@ class login {
 		return [
 			'name' => 'password',
 			'placeholder' => 'Password',
-			'display' => $this->field->inputText(),
+			'display' => $this->field->inputPassword(),
 			'required' => true
 		];
 	}

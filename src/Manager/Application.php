@@ -21,12 +21,20 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/login', function () {
+			if ($this->authentication->valid('Manager') !== false) {
+				header('Location: /Manager');
+			}
 			$this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write($this->response->body);
+		});
+
+		$this->slim->get('/Manager/logout', function () {
+			$this->authentication->logout('Manager');
+			$this->authenticate();
 		});
 	}
 
 	private function authenticate () {
-		if ($this->authentication->valid('manager') === false) {
+		if ($this->authentication->valid('Manager') === false) {
 			header('Location: /Manager/login');
 			exit;
 		}

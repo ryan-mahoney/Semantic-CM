@@ -1,3 +1,3 @@
 topics:
     Manager-form-login-save: 
-       Authenticate: ['post', 'db']
+       Authenticate: ['post', 'authentication']
