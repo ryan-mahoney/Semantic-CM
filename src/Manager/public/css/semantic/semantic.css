@@ -1296,7 +1296,7 @@ body.progress .ui.progress .bar {
 
 @media only screen and (min-width : 1725px) {
   #example .container {
-    width: 1100px;
+    width: 1200px;
   }
   #example .sticky-wrapper.stuck .peek {
     margin-left: -780px;
@@ -1368,4 +1368,47 @@ body.progress .ui.progress .bar {
     width: auto;
     padding: 0% 23%;
   }
+}
+
+.ui.items > .manager.item {
+  height: auto !important;
+  min-height: 290px !important;
+}
+
+.manager.item .ui.buttons {
+  display: none;
+}
+
+.manager.item a.star {
+  display: none;
+}
+
+.manager.item:hover a.star {
+  display: block;
+}
+
+.manager.item p {
+  display: block;
+  margin-top: 38px;
+}
+
+.manager.item:hover .ui.buttons {
+  display: inline-block;
+}
+
+.manager.item:hover p {
+  display: none;
+}
+
+.manager.item .button:hover {
+  background-color: #5BBD72;
+  color: #fff;
+}
+
+.manager.item .button {
+  background-color: #FFFCED;
+}
+
+.manager.item .icon.category-Content {
+  background-color: #1391D2;
 }

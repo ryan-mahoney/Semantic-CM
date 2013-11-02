@@ -6,9 +6,9 @@ class blurbs {
 	public $form = 'blurbs';
 	public $titleTable = 'Blurbs';
 	public $titleCard = 'Blurbs';
-	public $decriptionCard = '%count% blurbs';
+	public $decriptionCard = '5 blurbs';
 	public $acl = ['content', 'admin', 'superadmin'];
-	public $icon = 'someicon';
+	public $icon = 'basic content';
 	public $category = 'Content';
 
 	public function row (&$document) {

@@ -1,21 +1,18 @@
-<strong>Managers</strong>
+<div class="ui four items" style="margin-top: 20px;">
 {{#each managers}}
-	<div>{{titleCard}}</div>
+	<div class="manager item" style="min-height: auto">
+		<a class="star ui corner label">
+        	<i class="star icon"></i>
+      	</a>
+      	<h2 class="ui header center aligned" style="margin: 10px">{{titleCard}}</h2>
+      	<div class="ui basic center aligned segment" style="margin-top: 0; margin-bottom: 10px">
+	      	<i class="icon {{icon}} circular inverted category-{{category}}" style="font-size: 60px; margin: 0"></i>
+	      	<p>{{decriptionCard}}</p>
+	      	<div class="ui buttons" style="margin-top: 30px">
+  				<div class="ui button">Add</div>
+  				<div class="ui button">List</div>
+			</div>
+	    </div>
+  	</div>
 {{/each}}
-<br />
-<br />
-<pre>
-[
-    {
-        "titleCard": "Blurbs",
-        "decriptionCard": "%count% blurbs",
-        "acl": [
-            "content",
-            "admin",
-            "superadmin"
-        ],
-        "icon": "someicon",
-        "category": "Content"
-    }
-]
-</pre>
+</div>

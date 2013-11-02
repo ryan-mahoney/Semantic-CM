@@ -2,13 +2,13 @@
     "managers": [
         {
             "titleCard": "Blurbs",
-            "decriptionCard": "%count% blurbs",
+            "decriptionCard": "5 blurbs",
             "acl": [
                 "content",
                 "admin",
                 "superadmin"
             ],
-            "icon": "someicon",
+            "icon": "basic content",
             "category": "Content"
         }
     ]
