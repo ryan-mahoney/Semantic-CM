@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{page_title}}</title>
+        <link href="/css/Manager/semantic/semantic.min.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="/css/Manager/semantic/semantic.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700" rel="stylesheet" type="text/css" />
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/Manager/semantic/history.js"></script>
+        <script src="/js/Manager/semantic/easing.js"></script>
+        <script src="/js/Manager/semantic/ace.js"></script>
+        <script src="/js/Manager/semantic/tablesort.js"></script>
+        <script src="/js/Manager/semantic/waypoints.js"></script>
+        <script src="/js/Manager/semantic/semantic.min.js"></script>
+        <script src="/js/Manager/semantic/semantic.js"></script>
+    </head>
+    <body id="example" class="index">
+        <div class="ui fixed transparent inverted main menu">
+            <div class="container">
+                <div class="title item">
+                    <b>Manager:</b> My Website
+                </div>
+                <div class="icon item link active">
+                    <a href="">Dashboard</a>
+                </div>
+                <div class="icon item link">
+                    <a href="">Content</a>
+                </div>
+                <div class="item link">
+                    <a href="">Reports</a>
+                </div>
+                <div class="item link">
+                    <a href="">People</a>
+                </div>   
+                <div class="right menu">
+                    <div class="vertically fitted borderless item"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="masthead segment">
+            <div class="ui page grid">
+                <div class="column">
+                    <div class="ui action input big" style="width: 100%">
+                        <input placeholder="Find..." type="text">
+                        <div class="ui teal button" style="width: 10%">Search</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main container">
+            <div>
+                <br />
+                <br />
+                <br />
+                {{{items}}}
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,6 @@
+js:
+
+binding:
+    items:
+        url: '%dataAPI%/Manager/api/managers'
+        partial: 'Manager/manager-items.hbs'

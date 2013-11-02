@@ -1,11 +1,14 @@
 <?php
+namespace Manager;
+
 class blurbs {
 	public $collection = 'blurbs';
 	public $form = 'blurbs';
-	public $headers = [];
-	public $title = [];
+	public $titleTable = 'Blurbs';
+	public $titleCard = 'Blurbs';
+	public $decriptionCard = '%count% blurbs';
 	public $acl = ['content', 'admin', 'superadmin'];
-	public $icon = 'someicon.png';
+	public $icon = 'someicon';
 	public $category = 'Content';
 
 	public function row (&$document) {

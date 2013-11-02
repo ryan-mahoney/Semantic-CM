@@ -283,14 +283,15 @@ body.guide .main.container > * {
   overflow: hidden;
   background-color: #00B5AD;
   text-align: center;
-  margin-top: 38px;
-  padding: 50px 0px;
+  margin-top: 40px;
+  padding: 20px 0px;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 0px;
   border-bottom: none;
+  border-top: 1px solid #5F5F5F;
 }
 #example .masthead:before {
-  background: #00B5AD url(/images/tile-bg.png) repeat fixed 0% 0%;
+  background-color: #3D3D3D;
   position: absolute;
   z-index: 1;
   width: 500%;
@@ -298,102 +299,8 @@ body.guide .main.container > * {
   top: 0px;
   left: 0px;
   content: '';
-
-  -moz-transform-origin: 50% 50%;
-  -o-transform-origin: 50% 50%;
-  -ms-transform-origin: 50% 50%;
-  transform-origin: 50% 50%;
-
-  -webkit-animation-name: masthead;
-  -moz-animation-name: masthead;
-  -o-animation-name: masthead;
-  animation-name: masthead;
-
-  -webkit-animation-duration: 80s;
-  -moz-animation-duration: 80s;
-  -ms-animation-duration: 80s;
-  -o-animation-duration: 80s;
-  animation-duration: 80s;
-
-  -webkit-animation-fill-mode: both;
-  -moz-animation-fill-mode: both;
-  -ms-animation-fill-mode: both;
-  -o-animation-fill-mode: both;
-  animation-fill-mode: both;
-
-  animation-timing-function: linear;
-  -webkit-animation-timing-function: linear;
-
-  -webkit-animation-iteration-count: infinite;
-  -moz-animation-iteration-count: infinite;
-  -ms-animation-iteration-count: infinite;
-  -o-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-}
-@keyframes masthead {
- 0% {
-    background-position: 0% 0%;
- }
- 50% {
-    background-position: -50% -100%;
- }
- 100% {
-    background-position: -100% -200%;
- }
-
 }
 
-@-moz-keyframes masthead {
- 0% {
-   background-position: 0% 0%;
- }
- 50% {
-   background-position: -50% -100%;
- }
- 100% {
-   background-position: -100% -200%;
- }
-
-}
-
-@-webkit-keyframes masthead {
- 0% {
-   background-position: 0% 0%;
- }
- 50% {
-   background-position: -50% -100%;
- }
- 100% {
-   background-position: -100% -200%;
- }
-
-}
-
-@-ms-keyframes masthead {
- 0% {
-   background-position: 0% 0%;
- }
- 50% {
-   background-position: -50% -100%;
- }
- 100% {
-   background-position: -100% -200%;
- }
-
-}
-
-@-o-keyframes masthead {
- 0% {
-   background-position: 0% 0%;
- }
- 50% {
-   background-position: -50% -100%;
- }
- 100% {
-   background-position: -100% -200%;
- }
-
-}
 #example .masthead .grid {
   position: relative;
   z-index: 2;
@@ -406,50 +313,6 @@ body.guide .main.container > * {
   vertical-align: top;
   width: 100%;
 }
-#example .advertisement {
-  float: none;
-  display: table-cell;
-  vertical-align: top;
-  padding-left: 2em;
-}
-#example #carbonads-container {
-  float: right;
-}
-#example .advertisement .carbonad {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-#example .advertisement .carbonad-text {
-  height: auto;
-  font-size: 12px;
-  line-height: 1.3;
-}
-#example .carbonad-tag {
-  text-align: left;
-}
-#example .inverted.advertisement .carbonad {
-  background-color: rgba(0, 31, 30, 0.5);
-  border: none;
-  overflow: hidden;
-  height: auto;
-  padding: 6px 8px 15px;
-}
-#example .inverted.advertisement .carbonad-text {
-  color: rgba(255, 255, 255, 0.6);
-}
-#example .inverted.advertisement .carbonad-tag {
-  margin-top: 10px;
-  color: rgba(255, 255, 255, 0.4);
-}
-#example .inverted.advertisement .carbonad-tag a {
-  color: rgba(255, 255, 255, 0.8);
-}
-#example .inverted.advertisement .carbonad-tag a:hover {
-  color: #FFFFFF;
-}
-
 
 #example .masthead .labeled.button {
   position: relative;

@@ -1,0 +1,15 @@
+{
+    "managers": [
+        {
+            "titleCard": "Blurbs",
+            "decriptionCard": "%count% blurbs",
+            "acl": [
+                "content",
+                "admin",
+                "superadmin"
+            ],
+            "icon": "someicon",
+            "category": "Content"
+        }
+    ]
+}
