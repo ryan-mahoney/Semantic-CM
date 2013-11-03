@@ -1,0 +1,8 @@
+js:
+
+binding:
+    blurbs:
+        url: '%dataAPI%/json-form/blurbs'
+        args: []
+        partial: 'forms/blurbs.hbs'
+        type: 'Form'

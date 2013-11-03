@@ -7,19 +7,47 @@ class Application {
 	private $separation;
 	private $response;
 	private $root;
+	private $bundleRoot;
 
-	public function __construct ($container, $root) {
+	public function __construct ($container, $root, $bundleRoot) {
 		$this->slim = $container->slim;
 		$this->authentication = $container->authentication;
 		$this->separation = $container->separation;
 		$this->response = $container->response;
 		$this->root = $root;
+		$this->bundleRoot = $bundleRoot;
 	}
 
 	public function app () {
 		$this->slim->get('/Manager', function () {
 			$this->authenticate();
 			$this->separation->app('bundles/Manager/app/dashboard')->layout('Manager/dashboard')->template()->write($this->response->body);
+		});
+
+		$this->slim->get('/Manager/add(/:name)', function  $manager) {
+			$this->authenticate();
+			$url = '%dataAPI%/Manager/json-form/' . $manager;
+        	$partial = 'Manager/forms/' . $manager . '.hbs';
+			$this->separation->
+				app('bundles/Manager/app/forms/any')->
+				layout('Manager/forms/any')->
+				partial('form', $partial)->
+				url('form', $url)->
+				template()->
+				write($this->response->body);
+		});
+
+		$this->slim->get('/Manager/list(/:name)', function  $manager) {
+			$this->authenticate();
+			$url = '%dataAPI%/json-data/' . $manager . '/all/50/0/{"created_date":-1}';
+        	$partial = 'Manager/collections/' . $manager . '.hbs';
+			$this->separation->
+				app('bundles/Manager/app/collections/any')->
+				layout('Manager/collections/any')->
+				partial('table', $partial)->
+				url('tale', $url)->
+				template()->
+				write($this->response->body);
 		});
 
 		$this->slim->get('/Manager/login', function () {
@@ -39,7 +67,7 @@ class Application {
 			if (isset($_GET['userId'])) {
 				$userId = $_GET['userId'];
 			}
-			$managersCacheFile = $this->root . '/../managers/cache.json';
+			$managersCacheFile = $this->bundleRoot . '/../managers/cache.json';
 			if (!file_exists($managersCacheFile)) {
 				$this->response->body = json_encode(['managers' => []]);
 				return;	
@@ -52,8 +80,23 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/api/search', function () {
-			//elasic search
+			$out = [
+				['id' => 'a', 'value' => 'Apple'],
+				['id' => 'a2', 'value' => 'Appliance'],
+				['id' => 'a3', 'value' => 'A Peter Bailey'],
+				['id' => 'b', 'value' => 'Bear'],
+				['id' => 'c', 'value' => 'Cat'],
+				['id' => 'd', 'value' => 'Dog'],
+				['id' => 'e', 'value' => 'Elephant'],
+				['id' => 'f', 'value' => 'Flowers'],
+				['id' => 'g', 'value' => 'Games']
+			];
+			//foreach ($riders as $rider) {
+            //    $out[] = array('id' => $rider['id'], 'value' => $rider['first_name'] . ' ' . $rider['last_name']);
+            //}
+            echo json_encode($out);
 		});
+
 	}
 
 	private function authenticate () {
@@ -87,13 +130,17 @@ class Application {
 			}
 			$managerInstance = new $managerClassName();
 			$record = [
-				'titleCard' => $managerInstance->titleCard,
-				'decriptionCard' => $managerInstance->decriptionCard,
+				'manager' => $manager,
+				'titleShort' => $managerInstance->titleCard,
+				'decriptionShort' => $managerInstance->decriptionCard,
 				'acl' => $managerInstance->acl,
 				'icon' => $managerInstance->icon,
 				'category' => $managerInstance->category
 			];
 			$managers[] = $record;
+			if (method_exists($managerInstance, 'partial')) {
+				file_put_contents($this->root . '/partials/Manager/forms/' . $manager . '.hbs', $managerInstance->partial());
+			}
 		}
 		file_put_contents($managersCacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));
 	}

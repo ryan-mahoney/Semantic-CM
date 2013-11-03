@@ -1,18 +1,18 @@
-<div class="ui four items" style="margin-top: 20px;">
+<div class="ui five items" style="margin-top: 20px;">
 {{#each managers}}
 	<div class="manager item" style="min-height: auto">
 		<a class="star ui corner label">
         	<i class="star icon"></i>
       	</a>
-      	<h2 class="ui header center aligned" style="margin: 10px">{{titleCard}}</h2>
+      	<h3 class="ui header center aligned" style="margin: 10px">{{titleShort}}</h3>
       	<div class="ui basic center aligned segment" style="margin-top: 0; margin-bottom: 10px">
-	      	<i class="icon {{icon}} circular inverted category-{{category}}" style="font-size: 60px; margin: 0"></i>
-	      	<p>{{decriptionCard}}</p>
-	      	<div class="ui buttons" style="margin-top: 30px">
-  				<div class="ui button">Add</div>
-  				<div class="ui button">List</div>
-			</div>
+	      	<i class="icon {{icon}} circular inverted category-{{category}}" style="font-size: 55px; margin: 0"></i>
+	      	<p>{{decriptionShort}}</p>
 	    </div>
+	    <div class="ui buttons" style="padding-left: 32px">
+			<a href="/Manager/add/{{manager}}" class="ui button">Add</a>
+			<a href="/Manager/list/{{manager}}" class="ui button">List</a>
+		</div>
   	</div>
 {{/each}}
 </div>

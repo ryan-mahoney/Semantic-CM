@@ -1,0 +1,10 @@
+js:
+
+binding:
+    header:
+        url: '%dataAPI%/layouts/Manager/header.html'
+        type: 'html'
+    table:
+        url: '%dataAPI%/json-data/?/all/50/0/{"created_date":-1}'
+        partial: 'Manager/forms/?.hbs'
+        type: 'Collection'

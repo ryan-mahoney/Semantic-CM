@@ -1,8 +1,9 @@
 {
     "managers": [
         {
-            "titleCard": "Blurbs",
-            "decriptionCard": "5 blurbs",
+            "manager": "blurbs",
+            "titleShort": "Blurbs",
+            "decriptionShort": "5 blurbs",
             "acl": [
                 "content",
                 "admin",

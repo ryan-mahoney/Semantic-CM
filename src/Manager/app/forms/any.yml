@@ -1,0 +1,10 @@
+js:
+
+binding:
+    header:
+        url: '%dataAPI%/layouts/Manager/header.html'
+        type: 'html'
+    form:
+        url: '%dataAPI%/Manager/json-form/?'
+        partial: 'Manager/forms/?.hbs'
+        type: 'Form'

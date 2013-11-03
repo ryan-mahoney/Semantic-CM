@@ -280,8 +280,7 @@ body.guide .main.container > * {
 }
 #example .masthead {
   position: relative;
-  overflow: hidden;
-  background-color: #00B5AD;
+  background-color: #3D3D3D;
   text-align: center;
   margin-top: 40px;
   padding: 20px 0px;
@@ -293,9 +292,6 @@ body.guide .main.container > * {
 #example .masthead:before {
   background-color: #3D3D3D;
   position: absolute;
-  z-index: 1;
-  width: 500%;
-  height: 500%;
   top: 0px;
   left: 0px;
   content: '';
@@ -308,44 +304,7 @@ body.guide .main.container > * {
 #example .masthead .column {
   display: table;
 }
-#example .introduction {
-  display: table-cell;
-  vertical-align: top;
-  width: 100%;
-}
 
-#example .masthead .labeled.button {
-  position: relative;
-  left: 0px;
-  top: 0px;
-  width: auto !important;
-  margin-right: 1em;
-}
-#example .masthead.segment h1 {
-  font-size: 5em;
-  color: #FFFFFF;
-  line-height: 1.2;
-  margin: -20px 0px 0px;
-  padding-bottom: 0px;
-}
-#example .masthead strike {
-  color: rgba(0, 0, 0, 0.2);
-}
-#example .masthead h2 {
-  font-weight: normal;
-  margin: -10px 0 16px 0px;
-  font-size: 1.75em;
-  border-bottom: none;
-  line-height: 1;
-}
-#example .masthead .menu {
-  width: 375px;
-}
-#example .masthead p {
-  font-size: 1.5em;
-  margin: 1em 0em 1.5em;
-  padding: 0px;
-}
 #example .footer.link.list {
   display: block;
   text-align: center;
@@ -1372,32 +1331,24 @@ body.progress .ui.progress .bar {
 
 .ui.items > .manager.item {
   height: auto !important;
-  min-height: 290px !important;
+  min-height: 270px !important;
 }
 
 .manager.item .ui.buttons {
   display: none;
+  z-index: 2;
+  position: absolute;
+  bottom: 20px;
 }
 
 .manager.item a.star {
   display: none;
 }
 
-.manager.item:hover a.star {
-  display: block;
-}
-
 .manager.item p {
   display: block;
   margin-top: 38px;
-}
-
-.manager.item:hover .ui.buttons {
-  display: inline-block;
-}
-
-.manager.item:hover p {
-  display: none;
+  z-index: 1;
 }
 
 .manager.item .button:hover {
@@ -1409,6 +1360,26 @@ body.progress .ui.progress .bar {
   background-color: #FFFCED;
 }
 
+.manager.item:hover .icon.category-Content {
+  background-color: #0A85C4;  
+}
+
 .manager.item .icon.category-Content {
   background-color: #1391D2;
+}
+
+.title > .button {
+  display: none;
+}
+
+.title > span {
+  display: inline;
+}
+
+.title:hover > .button {
+  display: block;
+}
+
+.title:hover > span {
+  display: none;
 }
