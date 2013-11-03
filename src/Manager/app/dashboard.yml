@@ -2,8 +2,8 @@ js:
 
 binding:
     header:
-        url: '%dataAPI%/layouts/Manager/header.html'
+        url: '%dataAPI%/Manager/header'
         type: 'html'
-    items:
+    managers:
         url: '%dataAPI%/Manager/api/managers'
         partial: 'Manager/manager-items.hbs'

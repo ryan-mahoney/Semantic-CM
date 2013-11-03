@@ -1,3 +1,5 @@
 topics:
     Manager-form-login-save: 
        Authenticate: ['post', 'authentication']
+    Manager-form:
+       PostToManager: ['post', 'db']

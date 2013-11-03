@@ -6,6 +6,7 @@
     margin-bottom: 0;
     border-top-right-radius: 0 !important;
     border-bottom-right-radius:0 !important;
+    padding-left: 200px !important;
 }
 .tt-dropdown-menu {
     z-index: 2000;

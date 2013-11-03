@@ -24,7 +24,15 @@ class Application {
 			$this->separation->app('bundles/Manager/app/dashboard')->layout('Manager/dashboard')->template()->write($this->response->body);
 		});
 
-		$this->slim->get('/Manager/add(/:name)', function  $manager) {
+		$this->slim->get('/Manager/header', function () {
+			$this->separation->
+				app('bundles/Manager/app/header')->
+				layout('Manager/header')->
+				template()->
+				write($this->response->body);
+		});
+
+		$this->slim->get('/Manager/add(/:name)', function ($manager) {
 			$this->authenticate();
 			$url = '%dataAPI%/Manager/json-form/' . $manager;
         	$partial = 'Manager/forms/' . $manager . '.hbs';
@@ -37,7 +45,7 @@ class Application {
 				write($this->response->body);
 		});
 
-		$this->slim->get('/Manager/list(/:name)', function  $manager) {
+		$this->slim->get('/Manager/list(/:name)', function ($manager) {
 			$this->authenticate();
 			$url = '%dataAPI%/json-data/' . $manager . '/all/50/0/{"created_date":-1}';
         	$partial = 'Manager/collections/' . $manager . '.hbs';
@@ -45,7 +53,7 @@ class Application {
 				app('bundles/Manager/app/collections/any')->
 				layout('Manager/collections/any')->
 				partial('table', $partial)->
-				url('tale', $url)->
+				url('table', $url)->
 				template()->
 				write($this->response->body);
 		});
@@ -131,15 +139,18 @@ class Application {
 			$managerInstance = new $managerClassName();
 			$record = [
 				'manager' => $manager,
-				'titleShort' => $managerInstance->titleCard,
-				'decriptionShort' => $managerInstance->decriptionCard,
+				'title' => $managerInstance->title,
+				'decription' => $managerInstance->decription,
 				'acl' => $managerInstance->acl,
 				'icon' => $managerInstance->icon,
 				'category' => $managerInstance->category
 			];
 			$managers[] = $record;
-			if (method_exists($managerInstance, 'partial')) {
-				file_put_contents($this->root . '/partials/Manager/forms/' . $manager . '.hbs', $managerInstance->partial());
+			if (method_exists($managerInstance, 'formPartial')) {
+				file_put_contents($this->root . '/partials/Manager/forms/' . $manager . '.hbs', $managerInstance->formPartial());
+			}
+			if (method_exists($managerInstance, 'tablePartial')) {
+				file_put_contents($this->root . '/partials/Manager/collections/' . $manager . '.hbs', $managerInstance->tablePartial());
 			}
 		}
 		file_put_contents($managersCacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));

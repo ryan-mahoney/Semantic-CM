@@ -1361,7 +1361,7 @@ body.progress .ui.progress .bar {
 }
 
 .manager.item:hover .icon.category-Content {
-  background-color: #0A85C4;  
+  background-color: #0A85C4;
 }
 
 .manager.item .icon.category-Content {
@@ -1382,4 +1382,8 @@ body.progress .ui.progress .bar {
 
 .title:hover > span {
   display: none;
+}
+
+.manager.header {
+  color: #0A85C4;
 }

@@ -23,20 +23,19 @@
         <div class="container">
             <div class="ui action input big" style="width: 100%">
 
-<!--
-<div class="ui selection dropdown">
-  <input name="gender" type="hidden">
-  <div class="default text">Gender</div>
+<div id="omnifilter" class="ui selection dropdown" style="width: 150px; position: absolute; top: 0; z-index: 1; padding: 15px 19px 11px 19px; font-size: 15px; height: 25px; border-top: 0px; border-bottom: 0px; border-left: 0px; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; background-color: transparent">
+  <input name="omnifilter" type="hidden" />
+  <div class="default text">Refine</div>
   <i class="dropdown icon"></i>
   <div class="menu">
-    <div class="item" data-value="male">Male</div>
-    <div class="item" data-value="female">Female</div>
+    {{{managers}}}
   </div>
 </div>
--->
-
-                <input id="omnisearch" placeholder="Find..." type="text">
-                <div class="ui teal button" style="width: 10%">Search</div>
+<script>
+$('#omnifilter').dropdown();
+</script>
+                <input id="omnisearch" placeholder="Search..." type="text" />
+                <div class="ui teal button" style="width: 5%">Go</div>
             </div>
         </div>
     </div>

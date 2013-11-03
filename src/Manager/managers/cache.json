@@ -2,8 +2,8 @@
     "managers": [
         {
             "manager": "blurbs",
-            "titleShort": "Blurbs",
-            "decriptionShort": "5 blurbs",
+            "title": "Blurbs",
+            "decription": "5 blurbs",
             "acl": [
                 "content",
                 "admin",

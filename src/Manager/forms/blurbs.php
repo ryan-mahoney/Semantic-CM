@@ -1,6 +1,7 @@
 <?php
 class blurbs {
 	private $field;
+	public $notice = 'Data Saved';
 
 	public function __construct ($field) {
 		$this->field = $field;
