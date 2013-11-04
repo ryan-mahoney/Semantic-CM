@@ -6,7 +6,7 @@ class blurbs {
 	public $form = 'blurbs';
 	public $title = 'Blurbs';
 	public $single = 'Blurb';
-	public $decription = '5 blurbs';
+	public $description = '5 blurbs';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'basic content';
 	public $category = 'Content';
