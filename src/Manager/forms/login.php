@@ -1,4 +1,6 @@
 <?php
+namespace Manager\Form;
+
 class login {
 	public function __construct ($field) {
 		$this->field = $field;

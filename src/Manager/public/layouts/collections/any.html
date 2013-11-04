@@ -15,6 +15,7 @@
         <script src="/js/Manager/semantic/waypoints.js"></script>
         <script src="/js/Manager/semantic/semantic.min.js"></script>
         <script src="/js/Manager/semantic/semantic.js"></script>
+        <script src="/js/Manager/typeahead.js/hogan-2.0.0.js"></script>
         <script src="/js/Manager/typeahead.js/typeahead.min.js"></script>
         <script src="/js/Manager/behaviors.js"></script>
         <script src="/js/jquery.form.js"></script>
@@ -25,6 +26,19 @@
         {{{header}}}
         <div class="container">
             {{{table}}}
+        </div>
+
+
+        <div class="ui small modal">
+            <i class="close icon"></i>
+            <div class="header">Confirm Delete</div>
+            <div class="delete content">
+                <p>Are you sure you want to delete the highlighted item?</p>
+            </div>
+            <div class="actions">
+                <div class="ui negative button">No</div>
+                <div class="ui positive right labeled icon confirmed delete button">Yes<i class="checkmark icon"></i></div>
+            </div>
         </div>
     </body>
 </html>

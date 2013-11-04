@@ -16,7 +16,7 @@ class blurbs {
 			<br />
 			<h1 class="ui manager header">Blurbs</h1>
 
-<div class="ui borderless pagination menu fluid">
+<div class="ui borderless pagination menu large fluid">
   <a class="item">
     <i class="icon left arrow"></i> Previous
   </a>
@@ -30,17 +30,19 @@ class blurbs {
     Next <i class="icon right arrow"></i>
   </a>
   <div class="item right">
-        <div class="ui teal button">Add Blurb</div>
+        <div class="ui teal button large manager add">Add</div>
     </div>
 </div>
 
-			<table class="ui table segment">
+			<table class="ui table manager segment padded">
 				<thead>
 					<tr><th>Name</th></tr>
 				</thead>
 					<tbody>
 					{{#each blurbs}}
-						<tr><td>{{title}}</td></tr>
+						<tr data-id="{{_id}}">
+							<td>{{title}}</td>
+						</tr>
 					{{/each}}
 				</tbody>
 			</table>
@@ -50,7 +52,7 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			<h2 class="ui header">Add Blurb</h2>
+			<h2 class="ui manager header">Blurb</h2>
     		<form class="ui form segment" data-xhr="true" method="post" action="/Manager/form/blurbs">
 			    <div class="ui warning message">
 			        <div class="header">There was a problem</div>

@@ -1,4 +1,6 @@
 <?php
+namespace Manager\Form;
+
 class blurbs {
 	private $field;
 	public $notice = 'Data Saved';

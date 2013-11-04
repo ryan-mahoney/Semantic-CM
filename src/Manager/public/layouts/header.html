@@ -21,21 +21,28 @@
 <div class="masthead segment">
     <div class="ui page grid">
         <div class="container">
-            <div class="ui action input big" style="width: 100%">
-
-<div id="omnifilter" class="ui selection dropdown" style="width: 150px; position: absolute; top: 0; z-index: 1; padding: 15px 19px 11px 19px; font-size: 15px; height: 25px; border-top: 0px; border-bottom: 0px; border-left: 0px; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; background-color: transparent">
-  <input name="omnifilter" type="hidden" />
-  <div class="default text">Refine</div>
-  <i class="dropdown icon"></i>
-  <div class="menu">
-    {{{managers}}}
-  </div>
-</div>
-<script>
-$('#omnifilter').dropdown();
-</script>
+            <div id="omni" class="ui action input big dimmable" style="width: 100%">
+                <div id="omnifilter" class="ui selection dropdown" style="width: 150px; position: absolute; top: 0; z-index: 1; padding: 15px 19px 11px 19px; font-size: 15px; height: 25px; border-top: 0px; border-bottom: 0px; border-left: 0px; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; background-color: transparent">
+                
+                    <input name="omnifilter" type="hidden" />
+                    <div class="default text">Everything</div>
+                    <i class="dropdown icon" style="float: right"></i>
+                    <div class="menu">{{{managers}}}</div>
+                </div>
+                <script>
+                $('#omnifilter').dropdown();
+                </script>
                 <input id="omnisearch" placeholder="Search..." type="text" />
-                <div class="ui teal button" style="width: 5%">Go</div>
+                <div id="omnigo" data-href="" class="ui teal button" style="width: 5%">Go</div>
+
+                <div class="ui dimmer hidden">
+                  <div class="content">
+                    <div class="center">
+                      <h3 class="ui header">Select content or people after searching</h3>
+                    </div>
+                  </div>
+                </div>
+
             </div>
         </div>
     </div>

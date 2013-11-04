@@ -2,7 +2,7 @@ js:
 
 binding:
     header:
-        url: '%dataAPI%/layouts/Manager/header.html'
+        url: '%dataAPI%/Manager/header'
         type: 'html'
     table:
         url: '%dataAPI%/json-data/?/all/50/0/{"created_date":-1}'

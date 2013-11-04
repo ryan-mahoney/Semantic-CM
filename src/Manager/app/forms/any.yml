@@ -2,7 +2,7 @@ js:
 
 binding:
     header:
-        url: '%dataAPI%/layouts/Manager/header.html'
+        url: '%dataAPI%/Manager/header'
         type: 'html'
     form:
         url: '%dataAPI%/Manager/json-form/?'

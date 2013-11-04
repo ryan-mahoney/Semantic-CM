@@ -1,5 +1,5 @@
 <?php
-return function ($context, $post, $db) {
+return function ($context, $post, $db, $collection, $search) {
 	if (!isset($context['dbURI']) || empty($context['dbURI'])) {
 		throw new \Exception('Event does not contain a dbURI');
 	}
@@ -10,9 +10,15 @@ return function ($context, $post, $db) {
 	if ($document === false || empty($document)) {
 		throw new \Exception('Document not found in post');
 	}
-	$documentObject = $db->documentStage($context['dbURI'], $document);
-	$documentObject->upsert();
+	$documentInstance = $db->documentStage($context['dbURI'], $document);
+	$documentInstance->upsert();
 	$post->statusSaved();
-
-	//index to db based on collection
+	$document = $documentInstance->current();
+	$id = $documentInstance->id();
+	$collectionName = $documentInstance->collection();
+	$collectionInstance = $collection->factory($collectionName);
+	if ($collectionInstance === false) {
+		return;
+	}
+	$collectionInstance->index($search, $id, $document);
 };

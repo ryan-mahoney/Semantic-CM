@@ -8,6 +8,7 @@ class Application {
 	private $response;
 	private $root;
 	private $bundleRoot;
+	private $search;
 
 	public function __construct ($container, $root, $bundleRoot) {
 		$this->slim = $container->slim;
@@ -16,6 +17,7 @@ class Application {
 		$this->response = $container->response;
 		$this->root = $root;
 		$this->bundleRoot = $bundleRoot;
+		$this->search = $container->search;
 	}
 
 	public function app () {
@@ -41,6 +43,20 @@ class Application {
 				layout('Manager/forms/any')->
 				partial('form', $partial)->
 				url('form', $url)->
+				template()->
+				write($this->response->body);
+		});
+
+		$this->slim->get('/Manager/edit(/:name(/:id))', function ($manager, $id) {
+			$this->authenticate();
+			$url = '%dataAPI%/Manager/json-form/' . $manager;
+        	$partial = 'Manager/forms/' . $manager . '.hbs';
+			$this->separation->
+				app('bundles/Manager/app/forms/any')->
+				layout('Manager/forms/any')->
+				partial('form', $partial)->
+				url('form', $url)->
+				args('form', ['id' => $id])->
 				template()->
 				write($this->response->body);
 		});
@@ -88,20 +104,23 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/api/search', function () {
-			$out = [
-				['id' => 'a', 'value' => 'Apple'],
-				['id' => 'a2', 'value' => 'Appliance'],
-				['id' => 'a3', 'value' => 'A Peter Bailey'],
-				['id' => 'b', 'value' => 'Bear'],
-				['id' => 'c', 'value' => 'Cat'],
-				['id' => 'd', 'value' => 'Dog'],
-				['id' => 'e', 'value' => 'Elephant'],
-				['id' => 'f', 'value' => 'Flowers'],
-				['id' => 'g', 'value' => 'Games']
-			];
-			//foreach ($riders as $rider) {
-            //    $out[] = array('id' => $rider['id'], 'value' => $rider['first_name'] . ' ' . $rider['last_name']);
-            //}
+			if (!isset($_GET['q']) || empty($_GET['q']) || !is_string($_GET['q'])) {
+				echo json_encode([]);
+				exit;
+			}
+			$out = [];
+			$matches = $this->search->search('*' . $_GET['q'] . '*');
+			if (!isset($matches['hits']) || empty($matches['hits']) || !isset($matches['hits']['hits']) || empty($matches['hits']['hits']) || !is_array($matches['hits']['hits'])) {
+				echo json_encode([]);
+				exit;
+			}
+			foreach ($matches['hits']['hits'] as $hit) {
+				$out[] = [
+					'id' => $hit['_source']['url_manager'],
+					'type' => ucwords(str_replace('_', ' ', $hit['_type'])),
+					'value' => $hit['_source']['title']
+				];
+			}
             echo json_encode($out);
 		});
 
