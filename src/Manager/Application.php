@@ -159,7 +159,7 @@ class Application {
 			$record = [
 				'manager' => $manager,
 				'title' => $managerInstance->title,
-				'decription' => $managerInstance->decription,
+				'description' => $managerInstance->description,
 				'acl' => $managerInstance->acl,
 				'icon' => $managerInstance->icon,
 				'category' => $managerInstance->category

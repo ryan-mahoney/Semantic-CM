@@ -3,7 +3,7 @@
         {
             "manager": "blurbs",
             "title": "Blurbs",
-            "decription": "5 blurbs",
+            "description": "5 blurbs",
             "acl": [
                 "content",
                 "admin",
