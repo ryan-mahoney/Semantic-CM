@@ -8,6 +8,7 @@ class Application {
 	private $response;
 	private $root;
 	private $bundleRoot;
+	private $formRoute;
 	private $search;
 
 	public function __construct ($container, $root, $bundleRoot) {
@@ -18,9 +19,13 @@ class Application {
 		$this->root = $root;
 		$this->bundleRoot = $bundleRoot;
 		$this->search = $container->search;
+		$this->formRoute = $container->formRoute;
 	}
 
 	public function app () {
+		$this->formRoute->app($this->root, '', 'managers', 'Manager\\', 'manager', '/Manager');
+		$this->formRoute->json('', 'managers', 'Manager\\', 'manager', '/Manager');
+
 		$this->slim->get('/Manager', function () {
 			$this->authenticate();
 			$this->separation->app('bundles/Manager/app/dashboard')->layout('Manager/dashboard')->template()->write($this->response->body);
@@ -36,7 +41,7 @@ class Application {
 
 		$this->slim->get('/Manager/add(/:name)', function ($manager) {
 			$this->authenticate();
-			$url = '%dataAPI%/Manager/json-form/' . $manager;
+			$url = '%dataAPI%/Manager/json-manager/' . $manager;
         	$partial = 'Manager/forms/' . $manager . '.hbs';
 			$this->separation->
 				app('bundles/Manager/app/forms/any')->
@@ -49,7 +54,7 @@ class Application {
 
 		$this->slim->get('/Manager/edit(/:name(/:id))', function ($manager, $id) {
 			$this->authenticate();
-			$url = '%dataAPI%/Manager/json-form/' . $manager;
+			$url = '%dataAPI%/Manager/json-manager/' . $manager;
         	$partial = 'Manager/forms/' . $manager . '.hbs';
 			$this->separation->
 				app('bundles/Manager/app/forms/any')->
@@ -91,7 +96,7 @@ class Application {
 			if (isset($_GET['userId'])) {
 				$userId = $_GET['userId'];
 			}
-			$managersCacheFile = $this->bundleRoot . '/../managers/cache.json';
+			$managersCacheFile = $this->root . '/../managers/cache.json';
 			if (!file_exists($managersCacheFile)) {
 				$this->response->body = json_encode(['managers' => []]);
 				return;	
@@ -109,12 +114,15 @@ class Application {
 				exit;
 			}
 			$out = [];
-			$matches = $this->search->search('*' . $_GET['q'] . '*');
+			$matches = $this->search->search('*' . trim(urldecode($_GET['q'])) . '*');
 			if (!isset($matches['hits']) || empty($matches['hits']) || !isset($matches['hits']['hits']) || empty($matches['hits']['hits']) || !is_array($matches['hits']['hits'])) {
 				echo json_encode([]);
 				exit;
 			}
 			foreach ($matches['hits']['hits'] as $hit) {
+				if (!isset($hit['_source']['url_manager']) || empty($hit['_source']['url_manager'])) {
+					continue;
+				}
 				$out[] = [
 					'id' => $hit['_source']['url_manager'],
 					'type' => ucwords(str_replace('_', ' ', $hit['_type'])),
@@ -123,7 +131,6 @@ class Application {
 			}
             echo json_encode($out);
 		});
-
 	}
 
 	private function authenticate () {
@@ -134,8 +141,8 @@ class Application {
 		return true;
 	}
 
-	public function build ($root) {
-		$managersRoot = $root . '/../managers';
+	public function build ($bundleRoot) {
+		$managersRoot = $this->root . '/../managers';
 		$managersCacheFile = $managersRoot . '/cache.json';
 		$managers = [];
 		if (!file_exists($managersRoot)) {
@@ -174,4 +181,48 @@ class Application {
 		}
 		file_put_contents($managersCacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));
 	}
+
+	public function upgrade ($bundleRoot) {
+        $manifest = (array)json_decode(file_get_contents('https://raw.github.com/virtuecenter/manager/master/available/manifest.json'), true);
+        foreach (glob($bundleRoot . '/../managers/*.php') as $filename) {
+            $lines = file($filename);
+            $version = false;
+            $mode = false;
+            $link = false;
+            foreach ($lines as $line) {
+                if (substr_count($line, ' * @') != 1) {
+                    continue;
+                }
+                if (substr_count($line, '* @mode') == 1) {
+                    $mode = trim(str_replace('* @mode', '', $line));
+                    continue;
+                }
+                if (substr_count($line, '* @version') == 1) {
+                    $version = floatval(trim(str_replace('* @version', '', $line)));
+                    continue;
+                }
+                if (substr_count($line, '* @link') == 1) {
+                    $link = trim(str_replace('* @link', '', $line));
+                    continue;
+                }
+            }
+            if ($mode === false || $version === false || $link === false) {
+                continue;
+            }
+            if ($version == '' || $link == '' || $mode == '') {
+                continue;
+            }
+            if ($mode != 'upgrade') {
+                continue;
+            }
+            if ($version == $manifest['managers'][basename($filename, '.php')]) {
+                continue;
+            }
+            $newVersion = floatval($manifest['managers'][basename($filename, '.php')]);
+            if ($newVersion > $version) {
+                file_put_contents($filename, file_get_contents($link));
+                echo 'Upgraded Manager: ', basename($filename, '.php'), ' to version: ', $newVersion, "\n";
+            }
+        }
+    }
 }

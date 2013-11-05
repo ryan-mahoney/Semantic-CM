@@ -71,7 +71,7 @@ $(document).ready(function () {
 		var id = $(this).attr('data-id');
 		var table = $('tr[data-id="' + id + '"]').parents('table');
 		var pathname = window.location.pathname;
-		var url = pathname.replace(/\/list\//, '/form/') + '/' + id;
+		var url = pathname.replace(/\/list\//, '/manager/') + '/' + id;
 		$.ajax({
 		  	type: "DELETE",
 		  	url: url,

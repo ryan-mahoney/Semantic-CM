@@ -1,7 +1,7 @@
 topics:
     Manager-form-login-save: 
        Authenticate: ['post', 'authentication']
-    Manager-form-save:
+    Manager-manager-save:
        PostToManager: ['post', 'db', 'collection', 'search']
-    Manager-form-delete:
+    Manager-manager-delete:
        DeleteFromManager: ['post', 'db', 'collection', 'search']
