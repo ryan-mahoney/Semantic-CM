@@ -17,7 +17,7 @@ class login {
 		return [
 			'name' => 'email',
 			'placeholder' => 'Email',
-			'display' => $this->field->inputText(),
+			'display' => 'InputText',
 			'required' => true
 		];
 	}
@@ -26,7 +26,7 @@ class login {
 		return [
 			'name' => 'password',
 			'placeholder' => 'Password',
-			'display' => $this->field->inputPassword(),
+			'display' => 'InputPassword',
 			'required' => true
 		];
 	}

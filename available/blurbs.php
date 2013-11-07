@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .1
+ * @version .2
  * @link https://raw.github.com/virtuecenter/manager/master/available/blurbs.php
  * @mode upgrade
  */
@@ -31,7 +31,7 @@ class blurbs {
 			'name' => 'title',
 			'placeholder' => 'Title',
 			'required' => true,
-			'display' => $this->field->inputText()
+			'display' => 'InputText'
 		];
 	}
 
@@ -39,7 +39,7 @@ class blurbs {
 		return [
 			'name' => 'body',
 			'required' => false,
-			'display' => $this->field->ckeditor()		
+			'display' => 'Ckeditor'		
 		];
 	}
 

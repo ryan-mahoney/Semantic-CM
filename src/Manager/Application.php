@@ -146,6 +146,7 @@ class Application {
 		$managersCacheFile = $managersRoot . '/cache.json';
 		$managers = [];
 		if (!file_exists($managersRoot)) {
+			mkdir($managersRoot);
 			file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
 			return;
 		}
@@ -184,7 +185,8 @@ class Application {
 
 	public function upgrade ($bundleRoot) {
         $manifest = (array)json_decode(file_get_contents('https://raw.github.com/virtuecenter/manager/master/available/manifest.json'), true);
-        foreach (glob($bundleRoot . '/../managers/*.php') as $filename) {
+        $upgraded = 0;
+        foreach (glob($this->root . '/../managers/*.php') as $filename) {
             $lines = file($filename);
             $version = false;
             $mode = false;
@@ -222,7 +224,9 @@ class Application {
             if ($newVersion > $version) {
                 file_put_contents($filename, file_get_contents($link));
                 echo 'Upgraded Manager: ', basename($filename, '.php'), ' to version: ', $newVersion, "\n";
+                $upgraded++;
             }
         }
+        echo 'Upgraded ', $upgraded, ' managers.', "\n";
     }
 }
