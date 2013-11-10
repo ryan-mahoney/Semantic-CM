@@ -67,6 +67,10 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/list(/:name)', function ($manager) {
+			$layout = 'Manager/collections/any';
+			if (isset($_GET['embedded'])) {
+				$layout = 'Manager/collections/embedded';
+			}
 			$this->authenticate();
 			$url = '%dataAPI%/json-data/' . $manager . '/all/50/0/{"created_date":-1}';
         	$partial = 'Manager/collections/' . $manager . '.hbs';
