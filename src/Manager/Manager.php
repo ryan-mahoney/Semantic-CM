@@ -3,38 +3,42 @@ namespace Manager;
 
 class Manager {
 	private $separation;
+	private $response;
 
-	public function __construct ($separation) {
+	public function __construct ($separation, $response) {
 		$this->separation = $separation;
+		$this->response = $response;
 	}
 
-	public function add ($manager) {
+	public function add ($manager, $layout='Manager/forms/any', &$buffer) {
 		$url = '%dataAPI%/Manager/json-manager/' . $manager;
     	$partial = 'Manager/forms/' . $manager . '.hbs';
 		$this->separation->
 			app('bundles/Manager/app/forms/any')->
-			layout('Manager/forms/any')->
+			layout($layout)->
 			partial('form', $partial)->
 			url('form', $url)->
 			template()->
-			write($this->response->body);
+			write($buffer);
 	}
 
-	pubilc function edit ($manager, $id) {
+	public function edit ($manager, $layout='Manager/app/forms/any', $id, &$buffer=false) {
 		$url = '%dataAPI%/Manager/json-manager/' . $manager;
     	$partial = 'Manager/forms/' . $manager . '.hbs';
 		$this->separation->
 			app('bundles/Manager/app/forms/any')->
-			layout('Manager/forms/any')->
+			layout($layout)->
 			partial('form', $partial)->
 			url('form', $url)->
 			args('form', ['id' => $id])->
 			template()->
-			write($this->response->body);
+			write($buffer);
 	}
 
-	public function table ($manager, $layout = 'Manager/collections/any') {
-		$url = '%dataAPI%/json-data/' . $manager . '/all/50/0/{"created_date":-1}';
+	public function table ($manager, $layout='Manager/collections/any', &$buffer, $url=false) {
+		if ($url === false) {
+			$url = '%dataAPI%/json-data/' . $manager . '/all/50/0/{"created_date":-1}';
+		}
     	$partial = 'Manager/collections/' . $manager . '.hbs';
 		$this->separation->
 			app('bundles/Manager/app/collections/any')->
@@ -42,6 +46,6 @@ class Manager {
 			partial('table', $partial)->
 			url('table', $url)->
 			template()->
-			write($this->response->body);
+			write($buffer);
 	}
 }

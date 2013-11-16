@@ -1,0 +1,33 @@
+			<h2 class="ui manager header">Menu Navigation</h2>
+    		<form class="ui form segment" data-xhr="true" method="post" action="/Manager/manager/menus">
+			    <div class="ui warning message">
+			        <div class="header">There was a problem</div>
+			        <ul class="list">
+			        </ul>
+			    </div>
+			    <div class="field" style="width: 96%; margin-left: 2%">
+			        <label>Label</label>
+			        <div class="ui left labeled input">
+			            {{{label}}}
+			            <div class="ui corner label">
+			            	<i class="icon asterisk"></i>
+			            </div>
+			        </div>
+			    </div>
+
+			    <div class="field" style="width: 96%; margin-left: 2%">
+			        <label>URL</label>
+			        <div class="ui left labeled input">
+			            {{{url}}}
+			            <div class="ui corner label">
+			                <i class="icon asterisk"></i>
+			            </div>
+			        </div>
+			    </div>
+
+			    <div class="field embedded" data-field="link" data-manager="menu_links" style="width: 96%; margin-left: 2%">
+			        {{{link}}}
+			    </div>
+			    {{{id}}}
+			    <input type="submit" class="fluid ui blue submit button" value="Save" style="margin-top: 20px; margin-left: 2%; width: 96%" />
+			</form>

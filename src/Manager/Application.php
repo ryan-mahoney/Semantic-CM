@@ -10,6 +10,7 @@ class Application {
 	private $bundleRoot;
 	private $formRoute;
 	private $search;
+	private $manager;
 
 	public function __construct ($container, $root, $bundleRoot) {
 		$this->slim = $container->slim;
@@ -20,6 +21,7 @@ class Application {
 		$this->bundleRoot = $bundleRoot;
 		$this->search = $container->search;
 		$this->formRoute = $container->formRoute;
+		$this->manager = $container->manager;
 	}
 
 	public function app () {
@@ -40,47 +42,37 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/add(/:name)', function ($manager) {
+			$layout = 'Manager/forms/any';
+			if (isset($_GET['embedded'])) {
+				$layout = 'Manager/forms/embedded';
+			}
 			$this->authenticate();
-			$url = '%dataAPI%/Manager/json-manager/' . $manager;
-        	$partial = 'Manager/forms/' . $manager . '.hbs';
-			$this->separation->
-				app('bundles/Manager/app/forms/any')->
-				layout('Manager/forms/any')->
-				partial('form', $partial)->
-				url('form', $url)->
-				template()->
-				write($this->response->body);
+			$this->manager->add($manager, $layout, $this->response->body);
 		});
 
 		$this->slim->get('/Manager/edit(/:name(/:id))', function ($manager, $id) {
+			$layout = 'Manager/forms/any';
+			if (isset($_GET['embedded'])) {
+				$layout = 'Manager/forms/embedded';
+			}
 			$this->authenticate();
-			$url = '%dataAPI%/Manager/json-manager/' . $manager;
-        	$partial = 'Manager/forms/' . $manager . '.hbs';
-			$this->separation->
-				app('bundles/Manager/app/forms/any')->
-				layout('Manager/forms/any')->
-				partial('form', $partial)->
-				url('form', $url)->
-				args('form', ['id' => $id])->
-				template()->
-				write($this->response->body);
+			$this->manager->edit($manager, $layout, $id);
 		});
 
 		$this->slim->get('/Manager/list(/:name)', function ($manager) {
-			$layout = 'Manager/collections/any';
-			if (isset($_GET['embedded'])) {
-				$layout = 'Manager/collections/embedded';
-			}
 			$this->authenticate();
-			$url = '%dataAPI%/json-data/' . $manager . '/all/50/0/{"created_date":-1}';
-        	$partial = 'Manager/collections/' . $manager . '.hbs';
-			$this->separation->
-				app('bundles/Manager/app/collections/any')->
-				layout('Manager/collections/any')->
-				partial('table', $partial)->
-				url('table', $url)->
-				template()->
-				write($this->response->body);
+			$layout = 'Manager/collections/any';
+			$url = false;
+			if (isset($_GET['embedded']) && isset($_GET['dbURI'])) {
+				$parts = explode(':', $_GET['dbURI']);
+				$collection = $parts[0];
+				if ((count($parts) % 2) == 0) {
+					array_pop($parts);
+				}
+				$layout = 'Manager/collections/embedded';
+				$url = '%dataAPI%/json-data/' . $collection . '/byEmbeddedField-' . implode(':', $parts);
+			}
+			$this->manager->table($manager, $layout, $this->response->body, $url);
 		});
 
 		$this->slim->get('/Manager/login', function () {

@@ -1,69 +1,72 @@
 <?php
 /*
- * @version .2
- * @link https://raw.github.com/virtuecenter/manager/master/available/blurbs.php
+ * @version .1
+ * @link https://raw.github.com/virtuecenter/manager/master/available/menus.php
  * @mode upgrade
  */
 namespace Manager;
 
-class blurbs {
+class menus {
 	private $field = false;
-	public $collection = 'blurbs';
-	public $form = 'blurbs';
-	public $title = 'Blurbs';
-	public $single = 'Blurb';
-	public $description = '5 blurbs';
+	public $collection = 'menus';
+	public $form = 'menus';
+	public $title = 'Menus';
+	public $single = 'Menu';
+	public $description = '4 menu items';
 	public $acl = ['content', 'admin', 'superadmin'];
-	public $icon = 'basic content';
+	public $icon = 'browser';
 	public $category = 'Content';
-	public $notice = 'Blurb Saved';
+	public $notice = 'Menu Saved';
 	public $storage = [
-		'collection' => 'blurbs',
+		'collection' => 'menus',
 		'key' => '_id'
 	];
 
 	public function __construct ($field=false) {
 		$this->field = $field;
 	}
-	
-	function titleField () {
-		return [
-			'name' => 'title',
-			'placeholder' => 'Title',
-			'required' => true,
-			'display' => 'InputText'
-		];
-	}
 
-	function bodyField () {
+	function labelField () {
 		return [
-			'name' => 'body',
-			'required' => false,
-			'display' => 'Ckeditor'		
+			'name'		=> 'label',
+			'placeholder'		=> 'Label',
+			'required'	=> true,
+			'display'	=> 'InputText'
+		];
+	}	
+
+	function urlField () {
+		return [
+			'name'		=> 'url',
+			'placeholder'		=> 'URL',
+			'required'	=> false,
+			'display'	=> 'InputText'
 		];
 	}
 
 /*
-	function tagsField () {
+	function imageField () {
 		return [
-			'name' => 'tags',
-			'label' => 'Tags',
-			'required' => false,
-			'transformIn' => function ($data) {
-				return $this->field->csvToArray($data);
-			},
-			'display' => $this->field->inputToTags(),
-			'autocomplete' => function () {
-				return $this->db->mongoDistinct('blurb', 'tags');
-			},
+			'name' => 'file',
+			'placeholder' => 'Image',
+			'display' => VCPF\Field::inputFile()
 		];
 	}
 */
 
+	public function linkField() {
+		return [
+			'name' => 'link',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'menu_links'
+		];
+	}
+
 	public function tablePartial () {
 		$partial = <<<'HBS'
 			<br />
-			<h1 class="ui manager header">Blurbs</h1>
+			<h1 class="ui manager header">Menu Items</h1>
 
 <div class="ui borderless pagination menu large fluid">
   <a class="item">
@@ -85,12 +88,12 @@ class blurbs {
 
 			<table class="ui table manager segment padded">
 				<thead>
-					<tr><th>Name</th></tr>
+					<tr><th>Label</th></tr>
 				</thead>
 					<tbody>
-					{{#each blurbs}}
+					{{#each menus}}
 						<tr data-id="{{dburi}}">
-							<td>{{title}}</td>
+							<td>{{label}}</td>
 						</tr>
 					{{/each}}
 				</tbody>
@@ -101,17 +104,17 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			<h2 class="ui manager header">Blurb</h2>
-    		<form class="ui form segment" data-xhr="true" method="post" action="/Manager/manager/blurbs">
+			<h2 class="ui manager header">Menu Navigation</h2>
+    		<form class="ui form segment" data-xhr="true" method="post" action="/Manager/manager/menus">
 			    <div class="ui warning message">
 			        <div class="header">There was a problem</div>
 			        <ul class="list">
 			        </ul>
 			    </div>
 			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Title</label>
+			        <label>Label</label>
 			        <div class="ui left labeled input">
-			            {{{title}}}
+			            {{{label}}}
 			            <div class="ui corner label">
 			            	<i class="icon asterisk"></i>
 			            </div>
@@ -119,13 +122,17 @@ HBS;
 			    </div>
 
 			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Body</label>
+			        <label>URL</label>
 			        <div class="ui left labeled input">
-			            {{{body}}}
+			            {{{url}}}
 			            <div class="ui corner label">
 			                <i class="icon asterisk"></i>
 			            </div>
 			        </div>
+			    </div>
+
+			    <div class="field embedded" data-field="link" data-manager="menu_links" style="width: 96%; margin-left: 2%">
+			        {{{link}}}
 			    </div>
 			    {{{id}}}
 			    <input type="submit" class="fluid ui blue submit button" value="Save" style="margin-top: 20px; margin-left: 2%; width: 96%" />

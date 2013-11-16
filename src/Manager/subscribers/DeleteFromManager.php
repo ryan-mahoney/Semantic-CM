@@ -6,7 +6,7 @@ return function ($context, $post, $db, $collection, $search) {
 	if (!isset($context['formMarker'])) {
 		throw new \Exception('Form marker not set in post');
 	}
-	$documentInstance = $db->documentStage($context['dbURI'], []);
+	$documentInstance = $db->documentStage($context['dbURI']);
 	$documentInstance->remove();
 	$post->statusDeleted();
 	$id = $documentInstance->id();
