@@ -71,6 +71,8 @@ class Application {
 				}
 				$layout = 'Manager/collections/embedded';
 				$url = '%dataAPI%/json-data/' . $collection . '/byEmbeddedField-' . implode(':', $parts);
+			} elseif (isset($_GET['naked'])) {
+				$layout = 'Manager/collections/embedded';
 			}
 			$this->manager->table($manager, $layout, $this->response->body, $url);
 		});

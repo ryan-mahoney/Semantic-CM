@@ -32,6 +32,7 @@ $(document).ready(function () {
 	$(document).on({
     click: function(event) {
       event.stopPropagation();
+      var manager;
   		var tr = $(this).parents('tr');
   		var id = $(tr).attr('data-id');
   		$(tr).find('.button.manager').remove();
@@ -39,19 +40,47 @@ $(document).ready(function () {
   		var name = $(tr).find('td:first-child').html();
   		$('.delete.content').html('Are you sure you want to delete: <br /><br /><div class="ui teal inverted segment"><p>' + name + '</p></div>');
   		$('.confirmed.delete').attr('data-id', id);
+      var embedded = embeddedCheck(tr);
+      if (embedded == 1) {
+        manager = $(tr).parents('.field').attr('data-manager');
+      } else {
+        manager = window.location.pathname.split('/').pop();
+      }
+      $('.confirmed.delete').attr('data-manager', manager);
+      $('.confirmed.delete').attr('data-embedded', embedded);
     }
 	}, '.table.manager > tbody > tr .manager.delete');
 
 	$('.confirmed.delete').click(function () {
-		var id = $(this).attr('data-id');
-		var table = $('tr[data-id="' + id + '"]').parents('table');
-		var pathname = window.location.pathname;
-		var url = pathname.replace(/\/list\//, '/manager/') + '/' + id;
+		var pathname = '';
+    var dbURI = $(this).attr('data-id');
+    var manager = $(this).attr('data-manager');
+    var url = '/Manager/manager/' + manager + '/' + dbURI;
+    var embedded = $(this).attr('data-embedded');
 		$.ajax({
 		  	type: "DELETE",
 		  	url: url,
 		  	success: function (response) {
-		  		window.location = window.location.pathname;
+		  		if (embedded == 1) {
+            url = '/Manager/list/' + manager + '?embedded&dbURI=' + dbURI;
+          } else {
+            url = '/Manager/list/' + manager + '?naked';
+          }
+          $.ajax({
+            type: "GET",
+            url: url,
+            success: function (response) {
+              if (embedded == 1) {
+                $('.field.embedded[data-manager="' + manager + '"]').html(response);
+              } else {
+                $('.manager.container').html(response);
+              }
+            },
+            error: function () {
+              console.log('Error');
+            },
+            dataType: 'html'
+          });
 		  	},
 		  	error: function () {
 		  		console.log('Error');
@@ -85,14 +114,12 @@ var embeddedModal = function (DOMnode, mode, dbURI) {
   var idField = '';
   var id = '';
   var idFieldEmbedded = '';
-  
   if (mode == 'add') {
     url = '/Manager/' + mode + '/' + manager;
   } else {
     url = '/Manager/' + mode + '/' + manager + '/' + dbURI;
     idEmbedded = dbURI;
   }
-  
   var uniqid = Math.random().toString(36).substr(2, 7);
   var div = document.createElement("div");
   $(div).addClass('ui embedded manager modal');
