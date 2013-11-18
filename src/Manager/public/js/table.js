@@ -36,7 +36,20 @@ $(document).ready(function () {
   		var tr = $(this).parents('tr');
   		var id = $(tr).attr('data-id');
   		$(tr).find('.button.manager').remove();
-  		$('.small.modal').modal('show');
+      var uniqid = Math.random().toString(36).substr(2, 7);
+      var div = document.createElement("div");
+      $(div).addClass('ui small modal delete');
+      $(div).attr('id', 'Modal-' + uniqid);
+      div.innerHTML = '\
+        <i class="close icon"></i>\
+        <div class="header">Confirm Delete</div>\
+        <div class="delete content"><p>Are you sure you want to delete the highlighted item?</p></div>\
+        <div class="actions">\
+          <div class="ui negative button">No</div>\
+          <div class="ui positive right labeled icon confirmed delete button">Yes<i class="checkmark icon"></i></div>\
+        </div>';
+      $('body').append(div);
+  		$('.delete.modal').modal('show');
   		var name = $(tr).find('td:first-child').html();
   		$('.delete.content').html('Are you sure you want to delete: <br /><br /><div class="ui teal inverted segment"><p>' + name + '</p></div>');
   		$('.confirmed.delete').attr('data-id', id);
@@ -51,43 +64,45 @@ $(document).ready(function () {
     }
 	}, '.table.manager > tbody > tr .manager.delete');
 
-	$('.confirmed.delete').click(function () {
-		var pathname = '';
-    var dbURI = $(this).attr('data-id');
-    var manager = $(this).attr('data-manager');
-    var url = '/Manager/manager/' + manager + '/' + dbURI;
-    var embedded = $(this).attr('data-embedded');
-		$.ajax({
-		  	type: "DELETE",
-		  	url: url,
-		  	success: function (response) {
-		  		if (embedded == 1) {
-            url = '/Manager/list/' + manager + '?embedded&dbURI=' + dbURI;
-          } else {
-            url = '/Manager/list/' + manager + '?naked';
-          }
-          $.ajax({
-            type: "GET",
-            url: url,
-            success: function (response) {
-              if (embedded == 1) {
-                $('.field.embedded[data-manager="' + manager + '"]').html(response);
-              } else {
-                $('.manager.container').html(response);
-              }
-            },
-            error: function () {
-              console.log('Error');
-            },
-            dataType: 'html'
-          });
-		  	},
-		  	error: function () {
-		  		console.log('Error');
-		  	},
-		  	dataType: 'json'
-		});
-	});
+  $(document).on({
+    click: function () {
+  		var pathname = '';
+      var dbURI = $(this).attr('data-id');
+      var manager = $(this).attr('data-manager');
+      var url = '/Manager/manager/' + manager + '/' + dbURI;
+      var embedded = $(this).attr('data-embedded');
+  		$.ajax({
+  		  	type: "DELETE",
+  		  	url: url,
+  		  	success: function (response) {
+  		  		if (embedded == 1) {
+              url = '/Manager/list/' + manager + '?embedded&dbURI=' + dbURI;
+            } else {
+              url = '/Manager/list/' + manager + '?naked';
+            }
+            $.ajax({
+              type: "GET",
+              url: url,
+              success: function (response) {
+                if (embedded == 1) {
+                  $('.field.embedded[data-manager="' + manager + '"]').html(response);
+                } else {
+                  $('.manager.container').html(response);
+                }
+              },
+              error: function () {
+                console.log('Error');
+              },
+              dataType: 'html'
+            });
+  		  	},
+  		  	error: function () {
+  		  		console.log('Error');
+  		  	},
+  		  	dataType: 'json'
+  		});
+    }
+	}, '.confirmed.delete');
 
 	$(document).on({
     click: function () {
