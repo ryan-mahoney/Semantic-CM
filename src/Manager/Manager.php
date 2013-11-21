@@ -11,7 +11,7 @@ class Manager {
 	}
 
 	public function add ($manager, $layout='Manager/forms/any', &$buffer) {
-		$url = '%dataAPI%/Manager/json-manager/' . $manager;
+		$url = '%dataAPI%/Manager/form/' . $manager;
     	$partial = 'Manager/forms/' . $manager . '.hbs';
 		$this->separation->
 			app('bundles/Manager/app/forms/any')->
@@ -23,7 +23,7 @@ class Manager {
 	}
 
 	public function edit ($manager, $layout='Manager/app/forms/any', $id, &$buffer=false) {
-		$url = '%dataAPI%/Manager/json-manager/' . $manager;
+		$url = '%dataAPI%/Manager/form/' . $manager;
     	$partial = 'Manager/forms/' . $manager . '.hbs';
 		$this->separation->
 			app('bundles/Manager/app/forms/any')->

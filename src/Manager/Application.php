@@ -157,6 +157,30 @@ class Application {
 			}
 			echo $collectionJson;
 		});
+
+		$this->slim->get('/Manager/form/:path+', function ($path) {
+			$manager = false;
+			$name = $path[0];
+			$path = implode('/', $path);
+			$id = '';
+			if (isset($_GET['id'])) {
+				$id = '/' . $_GET['id'];
+			}
+			$managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
+			foreach ($managers['managers'] as $managersData) {
+				if ($managersData['manager'] == $name) {
+					$manager = $managersData;
+					break;
+				}
+			}
+			$formJson = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Manager/json-manager/' . $path . $id);
+			if ($manager !== false) {
+				$formJson = json_decode($formJson, true);
+				$formJson['metadata'] = $manager;
+				$formJson = json_encode($formJson);
+			}
+			echo $formJson;
+		});
 	}
 
 	private function authenticate () {
@@ -193,13 +217,14 @@ class Application {
 			$record = [
 				'manager' => $manager,
 				'title' => $managerInstance->title,
-				'single' => $managerInstance->single,
+				'singular' => $managerInstance->singular,
 				'description' => $managerInstance->description,
 				'definition' => $managerInstance->definition,
 				'acl' => $managerInstance->acl,
 				'icon' => $managerInstance->icon,
 				'category' => $managerInstance->category,
-				'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0)
+				'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0),
+				'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : [])
 			];
 			$managers[] = $record;
 			if (method_exists($managerInstance, 'formPartial')) {

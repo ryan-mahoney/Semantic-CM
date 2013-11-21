@@ -1,5 +1,9 @@
 [
     "CollectionButtons",
     "CollectionHeader",
-    "CollectionPagination"
+    "CollectionPagination",
+    "DocumentFormLeft",
+    "DocumentFormRight",
+    "DocumentHeader",
+    "DocumentTabsButtons"
 ]

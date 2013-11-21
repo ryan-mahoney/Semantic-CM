@@ -11,7 +11,7 @@ class blurbs {
 	public $collection = 'blurbs';
 	public $form = 'blurbs';
 	public $title = 'Blurbs';
-	public $single = 'Blurb';
+	public $singular = 'Blurb';
 	public $description = '5 blurbs';
 	public $definition = 'Blurbs are used to control small blocks of text on a website.';
 	public $acl = ['content', 'admin', 'superadmin'];
@@ -63,47 +63,48 @@ class blurbs {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			<br />
-			<h1 class="ui manager header">Blurbs</h1>
-
-<div class="ui borderless pagination menu large fluid">
-  <a class="item">
-    <i class="icon left arrow"></i> Previous
-  </a>
-  <a class="item">1</a>
-  <a class="item">2</a>
-  <a class="item">3</a>
-  <a class="item">4</a>
-  <a class="item">5</a>
-  <a class="item">6</a>
-  <a class="item">
-    Next <i class="icon right arrow"></i>
-  </a>
-  <div class="item right">
-        <div class="ui teal button large manager add">Add</div>
-    </div>
-</div>
-
-			<table class="ui table manager segment padded">
-				<thead>
-					<tr><th>Name</th></tr>
-				</thead>
-					<tbody>
-					{{#each blurbs}}
-						<tr data-id="{{dbURI}}">
-							<td>{{title}}</td>
+			<div class="top-container">
+				{{#CollectionHeader}}{{/CollectionHeader}}
+			</div>
+			<div class="bottom-container">
+				{{#CollectionPagination}}{{/CollectionPagination}}
+				{{#CollectionButtons}}{{/CollectionButtons}}
+				
+				<table class="ui large table segment manager">
+			  		<thead>
+						<tr>
+							<th>Title</th>
+							<th class="trash">Delete</th>
 						</tr>
-					{{/each}}
-				</tbody>
-			</table>
+			  		</thead>
+			   		<tbody>
+			   			{{#each blurbs}}
+							<tr data-id="{{dbURI}}">
+								<td>{{title}}</td>
+								<td>
+									<div class="manager trash ui icon button">
+	                 					<i class="trash icon"></i>
+	                 				</div>
+	             				</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+
+				{{#CollectionPagination}}{{/CollectionPagination}}
+				{{#CollectionButtons}}{{/CollectionButtons}}
+			</div>
 HBS;
 		return $partial;
 	}
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			<h2 class="ui manager header">Blurb</h2>
-    		<form class="ui form segment" data-xhr="true" method="post" action="/Manager/manager/blurbs">
+			<div class="top-container">
+				{{#DocumentHeader}}{{/DocumentHeader}}
+		        {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
+		    </div>
+			<form class="ui form segment" data-xhr="true" method="post" action="/Manager/manager/blurbs">
 			    <div class="ui warning message">
 			        <div class="header">There was a problem</div>
 			        <ul class="list">

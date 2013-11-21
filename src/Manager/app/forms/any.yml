@@ -5,6 +5,6 @@ binding:
         url: '%dataAPI%/Manager/header'
         type: 'html'
     form:
-        url: '%dataAPI%/Manager/json-form/?'
+        url: '%dataAPI%/Manager/json-manager?'
         partial: 'Manager/forms/?.hbs'
         type: 'Form'
