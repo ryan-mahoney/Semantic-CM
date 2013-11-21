@@ -325,3 +325,7 @@ form > .ui.info.message {
 .column.manager.sidebar {
   box-shadow: none !important;
 }
+
+th.trash {
+  text-align: right !important;
+}

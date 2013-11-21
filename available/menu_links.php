@@ -13,6 +13,7 @@ class menu_links {
 	public $title = 'Menus';
 	public $single = 'Menu';
 	public $description = '4 menu items';
+	public $definition = '';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';

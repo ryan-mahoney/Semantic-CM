@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .1
+ * @version .2
  * @link https://raw.github.com/virtuecenter/manager/master/available/menus.php
  * @mode upgrade
  */
@@ -13,6 +13,7 @@ class menus {
 	public $title = 'Menus';
 	public $single = 'Menu';
 	public $description = '4 menu items';
+	public $definition = 'Menus are used for the navigation of your public website.';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
@@ -65,53 +66,17 @@ class menus {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#hello}}{{/hello}}
-			<div class="top-container">
-				<div class="ui huge breadcrumb container">
-					<a class="section" href="/"><h2>Dashboard</h2></a>
-					<i class="right arrow icon divider"></i>
-					<a class="section" href="/?content"><h2>Content</h2></a>
-					<i class="right arrow icon divider"></i>
-					<a class="active section"><h2>Menu Items</h2></a>
-				</div>
-				<div class="ui ignored divider container padding"></div>
-				<div class="ui two column grid container padding">
-				<div class="column fontSize">
-					<p>A blog is a discussion or informational site published on the World Wide Web.</p>
-				</div>
-				<div id="right" class="column fontSize">
-					<p>1-40 of 50 Total</p>
-				</div>
-	  		</div>
-				<div class="ui ignored divider"></div>
-	 		</div>
+			{{#CollectionHeader}}{{/CollectionHeader}}
 
 			<div class="bottom-container">
-				<div class="ui borderless pagination menu small container">
-					<a class="item">
-						<i class="icon left arrow"></i>
-					</a>
-					<a class="active item">1</a>
-					<a class="item">2</a>
-					<a class="item">3</a>
-					<a class="item">4</a>
-					<a class="item">5</a>
-					<a class="item">
-						<i class="icon right arrow"></i>
-					</a>
-				</div>
-
-				<div class="manager table buttons">
-					<div class="ui small button export">Export</div>
-					<div class="ui small button filter">Filter</div>
-					<div class="ui teal small button manager add">Add</div>
-				</div>
-
+				{{#CollectionPagination}}{{/CollectionPagination}}
+				{{#CollectionButtons}}{{/CollectionButtons}}
+				
 				<table class="ui large table segment manager">
 			  		<thead>
 						<tr>
 							<th>Title</th>
-							<th>Delete</th>
+							<th class="trash">Delete</th>
 						</tr>
 			  		</thead>
 			   		<tbody>
@@ -128,19 +93,9 @@ class menus {
 					</tbody>
 				</table>
 
-			<div class="ui borderless pagination menu small container">
-				<a class="item">
-					<i class="icon left arrow"></i>
-				</a>
-				<a class="active item">1</a>
-				<a class="item">2</a>
-				<a class="item">3</a>
-				<a class="item">4</a>
-				<a class="item">5</a>
-				<a class="item">
-					<i class="icon right arrow"></i>
-				</a>
-	 		</div>
+				{{#CollectionPagination}}{{/CollectionPagination}}
+				{{#CollectionButtons}}{{/CollectionButtons}}
+			</div>
 HBS;
 		return $partial;
 	}

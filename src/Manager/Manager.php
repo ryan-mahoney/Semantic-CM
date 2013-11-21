@@ -37,7 +37,7 @@ class Manager {
 
 	public function table ($manager, $layout='Manager/collections/any', &$buffer, $url=false) {
 		if ($url === false) {
-			$url = '%dataAPI%/json-data/' . $manager . '/all/50/0/{"created_date":-1}';
+			$url = '%dataAPI%/Manager/data/' . $manager . '/all/50/0/{"created_date":-1}';
 		}
     	$partial = 'Manager/collections/' . $manager . '.hbs';
 		$this->separation->

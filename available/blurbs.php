@@ -13,6 +13,7 @@ class blurbs {
 	public $title = 'Blurbs';
 	public $single = 'Blurb';
 	public $description = '5 blurbs';
+	public $definition = 'Blurbs are used to control small blocks of text on a website.';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'basic content';
 	public $category = 'Content';

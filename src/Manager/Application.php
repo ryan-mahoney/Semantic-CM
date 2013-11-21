@@ -193,7 +193,9 @@ class Application {
 			$record = [
 				'manager' => $manager,
 				'title' => $managerInstance->title,
+				'single' => $managerInstance->single,
 				'description' => $managerInstance->description,
+				'definition' => $managerInstance->definition,
 				'acl' => $managerInstance->acl,
 				'icon' => $managerInstance->icon,
 				'category' => $managerInstance->category,
