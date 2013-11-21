@@ -1,24 +1,17 @@
 $(document).ready(function () {
     $(document).on({
       mouseenter: function(){
-        $(this).addClass('warning');
-        var tdFirst = $(this).find('td:first-child');
-        var tdLast = $(this).find('td:last-child');
-        if ($(tdFirst).find('.button.manager').length == 0) {
-          $('<div class="ui teal button small manager edit" style="margin-right: 10px">Edit</div>').prependTo(tdFirst);
-          $('<div class="ui red button small manager delete" style="margin-left: 10px; float: right">Delete</div>').appendTo(tdLast);
-        }
+        $(this).addClass('warning').css({cursor: 'pointer'});
       },
       mouseleave: function(){
         $(this).removeClass('warning');
-        $(this).find('.button.manager').remove();
       }
     }, '.table.manager > tbody > tr');
 
     $(document).on({
       click: function(event) {
         event.stopPropagation();
-        var id = $(this).parents('tr').attr('data-id');
+        var id = $(this).attr('data-id');
         var embedded = embeddedCheck(this);
         if (embedded != 1) {
     		  var pathname = window.location.pathname;
@@ -27,7 +20,7 @@ $(document).ready(function () {
           embeddedModal(this, 'edit', id);
         }
       }
-	}, '.table.manager > tbody > tr .manager.edit');
+	}, '.table.manager > tbody > tr');
 
 	$(document).on({
     click: function(event) {
@@ -35,9 +28,9 @@ $(document).ready(function () {
       var manager;
   		var tr = $(this).parents('tr');
   		var id = $(tr).attr('data-id');
-  		$(tr).find('.button.manager').remove();
       var uniqid = Math.random().toString(36).substr(2, 7);
       var div = document.createElement("div");
+      $('.ui.modal.delete').remove();
       $(div).addClass('ui small modal delete');
       $(div).attr('id', 'Modal-' + uniqid);
       div.innerHTML = '\
@@ -62,7 +55,7 @@ $(document).ready(function () {
       $('.confirmed.delete').attr('data-manager', manager);
       $('.confirmed.delete').attr('data-embedded', embedded);
     }
-	}, '.table.manager > tbody > tr .manager.delete');
+	}, '.table.manager > tbody > tr .manager.trash');
 
   $(document).on({
     click: function () {

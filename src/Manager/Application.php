@@ -99,8 +99,16 @@ class Application {
 				$this->response->body = json_encode(['managers' => []]);
 				return;	
 			}
+			$managers = json_decode(file_get_contents($managersCacheFile), true);
+			$managersOut = [];
+			foreach ($managers['managers'] as $manager) {
+				if ($manager['embedded'] == 1) {
+					continue;
+				}
+				$managersOut[] = $manager;
+			}
 			if ($userId===false) {
-				$this->response->body = file_get_contents($managersCacheFile);
+				$this->response->body = json_encode(['managers' => $managersOut]);
 			}
 			//get user's acl for manager
 			//filter out managers he user does not have access to
@@ -168,7 +176,8 @@ class Application {
 				'description' => $managerInstance->description,
 				'acl' => $managerInstance->acl,
 				'icon' => $managerInstance->icon,
-				'category' => $managerInstance->category
+				'category' => $managerInstance->category,
+				'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0)
 			];
 			$managers[] = $record;
 			if (method_exists($managerInstance, 'formPartial')) {

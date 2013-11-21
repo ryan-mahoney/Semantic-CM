@@ -89,7 +89,7 @@ class blurbs {
 				</thead>
 					<tbody>
 					{{#each blurbs}}
-						<tr data-id="{{dburi}}">
+						<tr data-id="{{dbURI}}">
 							<td>{{title}}</td>
 						</tr>
 					{{/each}}

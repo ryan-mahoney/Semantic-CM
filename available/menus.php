@@ -65,77 +65,233 @@ class menus {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			<br />
-			<h1 class="ui manager header">Menu Items</h1>
+			<div class="top-container">
+				<div class="ui huge breadcrumb container">
+					<a class="section" href="/"><h2>Dashboard</h2></a>
+					<i class="right arrow icon divider"></i>
+					<a class="section" href="/?content"><h2>Content</h2></a>
+					<i class="right arrow icon divider"></i>
+					<a class="active section"><h2>Menu Items</h2></a>
+				</div>
+				<div class="ui ignored divider container padding"></div>
+				<div class="ui two column grid container padding">
+				<div class="column fontSize">
+					<p>A blog is a discussion or informational site published on the World Wide Web.</p>
+				</div>
+				<div id="right" class="column fontSize">
+					<p>1-40 of 50 Total</p>
+				</div>
+	  		</div>
+				<div class="ui ignored divider"></div>
+	 		</div>
 
-<div class="ui borderless pagination menu large fluid">
-  <a class="item">
-    <i class="icon left arrow"></i> Previous
-  </a>
-  <a class="item">1</a>
-  <a class="item">2</a>
-  <a class="item">3</a>
-  <a class="item">4</a>
-  <a class="item">5</a>
-  <a class="item">6</a>
-  <a class="item">
-    Next <i class="icon right arrow"></i>
-  </a>
-  <div class="item right">
-        <div class="ui teal button large manager add">Add</div>
-    </div>
-</div>
+			<div class="bottom-container">
+				<div class="ui borderless pagination menu small container">
+					<a class="item">
+						<i class="icon left arrow"></i>
+					</a>
+					<a class="active item">1</a>
+					<a class="item">2</a>
+					<a class="item">3</a>
+					<a class="item">4</a>
+					<a class="item">5</a>
+					<a class="item">
+						<i class="icon right arrow"></i>
+					</a>
+				</div>
 
-			<table class="ui table manager segment padded">
-				<thead>
-					<tr><th>Label</th></tr>
-				</thead>
-					<tbody>
-					{{#each menus}}
-						<tr data-id="{{dburi}}">
-							<td>{{label}}</td>
+				<div class="manager table buttons">
+					<div class="ui small button export">Export</div>
+					<div class="ui small button filter">Filter</div>
+					<div class="ui teal small button manager add">Add</div>
+				</div>
+
+				<table class="ui large table segment manager">
+			  		<thead>
+						<tr>
+							<th>Title</th>
+							<th>Delete</th>
 						</tr>
-					{{/each}}
-				</tbody>
-			</table>
+			  		</thead>
+			   		<tbody>
+			   			{{#each menus}}
+							<tr data-id="{{dbURI}}">
+								<td>{{label}}</td>
+								<td>
+									<div class="manager trash ui icon button">
+	                 					<i class="trash icon"></i>
+	                 				</div>
+	             				</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+
+			<div class="ui borderless pagination menu small container">
+				<a class="item">
+					<i class="icon left arrow"></i>
+				</a>
+				<a class="active item">1</a>
+				<a class="item">2</a>
+				<a class="item">3</a>
+				<a class="item">4</a>
+				<a class="item">5</a>
+				<a class="item">
+					<i class="icon right arrow"></i>
+				</a>
+	 		</div>
 HBS;
 		return $partial;
 	}
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			<h2 class="ui manager header">Menu Navigation</h2>
-    		<form class="ui form segment" data-xhr="true" method="post" action="/Manager/manager/menus">
-			    <div class="ui warning message">
-			        <div class="header">There was a problem</div>
-			        <ul class="list">
-			        </ul>
-			    </div>
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Label</label>
-			        <div class="ui left labeled input">
-			            {{{label}}}
-			            <div class="ui corner label">
-			            	<i class="icon asterisk"></i>
-			            </div>
+			<div class="top-container">
+				   <div class="ui huge breadcrumb container">
+					   <a class="section" href="/"><h2>Dashboard</h2></a>
+					     <i class="right arrow icon divider"></i>
+					   <a class="section" href="/?content"><h2>Content</h2></a>
+					     <i class="right arrow icon divider"></i>
+					   <a class="section" href="/Manager/list/menus"><h2>Menus</h2></a>
+					    <i class="right arrow icon divider"></i>
+					   <a class="active section"><h2>Menu</h2></a>
+			      </div>
+				   <div class="ui ignored divider container padding"></div>
+					  <div class="ui two column grid container padding">
+						  <div class="column fontSize">
+					          <p>A blog is a discussion or informational site published on the World Wide Web.</p>
+					      </div>
+
+					       <div id="right" class="column fontSize">
+					      <p>1-40 of 50 Total</p>
+					      </div>
+		              </div>
+		             
+		          <div class="ui top attached tabular menu container">
+		                <a class="active item bg-image align-left">Main</a>
+		                <a class="item bg-image">Views</a>
+		                <a class="item bg-image">External Article</a>
+		               <div class="right menu align-right">
+		                       <div class="ui teal medium buttons">
+		                           <div class="ui button manager submit">Save</div>
+		                               <div class="ui floating dropdown icon button top right pointing">
+		                                   <i class="dropdown icon"></i>
+		                                   <div class="menu">
+		                                   <div class="item" data-value="horizontal flip">Horizontal Flip</div>
+		                                   <div class="item" data-value="fade up">Fade Up</div>
+		                                   <div class="item" data-value="scale">Scale</div>
+		                               </div>
+		                           </div>
+		                       </div>
+		               </div>
+		          </div>
+			  </div>
+
+
+
+
+
+			<form data-xhr="true" method="post" action="/Manager/manager/menus">
+				<div class="bottom-container">
+				    <div class="ui divided grid">
+			             <div class="row">
+			             	<div class="ten wide column manager main">
+			             		<div class="ui form">
+			                        <div class="field"required>
+			                           	<label>Label</label>
+										<div class="ui left labeled input">
+											{{{label}}}
+											<div class="ui corner label">
+												<i class="icon asterisk"></i>
+											</div>
+										</div>
+			                        </div>
+			                    </div>
+			                    <div class="ui form">
+			                        <div class="field">
+			                            <label>URL</label>
+										<div class="ui left labeled input">
+											{{{url}}}
+											<div class="ui corner label">
+												<i class="icon asterisk"></i>
+											</div>
+										</div>
+			                        </div>
+			                    </div>
+
+			                    <div class="field embedded" data-field="link" data-manager="menu_links" style="width: 96%; margin-left: 2%">
+									{{{link}}}
+								</div>
+								{{{id}}}
+			             	</div>
+
+
+
+			             	 <div class="two wide column manager sidebar">
+			             	 	<div class="ui form">
+			           	            <h3>Status</h3>
+			                       <div class="grouped inline fields">
+			                          <div class="field">
+			                              <div class="ui radio checkbox">
+			                                  <input type="radio" name="status" checked="checked">
+			                                  <label>Draft</label>
+			                              </div>
+			                          </div>
+			                          <div class="field">
+			                              <div class="ui radio checkbox">
+			                                  <input type="radio" name="status">
+			                                  <label>Published</label>
+			                              </div>
+			                          </div>
+			                       </div>
+			                   </div>
+			                      <div class="ui form">
+			                          <div class="date field">
+			                              <label></label>
+			                              <input type="text" placeholder="xx/xx/xxxx">
+			                          </div>
+			                     </div>
+
+			                     	<div class="ui toggle checkbox">
+			                            <input type="checkbox" name="feature">
+			                            <label>Feature</label>
+			                       </div><br>
+			                       <div class="ui toggle checkbox">
+			                            <input type="checkbox" name="pin">
+			                            <label>Pin</label>
+			                       </div><br>
+			                       <div class="ui toggle checkbox">
+			                            <input type="checkbox" name="comment">
+			                            <label>Comment</label>
+			                       </div><br>
+			                        <div class="ui selection dropdown margin">
+			                            <div class="text">Author</div>
+			                             <i class="dropdown icon"></i>
+			                                  <div class="menu">
+			                                      <div class="item">First</div>
+			                                      <div class="item">Second</div>
+			                                      <div class="item">Third</div>
+			                                 </div>
+			                        </div>
+			                         <div class="ui selection dropdown margin">
+			                            <div class="text">Category</div>
+			                             <i class="dropdown icon"></i>
+			                                  <div class="menu">
+			                                      <div class="item">First</div>
+			                                      <div class="item">Second</div>
+			                                      <div class="item">Third</div>
+			                                 </div>
+			                        </div>
+			                        <div class="ui form margin">
+			                            <div class="inline field">
+			                                <label></label>
+			                                   <input type="text" placeholder="tags">
+			                            </div>
+			                        </div>
+			             	</div>
+			             </div>
 			        </div>
 			    </div>
-
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>URL</label>
-			        <div class="ui left labeled input">
-			            {{{url}}}
-			            <div class="ui corner label">
-			                <i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
-
-			    <div class="field embedded" data-field="link" data-manager="menu_links" style="width: 96%; margin-left: 2%">
-			        {{{link}}}
-			    </div>
-			    {{{id}}}
-			    <input type="submit" class="fluid ui blue submit button" value="Save" style="margin-top: 20px; margin-left: 2%; width: 96%" />
 			</form>
 HBS;
 		return $partial;
