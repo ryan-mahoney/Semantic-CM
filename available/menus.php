@@ -65,6 +65,7 @@ class menus {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
+			{{#hello}}{{/hello}}
 			<div class="top-container">
 				<div class="ui huge breadcrumb container">
 					<a class="section" href="/"><h2>Dashboard</h2></a>

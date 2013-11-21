@@ -137,6 +137,26 @@ class Application {
 			}
             echo json_encode($out);
 		});
+
+		$this->slim->get('/Manager/data/:path+', function ($path) {
+			$manager = false;
+			$name = $path[0];
+			$path = implode('/', $path);
+			$managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
+			foreach ($managers['managers'] as $managersData) {
+				if ($managersData['manager'] == $name) {
+					$manager = $managersData;
+					break;
+				}
+			}
+			$collectionJson = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/json-data/' . $path);
+			if ($manager !== false) {
+				$collectionJson = json_decode($collectionJson, true);
+				$collectionJson['metadata'] = array_merge($collectionJson['metadata'], $manager);
+				$collectionJson = json_encode($collectionJson);
+			}
+			echo $collectionJson;
+		});
 	}
 
 	private function authenticate () {
