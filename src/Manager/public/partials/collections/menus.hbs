@@ -1,31 +1,31 @@
-			<div class="top-container">
-				{{#CollectionHeader}}{{/CollectionHeader}}
-			</div>
-			<div class="bottom-container">
-				{{#CollectionPagination}}{{/CollectionPagination}}
-				{{#CollectionButtons}}{{/CollectionButtons}}
-				
-				<table class="ui large table segment manager">
-			  		<thead>
-						<tr>
-							<th>Title</th>
-							<th class="trash">Delete</th>
-						</tr>
-			  		</thead>
-			   		<tbody>
-			   			{{#each menus}}
-							<tr data-id="{{dbURI}}">
-								<td>{{label}}</td>
-								<td>
-									<div class="manager trash ui icon button">
-	                 					<i class="trash icon"></i>
-	                 				</div>
-	             				</td>
-							</tr>
-						{{/each}}
-					</tbody>
-				</table>
+            <div class="top-container">
+                {{#CollectionHeader}}{{/CollectionHeader}}
+            </div>
+            <div class="bottom-container">
+                {{#CollectionPagination}}{{/CollectionPagination}}
+                {{#CollectionButtons}}{{/CollectionButtons}}
+                
+                <table class="ui large table segment manager">
+                      <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th class="trash">Delete</th>
+                        </tr>
+                      </thead>
+                       <tbody>
+                           {{#each menus}}
+                            <tr data-id="{{dbURI}}">
+                                <td>{{label}}</td>
+                                <td>
+                                    <div class="manager trash ui icon button">
+                                         <i class="trash icon"></i>
+                                     </div>
+                                 </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
 
-				{{#CollectionPagination}}{{/CollectionPagination}}
-				{{#CollectionButtons}}{{/CollectionButtons}}
-			</div>
+                {{#CollectionPagination}}{{/CollectionPagination}}
+                {{#CollectionButtons}}{{/CollectionButtons}}
+            </div>

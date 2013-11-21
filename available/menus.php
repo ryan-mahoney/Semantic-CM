@@ -109,8 +109,8 @@ HBS;
             </div>
             {{#DocumentFormLeft}}            
                  <div class="ui form">
-                    <div class="field"required>
-                           <label>Label</label>
+                    <div class="field" class="required">
+                        <label>Label</label>
                         <div class="ui left labeled input">
                             {{{label}}}
                             <div class="ui corner label">
@@ -118,8 +118,6 @@ HBS;
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui form">
                     <div class="field">
                         <label>URL</label>
                         <div class="ui left labeled input">

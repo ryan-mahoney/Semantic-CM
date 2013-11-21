@@ -1,33 +1,31 @@
-			<div class="top-container">
-				{{#DocumentHeader}}{{/DocumentHeader}}
-		        {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
-		    </div>
-		    {{#DocumentFormLeft}}			
-         		<div class="ui form">
-                    <div class="field"required>
-                       	<label>Label</label>
-						<div class="ui left labeled input">
-							{{{label}}}
-							<div class="ui corner label">
-								<i class="icon asterisk"></i>
-							</div>
-						</div>
+            <div class="top-container">
+                {{#DocumentHeader}}{{/DocumentHeader}}
+                {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
+            </div>
+            {{#DocumentFormLeft}}            
+                 <div class="ui form">
+                    <div class="field" class="required">
+                        <label>Label</label>
+                        <div class="ui left labeled input">
+                            {{{label}}}
+                            <div class="ui corner label">
+                                <i class="icon asterisk"></i>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="ui form">
                     <div class="field">
                         <label>URL</label>
-						<div class="ui left labeled input">
-							{{{url}}}
-							<div class="ui corner label">
-								<i class="icon asterisk"></i>
-							</div>
-						</div>
+                        <div class="ui left labeled input">
+                            {{{url}}}
+                            <div class="ui corner label">
+                                <i class="icon asterisk"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="field embedded" data-field="link" data-manager="menu_links" style="width: 96%; margin-left: 2%">
-					{{{link}}}
-				</div>
-				{{{id}}}
-			{{/DocumentFormLeft}}             	
-			{{#DocumentFormRight}}{{/DocumentFormRight}}
+                    {{{link}}}
+                </div>
+                {{{id}}}
+            {{/DocumentFormLeft}}                 
+            {{#DocumentFormRight}}{{/DocumentFormRight}}

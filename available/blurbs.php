@@ -104,34 +104,26 @@ HBS;
 				{{#DocumentHeader}}{{/DocumentHeader}}
 		        {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
 		    </div>
-			<form class="ui form segment" data-xhr="true" method="post" action="/Manager/manager/blurbs">
-			    <div class="ui warning message">
-			        <div class="header">There was a problem</div>
-			        <ul class="list">
-			        </ul>
+		    {{#DocumentFormLeft}}
+		    	<div class="ui form">
+			    	<div class="field">
+			        	<label>Title</label>
+			        	<div class="ui left labeled input">
+			            	{{{title}}}
+			            	<div class="ui corner label"><i class="icon asterisk"></i></div>
+			        	</div>
+			    	</div>
+			    	<div class="field">
+			        	<label>Body</label>
+			        	<div class="ui left labeled input">
+			            	{{{body}}}
+			            	<div class="ui corner label"><i class="icon asterisk"></i></div>
+			        	</div>
+			    	</div>
+			    	{{{id}}}
 			    </div>
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Title</label>
-			        <div class="ui left labeled input">
-			            {{{title}}}
-			            <div class="ui corner label">
-			            	<i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
-
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Body</label>
-			        <div class="ui left labeled input">
-			            {{{body}}}
-			            <div class="ui corner label">
-			                <i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
-			    {{{id}}}
-			    <input type="submit" class="fluid ui blue submit button" value="Save" style="margin-top: 20px; margin-left: 2%; width: 96%" />
-			</form>
+			{{/DocumentFormLeft}}
+			{{#DocumentFormRight}}{{/DocumentFormRight}}
 HBS;
 		return $partial;
 	}
