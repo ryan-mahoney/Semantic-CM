@@ -128,7 +128,7 @@ HBS;
                         </div>
                     </div>
                 </div>
-                <div class="field embedded" data-field="link" data-manager="menu_links" style="width: 96%; margin-left: 2%">
+                <div class="field embedded" data-field="link" data-manager="menu_links">
                     {{{link}}}
                 </div>
                 {{{id}}}
