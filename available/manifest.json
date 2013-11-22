@@ -1,5 +1,7 @@
 {
     "managers": {
-        "blurbs": ".2"
+        "blurbs": ".2",
+        "menu_links": ".1",
+        "menus": ".2"
     }
 }

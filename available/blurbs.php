@@ -66,6 +66,7 @@ class blurbs {
 			<div class="top-container">
 				{{#CollectionHeader}}{{/CollectionHeader}}
 			</div>
+
 			<div class="bottom-container">
 				{{#CollectionPagination}}{{/CollectionPagination}}
 				{{#CollectionButtons}}{{/CollectionButtons}}
@@ -92,7 +93,6 @@ class blurbs {
 				</table>
 
 				{{#CollectionPagination}}{{/CollectionPagination}}
-				{{#CollectionButtons}}{{/CollectionButtons}}
 			</div>
 HBS;
 		return $partial;
@@ -104,26 +104,14 @@ HBS;
 				{{#DocumentHeader}}{{/DocumentHeader}}
 		        {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
 		    </div>
-		    {{#DocumentFormLeft}}
-		    	<div class="ui form">
-			    	<div class="field">
-			        	<label>Title</label>
-			        	<div class="ui left labeled input">
-			            	{{{title}}}
-			            	<div class="ui corner label"><i class="icon asterisk"></i></div>
-			        	</div>
-			    	</div>
-			    	<div class="field">
-			        	<label>Body</label>
-			        	<div class="ui left labeled input">
-			            	{{{body}}}
-			            	<div class="ui corner label"><i class="icon asterisk"></i></div>
-			        	</div>
-			    	</div>
+		    <div class="bottom-container">
+			    {{#DocumentFormLeft}}
+			    	{{#FieldLeft title Title required}}{{/FieldLeft}}
+			    	{{#FieldLeft body required}}{{/FieldLeft}}
 			    	{{{id}}}
-			    </div>
-			{{/DocumentFormLeft}}
-			{{#DocumentFormRight}}{{/DocumentFormRight}}
+			    {{/DocumentFormLeft}}
+				{{#DocumentFormRight}}{{/DocumentFormRight}}
+			</div>
 HBS;
 		return $partial;
 	}

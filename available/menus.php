@@ -69,21 +69,27 @@ class menus {
             <div class="top-container">
                 {{#CollectionHeader}}{{/CollectionHeader}}
             </div>
+
             <div class="bottom-container">
                 {{#CollectionPagination}}{{/CollectionPagination}}
                 {{#CollectionButtons}}{{/CollectionButtons}}
                 
                 <table class="ui large table segment manager">
-                      <thead>
+                    <col width="20%">
+                    <col width="70%">
+                    <col width="10%">
+                    <thead>
                         <tr>
                             <th>Title</th>
+                            <th>URL</th>
                             <th class="trash">Delete</th>
                         </tr>
-                      </thead>
-                       <tbody>
-                           {{#each menus}}
+                    </thead>
+                    <tbody>
+                        {{#each menus}}
                             <tr data-id="{{dbURI}}">
                                 <td>{{label}}</td>
+                                <td>{{url}}</td>
                                 <td>
                                     <div class="manager trash ui icon button">
                                          <i class="trash icon"></i>
@@ -95,7 +101,6 @@ class menus {
                 </table>
 
                 {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
             </div>
 HBS;
         return $partial;
@@ -107,33 +112,18 @@ HBS;
                 {{#DocumentHeader}}{{/DocumentHeader}}
                 {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
             </div>
-            {{#DocumentFormLeft}}            
-                 <div class="ui form">
-                    <div class="field" class="required">
-                        <label>Label</label>
-                        <div class="ui left labeled input">
-                            {{{label}}}
-                            <div class="ui corner label">
-                                <i class="icon asterisk"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>URL</label>
-                        <div class="ui left labeled input">
-                            {{{url}}}
-                            <div class="ui corner label">
-                                <i class="icon asterisk"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="field embedded" data-field="link" data-manager="menu_links">
-                    {{{link}}}
-                </div>
-                {{{id}}}
-            {{/DocumentFormLeft}}                 
-            {{#DocumentFormRight}}{{/DocumentFormRight}}
+
+            <div class="bottom-container">
+                {{#DocumentFormLeft}}
+                    {{#FieldLeft label Label required}}{{/FieldLeft}}
+                    {{#FieldLeft url URL required}}{{/FieldLeft}}
+                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{{id}}}
+                {{/DocumentFormLeft}}                 
+                
+                {{#DocumentFormRight}}
+                {{/DocumentFormRight}}
+            </div>
 HBS;
         return $partial;
     }

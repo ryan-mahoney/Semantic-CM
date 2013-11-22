@@ -76,23 +76,23 @@ class menu_links {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			<label>Sub-Menus</label>
-				<!-- <div class="ui borderless pagination menu large fluid"></div> -->
-				<div class="item right">
-        			<div class="ui button manager add">Add</div>
-    			</div>
-				<table class="ui table manager segment padded">
-					<thead>
-						<tr><th>Label</th></tr>
-					</thead>
-					<tbody>
-						{{#each link}}
-							<tr data-id="{{dbURI}}">
-								<td>{{title}}</td>
-							</tr>
-						{{/each}}
-					</tbody>
-				</table>
+			<a class="item">Sub-Menus</a>
+			<!-- <div class="ui borderless pagination menu large fluid"></div> -->
+			<div class="item right">
+        		<div class="ui button manager add">Add</div>
+    		</div>
+			<table class="ui table manager segment">
+				<thead>
+					<tr><th>Label</th></tr>
+				</thead>
+				<tbody>
+					{{#each link}}
+						<tr data-id="{{dbURI}}">
+							<td>{{title}}</td>
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
 HBS;
 		return $partial;
 	}
