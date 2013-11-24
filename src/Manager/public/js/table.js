@@ -146,8 +146,8 @@ var embeddedModal = function (DOMnode, mode, dbURI) {
     $('#Content-' + uniqid).removeClass('loading');
     
     if (mode == 'add') {
-      idFieldEmbedded = $('#Iframe-' + uniqid).contents().find('form > input[name*="[id]"]');
-      idField = $('form > input[name*="[id]"]');
+      idFieldEmbedded = $('#Iframe-' + uniqid).contents().find('form input[name*="[id]"]');
+      idField = $('form input[name*="[id]"]');
       id = $(idField).val() + ':' + parentField;
       idEmbedded = id + ':' + $(idFieldEmbedded).val().split(':')[1];
     }

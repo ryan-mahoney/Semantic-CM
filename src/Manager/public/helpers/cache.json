@@ -5,5 +5,7 @@
     "DocumentFormLeft",
     "DocumentFormRight",
     "DocumentHeader",
-    "DocumentTabsButtons"
+    "DocumentTabsButtons",
+    "FieldEmbedded",
+    "FieldLeft"
 ]

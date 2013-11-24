@@ -32,6 +32,10 @@ body {
      position: relative;
 }
 
+.document .bottom-container{
+     padding-top: 30px;
+}
+
 .ui.right.sidebar{
      background-color: #333;
 }
@@ -328,4 +332,13 @@ form > .ui.info.message {
 
 th.trash {
   text-align: right !important;
+}
+
+div.field.embedded > div.ui.menu > table.ui.manager {
+  margin-top: 0 !important;
+}
+
+div.field.embedded > div.ui.menu > a.item {
+  font-size: 0.975em;
+  padding-top: 15px;
 }

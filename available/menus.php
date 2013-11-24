@@ -45,15 +45,13 @@ class menus {
         ];
     }
 
-/*
     function imageField () {
         return [
             'name' => 'file',
             'placeholder' => 'Image',
-            'display' => VCPF\Field::inputFile()
+            'display' => 'InputFile'
         ];
     }
-*/
 
     public function linkField() {
         return [
@@ -117,6 +115,7 @@ HBS;
                 {{#DocumentFormLeft}}
                     {{#FieldLeft label Label required}}{{/FieldLeft}}
                     {{#FieldLeft url URL required}}{{/FieldLeft}}
+                    {{#FieldLeft file Image}}{{/FieldLeft}}
                     {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 

@@ -2,30 +2,16 @@
                 {{#DocumentHeader}}{{/DocumentHeader}}
                 {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
             </div>
-            {{#DocumentFormLeft}}            
-                 <div class="ui form">
-                    <div class="field" class="required">
-                        <label>Label</label>
-                        <div class="ui left labeled input">
-                            {{{label}}}
-                            <div class="ui corner label">
-                                <i class="icon asterisk"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>URL</label>
-                        <div class="ui left labeled input">
-                            {{{url}}}
-                            <div class="ui corner label">
-                                <i class="icon asterisk"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="field embedded" data-field="link" data-manager="menu_links">
-                    {{{link}}}
-                </div>
-                {{{id}}}
-            {{/DocumentFormLeft}}                 
-            {{#DocumentFormRight}}{{/DocumentFormRight}}
+
+            <div class="bottom-container">
+                {{#DocumentFormLeft}}
+                    {{#FieldLeft label Label required}}{{/FieldLeft}}
+                    {{#FieldLeft url URL required}}{{/FieldLeft}}
+                    {{#FieldLeft file Image}}{{/FieldLeft}}
+                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{{id}}}
+                {{/DocumentFormLeft}}                 
+                
+                {{#DocumentFormRight}}
+                {{/DocumentFormRight}}
+            </div>
