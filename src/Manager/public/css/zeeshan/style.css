@@ -146,6 +146,25 @@ li {
      padding: 0px;
 }
 
+/*form align center*/
+
+#example.container.align{
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top:5%;
+}
+
+/* profile dropdown*/
+
+.ui.black.button.profile{
+  float:right;
+}
+
+/*button padding*/
+
+.ui.button.padding{
+  padding:0.70em;
+}
 /*
 Ryan
  */
@@ -310,11 +329,11 @@ div.manager.table.buttons {
 .manager.trash.button {
   float: right;
 }
-
+/* warning message with icon and padding */
 form > .ui.info.message {
   margin-top: 10px;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: -13%;
+  margin-right: -13%;
 }
 
 .manager.container .ui.divided.grid .ten.wide.column {
