@@ -11,6 +11,7 @@ class Application {
 	private $formRoute;
 	private $search;
 	private $manager;
+	private $upload;
 
 	public function __construct ($container, $root, $bundleRoot) {
 		$this->slim = $container->slim;
@@ -22,6 +23,7 @@ class Application {
 		$this->search = $container->search;
 		$this->formRoute = $container->formRoute;
 		$this->manager = $container->manager;
+		$this->upload = $container->upload;
 	}
 
 	public function app () {
@@ -180,6 +182,10 @@ class Application {
 				$formJson = json_encode($formJson);
 			}
 			echo $formJson;
+		});
+
+		$this->slim->post('/Manager/upload/:manager/:field', function ($manager, $field, $callback) {
+			print_r($_POST);
 		});
 	}
 

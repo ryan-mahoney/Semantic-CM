@@ -17,7 +17,7 @@ return function ($template, $context, $args, $source) {
 
 	ob_start();
 	echo '
-		<div class="field">',
+		<div class="field" data-field="', $field, '">',
 			($label !== false ? '<label>' . $label . '</label>' : ''),
             '<div class="ui left ', $labeled, ' input">',
                 $markup,

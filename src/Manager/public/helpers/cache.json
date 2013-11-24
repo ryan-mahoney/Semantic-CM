@@ -1,5 +1,6 @@
 [
     "CollectionButtons",
+    "CollectionEmpty",
     "CollectionHeader",
     "CollectionPagination",
     "DocumentFormLeft",

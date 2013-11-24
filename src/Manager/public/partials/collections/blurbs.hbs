@@ -3,30 +3,33 @@
 			</div>
 
 			<div class="bottom-container">
-				{{#CollectionPagination}}{{/CollectionPagination}}
-				{{#CollectionButtons}}{{/CollectionButtons}}
-				
-				<table class="ui large table segment manager">
-			  		<thead>
-						<tr>
-							<th>Title</th>
-							<th class="trash">Delete</th>
-						</tr>
-			  		</thead>
-			   		<tbody>
-			   			{{#each blurbs}}
-							<tr data-id="{{dbURI}}">
-								<td>{{title}}</td>
-								<td>
-									<div class="manager trash ui icon button">
-	                 					<i class="trash icon"></i>
-	                 				</div>
-	             				</td>
+				{{#if blurbs}}
+					{{#CollectionPagination}}{{/CollectionPagination}}
+					{{#CollectionButtons}}{{/CollectionButtons}}
+					
+					<table class="ui large table segment manager">
+				  		<thead>
+							<tr>
+								<th>Title</th>
+								<th class="trash">Delete</th>
 							</tr>
-						{{/each}}
-					</tbody>
-				</table>
+				  		</thead>
+				   		<tbody>
+				   			{{#each blurbs}}
+								<tr data-id="{{dbURI}}">
+									<td>{{title}}</td>
+									<td>
+										<div class="manager trash ui icon button">
+		                 					<i class="trash icon"></i>
+		                 				</div>
+		             				</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
 
-				{{#CollectionPagination}}{{/CollectionPagination}}
-				{{#CollectionButtons}}{{/CollectionButtons}}
+					{{#CollectionPagination}}{{/CollectionPagination}}
+				{{else}}
+					{{#CollectionEmpty}}{{/CollectionEmpty}}
+				{{/if}}
 			</div>
