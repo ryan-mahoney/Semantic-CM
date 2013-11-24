@@ -23,7 +23,7 @@ class Application {
 		$this->search = $container->search;
 		$this->formRoute = $container->formRoute;
 		$this->manager = $container->manager;
-		$this->upload = $container->upload;
+		$this->upload = $container->uploadwraper;
 	}
 
 	public function app () {
@@ -92,6 +92,7 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/api/managers', function () {
+			$this->authenticate();
 			$userId = false;
 			if (isset($_GET['userId'])) {
 				$userId = $_GET['userId'];
@@ -117,6 +118,7 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/api/search', function () {
+			$this->authenticate();
 			if (!isset($_GET['q']) || empty($_GET['q']) || !is_string($_GET['q'])) {
 				echo json_encode([]);
 				exit;
@@ -184,8 +186,41 @@ class Application {
 			echo $formJson;
 		});
 
-		$this->slim->post('/Manager/upload/:manager/:field', function ($manager, $field, $callback) {
-			print_r($_POST);
+		$this->slim->post('/Manager/upload/:manager/:field', function ($manager, $field) {
+			$this->authenticate();
+			$storage = $this->upload->storage('/storage/' . date('Y-m-d-H'));
+			$upload = $this->upload->upload($field, $storage);
+			$data = array(
+			    'name' => $upload->getNameWithExtension(),
+			    'extension' => $upload->getExtension(),
+			    'mime' => $upload->getMimetype(),
+			    'size' => $upload->getSize(),
+			    'md5' => $upload->getMd5(),
+			    'dimensions' => $upload->getDimensions()
+			);
+
+/*
+
+            "image": {
+                "name": "us-davis-pepper-spray.jpg",
+                "size": "411507",
+                "type": "image\/jpeg",
+                "url": "http:\/\/virtuecenter.s3.amazonaws.com\/files\/2012-09-06-16\/us-davis-pepper-spray.jpg",
+                "height": "453",
+                "width": "680"
+            },
+
+
+ */
+
+			try {
+    			$result = $upload->upload();
+			} catch (\Exception $e) {
+    		    var_dump($upload->getErrors());
+    		    exit;
+			}
+			echo json_encode($data, JSON_PRETTY_PRINT);
+			exit;
 		});
 	}
 
