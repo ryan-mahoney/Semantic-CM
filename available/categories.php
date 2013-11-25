@@ -51,6 +51,16 @@ class categories{
 		);
 	}
 
+	public function subcategoryField() {
+		return [
+			'name' => 'subcategory',
+			'label' => 'Sub Categories',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'subcategories'
+		];
+	}
+
 	/*
 
 	function tagsField () {
@@ -98,16 +108,6 @@ class categories{
 			'display' => VCPF\Field::select(),
 			//'nullable' => 'Choose a Template'
 		];
-	}
-	
-	public function subcategoryField() {
-		return array(
-			'name' => 'subcategory',
-			'label' => 'Sub Category',
-			'required' => false,
-			'display'	=>	VCPF\Field::admin(),
-			'adminClass'	=> 'vc\ms\site\subdocuments\CategorySubAdmin'
-		);
 	}
 	
 	function code_nameField () {
@@ -171,6 +171,7 @@ HBS;
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
                     {{#FieldLeft section Section required}}{{/FieldLeft}}
 					{{#FieldLeft image Image}}{{/FieldLeft}}
+					{{#FieldEmbedded subcategory subcategories}}{{/FieldEmbedded}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 

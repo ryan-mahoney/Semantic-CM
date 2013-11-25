@@ -1,28 +1,28 @@
 <?php
 /*
  * @version .1
- * @link https://raw.github.com/virtuecenter/manager/master/available/menu_links.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/subimages.php
  * @mode upgrade
  */
 namespace Manager;
 
-class menu_links {
+class subimages {
 	private $field = false;
-	public $collection = 'menus';
-	public $form = 'menus';
-	public $title = 'Menus';
+	public $collection = 'subimages';
+	public $form = 'subimages';
+	public $title = 'Subimage';
 	public $singular = 'Menu';
-	public $description = '4 menu items';
+	public $description = '4 subimages';
 	public $definition = '';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
 	public $after = 'function';
 	public $function = 'embeddedUpsert';
-	public $notice = 'Menu Saved';
+	public $notice = 'Subimages';
 	public $embedded = true;
 	public $storage = [
-		'collection' => 'menus',
+		'collection' => 'subimages',
 		'key' => '_id'
 	];
 
@@ -32,8 +32,8 @@ class menu_links {
 
 	function urlField () {
 		return [
-			'name'		=> 'url',
-			'label'		=> 'URL',
+			'name'		=> 'caption',
+			'label'		=> 'Caption',
 			'required'	=> false,
 			'display'	=> 'InputText'
 		];
@@ -41,30 +41,14 @@ class menu_links {
 
 	function titleField () {
 		return [
-			'name'		=> 'title',
-			'label'		=> 'Title',
+			'name'		=> 'copyright',
+			'label'		=> 'Copyright',
 			'required'	=> false,
 			'display'	=> 'InputText'
 		];
 	}
 	
-	function targetField () {
-		return [
-			'name'		=> 'target',
-			'label'		=> 'Redirect',
-			'required'	=> true,
-			'options'	=> [
-				'_self'		=> 'Self',
-				'_blank'	=> 'Blank',
-				'_top'		=> 'Top',
-				'_parent'	=> 'Parent'
-			],
-			'display'	=> 'Select',
-			'nullable'	=> false,
-			'default'	=> 'self'
-		];
-	}
-/*	
+
 	function imageField () {
 		return [
 			'name' => 'file',
@@ -72,7 +56,6 @@ class menu_links {
 			'display' => 'InputFile'
 		];
 	}
-*/
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
@@ -86,7 +69,7 @@ class menu_links {
 					<tr><th>Label</th></tr>
 				</thead>
 				<tbody>
-					{{#each link}}
+					{{#each subimages}}
 						<tr data-id="{{dbURI}}">
 							<td>{{title}}</td>
 						</tr>
@@ -111,7 +94,7 @@ HBS;
 			    <div class="field" style="width: 96%; margin-left: 2%">
 			        <label>Title</label>
 			        <div class="ui left labeled input">
-			            {{{title}}}
+			            {{{file}}}
 			            <div class="ui corner label">
 			            	<i class="icon asterisk"></i>
 			            </div>
@@ -121,7 +104,7 @@ HBS;
 			    <div class="field" style="width: 96%; margin-left: 2%">
 			        <label>URL</label>
 			        <div class="ui left labeled input">
-			            {{{url}}}
+			            {{{caption}}}
 			            <div class="ui corner label">
 			                <i class="icon asterisk"></i>
 			            </div>
@@ -131,7 +114,7 @@ HBS;
 				<div class="field" style="width: 96%; margin-left: 2%">
 			        <label>Target</label>
 			        <div class="ui left labeled input">
-			            {{{target}}}
+			            {{{copyright}}}
 			            <div class="ui corner label">
 			                <i class="icon asterisk"></i>
 			            </div>

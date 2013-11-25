@@ -1,42 +1,33 @@
 <?php
 /*
  * @version .1
- * @link https://raw.github.com/virtuecenter/manager/master/available/menu_links.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/subcategories.php
  * @mode upgrade
  */
 namespace Manager;
 
-class menu_links {
+class subcategories {
 	private $field = false;
-	public $collection = 'menus';
-	public $form = 'menus';
-	public $title = 'Menus';
-	public $singular = 'Menu';
-	public $description = '4 menu items';
+	public $collection = 'categories';
+	public $form = 'subcategories';
+	public $title = 'Subcategories';
+	public $singular = 'Subcategory';
+	public $description = '4 subcategories';
 	public $definition = '';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
 	public $after = 'function';
 	public $function = 'embeddedUpsert';
-	public $notice = 'Menu Saved';
+	public $notice = 'Subcategory Saved';
 	public $embedded = true;
 	public $storage = [
-		'collection' => 'menus',
+		'collection' => 'categories',
 		'key' => '_id'
 	];
 
 	public function __construct ($field=false) {
 		$this->field = $field;
-	}
-
-	function urlField () {
-		return [
-			'name'		=> 'url',
-			'label'		=> 'URL',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		];
 	}
 
 	function titleField () {
@@ -48,45 +39,27 @@ class menu_links {
 		];
 	}
 	
-	function targetField () {
-		return [
-			'name'		=> 'target',
-			'label'		=> 'Redirect',
-			'required'	=> true,
-			'options'	=> [
-				'_self'		=> 'Self',
-				'_blank'	=> 'Blank',
-				'_top'		=> 'Top',
-				'_parent'	=> 'Parent'
-			],
-			'display'	=> 'Select',
-			'nullable'	=> false,
-			'default'	=> 'self'
-		];
-	}
-/*	
 	function imageField () {
 		return [
-			'name' => 'file',
+			'name' => 'image',
 			'label' => 'Image',
 			'display' => 'InputFile'
 		];
 	}
-*/
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			<a class="item">Sub-Menus</a>
+			<a class="item">Subcategories</a>
 			<!-- <div class="ui borderless pagination menu large fluid"></div> -->
 			<div class="item right">
         		<div class="ui button manager add">Add</div>
     		</div>
 			<table class="ui table manager segment">
 				<thead>
-					<tr><th>Label</th></tr>
+					<tr><th>Title</th></tr>
 				</thead>
 				<tbody>
-					{{#each link}}
+					{{#each subcategory}}
 						<tr data-id="{{dbURI}}">
 							<td>{{title}}</td>
 						</tr>
@@ -102,7 +75,7 @@ HBS;
 			<div class="header">
           		Sub Menu
       		</div>
-    		<form class="ui form" data-xhr="true" method="post" action="/Manager/manager/menu_links">
+    		<form class="ui form" data-xhr="true" method="post" action="/Manager/manager/subcategories">
 			    <div class="ui warning message">
 			        <div class="header">There was a problem</div>
 			        <ul class="list">
@@ -118,20 +91,10 @@ HBS;
 			        </div>
 			    </div>
 
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>URL</label>
-			        <div class="ui left labeled input">
-			            {{{url}}}
-			            <div class="ui corner label">
-			                <i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
-
 				<div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Target</label>
+			        <label>Image</label>
 			        <div class="ui left labeled input">
-			            {{{target}}}
+			            {{{image}}}
 			            <div class="ui corner label">
 			                <i class="icon asterisk"></i>
 			            </div>
