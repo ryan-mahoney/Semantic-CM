@@ -12,6 +12,7 @@ class Application {
 	private $search;
 	private $manager;
 	private $upload;
+	private $slugify;
 
 	public function __construct ($container, $root, $bundleRoot) {
 		$this->slim = $container->slim;
@@ -23,7 +24,8 @@ class Application {
 		$this->search = $container->search;
 		$this->formRoute = $container->formRoute;
 		$this->manager = $container->manager;
-		$this->upload = $container->uploadwraper;
+		$this->upload = $container->uploadwrapper;
+		$this->slugify = $container->slugify;
 	}
 
 	public function app () {
@@ -62,7 +64,6 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/list(/:name)', function ($manager) {
-			$this->authenticate();
 			$layout = 'Manager/collections/any';
 			$url = false;
 			if (isset($_GET['embedded']) && isset($_GET['dbURI'])) {
@@ -92,7 +93,6 @@ class Application {
 		});
 
 		$this->slim->get('/Manager/api/managers', function () {
-			$this->authenticate();
 			$userId = false;
 			if (isset($_GET['userId'])) {
 				$userId = $_GET['userId'];
@@ -188,31 +188,23 @@ class Application {
 
 		$this->slim->post('/Manager/upload/:manager/:field', function ($manager, $field) {
 			$this->authenticate();
-			$storage = $this->upload->storage('/storage/' . date('Y-m-d-H'));
-			$upload = $this->upload->upload($field, $storage);
-			$data = array(
+			if (!isset($_FILES)) {
+				return;
+			}
+			$cleanName = $this->slugify->slugify(pathinfo($_FILES[$field]['name'])['filename']);
+			$path = '/storage/' . date('Y-m-d-H');
+			$storage = $this->upload->storage($path);
+			$upload = $this->upload->file($field, $storage);
+			$upload->setName($cleanName);
+			$data = [
 			    'name' => $upload->getNameWithExtension(),
-			    'extension' => $upload->getExtension(),
-			    'mime' => $upload->getMimetype(),
+			    'type' => $upload->getMimetype(),
 			    'size' => $upload->getSize(),
 			    'md5' => $upload->getMd5(),
-			    'dimensions' => $upload->getDimensions()
-			);
-
-/*
-
-            "image": {
-                "name": "us-davis-pepper-spray.jpg",
-                "size": "411507",
-                "type": "image\/jpeg",
-                "url": "http:\/\/virtuecenter.s3.amazonaws.com\/files\/2012-09-06-16\/us-davis-pepper-spray.jpg",
-                "height": "453",
-                "width": "680"
-            },
-
-
- */
-
+			    'width' => $upload->getDimensions()['width'],
+			    'height' => $upload->getDimensions()['height'],
+			    'url'	=> 'http://' . $_SERVER['HTTP_HOST'] . $path . '/' . $upload->getNameWithExtension()
+			];
 			try {
     			$result = $upload->upload();
 			} catch (\Exception $e) {
