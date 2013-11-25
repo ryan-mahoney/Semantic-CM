@@ -1,0 +1,16 @@
+            <div class="top-container">
+                {{#DocumentHeader}}{{/DocumentHeader}}
+                {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
+            </div>
+
+            <div class="bottom-container">
+                {{#DocumentFormLeft}}
+                    {{#FieldLeft label Label required}}{{/FieldLeft}}
+                    {{#FieldLeft url URL required}}{{/FieldLeft}}
+                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{{id}}}
+                {{/DocumentFormLeft}}                 
+                
+                {{#DocumentFormRight}}
+                {{/DocumentFormRight}}
+            </div>

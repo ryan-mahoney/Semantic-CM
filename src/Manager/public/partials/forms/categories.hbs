@@ -1,0 +1,16 @@
+            <div class="top-container">
+                {{#DocumentHeader}}{{/DocumentHeader}}
+                {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
+            </div>
+
+            <div class="bottom-container">
+                {{#DocumentFormLeft}}
+                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+                    {{#FieldLeft section Section required}}{{/FieldLeft}}
+					{{#FieldLeft image Image}}{{/FieldLeft}}
+                    {{{id}}}
+                {{/DocumentFormLeft}}                 
+                
+                {{#DocumentFormRight}}
+                {{/DocumentFormRight}}
+            </div>

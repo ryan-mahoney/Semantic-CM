@@ -25,15 +25,6 @@ class categories{
         'key' => '_id'
     ];
 
-	function sectionField () {
-		return array(
-			'name' => 'section',
-			'label' => 'Section',
-			'required' => true,
-			'display' => 'InputText'
-		);
-	}
-
 	function titleField () {
 		return array(
 			'name' => 'title',
@@ -43,6 +34,25 @@ class categories{
 		);
 	}
 	
+	function sectionField () {
+		return array(
+			'name' => 'section',
+			'label' => 'Section',
+			'required' => true,
+			'display' => 'InputText'
+		);
+	}
+
+	function imageField () {
+		return array(
+			'name' => 'image',
+			'label' => 'Image',
+			'display' => 'InputFile'
+		);
+	}
+
+	/*
+
 	function tagsField () {
 		return array(
 			'name' => 'tags',
@@ -58,15 +68,6 @@ class categories{
 			'tooltip' => 'Another way to make entries more findable.'
 		);
 	}	
-	
-
-	function imageField () {
-		return array(
-			'name' => 'image',
-			'label' => 'Image',
-			'display' => 'InputFile'
-		);
-	}
 
 	function featuredField () {
 		return array(
@@ -119,19 +120,8 @@ class categories{
 			]
 		);
 	}
+*/
 
-	function defaultTable () {
-		return array (
-			'columns' => array(
-				array('section', '25%', 'Section', false),
-				array('title', '70%', 'Title', false)
-			),
-			'title' => 'Categories',
-			'link' => 'title',
-			'sort' => array('section' => 1, 'title' => 1),
-			'features' => array('delete', 'search', 'add', 'edit', 'pagination', 'sortable')
-		);
-	}
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -150,7 +140,7 @@ class categories{
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each blogs}}
+                        {{#each categories}}
                             <tr data-id="{{dbURI}}">
                                 <td>{{title}}</td>
                                 <td>
@@ -178,9 +168,9 @@ HBS;
 
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
-                    {{#FieldLeft label Label required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+                    {{#FieldLeft section Section required}}{{/FieldLeft}}
+					{{#FieldLeft image Image}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 

@@ -926,7 +926,7 @@ class events {
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each menus}}
+                        {{#each events}}
                             <tr data-id="{{dbURI}}">
                                 <td>{{label}}</td>
                                 <td>{{url}}</td>
@@ -955,7 +955,7 @@ HBS;
 
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
-                    {{#FieldLeft label Label required}}{{/FieldLeft}}
+                    {{#FieldLeft title Title required}}{{/FieldLeft}}
                     {{#FieldLeft url URL required}}{{/FieldLeft}}
                     {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
                     {{{id}}}

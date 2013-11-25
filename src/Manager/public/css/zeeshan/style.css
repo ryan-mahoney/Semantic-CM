@@ -156,14 +156,14 @@ li {
 
 /* profile dropdown*/
 
-.ui.black.button.profile{
-  float:right;
-}
-
 /*button padding*/
 
 .ui.button.padding{
-  padding:0.70em;
+  padding:0.2em;
+}
+
+.ui.tiny.icon.button.padding{
+  padding:0.55em;
 }
 /*
 Ryan

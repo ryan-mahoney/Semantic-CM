@@ -124,7 +124,7 @@ class pages {
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each menus}}
+                        {{#each pages}}
                             <tr data-id="{{dbURI}}">
                                 <td>{{label}}</td>
                                 <td>{{url}}</td>
@@ -153,9 +153,8 @@ HBS;
 
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
-                    {{#FieldLeft label Label required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+                    
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 

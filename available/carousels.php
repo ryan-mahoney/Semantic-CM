@@ -1,35 +1,43 @@
 <?php
-
 /*
- * @version .2
- * @link https://raw.github.com/virtuecenter/manager/master/available/videos.php
+ * @version .1
+ * @link https://raw.github.com/virtuecenter/manager/master/available/carousels.php
  * @mode upgrade
  */
 namespace Manager;
 
-class videos {
+class carousels {
 	private $field = false;
-    public $collection = 'videos';
-    public $form = 'videos';
-    public $title = 'Videos';
-    public $singular = 'Video';
-    public $description = '4 videos';
-    public $definition = '....';
+    public $collection = 'carousels';
+    public $form = 'carousel';
+    public $title = 'Carousel';
+    public $singular = 'Carousel';
+    public $description = '4 carousels';
+    public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $icon = 'facetime video';
+    public $icon = 'sign in';
     public $category = 'Content';
-    public $notice = 'Video Saved';
+    public $notice = 'Carousel Saved';
     public $storage = [
-        'collection' => 'videos',
+        'collection' => 'carousels',
         'key' => '_id'
     ];
 	
-	function titleField () {	
-		return array(
-			'name' => 'title',
-			'label' => 'Title',
-			'required' => true,
-			'display' => 'InputText'
+	function afterFieldsetUpdate () {
+		return function ($admin) {
+			$DOM = VCPF\DOMView::getDOM();
+			$DOM['#image_individual-field .table-actions']->append('<a class="btn btn-small vcms-panel" data-id="" data-attributes="{\'gallery\':\'' . (string)$admin->activeRecord['_id'] . '\'}" data-mode="save" data-vc__admin="vc\ms\site\admin\ImageBatchAdmin" style="float: right">Upload Batch</a>');
+		};
+	}
+	
+	function code_nameField () {
+		return array_merge(
+			VCPF\DOMFormTableArray::codename('title', 'photo_galleries'),
+			[
+				'path' => '/gallery/',
+				'selector' => '#title-field input',
+				'mode' => 'after'
+			]
 		);
 	}
 	
@@ -48,6 +56,15 @@ class videos {
 		);
 	}
 	
+	function titleField () {	
+		return array(
+			'name' => 'title',
+			'label' => 'Title',
+			'required' => true,
+			'display' => 'InputText'
+		);
+	}
+	
 	function statusField () {
 		return array(
 			'name'		=> 'status',
@@ -63,24 +80,32 @@ class videos {
 			'tooltip'	=> 'Published entries show up on the website.'
 		);
 	}
-	
-	function videoField () {
+
+	 function flickerField () {
 		return array(
-			'name' => 'video',
-			'label' => 'Video URL',
-			'required' => true,
-			'display' => 'InputText'
+			'name' => 'flicker',
+			'label'=>'Flickr Set URL',
+			'required'=> false,
+			'display'=>'InputText',
+		);
+	}	
+	
+	function imageField () {
+		return array(
+			'name' => 'image',
+			'label' => 'Featured Image',
+			'display' => VCPF\Field::inputFile(),
+			'tooltip' => 'An image that will be displayed when the entry is listed.'
 		);
 	}
-
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'videos'),
-			[
-				'path' => '/video/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
+	
+	public function image_individualField() {
+		return array(
+			'name' => 'image_individual',
+			'label' => 'Add Individual Image',
+			'required' => false,
+			'display'	=>	VCPF\Field::admin(),
+			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSubAdmin'
 		);
 	}
 	
@@ -93,21 +118,38 @@ class videos {
 				't' => 'Yes',
 				'f' => 'No'
 			),
-			'display' => 'InputRadioButton',
+			'display' => VCPF\Field::inputRadioButton(),
 			'default' => 'f',
-			'tooltip' => 'Make this entry featured on the website?'
 		);
 	}
 	
-	function descriptionField(){
+	function descriptionField () {
 		return array(
-			'name'=>'description',
-			'label'=>'Description',
-			'required'=>false,
-			'display'=> VCPF\Field::textarea()
+			'name' => 'description',
+			'label' => 'Description',
+			'display' => VCPF\Field::textarea(),
+			'tooltip' => 'A description that will be displayed when the entry is listed.'
 		);
 	}
 	
+	function display_dateField() {
+		return array(
+			'name'=> 'display_date',
+			'label'=> 'Display Date',
+			'required'=>true,
+			'display' => VCPF\Field::inputDatePicker(),
+			'transformIn' => function ($data) {
+				return new \MongoDate(strtotime($data));
+			},
+			'transformOut' => function ($data) {
+				return date('m/d/Y', $data->sec);
+			},
+			'default' => function () {
+				return date('m/d/Y', (strtotime('now')));
+			}
+		);
+	}
+
 	function categoriesField () {
 		return array(
 			'name'		=> 'categories',
@@ -116,14 +158,14 @@ class videos {
 			'tooltip'	=> 'Add one or more categories.',
 			'options'	=> function () {
 				return VCPF\Model::db('categories')->
-				find(['section' => 'Videos'])->
-				sort(array('title' => 1))->
-				fetchAllGrouped('_id', 'title');
+					find(['section' => 'Galleries'])->
+						sort(array('title' => 1))->
+						fetchAllGrouped('_id', 'title');
 			},
 			'display'	=> VCPF\Field::selectToPill()
 		);
 	}
-	
+			
 	function tagsField () {
 		return array(
 			'name' => 'tags',
@@ -134,55 +176,28 @@ class videos {
 			},
 			'display' => VCPF\Field::inputToTags(),
 			'autocomplete' => function () {
-				return VCPF\Model::mongoDistinct('videos', 'tags');
+				return VCPF\Model::mongoDistinct('photo_galleries', 'tags');
 			},
 			'tooltip' => 'Another way to make entries more findable.'
 		);
-	}
-	
-	function dateField() {
-		return array(
-			'name'			=> 'display_date',
-			'label'			=> 'Display Date',
-			'required'		=> true,
-			'display'		=> VCPF\Field::inputDatePicker(),
-			'tooltip'		=> 'Helpful for back-dating and scheduling future posts.',
-			'transformIn'	=> function ($data) {
-				return new \MongoDate(strtotime($data));
-			},
-			'transformOut'	=> function ($data) {
-				return date('m/d/Y', $data->sec);
-			},
-			'default'		=> function () {
-				return date('m/d/Y');
-			}
-		);
-	}
-	
-	function imageField () {
-		return array(
-			'name' => 'image',
-			'label' => 'Image',
-			'display' => VCPF\Field::inputFile(),
-		);
-	}
+	}	
 	
 	function defaultTable () {
 		return array (
 			'columns' => [
-				['video', '20%', 'Video', function ($data) {
-					if ($data != '') {
-						$id = Youtube::parseId($data);
-						if ($id != '') {
-							return VCPF\Tidy::repair('<a class="link"><img src="' . ImageResizer::getPath(Youtube::image($id), 180, 120,  '3:2') . '" /></a>');
-						}
+				['image', '20%', 'Image', function ($data) {
+					if (isset($data['url'])) {
+						return '<a class="link"><img src="' . ImageResizer::getPath($data['url'], 180, 120,  '3:2') . '" /></a>';
 					}
 				}],
 				['title', '45%', 'Title', false],
 				['display_date', '15%', 'Date', function ($data) {
 					return date('Y-m-d', $data->sec);
-				}],
+				}],				
 				['status', '15%', 'Status', function ($data) {
+					if (is_array($data)) {
+						return print_r($data, true);
+					}
 					return strtoupper($data);
 				}],	
 				['featured','10%', 'Featured', function ($data) {
@@ -191,8 +206,9 @@ class videos {
 					}
 					return 'No';
 				}],
+				
 			],
-			'title' => 'Videos',
+			'title' => 'Photo Galleries',
 			'link' => 'title',
 			'sort' => array('display_date' => -1, 'title' => 1),
 			'features' => array('delete', 'search', 'add', 'edit', 'pagination')
@@ -220,7 +236,7 @@ class videos {
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each videos}}
+                        {{#each carousels}}
                             <tr data-id="{{dbURI}}">
                                 <td>{{label}}</td>
                                 <td>{{url}}</td>
