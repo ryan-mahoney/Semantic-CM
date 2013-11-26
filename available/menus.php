@@ -62,6 +62,38 @@ class menus {
         ];
     }
 
+    function featuredField () {
+        return [
+            'name' => 'featured',
+            'label' => 'Feature',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+    function dateField() {
+        return [
+            'name'          => 'display_date',
+            'label'         => 'Display Date',
+            'required'      => true,
+            'display'       => 'InputDatePicker',
+            'transformIn'   => function ($data) {
+                return new \MongoDate(strtotime($data));
+            },
+            'transformOut'  => function ($data) {
+                return date('m/d/Y', $data->sec);
+            },
+            'default'       => function () {
+                return date('m/d/Y');
+            }
+        ];
+    }
+
     public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -121,6 +153,8 @@ HBS;
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                    {{#FieldLeft featured}}{{/FieldLeft}}
+                    {{#FieldLeft display_date}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>
 HBS;

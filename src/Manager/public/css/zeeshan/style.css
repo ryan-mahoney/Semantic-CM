@@ -361,3 +361,10 @@ div.field.embedded > div.ui.menu > a.item {
   font-size: 0.975em;
   padding-top: 15px;
 }
+
+.column.manager > hr {
+  border-color: #999;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+}
