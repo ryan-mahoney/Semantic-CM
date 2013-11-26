@@ -6,11 +6,12 @@
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft body Body required}}{{/FieldLeft}}
-                    
+                    {{#FieldLeft body Body}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                {{#FieldFull status}}{{/FieldFull}}
+                <br />
                 {{/DocumentFormRight}}
             </div>

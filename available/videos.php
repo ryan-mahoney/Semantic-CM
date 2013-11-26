@@ -24,15 +24,103 @@ class videos {
         'key' => '_id'
     ];
 	
+
 	function titleField () {	
-		return array(
+		return [
 			'name' => 'title',
 			'label' => 'Title',
 			'required' => true,
 			'display' => 'InputText'
-		);
+		];
 	}
-	
+
+	function descriptionField(){
+		return [
+			'name'=>'description',
+			'label'=>'Summary',
+			'required'=>false,
+			'display' => 'Textarea'
+		];
+	}
+
+	function imageField () {
+		return [
+			'name' => 'image',
+			'label' => 'Featured Image',
+			'display' => 'InputFile'
+		];
+	}
+
+	function videoField () {
+		return [
+			'name' => 'video',
+			'label' => 'URL',
+			'required' => true,
+			'display' => 'InputText'
+		];
+	}
+
+	function statusField () {
+		return [
+			'name'		=> 'status',
+			'required'	=> true,
+			'options'	=> array(
+				'published'	=> 'Published',
+				'draft'		=> 'Draft'
+			),
+			'display'	=> 'Select',
+			'nullable'	=> false,
+			'default'	=> 'published'
+		];
+	}
+
+	function dateField() {
+		return [
+			'name'			=> 'display_date',
+			'required'		=> true,
+			'display'		=> 'InputDatePicker',
+			'transformIn'	=> function ($data) {
+				return new \MongoDate(strtotime($data));
+			},
+			'transformOut'	=> function ($data) {
+				return date('m/d/Y', $data->sec);
+			},
+			'default'		=> function () {
+				return date('m/d/Y');
+			}
+		];
+	}
+
+
+	function featuredField () {
+        return [
+            'name' => 'featured',
+            'label' => 'Feature',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+    function pinnedField () {
+        return [
+            'name' => 'pinned',
+            'label' => 'Pin',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+/*	
 	function pinnedField () {
 		return array(
 			'name' => 'pinned',
@@ -63,15 +151,6 @@ class videos {
 			'tooltip'	=> 'Published entries show up on the website.'
 		);
 	}
-	
-	function videoField () {
-		return array(
-			'name' => 'video',
-			'label' => 'Video URL',
-			'required' => true,
-			'display' => 'InputText'
-		);
-	}
 
 	function code_nameField () {
 		return array_merge(
@@ -96,15 +175,6 @@ class videos {
 			'display' => 'InputRadioButton',
 			'default' => 'f',
 			'tooltip' => 'Make this entry featured on the website?'
-		);
-	}
-	
-	function descriptionField(){
-		return array(
-			'name'=>'description',
-			'label'=>'Description',
-			'required'=>false,
-			'display'=> VCPF\Field::textarea()
 		);
 	}
 	
@@ -159,14 +229,6 @@ class videos {
 		);
 	}
 	
-	function imageField () {
-		return array(
-			'name' => 'image',
-			'label' => 'Image',
-			'display' => VCPF\Field::inputFile(),
-		);
-	}
-	
 	function defaultTable () {
 		return array (
 			'columns' => [
@@ -198,6 +260,7 @@ class videos {
 			'features' => array('delete', 'search', 'add', 'edit', 'pagination')
 		);
 	}
+	*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -254,12 +317,20 @@ HBS;
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{#FieldLeft description Summary}}{{/FieldLeft}}
+                    {{#FieldLeft image Featured Image}}{{/FieldLeft}}
+                    {{#FieldLeft video URL}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                {{#FieldFull status}}{{/FieldFull}}
+                <br />
+                {{#FieldFull display_date}}{{/FieldFull}}
+                <br />
+                {{#FieldLeft featured}}{{/FieldLeft}}
+                <br />
+                {{#FieldLeft pinned}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>
 HBS;

@@ -56,6 +56,126 @@ class events {
 		];
 	}
 
+
+	function titleField () {
+		return [
+			'name' => 'title',
+			'label' => 'Title',
+			'required' => true,
+			'display' => 'InputText'
+		];
+	}
+
+	function bodyField () {
+		return [
+			'name' => 'body',
+			'label' => 'Body',
+			'required' => false,
+			'display' => 'Ckeditor'
+		];
+	}
+
+	function descriptionField () {
+		return [
+			'name' => 'description',
+			'label' => 'Summary',
+			'display' => 'Textarea'
+		];
+	}
+
+	function timeField () {
+		return [
+			'name' => 'time',
+			'label' => 'Time Description',
+			'required' => false,
+			'display' => 'InputText'
+		];
+	}
+
+	function costField () {
+		return [
+			'name' => 'cost',
+			'label' => 'Cost Description',
+			'required' => false,
+			'display' => 'InputText'
+		];
+	}
+
+	function statusField () {
+		return [
+			'name'		=> 'status',
+			'required'	=> true,
+			'options'	=> array(
+				'published'	=> 'Published',
+				'draft'		=> 'Draft'
+			),
+			'display'	=> 'Select',
+			'nullable'	=> false,
+			'default'	=> 'published'
+		];
+	}
+
+	function dateField() {
+		return [
+			'name'			=> 'display_date',
+			'required'		=> true,
+			'display'		=> 'InputDatePicker',
+			'transformIn'	=> function ($data) {
+				return new \MongoDate(strtotime($data));
+			},
+			'transformOut'	=> function ($data) {
+				return date('m/d/Y', $data->sec);
+			},
+			'default'		=> function () {
+				return date('m/d/Y');
+			}
+		];
+	}
+
+
+	function featuredField () {
+        return [
+            'name' => 'featured',
+            'label' => 'Feature',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+    function pinnedField () {
+        return [
+            'name' => 'pinned',
+            'label' => 'Pin',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+    function commentsField () {
+        return [
+            'name' => 'comments',
+            'label' => 'Comments',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+/*
 	function code_nameField () {
 		return array_merge(
 			VCPF\DOMFormTableArray::codename('title', 'events'),
@@ -220,24 +340,6 @@ class events {
 			'display' => 'InputRadioButton',
 			'nullable' => false,
 			'default' => 'published'
-		];
-	}
-
-	function costField () {
-		return [
-			'name' => 'cost',
-			'label' => 'Cost Summary',
-			'required' => false,
-			'display' => 'InputText'
-		];
-	}
-
-	function timeField () {
-		return [
-			'name' => 'time',
-			'label' => 'Time Description',
-			'required' => false,
-			'display' => 'InputText'
 		];
 	}
 
@@ -550,23 +652,6 @@ class events {
 			],
 			'display' => 'InputRadioButton',
 			'default' => 'f'
-		];
-	}
-
-	function bodyField () {
-		return [
-			'name' => 'body',
-			'label' => 'Description',
-			'required' => false,
-			'display' => VCPF\Field::ckeditor()
-		];
-	}
-
-	function descriptionField () {
-		return [
-			'name' => 'description',
-			'label' => 'Summary (Display in List View)',
-			'display' => VCPF\Field::textarea()
 		];
 	}
 
@@ -904,6 +989,7 @@ class events {
 			VCPF\Job::add($job);
 		};
 	}
+	*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -960,12 +1046,23 @@ HBS;
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft body Description required}}{{/FieldLeft}}
-                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{#FieldLeft body Body}}{{/FieldLeft}}
+                    {{#FieldLeft description Summary}}{{/FieldLeft}}
+                    {{#FieldLeft time Time Description}}{{/FieldLeft}}
+                    {{#FieldLeft cost Cost Description}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                {{#FieldFull status}}{{/FieldFull}}
+                <br />
+                {{#FieldFull display_date}}{{/FieldFull}}
+                <br />
+                {{#FieldLeft featured}}{{/FieldLeft}}
+                <br />
+                {{#FieldLeft pinned}}{{/FieldLeft}}
+                <br />
+                {{#FieldLeft comments}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>
 HBS;

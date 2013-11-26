@@ -23,6 +23,96 @@ class photo_galleries {
         'key' => '_id'
     ];
 	
+
+	function titleField () {	
+		return [
+			'name' => 'title',
+			'label' => 'Title',
+			'required' => true,
+			'display' => 'InputText'
+		];
+	}
+
+	function descriptionField () {
+		return [
+			'name' => 'description',
+			'label' => 'Summary',
+			'display' => 'Textarea',
+			'tooltip' => 'A description that will be displayed when the entry is listed.'
+		];
+	}
+
+	function imageField () {
+		return [
+			'name' => 'image',
+			'label' => 'Featured Image',
+			'display' => 'InputFile',
+			'tooltip' => 'An image that will be displayed when the entry is listed.'
+		];
+	}
+
+	function statusField () {
+		return [
+			'name'		=> 'status',
+			'required'	=> true,
+			'options'	=> array(
+				'published'	=> 'Published',
+				'draft'		=> 'Draft'
+			),
+			'display'	=> 'Select',
+			'nullable'	=> false,
+			'default'	=> 'published'
+		];
+	}
+
+	function dateField() {
+		return [
+			'name'			=> 'display_date',
+			'required'		=> true,
+			'display'		=> 'InputDatePicker',
+			'transformIn'	=> function ($data) {
+				return new \MongoDate(strtotime($data));
+			},
+			'transformOut'	=> function ($data) {
+				return date('m/d/Y', $data->sec);
+			},
+			'default'		=> function () {
+				return date('m/d/Y');
+			}
+		];
+	}
+
+
+	function featuredField () {
+        return [
+            'name' => 'featured',
+            'label' => 'Feature',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+    function pinnedField () {
+        return [
+            'name' => 'pinned',
+            'label' => 'Pin',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+    
+
+/*
 	function afterFieldsetUpdate () {
 		return function ($admin) {
 			$DOM = VCPF\DOMView::getDOM();
@@ -56,15 +146,6 @@ class photo_galleries {
 		);
 	}
 	
-	function titleField () {	
-		return array(
-			'name' => 'title',
-			'label' => 'Title',
-			'required' => true,
-			'display' => 'InputText'
-		);
-	}
-	
 	function statusField () {
 		return array(
 			'name'		=> 'status',
@@ -90,14 +171,6 @@ class photo_galleries {
 		);
 	}	
 	
-	function imageField () {
-		return array(
-			'name' => 'image',
-			'label' => 'Featured Image',
-			'display' => VCPF\Field::inputFile(),
-			'tooltip' => 'An image that will be displayed when the entry is listed.'
-		);
-	}
 	
 	public function image_individualField() {
 		return array(
@@ -121,15 +194,7 @@ class photo_galleries {
 			'display' => VCPF\Field::inputRadioButton(),
 			'default' => 'f',
 		);
-	}
 	
-	function descriptionField () {
-		return array(
-			'name' => 'description',
-			'label' => 'Description',
-			'display' => VCPF\Field::textarea(),
-			'tooltip' => 'A description that will be displayed when the entry is listed.'
-		);
 	}
 	
 	function display_dateField() {
@@ -213,7 +278,7 @@ class photo_galleries {
 			'sort' => array('display_date' => -1, 'title' => 1),
 			'features' => array('delete', 'search', 'add', 'edit', 'pagination')
 		);
-	}
+	}*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -270,12 +335,19 @@ HBS;
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{#FieldLeft description Summary}}{{/FieldLeft}}
+                    {{#FieldLeft image Featured Image}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                {{#FieldFull status}}{{/FieldFull}}
+                <br />
+                {{#FieldFull display_date}}{{/FieldFull}}
+                <br />
+                {{#FieldLeft featured}}{{/FieldLeft}}
+                <br />
+                {{#FieldLeft pinned}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>
 HBS;

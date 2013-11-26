@@ -61,6 +61,34 @@ class categories{
 		];
 	}
 
+	function statusField () {
+		return [
+			'name'		=> 'status',
+			'required'	=> true,
+			'options'	=> array(
+				'published'	=> 'Published',
+				'draft'		=> 'Draft'
+			),
+			'display'	=> 'Select',
+			'nullable'	=> false,
+			'default'	=> 'published'
+		];
+	}
+
+	function featuredField () {
+        return [
+            'name' => 'featured',
+            'label' => 'Feature',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
 	/*
 
 	function tagsField () {
@@ -178,6 +206,9 @@ HBS;
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                {{#FieldFull status}}{{/FieldFull}}
+                <br />
+                {{#FieldLeft featured}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>
 HBS;

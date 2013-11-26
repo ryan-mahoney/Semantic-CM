@@ -60,7 +60,7 @@ class blogs {
 	function featuredField () {
         return [
             'name' => 'featured',
-            'label' => 'Feature?',
+            'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
@@ -74,7 +74,7 @@ class blogs {
     function commentsField () {
         return [
             'name' => 'comments',
-            'label' => 'Comments?',
+            'label' => 'Comments',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
@@ -88,7 +88,7 @@ class blogs {
     function pinnedField () {
         return [
             'name' => 'pinned',
-            'label' => 'Pin to Top?',
+            'label' => 'Pin',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
@@ -100,7 +100,7 @@ class blogs {
     }
 
 	function dateField() {
-		return array(
+		return [
 			'name'			=> 'display_date',
 			'required'		=> true,
 			'display'		=> 'InputDatePicker',
@@ -113,7 +113,15 @@ class blogs {
 			'default'		=> function () {
 				return date('m/d/Y');
 			}
-		);
+		];
+	}
+
+	function descriptionField () {
+		return [
+			'name' => 'description',
+			'label' => 'Summary',
+			'display' => 'Textarea'
+		];
 	}
 
 /*
@@ -162,14 +170,6 @@ class blogs {
 				return VCPF\Model::mongoDistinct('blogs', 'tags');
 			},
 			'tooltip' => 'Another way to make entries more findable.'
-		);
-	}
-
-	function descriptionField () {
-		return array(
-			'name' => 'description',
-			'label' => 'Summary',
-			'display' => 'Textarea'
 		);
 	}
 
@@ -269,7 +269,8 @@ HBS;
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft body}}{{/FieldLeft}}
+                    {{#FieldLeft body Body}}{{/FieldLeft}}
+                    {{#FieldLeft description Summary}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 

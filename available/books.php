@@ -22,16 +22,88 @@ class books {
         'collection' => 'books',
         'key' => '_id'
     ];
-	
+
+    function titleField () {
+		return [
+			'name'		=> 'title',
+			'label'		=> 'Title',
+			'required'	=> true,
+			'display'	=> 'InputText'
+		];
+	}
+
+	function descriptionField () {
+		return [
+			'name' => 'description',
+			'label' => 'Body',
+			'display' => 'Ckeditor'
+		];
+	}
+
+	function short_descriptionField () {
+		return [
+			'name' => 'short_description',
+			'label' => 'Summary',
+		    'display' => 'Textarea'
+		];
+	}
+
+	function imageField () {
+		return [
+			'name' => 'image',
+			'label' => 'Book Cover Image',
+			'display' => 'InputFile'
+		];
+	}
+
+	function linkField () {
+		return [
+			'name'		=> 'link',
+			'label'		=> 'URL',
+			'required'	=> true,
+			'display'	=> 'InputText',
+		];
+	}
+
+
 	function priceField () {
-		return array(
+		return [
 			'name'		=> 'price',
 			'label'		=> 'Price',
 			'required'	=> true,
 			'display'	=> 'InputText',
-		);
+		];
 	}
-	
+
+	function statusField () {
+		return [
+			'name'		=> 'status',
+			'required'	=> true,
+			'options'	=> array(
+				'published'	=> 'Published',
+				'draft'		=> 'Draft'
+			),
+			'display'	=> 'Select',
+			'nullable'	=> false,
+			'default'	=> 'published'
+		];
+	}
+
+	function featuredField () {
+        return [
+            'name' => 'featured',
+            'label' => 'Feature',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+	/*
 	function titleField () {
 		return array(
 			'name'		=> 'title',
@@ -49,39 +121,6 @@ class books {
 				'selector' => '#title-field input',
 				'mode' => 'after'
 			]
-		);
-	}
-	
-	function linkField () {
-		return array(
-			'name'		=> 'link',
-			'label'		=> 'Link (URL)',
-			'required'	=> true,
-			'display'	=> 'InputText',
-		);
-	}
-	
-	function short_descriptionField () {
-		return array(
-			'name' => 'short_description',
-			'label' => 'Short Description',
-			'display' => VCPF\Field::textarea(),
-		);
-	}
-	
-	function descriptionField () {
-		return array(
-			'name' => 'description',
-			'label' => 'Description',
-			'display' => VCPF\Field::ckeditor(),
-		);
-	}
-	
-	function imageField () {
-		return array(
-			'name' => 'image',
-			'label' => 'Image',
-			'display' => VCPF\Field::inputFile(),
 		);
 	}
 	
@@ -177,6 +216,7 @@ class books {
 			'features' => array('delete', 'search', 'add', 'edit', 'pagination', 'sortable')
 		);
 	}
+	*/
 	 public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -231,12 +271,18 @@ HBS;
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldEmbedded image Image}}{{/FieldEmbedded}}
+                    {{#FieldLeft description Body}}{{/FieldLeft}}
+                    {{#FieldLeft short_description Summary}}{{/FieldLeft}}
+                    {{#FieldLeft image Book Cover Image}}{{/FieldLeft}}
+                    {{#FieldLeft link URL}}{{/FieldLeft}}
+                    {{#FieldLeft price Price}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                {{#FieldFull status}}{{/FieldFull}}
+                <br />
+                {{#FieldLeft featured}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>
 HBS;

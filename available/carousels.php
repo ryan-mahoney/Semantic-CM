@@ -22,7 +22,18 @@ class carousels {
         'collection' => 'carousels',
         'key' => '_id'
     ];
-	
+
+
+	function titleField () {	
+		return [
+			'name' => 'title',
+			'label' => 'Title',
+			'required' => true,
+			'display' => 'InputText'
+		];
+	}
+
+/*
 	function afterFieldsetUpdate () {
 		return function ($admin) {
 			$DOM = VCPF\DOMView::getDOM();
@@ -53,15 +64,6 @@ class carousels {
 			'display' => 'InputRadioButton',
 			'default' => 'f',
 			'tooltip' => 'Pin this entry?'
-		);
-	}
-	
-	function titleField () {	
-		return array(
-			'name' => 'title',
-			'label' => 'Title',
-			'required' => true,
-			'display' => 'InputText'
 		);
 	}
 	
@@ -214,6 +216,7 @@ class carousels {
 			'features' => array('delete', 'search', 'add', 'edit', 'pagination')
 		);
 	}
+	*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">

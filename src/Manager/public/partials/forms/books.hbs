@@ -6,11 +6,17 @@
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldEmbedded image Image}}{{/FieldEmbedded}}
+                    {{#FieldLeft description Body}}{{/FieldLeft}}
+                    {{#FieldLeft short_description Summary}}{{/FieldLeft}}
+                    {{#FieldLeft image Book Cover Image}}{{/FieldLeft}}
+                    {{#FieldLeft link URL}}{{/FieldLeft}}
+                    {{#FieldLeft price Price}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                {{#FieldFull status}}{{/FieldFull}}
+                <br />
+                {{#FieldLeft featured}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>

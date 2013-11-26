@@ -22,20 +22,46 @@ class pages {
         'collection' => 'pages',
         'key' => '_id'
     ];
-	
-	function created_dateField() {
-		return VCPF\DOMFormTableArray::createdDate();
+
+	public function __construct ($field=false) {
+		$this->field = $field;
 	}
 	
 	function titleField () {
-		return array(
+		return [
 			'name' => 'title',
 			'label' => 'Title',
 			'required' => true,
 			'display' => 'InputText'			
-		);
+		];
 	}
-/*	
+
+	function bodyField () {
+		return [
+			'name' => 'body',
+			'display' => 'Ckeditor'	
+		];
+	}
+
+	function statusField () {
+		return [
+			'name'		=> 'status',
+			'required'	=> true,
+			'options'	=> array(
+				'published'	=> 'Published',
+				'draft'		=> 'Draft'
+			),
+			'display'	=> 'Select',
+			'nullable'	=> false,
+			'default'	=> 'published'
+		];
+	}
+	
+/*
+	function created_dateField() {
+		return VCPF\DOMFormTableArray::createdDate();
+	}
+
 	function code_nameField () {
 		return array_merge(
 			VCPF\DOMFormTableArray::codename('title', 'pages'),
@@ -63,15 +89,7 @@ class pages {
 			'nullable'	=> true
 		);
 	}	
-*/
-	function bodyField () {
-		return array(
-			'name' => 'body',
-			'required' => false,
-			'display' => 'Ckeditor'	
-		);
-	}
-/*
+
 	function defaultTable () {
 		return array (
 			'columns' => array(				
@@ -102,7 +120,8 @@ class pages {
 			'features' => array('delete', 'search', 'add', 'edit', 'pagination', 'sortable'),
 			'sort' => array('created_date' => -1)
 		);
-	}*/
+	}
+*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -155,12 +174,13 @@ HBS;
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft body Body required}}{{/FieldLeft}}
-                    
+                    {{#FieldLeft body Body}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                {{#FieldFull status}}{{/FieldFull}}
+                <br />
                 {{/DocumentFormRight}}
             </div>
 HBS;
