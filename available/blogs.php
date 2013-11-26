@@ -284,6 +284,8 @@ class blogs {
                     <thead>
                         <tr>
                             <th>Title</th>
+                            <th>Category</th>
+                            <th>Status</th>
                             <th class="trash">Delete</th>
                         </tr>
                     </thead>
@@ -291,6 +293,8 @@ class blogs {
                         {{#each blogs}}
                             <tr data-id="{{dbURI}}">
                                 <td>{{title}}</td>
+                                <td>{{category}}</td>
+                                <td>{{status}}</td>
                                 <td>
                                     <div class="manager trash ui icon button">
                                          <i class="trash icon"></i>

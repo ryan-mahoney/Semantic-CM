@@ -13,15 +13,15 @@
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>URL</th>
+                            <th>Category</th>
                             <th class="trash">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each pages}}
                             <tr data-id="{{dbURI}}">
-                                <td>{{label}}</td>
-                                <td>{{url}}</td>
+                                <td>{{title}}</td>
+                                <td>{{category}}</td>
                                 <td>
                                     <div class="manager trash ui icon button">
                                          <i class="trash icon"></i>

@@ -5,8 +5,9 @@
 
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-
+                    {{#FieldLeft label Label required}}{{/FieldLeft}}
+                    {{#FieldLeft url URL required}}{{/FieldLeft}}
+                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 

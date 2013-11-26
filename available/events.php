@@ -921,15 +921,19 @@ class events {
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>URL</th>
+                            <th>Status</th>
+                            <th>Pinned</th>
+                            <th>Recurring</th>
                             <th class="trash">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each events}}
                             <tr data-id="{{dbURI}}">
-                                <td>{{label}}</td>
-                                <td>{{url}}</td>
+                                <td>{{title}}</td>
+                                <td>{{status}}</td>
+                                <td>{{pinned}}</td>
+                                <td>{{recurring_event}}</td>
                                 <td>
                                     <div class="manager trash ui icon button">
                                          <i class="trash icon"></i>
@@ -956,7 +960,7 @@ HBS;
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
+                    {{#FieldLeft body Description required}}{{/FieldLeft}}
                     {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 

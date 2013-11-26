@@ -194,15 +194,17 @@ class books {
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>URL</th>
+                            <th>Status</th>
+                            <th>Feature</th>
                             <th class="trash">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each books}}
                             <tr data-id="{{dbURI}}">
-                                <td>{{label}}</td>
-                                <td>{{url}}</td>
+                                <td>{{title}}</td>
+                                <td>{{status}}</td>
+                                <td>{{featured}}</td>
                                 <td>
                                     <div class="manager trash ui icon button">
                                          <i class="trash icon"></i>
@@ -230,7 +232,7 @@ HBS;
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
                     {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{#FieldEmbedded image Image}}{{/FieldEmbedded}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 

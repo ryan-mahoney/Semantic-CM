@@ -136,6 +136,7 @@ class categories{
                     <thead>
                         <tr>
                             <th>Title</th>
+                            <th>Section</th>
                             <th class="trash">Delete</th>
                         </tr>
                     </thead>
@@ -143,6 +144,7 @@ class categories{
                         {{#each categories}}
                             <tr data-id="{{dbURI}}">
                                 <td>{{title}}</td>
+                                <td>{{section}}</td>
                                 <td>
                                     <div class="manager trash ui icon button">
                                          <i class="trash icon"></i>

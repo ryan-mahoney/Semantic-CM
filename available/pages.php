@@ -30,12 +30,12 @@ class pages {
 	function titleField () {
 		return array(
 			'name' => 'title',
-			'label' => 'Page Name (for Admin)',
+			'label' => 'Title',
 			'required' => true,
 			'display' => 'InputText'			
 		);
 	}
-	
+/*	
 	function code_nameField () {
 		return array_merge(
 			VCPF\DOMFormTableArray::codename('title', 'pages'),
@@ -63,14 +63,15 @@ class pages {
 			'nullable'	=> true
 		);
 	}	
-
+*/
 	function bodyField () {
 		return array(
 			'name' => 'body',
-			'display' => VCPF\Field::ckeditor()
+			'required' => false,
+			'display' => 'Ckeditor'	
 		);
 	}
-
+/*
 	function defaultTable () {
 		return array (
 			'columns' => array(				
@@ -101,7 +102,7 @@ class pages {
 			'features' => array('delete', 'search', 'add', 'edit', 'pagination', 'sortable'),
 			'sort' => array('created_date' => -1)
 		);
-	}
+	}*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -119,15 +120,15 @@ class pages {
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>URL</th>
+                            <th>Category</th>
                             <th class="trash">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each pages}}
                             <tr data-id="{{dbURI}}">
-                                <td>{{label}}</td>
-                                <td>{{url}}</td>
+                                <td>{{title}}</td>
+                                <td>{{category}}</td>
                                 <td>
                                     <div class="manager trash ui icon button">
                                          <i class="trash icon"></i>
@@ -154,6 +155,7 @@ HBS;
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
                     {{#FieldLeft title Title required}}{{/FieldLeft}}
+                    {{#FieldLeft body Body required}}{{/FieldLeft}}
                     
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
