@@ -8,5 +8,6 @@
     "DocumentHeader",
     "DocumentTabsButtons",
     "FieldEmbedded",
+    "FieldFull",
     "FieldLeft"
 ]

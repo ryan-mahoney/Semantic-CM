@@ -26,91 +26,84 @@ class blogs {
     public function __construct ($field=false) {
         $this->field = $field;
     }
-
-/*
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'blogs'),
-			[
-				'path' => '/blog/',
-				'selector' => '#title-field input',
-				'mode' => 'after' 
-			]
-		);
-	}
-*/
-	function authorField () {
-		return [
-			'name'		=> 'author',
-			'label'		=> 'Author',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		];
-	}
 	
 	function titleField () {
-		return array(
+		return [
 			'name'		=> 'title',
 			'label'		=> 'Title',
 			'required'	=> true,
-			'display'	=> 'InputText',
-			'tooltip'	=> 'The title that will be displayed for this post.'
-		);
+			'display'	=> 'InputText'
+		];
+	}
+
+	function bodyField () {
+		return [
+			'display' => 'Ckeditor',
+			'name' => 'body'
+		];
 	}
 
 	function statusField () {
-		return array(
+		return [
 			'name'		=> 'status',
-			'label'		=> false,
 			'required'	=> true,
 			'options'	=> array(
 				'published'	=> 'Published',
 				'draft'		=> 'Draft'
 			),
-			'display'	=> 'InputRadioButton',
+			'display'	=> 'Select',
 			'nullable'	=> false,
-			'default'	=> 'published',
-			'tooltip'	=> 'Published entries show up on the website.'
-		);
+			'default'	=> 'published'
+		];
 	}
 
-	function commentsField () {
-		return array(
-			'name' => 'comments',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => 'InputRadioButton',
-			'default' => 't',
-			'tooltip' => 'Enable comments for this entry?'
-		);
-	}
-	
-	function pinnedField () {
-		return array(
-			'name' => 'pinned',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => 'InputRadioButton',
-			'default' => 'f',
-			'tooltip' => 'Pin this entry?'
-		);
-	}
-	
+	function featuredField () {
+        return [
+            'name' => 'featured',
+            'label' => 'Feature?',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+    function commentsField () {
+        return [
+            'name' => 'comments',
+            'label' => 'Comments?',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
+    function pinnedField () {
+        return [
+            'name' => 'pinned',
+            'label' => 'Pin to Top?',
+            'required' => false,
+            'options' => array(
+                't' => 'Yes',
+                'f' => 'No'
+            ),
+            'display' => 'InputSlider',
+            'default' => 'f'
+        ];
+    }
+
 	function dateField() {
 		return array(
 			'name'			=> 'display_date',
-			'label'			=> 'Display Date',
 			'required'		=> true,
 			'display'		=> 'InputDatePicker',
-			'tooltip'		=> 'Helpful for back-dating and scheduling future posts.',
 			'transformIn'	=> function ($data) {
 				return new \MongoDate(strtotime($data));
 			},
@@ -123,6 +116,7 @@ class blogs {
 		);
 	}
 
+/*
 	function categoriesField () {
 		return array(
 			'name'		=> 'categories',
@@ -135,7 +129,7 @@ class blogs {
 					sort(array('title' => 1))->
 					fetchAllGrouped('_id', 'title');
 			},
-			'display'	=> VCPF\Field::selectToPill()
+			'display'	=> 'SelectToPill'
 		);
 	}
 	
@@ -151,7 +145,7 @@ class blogs {
 					sort(['first_name' => 1])->
 					fetchAllGrouped('_id', ['first_name', 'last_name']);
 			},
-			'display'		=> VCPF\Field::selectToPill()
+			'display'		=> 'SelectToPill'
 		);
 	}
 
@@ -163,7 +157,7 @@ class blogs {
 			'transformIn' => function ($data) {
 				return VCPF\Regex::csvToArray($data);
 			},
-			'display' => VCPF\Field::inputToTags(),
+			'display' => 'InputToTags',
 			'autocomplete' => function () {
 				return VCPF\Model::mongoDistinct('blogs', 'tags');
 			},
@@ -171,22 +165,11 @@ class blogs {
 		);
 	}
 
-	function bodyField () {
-		return [
-			'display' => VCPF\Field::ckeditor(),
-			'name' => 'body',
-			'label' => 'Article Body',
-			'addTooltip' => 'Click here to add additional content like Youtube videos and Flickr galleries.',
-			'addLabel' => 'Add More Content'
-		];
-	}
-
 	function descriptionField () {
 		return array(
 			'name' => 'description',
 			'label' => 'Summary',
-			'display' => VCPF\Field::textarea(),
-			'tooltip' => 'A summary that will be displayed when the entry is listed.'
+			'display' => 'Textarea'
 		);
 	}
 
@@ -194,41 +177,7 @@ class blogs {
 		return array(
 			'name' => 'image',
 			'label' => 'Image',
-			'display' => VCPF\Field::inputFile(),
-			'tooltip' => 'An image that will be displayed when the entry is listed.'
-		);
-	}
-	
-	function description1Field () {
-		return array(
-			'name' => 'description1',
-			'label' => 'Summary',
-			'display' => VCPF\Field::textarea(),
-			'tooltip' => 'A summary that will be displayed when the entry is listed.'
-		);
-	}
-
-	function image1Field () {
-		return array(
-			'name' => 'image1',
-			'label' => 'Image',
-			'display' => VCPF\Field::inputFile(),
-			'tooltip' => 'An image that will be displayed when the entry is listed.'
-		);
-	}
-	
-	function featuredField () {
-		return array(
-			'name' => 'featured',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => 'InputRadioButton',
-			'default' => 'f',
-			'tooltip' => 'Make this entry featured on the website?'
+			'display' => 'InputFile'
 		);
 	}
 	
@@ -237,8 +186,7 @@ class blogs {
 			'name'		=> 'publication_name',
 			'label'		=> 'Publication Name',
 			'required'	=> false,
-			'display'	=> 'InputText',
-
+			'display'	=> 'InputText'
 		);
 	}
 	
@@ -247,8 +195,7 @@ class blogs {
 			'name'		=> 'link',
 			'label'		=> 'Link',
 			'required'	=> false,
-			'display'	=> 'InputText',
-
+			'display'	=> 'InputText'
 		);
 	}
 	
@@ -269,6 +216,7 @@ class blogs {
 			}
 		);
 	}
+	*/
 
     public function tablePartial () {
         $partial = <<<'HBS'
@@ -316,13 +264,24 @@ HBS;
 
             <div class="bottom-container">
                 {{#DocumentFormLeft}}
-                    {{#FieldLeft label Label required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+                    {{#FieldLeft body}}{{/FieldLeft}}
                     {{{id}}}
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
+                	{{#FieldFull status}}{{/FieldFull}}
+                	<br />
+                	{{#FieldFull display_date}}{{/FieldFull}}
+                	<br />
+                	<hr />
+                	<br />
+                	{{#FieldLeft featured}}{{/FieldLeft}}
+                	<br />
+                	{{#FieldLeft pinned}}{{/FieldLeft}}
+                	<br />
+                	{{#FieldLeft comments}}{{/FieldLeft}}
+                	
                 {{/DocumentFormRight}}
             </div>
 HBS;
