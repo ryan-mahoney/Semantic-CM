@@ -4,6 +4,7 @@
     "CollectionHeader",
     "CollectionPagination",
     "DocumentButton",
+    "DocumentFooter",
     "DocumentFormLeft",
     "DocumentFormRight",
     "DocumentHeader",
