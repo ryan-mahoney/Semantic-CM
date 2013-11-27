@@ -386,3 +386,12 @@ div.field.embedded > div.ui.menu > a.item {
 .manager.column.main > div.field {
   width: 90%;
 }
+
+/*Media Query*/
+
+@media screen and (max-width: 800px) {
+  .ui.form.segment{
+    min-width: 100%;
+    padding: 0%;
+  }
+}

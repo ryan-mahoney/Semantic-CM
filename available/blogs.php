@@ -44,6 +44,30 @@ class blogs {
 		];
 	}
 
+	function descriptionField () {
+		return [
+			'name' => 'description',
+			'label' => 'Summary',
+			'display' => 'Textarea'
+		];
+	}
+
+	function imageField () {
+		return [
+			'name' => 'image',
+			'label' => 'List View',
+			'display' => 'InputFile'
+		];
+	}
+
+	function imageFeaturedField () {
+		return [
+			'name' => 'image_feature',
+			'label' => 'Featured View',
+			'display' => 'InputFile'
+		];
+	}
+
 	function statusField () {
 		return [
 			'name'		=> 'status',
@@ -71,6 +95,51 @@ class blogs {
             'default' => 'f'
         ];
     }
+
+    function authorField () {
+		return [
+			'name'		=> 'author',
+			'label'		=> 'Author',
+			'required'	=> true,
+			'display'	=> 'InputText'
+		];
+	}
+
+    function publication_nameField () {
+		return [
+			'name'		=> 'publication_name',
+			'label'		=> 'Publication',
+			'required'	=> false,
+			'display'	=> 'InputText'
+		];
+	}
+	
+	function linkField () {
+		return [
+			'name'		=> 'link',
+			'label'		=> 'URL',
+			'required'	=> false,
+			'display'	=> 'InputText'
+		];
+	}
+	
+	function date_publishedField() {
+		return [
+			'name'			=> 'date_published',
+			'label'			=> 'Date Published',
+			'required'		=> false,
+			'display'		=> 'InputDatePicker',
+			'transformIn'	=> function ($data) {
+				return new \MongoDate(strtotime($data));
+			},
+			'transformOut'	=> function ($data) {
+				return date('m/d/Y', $data->sec);
+			},
+			'default'		=> function () {
+				return date('m/d/Y');
+			}
+		];
+	}
 
     function commentsField () {
         return [
@@ -117,13 +186,27 @@ class blogs {
 		];
 	}
 
-	function descriptionField () {
+	 function code_nameField () {
 		return [
-			'name' => 'description',
-			'label' => 'Summary',
-			'display' => 'Textarea'
+			'name' => 'code_name',
+			'display'	=> 'InputText'
 		];
 	}
+
+	function metakeywordsField () {
+		return [
+			'name' => 'metadata_keywords',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metadescriptionField () {
+		return [
+			'name' => 'metadata_description',
+			'display'	=> 'InputText'
+		];
+	}
+
 
 /*
 	function categoriesField () {
@@ -173,50 +256,7 @@ class blogs {
 			'tooltip' => 'Another way to make entries more findable.'
 		);
 	}
-
-	function imageField () {
-		return array(
-			'name' => 'image',
-			'label' => 'Image',
-			'display' => 'InputFile'
-		);
-	}
 	
-	function publication_nameField () {
-		return array(
-			'name'		=> 'publication_name',
-			'label'		=> 'Publication Name',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		);
-	}
-	
-	function linkField () {
-		return array(
-			'name'		=> 'link',
-			'label'		=> 'Link',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		);
-	}
-	
-	function date_publishedField() {
-		return array(
-			'name'			=> 'date_published',
-			'label'			=> 'Date Published',
-			'required'		=> false,
-			'display'		=> 'InputDatePicker',
-			'transformIn'	=> function ($data) {
-				return new \MongoDate(strtotime($data));
-			},
-			'transformOut'	=> function ($data) {
-				return date('m/d/Y', $data->sec);
-			},
-			'default'		=> function () {
-				return date('m/d/Y');
-			}
-		);
-	}
 	*/
 
     public function tablePartial () {
@@ -292,8 +332,39 @@ HBS;
 	                	
 	                {{/DocumentFormRight}}
 	            </div>
+
+	             <div class="ui tab" data-tab="Images">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
+	                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}                 
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
+	            <div class="ui tab" data-tab="External Article">
+	            	 {{#DocumentFormLeft}}
+	                    {{#FieldLeft author Author}}{{/FieldLeft}}
+	                    {{#FieldLeft publication_name Publication}}{{/FieldLeft}}
+	              		{{#FieldLeft link URL}}{{/FieldLeft}}
+	              		{{#FieldLeft date_published Date Published}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
 	            <div class="ui tab" data-tab="SEO">
-	            	SEO
+	            	 {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
 	            </div>
             </div>
 HBS;

@@ -4,21 +4,37 @@
             </div>
 
             <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft description Summary}}{{/FieldLeft}}
-                    {{#FieldLeft image Featured Image}}{{/FieldLeft}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
+                <div class="ui tab active" data-tab="Main">
+                    {{#DocumentFormLeft}}
+                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+                        {{#FieldLeft description Summary}}{{/FieldLeft}}
+                        {{#FieldLeft image Featured Image}}{{/FieldLeft}}
+                        {{{id}}}
+                    {{/DocumentFormLeft}}                 
                 
-                {{#DocumentFormRight}}
-                	{{#DocumentButton}}{{/DocumentButton}}
-	                {{#FieldFull status}}{{/FieldFull}}
-	                <br />
-	                {{#FieldFull display_date}}{{/FieldFull}}
-	                <br />
-	                {{#FieldLeft featured}}{{/FieldLeft}}
-	                <br />
-	                {{#FieldLeft pinned}}{{/FieldLeft}}
-                {{/DocumentFormRight}}
+                    {{#DocumentFormRight}}
+                	    {{#DocumentButton}}{{/DocumentButton}}
+	                    {{#FieldFull status}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldFull display_date}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldLeft featured}}{{/FieldLeft}}
+	                    <br />
+	                    {{#FieldLeft pinned}}{{/FieldLeft}}
+                    {{/DocumentFormRight}}
+                </div>
+                <div class="ui tab" data-tab="Flickr">
+                {{#FieldLeft flicker URL}}{{/FieldLeft}}
+                </div>
+                <div class="ui tab" data-tab="SEO">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
             </div>

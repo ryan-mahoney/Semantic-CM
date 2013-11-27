@@ -121,63 +121,28 @@ class videos {
         ];
     }
 
-/*	
-	function pinnedField () {
-		return array(
-			'name' => 'pinned',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => 'InputRadioButton',
-			'default' => 'f',
-			'tooltip' => 'Pin this entry?'
-		);
-	}
-	
-	function statusField () {
-		return array(
-			'name'		=> 'status',
-			'label'		=> false,
-			'required'	=> true,
-			'options'	=> array(
-				'published'	=> 'Published',
-				'draft'		=> 'Draft'
-			),
-			'display'	=> 'InputRadioButton',
-			'nullable'	=> false,
-			'default'	=> 'published',
-			'tooltip'	=> 'Published entries show up on the website.'
-		);
+    function code_nameField () {
+		return [
+			'name' => 'code_name',
+			'display'	=> 'InputText'
+		];
 	}
 
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'videos'),
-			[
-				'path' => '/video/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
-		);
+	function metakeywordsField () {
+		return [
+			'name' => 'metadata_keywords',
+			'display'	=> 'InputText'
+		];
 	}
-	
-	function featuredField () {
-		return array(
-			'name' => 'featured',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => 'InputRadioButton',
-			'default' => 'f',
-			'tooltip' => 'Make this entry featured on the website?'
-		);
+
+	function metadescriptionField () {
+		return [
+			'name' => 'metadata_description',
+			'display'	=> 'InputText'
+		];
 	}
+
+/*	
 	
 	function categoriesField () {
 		return array(
@@ -227,38 +192,6 @@ class videos {
 			'default'		=> function () {
 				return date('m/d/Y');
 			}
-		);
-	}
-	
-	function defaultTable () {
-		return array (
-			'columns' => [
-				['video', '20%', 'Video', function ($data) {
-					if ($data != '') {
-						$id = Youtube::parseId($data);
-						if ($id != '') {
-							return VCPF\Tidy::repair('<a class="link"><img src="' . ImageResizer::getPath(Youtube::image($id), 180, 120,  '3:2') . '" /></a>');
-						}
-					}
-				}],
-				['title', '45%', 'Title', false],
-				['display_date', '15%', 'Date', function ($data) {
-					return date('Y-m-d', $data->sec);
-				}],
-				['status', '15%', 'Status', function ($data) {
-					return strtoupper($data);
-				}],	
-				['featured','10%', 'Featured', function ($data) {
-					if ($data == 't') {
-						return 'Yes';
-					}
-					return 'No';
-				}],
-			],
-			'title' => 'Videos',
-			'link' => 'title',
-			'sort' => array('display_date' => -1, 'title' => 1),
-			'features' => array('delete', 'search', 'add', 'edit', 'pagination')
 		);
 	}
 	*/
@@ -316,24 +249,37 @@ HBS;
             </div>
 
             <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft description Summary}}{{/FieldLeft}}
-                    {{#FieldLeft image Featured Image}}{{/FieldLeft}}
-                    {{#FieldLeft video URL}}{{/FieldLeft}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
+                <div class="ui tab active" data-tab="Main">
+                    {{#DocumentFormLeft}}
+                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+                        {{#FieldLeft description Summary}}{{/FieldLeft}}
+                        {{#FieldLeft image Featured Image}}{{/FieldLeft}}
+                        {{#FieldLeft video URL}}{{/FieldLeft}}
+                        {{{id}}}
+                    {{/DocumentFormLeft}}                 
                 
-                {{#DocumentFormRight}}
-	                {{#DocumentButton}}{{/DocumentButton}}
-	                {{#FieldFull status}}{{/FieldFull}}
-	                <br />
-	                {{#FieldFull display_date}}{{/FieldFull}}
-	                <br />
-	                {{#FieldLeft featured}}{{/FieldLeft}}
-	                <br />
-	                {{#FieldLeft pinned}}{{/FieldLeft}}
-                {{/DocumentFormRight}}
+                    {{#DocumentFormRight}}
+	                    {{#DocumentButton}}{{/DocumentButton}}
+	                    {{#FieldFull status}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldFull display_date}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldLeft featured}}{{/FieldLeft}}
+	                    <br />
+	                    {{#FieldLeft pinned}}{{/FieldLeft}}
+                    {{/DocumentFormRight}}
+                </div>
+                <div class="ui tab" data-tab="SEO">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
             </div>
 HBS;
         return $partial;

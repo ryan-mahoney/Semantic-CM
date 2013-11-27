@@ -28,7 +28,38 @@
 	                	
 	                {{/DocumentFormRight}}
 	            </div>
+
+	             <div class="ui tab" data-tab="Images">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
+	                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}                 
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
+	            <div class="ui tab" data-tab="External Article">
+	            	 {{#DocumentFormLeft}}
+	                    {{#FieldLeft author Author}}{{/FieldLeft}}
+	                    {{#FieldLeft publication_name Publication}}{{/FieldLeft}}
+	              		{{#FieldLeft link URL}}{{/FieldLeft}}
+	              		{{#FieldLeft date_published Date Published}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
 	            <div class="ui tab" data-tab="SEO">
-	            	SEO
+	            	 {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
 	            </div>
             </div>

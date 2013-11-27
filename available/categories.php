@@ -90,6 +90,27 @@ class categories{
         ];
     }
 
+    function code_nameField () {
+		return [
+			'name' => 'code_name',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metakeywordsField () {
+		return [
+			'name' => 'metadata_keywords',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metadescriptionField () {
+		return [
+			'name' => 'metadata_description',
+			'display'	=> 'InputText'
+		];
+	}
+
 	/*
 
 	function tagsField () {
@@ -139,16 +160,6 @@ class categories{
 		];
 	}
 	
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'categories'),
-			[
-				'path' => '/category/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
-		);
-	}
 */
 
 	public function tablePartial () {
@@ -198,21 +209,34 @@ HBS;
             </div>
 
             <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft section Section required}}{{/FieldLeft}}
-					{{#FieldLeft image Image}}{{/FieldLeft}}
-					{{#FieldEmbedded subcategory subcategories}}{{/FieldEmbedded}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
+                <div class="ui tab active" data-tab="Main">
+                    {{#DocumentFormLeft}}
+                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+                        {{#FieldLeft section Section required}}{{/FieldLeft}}
+					    {{#FieldLeft image Image}}{{/FieldLeft}}
+					    {{#FieldEmbedded subcategory subcategories}}{{/FieldEmbedded}}
+                        {{{id}}}
+                    {{/DocumentFormLeft}}                 
                 
-                {{#DocumentFormRight}}
-                	{{#DocumentButton}}{{/DocumentButton}}
-	                {{#FieldFull status}}{{/FieldFull}}
-	                <br />
-	                {{#FieldLeft featured}}{{/FieldLeft}}
-                {{/DocumentFormRight}}
-            </div>
+                    {{#DocumentFormRight}}
+                	    {{#DocumentButton}}{{/DocumentButton}}
+	                    {{#FieldFull status}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldLeft featured}}{{/FieldLeft}}
+                    {{/DocumentFormRight}}
+                </div>
+                <div class="ui tab" data-tab="SEO">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
+	        </div>
 HBS;
         return $partial;
     }

@@ -57,21 +57,32 @@ class pages {
 			'default'	=> 'published'
 		];
 	}
+
+	function code_nameField () {
+		return [
+			'name' => 'code_name',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metakeywordsField () {
+		return [
+			'name' => 'metadata_keywords',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metadescriptionField () {
+		return [
+			'name' => 'metadata_description',
+			'display'	=> 'InputText'
+		];
+	}
+
 	
 /*
 	function created_dateField() {
 		return VCPF\DOMFormTableArray::createdDate();
-	}
-
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'pages'),
-			[
-				'path' => '/page/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
-		);
 	}
 	
 	function categoryField () {
@@ -90,38 +101,6 @@ class pages {
 			'nullable'	=> true
 		);
 	}	
-
-	function defaultTable () {
-		return array (
-			'columns' => array(				
-				array('title', '30%', 'Title', false),
-				array('category', '25%', 'Category', function ($data) {
-					if (empty($data)) {
-						return;
-					}
-					if (PagesAdmin::$categories === false && PagesAdmin::$categoriesTried === false) {
-						PagesAdmin::$categoriesTried = true;
-						PagesAdmin::$categories = VCPF\Model::db('categories')->
-							find(['section' => 'Pages'], ['_id', 'title'])->
-							fetchAllGrouped('_id', 'title');
-					}					
-					if (isset(PagesAdmin::$categories[$data])) {
-						return PagesAdmin::$categories[$data];
-					}
-				}),
-				['created_date', '25%', 'Created Date', function ($data) {
-					if (empty($data)) {
-						 return '';
-					}
-					return date('m/d/Y', $data->sec);
-				}],
-			),
-			'title' => 'Pages',
-			'link' => 'title',
-			'features' => array('delete', 'search', 'add', 'edit', 'pagination', 'sortable'),
-			'sort' => array('created_date' => -1)
-		);
-	}
 */
 	public function tablePartial () {
         $partial = <<<'HBS'
@@ -173,17 +152,30 @@ HBS;
             </div>
 
             <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft body Body}}{{/FieldLeft}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
+                 <div class="ui tab active" data-tab="Main">
+                     {{#DocumentFormLeft}}
+                         {{#FieldLeft title Title required}}{{/FieldLeft}}
+                         {{#FieldLeft body Body}}{{/FieldLeft}}
+                         {{{id}}}
+                     {{/DocumentFormLeft}}                 
                 
-                {{#DocumentFormRight}}
-                	{{#DocumentButton}}{{/DocumentButton}}
-	                {{#FieldFull status}}{{/FieldFull}}
-	                <br />
-                {{/DocumentFormRight}}
+                     {{#DocumentFormRight}}
+                	    {{#DocumentButton}}{{/DocumentButton}}
+	                    {{#FieldFull status}}{{/FieldFull}}
+	                    <br />
+                     {{/DocumentFormRight}}
+                 </div>
+                 <div class="ui tab" data-tab="SEO">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
             </div>
 HBS;
         return $partial;

@@ -98,6 +98,15 @@ class photo_galleries {
         ];
     }
 
+     function flickerField () {
+		return [
+			'name' => 'flicker',
+			'label'=> 'URL',
+			'required'=> false,
+			'display'=>'InputText',
+		];
+	}	
+
     function pinnedField () {
         return [
             'name' => 'pinned',
@@ -111,6 +120,27 @@ class photo_galleries {
             'default' => 'f'
         ];
     }
+
+    function code_nameField () {
+		return [
+			'name' => 'code_name',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metakeywordsField () {
+		return [
+			'name' => 'metadata_keywords',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metadescriptionField () {
+		return [
+			'name' => 'metadata_description',
+			'display'	=> 'InputText'
+		];
+	}
     
 
 /*
@@ -120,59 +150,7 @@ class photo_galleries {
 			$DOM['#image_individual-field .table-actions']->append('<a class="btn btn-small vcms-panel" data-id="" data-attributes="{\'gallery\':\'' . (string)$admin->activeRecord['_id'] . '\'}" data-mode="save" data-vc__admin="vc\ms\site\admin\ImageBatchAdmin" style="float: right">Upload Batch</a>');
 		};
 	}
-	
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'photo_galleries'),
-			[
-				'path' => '/gallery/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
-		);
-	}
-	
-	function pinnedField () {
-		return array(
-			'name' => 'pinned',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => 'InputRadioButton',
-			'default' => 'f',
-			'tooltip' => 'Pin this entry?'
-		);
-	}
-	
-	function statusField () {
-		return array(
-			'name'		=> 'status',
-			'label'		=> false,
-			'required'	=> true,
-			'options'	=> array(
-				'published'	=> 'Published',
-				'draft'		=> 'Draft'
-			),
-			'display'	=> 'InputRadioButton',
-			'nullable'	=> false,
-			'default'	=> 'published',
-			'tooltip'	=> 'Published entries show up on the website.'
-		);
-	}
 
-	 function flickerField () {
-		return array(
-			'name' => 'flicker',
-			'label'=>'Flickr Set URL',
-			'required'=> false,
-			'display'=>'InputText',
-		);
-	}	
-	
-	
 	public function image_individualField() {
 		return array(
 			'name' => 'image_individual',
@@ -183,20 +161,6 @@ class photo_galleries {
 		);
 	}
 	
-	function featuredField () {
-		return array(
-			'name' => 'featured',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => VCPF\Field::inputRadioButton(),
-			'default' => 'f',
-		);
-	
-	}
 	
 	function display_dateField() {
 		return array(
@@ -247,39 +211,8 @@ class photo_galleries {
 			'tooltip' => 'Another way to make entries more findable.'
 		);
 	}	
-	
-	function defaultTable () {
-		return array (
-			'columns' => [
-				['image', '20%', 'Image', function ($data) {
-					if (isset($data['url'])) {
-						return '<a class="link"><img src="' . ImageResizer::getPath($data['url'], 180, 120,  '3:2') . '" /></a>';
-					}
-				}],
-				['title', '45%', 'Title', false],
-				['display_date', '15%', 'Date', function ($data) {
-					return date('Y-m-d', $data->sec);
-				}],				
-				['status', '15%', 'Status', function ($data) {
-					if (is_array($data)) {
-						return print_r($data, true);
-					}
-					return strtoupper($data);
-				}],	
-				['featured','10%', 'Featured', function ($data) {
-					if ($data == 't') {
-						return 'Yes';
-					}
-					return 'No';
-				}],
-				
-			],
-			'title' => 'Photo Galleries',
-			'link' => 'title',
-			'sort' => array('display_date' => -1, 'title' => 1),
-			'features' => array('delete', 'search', 'add', 'edit', 'pagination')
-		);
-	}*/
+
+	*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -334,23 +267,39 @@ HBS;
             </div>
 
             <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft description Summary}}{{/FieldLeft}}
-                    {{#FieldLeft image Featured Image}}{{/FieldLeft}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
+                <div class="ui tab active" data-tab="Main">
+                    {{#DocumentFormLeft}}
+                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+                        {{#FieldLeft description Summary}}{{/FieldLeft}}
+                        {{#FieldLeft image Featured Image}}{{/FieldLeft}}
+                        {{{id}}}
+                    {{/DocumentFormLeft}}                 
                 
-                {{#DocumentFormRight}}
-                	{{#DocumentButton}}{{/DocumentButton}}
-	                {{#FieldFull status}}{{/FieldFull}}
-	                <br />
-	                {{#FieldFull display_date}}{{/FieldFull}}
-	                <br />
-	                {{#FieldLeft featured}}{{/FieldLeft}}
-	                <br />
-	                {{#FieldLeft pinned}}{{/FieldLeft}}
-                {{/DocumentFormRight}}
+                    {{#DocumentFormRight}}
+                	    {{#DocumentButton}}{{/DocumentButton}}
+	                    {{#FieldFull status}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldFull display_date}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldLeft featured}}{{/FieldLeft}}
+	                    <br />
+	                    {{#FieldLeft pinned}}{{/FieldLeft}}
+                    {{/DocumentFormRight}}
+                </div>
+                <div class="ui tab" data-tab="Flickr">
+                {{#FieldLeft flicker URL}}{{/FieldLeft}}
+                </div>
+                <div class="ui tab" data-tab="SEO">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
             </div>
 HBS;
         return $partial;
