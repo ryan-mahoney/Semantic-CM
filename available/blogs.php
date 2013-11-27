@@ -277,6 +277,7 @@ HBS;
 	                {{/DocumentFormLeft}}                 
 	                
 	                {{#DocumentFormRight}}
+	                	{{#DocumentButton}}{{/DocumentButton}}
 	                	{{#FieldFull status}}{{/FieldFull}}
 	                	<br />
 	                	{{#FieldFull display_date}}{{/FieldFull}}

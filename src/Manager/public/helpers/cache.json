@@ -3,6 +3,7 @@
     "CollectionEmpty",
     "CollectionHeader",
     "CollectionPagination",
+    "DocumentButton",
     "DocumentFormLeft",
     "DocumentFormRight",
     "DocumentHeader",

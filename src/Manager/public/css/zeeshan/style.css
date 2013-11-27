@@ -368,3 +368,21 @@ div.field.embedded > div.ui.menu > a.item {
   border-right: 0;
   border-left: 0;
 }
+
+.column.manager.sidebar div.buttons.submit {
+  text-align: right;
+  margin-top: 1.5em;
+  margin-bottom: 2.5em;
+  width: 100%;
+}
+
+.column.manager.sidebar div.buttons.submit > div {
+  display: inline-block;
+  float: none;
+  margin-left: none;
+  margin-right: none;
+}
+
+.manager.column.main > div.field {
+  width: 90%;
+}
