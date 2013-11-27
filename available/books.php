@@ -15,6 +15,7 @@ class books {
     public $description = '4 books';
     public $definition = '....';
     public $acl = ['content', 'admin', 'superadmin'];
+    public $tabs = ['Main', 'Images', 'SEO'];
     public $icon = 'book';
     public $category = 'Content';
     public $notice = 'Book Saved';

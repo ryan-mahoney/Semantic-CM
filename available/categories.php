@@ -17,6 +17,7 @@ class categories{
     public $description = '4 categories';
     public $definition = '.....';
     public $acl = ['content', 'admin', 'superadmin'];
+    public $tabs = ['Main', 'SEO'];
     public $icon = 'checkmark sign';
     public $category = 'Content';
     public $notice = 'Category Saved';

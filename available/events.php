@@ -15,6 +15,7 @@ class events {
     public $description = '4 events';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
+    public $tabs = ['Main', 'Images', 'Venue', 'Recur', 'Registration', 'Adavance', 'SEO'];
     public $icon = 'empty calendar';
     public $category = 'Content';
     public $notice = 'Event Saved';
