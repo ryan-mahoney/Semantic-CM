@@ -264,7 +264,7 @@ HBS;
         $partial = <<<'HBS'
             <div class="top-container">
                 {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
+                {{#DocumentTabs}}{{/DocumentTabs}}
             </div>
 
             <div class="bottom-container">

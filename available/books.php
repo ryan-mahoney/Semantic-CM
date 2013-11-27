@@ -62,7 +62,7 @@ class books {
 			'name'		=> 'link',
 			'label'		=> 'URL',
 			'required'	=> true,
-			'display'	=> 'InputText',
+			'display'	=> 'InputText'
 		];
 	}
 
@@ -72,7 +72,7 @@ class books {
 			'name'		=> 'price',
 			'label'		=> 'Price',
 			'required'	=> true,
-			'display'	=> 'InputText',
+			'display'	=> 'InputText'
 		];
 	}
 
@@ -104,56 +104,28 @@ class books {
         ];
     }
 
-	/*
-	function titleField () {
-		return array(
-			'name'		=> 'title',
-			'label'		=> 'Title',
-			'required'	=> true,
-			'display'	=> 'InputText',
-		);
-	}
-	
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'books'),
-			[
-				'path' => '/book/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
-		);
-	}
-	
-	function featuredField () {
-		return array(
-			'name' => 'featured',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => 'InputRadioButton',
-			'default' => 'f',
-		);
+    function code_nameField () {
+		return [
+			'name' => 'code_name',
+			'display'	=> 'InputText'
+		];
 	}
 
-	function statusField () {
-		return array(
-			'name'		=> 'status',
-			'label'		=> false,
-			'required'	=> true,
-			'options'	=> array(
-				'published'	=> 'Published',
-				'draft'		=> 'Draft'
-			),
-			'display'	=> 'InputRadioButton',
-			'nullable'	=> false,
-			'default'	=> 'published',
-		);
+	function metakeywordsField () {
+		return [
+			'name' => 'metadata_keywords',
+			'display'	=> 'InputText'
+		];
 	}
-	
+
+	function metadescriptionField () {
+		return [
+			'name' => 'metadata_description',
+			'display'	=> 'InputText'
+		];
+	}
+
+	/*
 	function categoriesField () {
 		return array(
 			'name'		=> 'categories',
@@ -183,38 +155,6 @@ class books {
 				return VCPF\Model::mongoDistinct('books', 'tags');
 			},
 
-		);
-	}
-	
-	function created_dateField() {
-		return VCPF\DOMFormTableArray::createdDate();
-	}
-	
-	function defaultTable () {
-		return array (
-			'columns' => array(
-				array('title', '30%', 'Title', false),
-				array ('status', '20%', 'Status', function ($data) {
-					if ($data == 'published') {
-						return 'Published';
-					}
-					return 'Draft';
-				}),
-				
-				array ('featured', '20%', 'Featured', function ($data) {
-					if ($data == 't') {
-						return 'Yes';
-					}
-					return 'No';
-				}),
-					
-				array('created_date', '20%', 'Created Date', function ($data) {
-					return date('Y-m-d', $data->sec);
-				}),	
-			),
-			'title' => 'Books',
-			'link' => 'title',
-			'features' => array('delete', 'search', 'add', 'edit', 'pagination', 'sortable')
 		);
 	}
 	*/
@@ -266,25 +206,47 @@ HBS;
         $partial = <<<'HBS'
             <div class="top-container">
                 {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
+                {{#DocumentTabs}}{{/DocumentTabs}}
             </div>
 
             <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft description Body}}{{/FieldLeft}}
-                    {{#FieldLeft short_description Summary}}{{/FieldLeft}}
-                    {{#FieldLeft image Book Cover Image}}{{/FieldLeft}}
-                    {{#FieldLeft link URL}}{{/FieldLeft}}
-                    {{#FieldLeft price Price}}{{/FieldLeft}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
-                
-                {{#DocumentFormRight}}
-                {{#FieldFull status}}{{/FieldFull}}
-                <br />
-                {{#FieldLeft featured}}{{/FieldLeft}}
-                {{/DocumentFormRight}}
+            	<div class="ui tab active" data-tab="Main">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+	                    {{#FieldLeft description Body}}{{/FieldLeft}}
+	                    {{#FieldLeft short_description Summary}}{{/FieldLeft}}
+	                    {{#FieldLeft link URL}}{{/FieldLeft}}
+	                    {{#FieldLeft price Price}}{{/FieldLeft}}
+	                    {{{id}}}
+	                {{/DocumentFormLeft}}                 
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+		                {{#FieldFull status}}{{/FieldFull}}
+	    	            <br />
+	       	        	{{#FieldLeft featured}}{{/FieldLeft}}
+	                {{/DocumentFormRight}}
+	            </div>
+	            <div class="ui tab" data-tab="Images">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft image Book Cover Image}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}                 
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
+	            <div class="ui tab" data-tab="SEO">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
             </div>
 HBS;
         return $partial;

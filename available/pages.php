@@ -169,7 +169,7 @@ HBS;
         $partial = <<<'HBS'
             <div class="top-container">
                 {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
+                {{#DocumentTabs}}{{/DocumentTabs}}
             </div>
 
             <div class="bottom-container">
@@ -180,8 +180,9 @@ HBS;
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
-                {{#FieldFull status}}{{/FieldFull}}
-                <br />
+                	{{#DocumentButton}}{{/DocumentButton}}
+	                {{#FieldFull status}}{{/FieldFull}}
+	                <br />
                 {{/DocumentFormRight}}
             </div>
 HBS;

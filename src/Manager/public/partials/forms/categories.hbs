@@ -1,6 +1,6 @@
             <div class="top-container">
                 {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabsButtons}}{{/DocumentTabsButtons}}
+                {{#DocumentTabs}}{{/DocumentTabs}}
             </div>
 
             <div class="bottom-container">
@@ -13,8 +13,9 @@
                 {{/DocumentFormLeft}}                 
                 
                 {{#DocumentFormRight}}
-                {{#FieldFull status}}{{/FieldFull}}
-                <br />
-                {{#FieldLeft featured}}{{/FieldLeft}}
+                	{{#DocumentButton}}{{/DocumentButton}}
+	                {{#FieldFull status}}{{/FieldFull}}
+	                <br />
+	                {{#FieldLeft featured}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>
