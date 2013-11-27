@@ -212,6 +212,44 @@ class blogs {
 		];
 	}
 
+	function categoriesField () {
+		return array(
+			'name'		=> 'categories',
+			'label'		=> 'Category',
+			'required'	=> false,
+			'options'	=> function () {
+				return $this->db->fetchAllGrouped(
+					$this->db->collection('categories')->
+						find(['section' => 'Blog'])->
+						sort(['title' => 1]),
+					'_id', 
+					'title');
+			},
+			'display'	=> 'InputToTags',
+			'controlled' => true,
+			'multiple' => true
+		);
+	}
+
+	function authorsField () {
+		return array(
+			'name'		=> 'authors',
+			'label'		=> 'Authors',
+			'required'	=> false,
+			'options'	=> function () {
+				return $this->db->fetchAllGrouped(
+					$this->db->collection('profiles')->
+						find()->
+						sort(['first_name' => 1]),
+					'_id', 
+					'title');
+			},
+			'display'	=> 'InputToTags',
+			'controlled' => true,
+			'multiple' => true
+		);
+	}
+
 	function metakeywordsField () {
 		return [
 			'name' => 'metadata_keywords',
@@ -225,41 +263,6 @@ class blogs {
 			'display'	=> 'InputText'
 		];
 	}
-
-/*
-	function categoriesField () {
-		return array(
-			'name'		=> 'categories',
-			'label'		=> 'Choose a Category',
-			'required'	=> false,
-			'tooltip'	=> 'Add one or more categories.',
-			'options'	=> function () {
-				return VCPF\Model::db('categories')->
-					find(['section' => 'Blog'])->
-					sort(array('title' => 1))->
-					fetchAllGrouped('_id', 'title');
-			},
-			'display'	=> 'SelectToPill'
-		);
-	}
-	
-	function authorsField () {
-		return array(
-			'name'			=> 'authors',
-			'label'			=> 'Add an Author',
-			'required'		=> false,
-			'tooltip'		=> 'Add one or more authors.',
-			'options'		=> function () {
-				return VCPF\Model::db('users')->
-					find(['activated' => true])->
-					sort(['first_name' => 1])->
-					fetchAllGrouped('_id', ['first_name', 'last_name']);
-			},
-			'display'		=> 'SelectToPill'
-		);
-	}
-	
-	*/
 
     public function tablePartial () {
         $partial = <<<'HBS'
@@ -325,7 +328,7 @@ HBS;
 	                	<br />
 	                	{{#FieldFull display_date}}{{/FieldFull}}
 	                	<br />
-	                	<hr />
+	                	<div class="ui clearing divider"></div>
 	                	<br />
 	                	{{#FieldLeft featured}}{{/FieldLeft}}
 	                	<br />
@@ -333,10 +336,11 @@ HBS;
 	                	<br />
 	                	{{#FieldLeft comments}}{{/FieldLeft}}
 	                	<br />
-	                	<hr />
+	                	<div class="ui clearing divider"></div>
 	                	<br />
+	                	{{#FieldFull categories Categories}}{{/FieldFull}}
+	                	{{#FieldFull authors Authors}}{{/FieldFull}}
 	                	{{#FieldFull tags Tags}}{{/FieldFull}}
-	                	
 	                {{/DocumentFormRight}}
 	            </div>
 

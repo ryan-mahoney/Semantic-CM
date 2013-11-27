@@ -162,40 +162,25 @@ class books {
 		];
 	}
 
-
-	/*
 	function categoriesField () {
 		return array(
 			'name'		=> 'categories',
-			'label'		=> 'Choose a Category',
+			'label'		=> 'Category',
 			'required'	=> false,
-			'tooltip'	=> 'Add one or more categories.',
 			'options'	=> function () {
-				return VCPF\Model::db('categories')->
-					find(['section' => 'Books'])->
-					sort(array('title' => 1))->
-					fetchAllGrouped('_id', 'title');
+				return $this->db->fetchAllGrouped(
+					$this->db->collection('categories')->
+						find(['section' => 'Books'])->
+						sort(['title' => 1]),
+					'_id', 
+					'title');
 			},
-			'display'	=> VCPF\Field::selectToPill()
+			'display'	=> 'InputToTags',
+			'controlled' => true,
+			'multiple' => true
 		);
 	}
-	
-	function tagsField () {
-		return array(
-			'name' => 'tags',
-			'label' => 'Tags',
-			'required' => false,
-			'transformIn' => function ($data) {
-				return VCPF\Regex::csvToArray($data);
-			},
-			'display' => VCPF\Field::inputToTags(),
-			'autocomplete' => function () {
-				return VCPF\Model::mongoDistinct('books', 'tags');
-			},
 
-		);
-	}
-	*/
 	 public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -261,8 +246,10 @@ HBS;
 	                {{#DocumentFormRight}}
 		                {{#DocumentButton}}{{/DocumentButton}}
 		                {{#FieldFull status}}{{/FieldFull}}
-	    	            <br />
+		                <br>
 	       	        	{{#FieldLeft featured}}{{/FieldLeft}}
+	       	        	<div class="ui clearing divider"></div>
+	       	        	{{#FieldFull categories Categories}}{{/FieldFull}}
 	       	        	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                {{/DocumentFormRight}}
 	            </div>

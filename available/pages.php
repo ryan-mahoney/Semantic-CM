@@ -99,28 +99,30 @@ class pages {
 		];
 	}
 
+	function categoriesField () {
+		return array(
+			'name'		=> 'categories',
+			'label'		=> 'Category',
+			'required'	=> false,
+			'options'	=> function () {
+				return $this->db->fetchAllGrouped(
+					$this->db->collection('categories')->
+						find(['section' => 'Blog'])->
+						sort(['title' => 1]),
+					'_id', 
+					'title');
+			},
+			'display'	=> 'InputToTags',
+			'controlled' => true,
+			'multiple' => true
+		);
+	}
+
 	
 /*
 	function created_dateField() {
 		return VCPF\DOMFormTableArray::createdDate();
 	}
-	
-	function categoryField () {
-		return array(
-			'name'		=> 'category',
-			'label'		=> 'Category',
-			'required'	=> false,
-			'tooltip'	=> 'Add a category.',
-			'options'	=> function () {
-				return VCPF\Model::db('categories')->
-					find(['section' => 'Pages'])->
-					sort(array('title' => 1))->
-					fetchAllGrouped('_id', 'title');
-			},
-			'display'	=> VCPF\Field::select(),
-			'nullable'	=> true
-		);
-	}	
 */
 	public function tablePartial () {
         $partial = <<<'HBS'
@@ -183,6 +185,7 @@ HBS;
                 	    {{#DocumentButton}}{{/DocumentButton}}
 	                    {{#FieldFull status}}{{/FieldFull}}
 	                    <br />
+	                    {{#FieldFull categories Categories}}{{/FieldFull}}
 	                	{{#FieldFull tags Tags}}{{/FieldFull}}
                      {{/DocumentFormRight}}
                  </div>

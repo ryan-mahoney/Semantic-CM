@@ -154,8 +154,6 @@ HBS;
                 
                 {{#DocumentFormRight}}
                     {{#DocumentButton}}{{/DocumentButton}}
-                    {{#FieldLeft featured}}{{/FieldLeft}}
-                    {{#FieldLeft display_date}}{{/FieldLeft}}
                 {{/DocumentFormRight}}
             </div>
 HBS;
