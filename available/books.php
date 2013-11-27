@@ -120,6 +120,8 @@ class books {
         ];
     }
 
+
+
     function code_nameField () {
 		return [
 			'name' => 'code_name',
@@ -140,6 +142,26 @@ class books {
 			'display'	=> 'InputText'
 		];
 	}
+
+	function tagsField () {
+		return [
+			'name' => 'tags',
+			'label' => 'Tags',
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('books', 'tags');
+			}
+		];
+	}
+
 
 	/*
 	function categoriesField () {
@@ -241,6 +263,7 @@ HBS;
 		                {{#FieldFull status}}{{/FieldFull}}
 	    	            <br />
 	       	        	{{#FieldLeft featured}}{{/FieldLeft}}
+	       	        	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                {{/DocumentFormRight}}
 	            </div>
 	            <div class="ui tab" data-tab="External Article">

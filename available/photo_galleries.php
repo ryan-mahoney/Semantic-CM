@@ -141,6 +141,26 @@ class photo_galleries {
 			'display'	=> 'InputText'
 		];
 	}
+
+
+	function tagsField () {
+		return [
+			'name' => 'tags',
+			'label' => 'Tags',
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('photo_galleries', 'tags');
+			}
+		];
+	}
     
 
 /*
@@ -284,6 +304,8 @@ HBS;
 	                    {{#FieldLeft featured}}{{/FieldLeft}}
 	                    <br />
 	                    {{#FieldLeft pinned}}{{/FieldLeft}}
+	                    <br />
+	                	{{#FieldFull tags Tags}}{{/FieldFull}}
                     {{/DocumentFormRight}}
                 </div>
                 <div class="ui tab" data-tab="Flickr">

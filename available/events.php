@@ -196,6 +196,25 @@ class events {
 		];
 	}
 
+	function tagsField () {
+		return [
+			'name' => 'tags',
+			'label' => 'Tags',
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('events', 'tags');
+			}
+		];
+	}
+
 /*
 	public function image_subField() {
 		return array(
@@ -215,7 +234,7 @@ class events {
 			'display'	=>	VCPF\Field::admin(),
 			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSimpleSubAdmin'
 		);
-	}
+	}*/
 
 	function statusField () {
 		return [
@@ -1027,6 +1046,8 @@ HBS;
 	                    {{#FieldLeft pinned}}{{/FieldLeft}}
 	                    <br />
 	                    {{#FieldLeft comments}}{{/FieldLeft}}
+	                    <br />
+	                    {{#FieldFull tags Tags}}{{/FieldFull}}
                     {{/DocumentFormRight}}
                 </div>
                 <div class="ui tab" data-tab="Images">

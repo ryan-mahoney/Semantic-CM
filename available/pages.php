@@ -80,6 +80,26 @@ class pages {
 	}
 
 	
+	function tagsField () {
+		return [
+			'name' => 'tags',
+			'label' => 'Tags',
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('pages', 'tags');
+			}
+		];
+	}
+
+	
 /*
 	function created_dateField() {
 		return VCPF\DOMFormTableArray::createdDate();
@@ -163,6 +183,7 @@ HBS;
                 	    {{#DocumentButton}}{{/DocumentButton}}
 	                    {{#FieldFull status}}{{/FieldFull}}
 	                    <br />
+	                	{{#FieldFull tags Tags}}{{/FieldFull}}
                      {{/DocumentFormRight}}
                  </div>
                  <div class="ui tab" data-tab="SEO">
