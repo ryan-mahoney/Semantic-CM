@@ -44,6 +44,25 @@ class blurbs {
 		];
 	}
 
+	function tagsField () {
+		return [
+			'name' => 'tags',
+			'label' => 'Tags',
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('blurbs', 'tags');
+			}
+		];
+	}
+
 /*
 	function tagsField () {
 		return [
@@ -109,14 +128,17 @@ HBS;
 		        {{#DocumentTabs}}{{/DocumentTabs}}
 		    </div>
 		    <div class="bottom-container">
-			    {{#DocumentFormLeft}}
-			    	{{#FieldLeft title Title required}}{{/FieldLeft}}
-			    	{{#FieldLeft body required}}{{/FieldLeft}}
-			    	{{{id}}}
-			    {{/DocumentFormLeft}}
-				{{#DocumentFormRight}}
-					{{#DocumentButton}}{{/DocumentButton}}
-				{{/DocumentFormRight}}
+		        <div class="ui tab active" data-tab="Main">
+			        {{#DocumentFormLeft}}
+			    	    {{#FieldLeft title Title required}}{{/FieldLeft}}
+			    	    {{#FieldLeft body required}}{{/FieldLeft}}
+			    	    {{{id}}}
+			        {{/DocumentFormLeft}}
+				    {{#DocumentFormRight}}
+					    {{#DocumentButton}}{{/DocumentButton}}
+					    {{#FieldFull tags Tags}}{{/FieldFull}}
+				    {{/DocumentFormRight}}
+				</div>
 			</div>
 HBS;
 		return $partial;

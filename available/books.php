@@ -120,6 +120,8 @@ class books {
         ];
     }
 
+
+
     function code_nameField () {
 		return [
 			'name' => 'code_name',
@@ -141,39 +143,44 @@ class books {
 		];
 	}
 
-	/*
-	function categoriesField () {
-		return array(
-			'name'		=> 'categories',
-			'label'		=> 'Choose a Category',
-			'required'	=> false,
-			'tooltip'	=> 'Add one or more categories.',
-			'options'	=> function () {
-				return VCPF\Model::db('categories')->
-					find(['section' => 'Books'])->
-					sort(array('title' => 1))->
-					fetchAllGrouped('_id', 'title');
-			},
-			'display'	=> VCPF\Field::selectToPill()
-		);
-	}
-	
 	function tagsField () {
-		return array(
+		return [
 			'name' => 'tags',
 			'label' => 'Tags',
 			'required' => false,
 			'transformIn' => function ($data) {
-				return VCPF\Regex::csvToArray($data);
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
 			},
-			'display' => VCPF\Field::inputToTags(),
-			'autocomplete' => function () {
-				return VCPF\Model::mongoDistinct('books', 'tags');
-			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('books', 'tags');
+			}
+		];
+	}
 
+	function categoriesField () {
+		return array(
+			'name'		=> 'categories',
+			'label'		=> 'Category',
+			'required'	=> false,
+			'options'	=> function () {
+				return $this->db->fetchAllGrouped(
+					$this->db->collection('categories')->
+						find(['section' => 'Books'])->
+						sort(['title' => 1]),
+					'_id', 
+					'title');
+			},
+			'display'	=> 'InputToTags',
+			'controlled' => true,
+			'multiple' => true
 		);
 	}
-	*/
+
 	 public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -239,8 +246,11 @@ HBS;
 	                {{#DocumentFormRight}}
 		                {{#DocumentButton}}{{/DocumentButton}}
 		                {{#FieldFull status}}{{/FieldFull}}
-	    	            <br />
+		                <br>
 	       	        	{{#FieldLeft featured}}{{/FieldLeft}}
+	       	        	<div class="ui clearing divider"></div>
+	       	        	{{#FieldFull categories Categories}}{{/FieldFull}}
+	       	        	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                {{/DocumentFormRight}}
 	            </div>
 	            <div class="ui tab" data-tab="External Article">

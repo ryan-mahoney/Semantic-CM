@@ -196,6 +196,44 @@ class events {
 		];
 	}
 
+	function categoriesField () {
+		return array(
+			'name'		=> 'categories',
+			'label'		=> 'Category',
+			'required'	=> false,
+			'options'	=> function () {
+				return $this->db->fetchAllGrouped(
+					$this->db->collection('categories')->
+						find(['section' => 'Blog'])->
+						sort(['title' => 1]),
+					'_id', 
+					'title');
+			},
+			'display'	=> 'InputToTags',
+			'controlled' => true,
+			'multiple' => true
+		);
+	}
+
+	function tagsField () {
+		return [
+			'name' => 'tags',
+			'label' => 'Tags',
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('events', 'tags');
+			}
+		];
+	}
+
 /*
 	public function image_subField() {
 		return array(
@@ -215,7 +253,7 @@ class events {
 			'display'	=>	VCPF\Field::admin(),
 			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSimpleSubAdmin'
 		);
-	}
+	}*/
 
 	function statusField () {
 		return [
@@ -1021,12 +1059,15 @@ HBS;
 	                    {{#FieldFull status}}{{/FieldFull}}
 	                    <br />
 	                    {{#FieldFull display_date}}{{/FieldFull}}
-	                    <br />
+	                    <div class="ui clearing divider"></div>
 	                    {{#FieldLeft featured}}{{/FieldLeft}}
 	                    <br />
 	                    {{#FieldLeft pinned}}{{/FieldLeft}}
 	                    <br />
 	                    {{#FieldLeft comments}}{{/FieldLeft}}
+	                    <div class="ui clearing divider"></div>
+	                    {{#FieldFull categories Categories}}{{/FieldFull}}
+	                    {{#FieldFull tags Tags}}{{/FieldFull}}
                     {{/DocumentFormRight}}
                 </div>
                 <div class="ui tab" data-tab="Images">

@@ -328,7 +328,7 @@ HBS;
 	                	<br />
 	                	{{#FieldFull display_date}}{{/FieldFull}}
 	                	<br />
-	                	<hr />
+	                	<div class="ui clearing divider"></div>
 	                	<br />
 	                	{{#FieldLeft featured}}{{/FieldLeft}}
 	                	<br />
@@ -336,11 +336,11 @@ HBS;
 	                	<br />
 	                	{{#FieldLeft comments}}{{/FieldLeft}}
 	                	<br />
-	                	<hr />
+	                	<div class="ui clearing divider"></div>
 	                	<br />
-	                	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                	{{#FieldFull categories Categories}}{{/FieldFull}}
 	                	{{#FieldFull authors Authors}}{{/FieldFull}}
+	                	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                {{/DocumentFormRight}}
 	            </div>
 
