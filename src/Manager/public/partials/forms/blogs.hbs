@@ -4,6 +4,7 @@
             </div>
 
             <div class="bottom-container">
+
             	<div class="ui tab active" data-tab="Main">
 	                {{#DocumentFormLeft}}
 	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
@@ -25,10 +26,16 @@
 	                	{{#FieldLeft pinned}}{{/FieldLeft}}
 	                	<br />
 	                	{{#FieldLeft comments}}{{/FieldLeft}}
+	                	<br />
+	                	<hr />
+	                	<br />
+	                	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                	
 	                {{/DocumentFormRight}}
 	            </div>
 	            <div class="ui tab" data-tab="SEO">
 	            	SEO
 	            </div>
+            
+
             </div>

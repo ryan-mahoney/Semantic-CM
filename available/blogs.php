@@ -125,6 +125,25 @@ class blogs {
 		];
 	}
 
+	function tagsField () {
+		return [
+			'name' => 'tags',
+			'label' => 'Tags',
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('blogs', 'tags');
+			}
+		];
+	}
+
 /*
 	function categoriesField () {
 		return array(
@@ -155,22 +174,6 @@ class blogs {
 					fetchAllGrouped('_id', ['first_name', 'last_name']);
 			},
 			'display'		=> 'SelectToPill'
-		);
-	}
-
-	function tagsField () {
-		return array(
-			'name' => 'tags',
-			'label' => 'Tags',
-			'required' => false,
-			'transformIn' => function ($data) {
-				return VCPF\Regex::csvToArray($data);
-			},
-			'display' => 'InputToTags',
-			'autocomplete' => function () {
-				return VCPF\Model::mongoDistinct('blogs', 'tags');
-			},
-			'tooltip' => 'Another way to make entries more findable.'
 		);
 	}
 
@@ -268,6 +271,7 @@ HBS;
             </div>
 
             <div class="bottom-container">
+
             	<div class="ui tab active" data-tab="Main">
 	                {{#DocumentFormLeft}}
 	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
@@ -289,12 +293,18 @@ HBS;
 	                	{{#FieldLeft pinned}}{{/FieldLeft}}
 	                	<br />
 	                	{{#FieldLeft comments}}{{/FieldLeft}}
+	                	<br />
+	                	<hr />
+	                	<br />
+	                	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                	
 	                {{/DocumentFormRight}}
 	            </div>
 	            <div class="ui tab" data-tab="SEO">
 	            	SEO
 	            </div>
+            
+
             </div>
 HBS;
         return $partial;
