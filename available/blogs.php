@@ -15,6 +15,7 @@ class blogs {
     public $description = '4 blogs';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
+    public $tabs = ['Main', 'Images', 'SEO'];
     public $icon = 'text file';
     public $category = 'Content';
     public $notice = 'Blog Saved';
@@ -267,27 +268,32 @@ HBS;
             </div>
 
             <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft body Body}}{{/FieldLeft}}
-                    {{#FieldLeft description Summary}}{{/FieldLeft}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
-                
-                {{#DocumentFormRight}}
-                	{{#FieldFull status}}{{/FieldFull}}
-                	<br />
-                	{{#FieldFull display_date}}{{/FieldFull}}
-                	<br />
-                	<hr />
-                	<br />
-                	{{#FieldLeft featured}}{{/FieldLeft}}
-                	<br />
-                	{{#FieldLeft pinned}}{{/FieldLeft}}
-                	<br />
-                	{{#FieldLeft comments}}{{/FieldLeft}}
-                	
-                {{/DocumentFormRight}}
+            	<div class="ui tab active" data-tab="Main">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+	                    {{#FieldLeft body Body}}{{/FieldLeft}}
+	                    {{#FieldLeft description Summary}}{{/FieldLeft}}
+	                    {{{id}}}
+	                {{/DocumentFormLeft}}                 
+	                
+	                {{#DocumentFormRight}}
+	                	{{#FieldFull status}}{{/FieldFull}}
+	                	<br />
+	                	{{#FieldFull display_date}}{{/FieldFull}}
+	                	<br />
+	                	<hr />
+	                	<br />
+	                	{{#FieldLeft featured}}{{/FieldLeft}}
+	                	<br />
+	                	{{#FieldLeft pinned}}{{/FieldLeft}}
+	                	<br />
+	                	{{#FieldLeft comments}}{{/FieldLeft}}
+	                	
+	                {{/DocumentFormRight}}
+	            </div>
+	            <div class="ui tab" data-tab="SEO">
+	            	SEO
+	            </div>
             </div>
 HBS;
         return $partial;
