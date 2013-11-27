@@ -102,6 +102,121 @@ class events {
 		];
 	}
 
+
+	function imageListField () {
+		return [
+			'name' => 'image',
+			'label' => 'List View',
+			'display' => 'InputFile'
+		];
+	}
+
+	function imageFeaturedField () {
+		return [
+			'name' => 'image_feature',
+			'label' => 'Featured View',
+			'display' => 'InputFile'
+		];
+	}
+
+	function venueField () {
+		return [
+			'name' => 'venue',
+			'label' => 'Venue',
+			'required' => false,
+			'display' => 'InputText'
+		];
+	}
+
+	function venue_descriptionField () {
+		return [
+			'name' => 'venue_description',
+			'label' => 'Description',
+			'required' => false,
+			'display' => 'Textarea'
+		];
+	}
+
+
+	function locationField () {
+		return [
+			'name' => 'location',
+			'label' => 'Address',
+			'required' => false,
+			'display' => 'Textarea'
+		];
+	}
+	
+	function contact_infoField () {
+		return [
+			'name' => 'contact_info',
+			'label' => 'Contact Information',
+			'required' => false,
+			'display' => 'Textarea'
+		];
+	}
+
+	function urlField () {
+		return [
+			'name' => 'url',
+			'label' => 'URL',
+			'required' => false,
+			'display' => 'InputText'
+		];
+	}
+
+	function mapField () {
+		return [
+			'name' => 'map_url',
+			'label' => 'Map URL',
+			'required' => false,
+			'display' => 'InputText'
+		];
+	}
+
+	
+    function code_nameField () {
+		return [
+			'name' => 'code_name',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metakeywordsField () {
+		return [
+			'name' => 'metadata_keywords',
+			'display'	=> 'InputText'
+		];
+	}
+
+	function metadescriptionField () {
+		return [
+			'name' => 'metadata_description',
+			'display'	=> 'InputText'
+		];
+	}
+
+/*
+	public function image_subField() {
+		return array(
+			'name' => 'image_sub',
+			'label' => 'Venue Images',
+			'required' => false,
+			'display'	=>	VCPF\Field::admin(),
+			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSimpleSubAdmin'
+		);
+	}
+	
+	public function highlight_imagesField() {
+		return array(
+			'name' => 'highlight_images',
+			'label' => 'Highlight Images',
+			'required' => false,
+			'display'	=>	VCPF\Field::admin(),
+			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSimpleSubAdmin'
+		);
+	}
+
 	function statusField () {
 		return [
 			'name'		=> 'status',
@@ -177,17 +292,6 @@ class events {
     }
 
 /*
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'events'),
-			[
-				'path' => '/event/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
-		);
-	}
-
 	function payment_optionsField () {
 		return [
 			'name' => 'payment_options',
@@ -217,21 +321,6 @@ class events {
 		];
 	}
 
-	function pinnedField () {
-		return [
-			'name' => 'pinned',
-			'label' => false,
-			'required' => false,
-			'options' => [
-				't' => 'Yes',
-				'f' => 'No'
-			],
-			'display' => 'InputRadioButton',
-			'default' => 'f',
-			'tooltip' => 'Pin this entry?'
-		];
-	}
-
 	function default_registrantField () {
 		return [
 			'name' => 'default_registrant',
@@ -243,33 +332,6 @@ class events {
 			],
 			'display' => VCPF\Field::select(),
 			'default' => 'purchaser'
-		];
-	}
-
-	function titleField () {
-		return [
-			'name' => 'title',
-			'label' => 'Title',
-			'required' => true,
-			'display' => 'InputText'
-		];
-	}
-	
-	function mapField () {
-		return [
-			'name' => 'map_url',
-			'label' => 'Embedded Map URL',
-			'required' => false,
-			'display' => 'InputText'
-		];
-	}
-	
-	function venue_descriptionField () {
-		return [
-			'name' => 'venue_description',
-			'label' => 'Venue Description',
-			'required' => false,
-			'display' => VCPF\Field::textarea()
 		];
 	}
 	
@@ -326,21 +388,6 @@ class events {
 			'default' => function () {
 				return date('m/d/Y');
 			}
-		];
-	}
-
-	function statusField () {
-		return [
-			'name' => 'status',
-			'label' => false,
-			'required' => true,
-			'options' => array(
-				'published'	=> 'Published',
-				'draft'		=> 'Draft'
-			),
-			'display' => 'InputRadioButton',
-			'nullable' => false,
-			'default' => 'published'
 		];
 	}
 
@@ -560,42 +607,6 @@ class events {
         ];
     }
 
-	function locationField () {
-		return [
-			'name' => 'location',
-			'label' => 'Address',
-			'required' => false,
-			'display' => VCPF\Field::textarea()
-		];
-	}
-	
-	function contact_infoField () {
-		return [
-			'name' => 'contact_info',
-			'label' => 'Venue Contact Info',
-			'required' => false,
-			'display' => VCPF\Field::textarea()
-		];
-	}
-	
-	function venueField () {
-		return [
-			'name' => 'venue',
-			'label' => 'Venue',
-			'required' => false,
-			'display' => 'InputText'
-		];
-	}
-
-	function urlField () {
-		return [
-			'name' => 'url',
-			'label' => 'External Registration URL',
-			'required' => false,
-			'display' => 'InputText'
-		];
-	}
-
 	function display_dateField() {
 		return [
 			'name'=> 'date',
@@ -733,26 +744,6 @@ class events {
 			'required' => false,
 			'display'	=>	VCPF\Field::admin(),
 			'adminClass'	=> 'vc\ms\event\subdocument\SpeakersSubAdmin'
-		);
-	}
-	
-	public function image_subField() {
-		return array(
-			'name' => 'image_sub',
-			'label' => 'Venue Images',
-			'required' => false,
-			'display'	=>	VCPF\Field::admin(),
-			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSimpleSubAdmin'
-		);
-	}
-	
-	public function highlight_imagesField() {
-		return array(
-			'name' => 'highlight_images',
-			'label' => 'Highlight Images',
-			'required' => false,
-			'display'	=>	VCPF\Field::admin(),
-			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSimpleSubAdmin'
 		);
 	}
 
@@ -894,36 +885,6 @@ class events {
 		];
 	}
 
-	function defaultTable () {
-		return [
-			'columns' => [
-				['title', '20%', 'Title'],
-				['location', '20%', 'Location'],
-				['date', '10%', 'Date', function ($data) {
-					return date('Y-m-d', $data->sec);
-				}],
-				['status', '10%', 'Status'],
-				['pinned', '10%', 'Pinned', function ($data) {
-					if ($data == 't') {
-						return 'Yes';
-					}
-					return 'No';
-					
-				}],
-				['recurring_event', '10%', 'Recurring', function ($data, &$row) {
-					if ($data == 't') {
-						return 'Yes' . (is_object($row['end_date']) ? '<br />' . date('Y-m-d', $row['end_date']->sec) : '');
-					}
-					return 'No';
-				}]
-			],
-			'title' => 'Events',
-			'link' => 'title',
-			'features' => ['delete', 'search', 'add', 'edit', 'pagination', 'excel'],
-			'sort' => ['date' => -1]
-		];
-	}
-
 	function instructorField () {
 		return [
 			'name' => 'instructor',
@@ -1045,27 +1006,68 @@ HBS;
             </div>
 
             <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft body Body}}{{/FieldLeft}}
-                    {{#FieldLeft description Summary}}{{/FieldLeft}}
-                    {{#FieldLeft time Time Description}}{{/FieldLeft}}
-                    {{#FieldLeft cost Cost Description}}{{/FieldLeft}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
+                <div class="ui tab active" data-tab="Main">
+                    {{#DocumentFormLeft}}
+                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+                        {{#FieldLeft body Body}}{{/FieldLeft}}
+                        {{#FieldLeft description Summary}}{{/FieldLeft}}
+                        {{#FieldLeft time Time Description}}{{/FieldLeft}}
+                        {{#FieldLeft cost Cost Description}}{{/FieldLeft}}
+                        {{{id}}}
+                    {{/DocumentFormLeft}}                 
                 
-                {{#DocumentFormRight}}
-                	{{#DocumentButton}}{{/DocumentButton}}
-	                {{#FieldFull status}}{{/FieldFull}}
-	                <br />
-	                {{#FieldFull display_date}}{{/FieldFull}}
-	                <br />
-	                {{#FieldLeft featured}}{{/FieldLeft}}
-	                <br />
-	                {{#FieldLeft pinned}}{{/FieldLeft}}
-	                <br />
-	                {{#FieldLeft comments}}{{/FieldLeft}}
-                {{/DocumentFormRight}}
+                    {{#DocumentFormRight}}
+                	    {{#DocumentButton}}{{/DocumentButton}}
+	                    {{#FieldFull status}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldFull display_date}}{{/FieldFull}}
+	                    <br />
+	                    {{#FieldLeft featured}}{{/FieldLeft}}
+	                    <br />
+	                    {{#FieldLeft pinned}}{{/FieldLeft}}
+	                    <br />
+	                    {{#FieldLeft comments}}{{/FieldLeft}}
+                    {{/DocumentFormRight}}
+                </div>
+                <div class="ui tab" data-tab="Images">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
+	                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
+	                    {{#FieldLeft image_sub}}{{/FieldLeft}}
+	                    {{#FieldLeft highlight_images}}{{/FieldLeft}}
+
+	                {{/DocumentFormLeft}}                 
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
+	              <div class="ui tab" data-tab="Venue">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft venue Venue}}{{/FieldLeft}}
+	                    {{#FieldLeft venue_description Description}}{{/FieldLeft}}
+	                    {{#FieldLeft location Address}}{{/FieldLeft}}
+	                    {{#FieldLeft contact_info Contact Information}}{{/FieldLeft}}
+	                    {{#FieldLeft url URL}}{{/FieldLeft}}
+	                    {{#FieldLeft map_url Map URL}}{{/FieldLeft}}
+
+	                {{/DocumentFormLeft}}                 
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
+                <div class="ui tab" data-tab="SEO">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
             </div>
 HBS;
         return $partial;

@@ -57,6 +57,22 @@ class books {
 		];
 	}
 
+	function imageListField () {
+		return [
+			'name' => 'image',
+			'label' => 'List View',
+			'display' => 'InputFile'
+		];
+	}
+
+	function imageFeaturedField () {
+		return [
+			'name' => 'image_feature',
+			'label' => 'Featured View',
+			'display' => 'InputFile'
+		];
+	}
+
 	function linkField () {
 		return [
 			'name'		=> 'link',
@@ -227,9 +243,23 @@ HBS;
 	       	        	{{#FieldLeft featured}}{{/FieldLeft}}
 	                {{/DocumentFormRight}}
 	            </div>
+	            <div class="ui tab" data-tab="External Article">
+	                {{#DocumentFormLeft}}
+	                    {{#FieldLeft }}{{/FieldLeft}}
+	                    {{#FieldLeft }}{{/FieldLeft}}
+	                    {{#FieldLeft }}{{/FieldLeft}}
+	                    {{#FieldLeft }}{{/FieldLeft}}
+	                {{/DocumentFormLeft}}                 
+	                
+	                {{#DocumentFormRight}}
+		                {{#DocumentButton}}{{/DocumentButton}}
+	                {{/DocumentFormRight}}
+	            </div>
 	            <div class="ui tab" data-tab="Images">
 	                {{#DocumentFormLeft}}
 	                    {{#FieldLeft image Book Cover Image}}{{/FieldLeft}}
+	                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
+	                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
 	                {{/DocumentFormLeft}}                 
 	                
 	                {{#DocumentFormRight}}
