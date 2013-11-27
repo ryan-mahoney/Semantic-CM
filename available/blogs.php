@@ -15,7 +15,7 @@ class blogs {
     public $description = '4 blogs';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $tabs = ['Main', 'Images', 'SEO'];
+    public $tabs = ['Main', 'Images', 'External Article', 'SEO'];
     public $icon = 'text file';
     public $category = 'Content';
     public $notice = 'Blog Saved';

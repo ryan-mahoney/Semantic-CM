@@ -15,6 +15,7 @@ class photo_galleries {
     public $description = '4 photo_galleries';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
+    public $tabs = ['Main', 'Flickr', 'SEO'];
     public $icon = 'photo';
     public $category = 'Content';
     public $notice = 'photo_gallery Saved';

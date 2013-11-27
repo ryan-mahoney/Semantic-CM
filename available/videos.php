@@ -16,6 +16,7 @@ class videos {
     public $description = '4 videos';
     public $definition = '....';
     public $acl = ['content', 'admin', 'superadmin'];
+    public $tabs = ['Main', 'SEO'];
     public $icon = 'facetime video';
     public $category = 'Content';
     public $notice = 'Video Saved';

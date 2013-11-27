@@ -15,6 +15,7 @@ class pages {
     public $description = '4 pages';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
+    public $tabs = ['Main', 'SEO'];
     public $icon = 'copy';
     public $category = 'Content';
     public $notice = 'Page Saved';
