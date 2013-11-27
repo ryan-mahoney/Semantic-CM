@@ -212,6 +212,25 @@ class blogs {
 		];
 	}
 
+	function categoriesField () {
+		return array(
+			'name'		=> 'categories',
+			'label'		=> 'Category',
+			'required'	=> false,
+			'options'	=> function () {
+				return $this->db->fetchAllGrouped(
+					$this->db->collection('categories')->
+						find(['section' => 'Blog'])->
+						sort(['title' => 1]),
+					'_id', 
+					'title');
+			},
+			'display'	=> 'InputToTags',
+			'controlled' => true,
+			'multiple' => true
+		);
+	}
+
 	function metakeywordsField () {
 		return [
 			'name' => 'metadata_keywords',
@@ -227,21 +246,6 @@ class blogs {
 	}
 
 /*
-	function categoriesField () {
-		return array(
-			'name'		=> 'categories',
-			'label'		=> 'Choose a Category',
-			'required'	=> false,
-			'tooltip'	=> 'Add one or more categories.',
-			'options'	=> function () {
-				return VCPF\Model::db('categories')->
-					find(['section' => 'Blog'])->
-					sort(array('title' => 1))->
-					fetchAllGrouped('_id', 'title');
-			},
-			'display'	=> 'SelectToPill'
-		);
-	}
 	
 	function authorsField () {
 		return array(
@@ -336,7 +340,7 @@ HBS;
 	                	<hr />
 	                	<br />
 	                	{{#FieldFull tags Tags}}{{/FieldFull}}
-	                	
+	                	{{#FieldFull categories Categories}}{{/FieldFull}}
 	                {{/DocumentFormRight}}
 	            </div>
 
