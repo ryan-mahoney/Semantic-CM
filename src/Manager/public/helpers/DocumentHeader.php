@@ -17,12 +17,7 @@ return function ($template, $context, $args, $source) {
 			<div class="column fontSize">
 				<p>', (isset($metadata['definition']) ? $metadata['definition'] : ''), '</p>
 			</div>
-  		</div>
-  		<form data-xhr="true" method="post" action="/Manager/manager/' . $metadata['manager'] . '" data-manager="' . $metadata['manager'] . '">
-			<!-- <div class="ui warning message">
-			    <div class="header">There was a problem</div>
-			    <ul class="list"></ul>
-			</div> -->';
+  		</div>';
 
 	$buffer = ob_get_clean();
 	return $buffer;

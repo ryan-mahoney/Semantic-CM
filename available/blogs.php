@@ -100,7 +100,7 @@ class blogs {
 		return [
 			'name'		=> 'author',
 			'label'		=> 'Author',
-			'required'	=> true,
+			'required'	=> false,
 			'display'	=> 'InputText'
 		];
 	}
@@ -307,79 +307,74 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            <div class="top-container">
-                {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabs}}{{/DocumentTabs}}
-            </div>
-
-            <div class="bottom-container">
-
-            	<div class="ui tab active" data-tab="Main">
-	                {{#DocumentFormLeft}}
-	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-	                    {{#FieldLeft body Body}}{{/FieldLeft}}
-	                    {{#FieldLeft description Summary}}{{/FieldLeft}}
-	                    {{{id}}}
-	                {{/DocumentFormLeft}}                 
-	                
-	                {{#DocumentFormRight}}
-	                	{{#DocumentButton}}{{/DocumentButton}}
-	                	{{#FieldFull status}}{{/FieldFull}}
-	                	<br />
-	                	{{#FieldFull display_date}}{{/FieldFull}}
-	                	<br />
-	                	<div class="ui clearing divider"></div>
-	                	<br />
-	                	{{#FieldLeft featured}}{{/FieldLeft}}
-	                	<br />
-	                	{{#FieldLeft pinned}}{{/FieldLeft}}
-	                	<br />
-	                	{{#FieldLeft comments}}{{/FieldLeft}}
-	                	<br />
-	                	<div class="ui clearing divider"></div>
-	                	<br />
-	                	{{#FieldFull categories Categories}}{{/FieldFull}}
-	                	{{#FieldFull authors Authors}}{{/FieldFull}}
-	                	{{#FieldFull tags Tags}}{{/FieldFull}}
-	                {{/DocumentFormRight}}
+	        {{#Form}}{{/Form}}
+	            <div class="top-container">
+	                {{#DocumentHeader}}{{/DocumentHeader}}
+	                {{#DocumentTabs}}{{/DocumentTabs}}
 	            </div>
 
-	             <div class="ui tab" data-tab="Images">
-	                {{#DocumentFormLeft}}
-	                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
-	                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
-	                {{/DocumentFormLeft}}                 
-	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-	                {{/DocumentFormRight}}
-	            </div>
-	            <div class="ui tab" data-tab="External Article">
-	            	 {{#DocumentFormLeft}}
-	                    {{#FieldLeft author Author}}{{/FieldLeft}}
-	                    {{#FieldLeft publication_name Publication}}{{/FieldLeft}}
-	              		{{#FieldLeft link URL}}{{/FieldLeft}}
-	              		{{#FieldLeft date_published Date Published}}{{/FieldLeft}}
-	                {{/DocumentFormLeft}}
-	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-	                {{/DocumentFormRight}}
-	            </div>
-	            <div class="ui tab" data-tab="SEO">
-	            	 {{#DocumentFormLeft}}
-	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-	                {{/DocumentFormLeft}}
-	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-	                {{/DocumentFormRight}}
-	            </div>
-            
+	            <div class="bottom-container">
+	            	<div class="ui tab active" data-tab="Main">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+		                    {{#FieldLeft body Body}}{{/FieldLeft}}
+		                    {{#FieldLeft description Summary}}{{/FieldLeft}}
+		                    {{{id}}}
+		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+		                	{{#DocumentButton}}{{/DocumentButton}}
+		                	{{#FieldFull status}}{{/FieldFull}}
+		                	<br />
+		                	{{#FieldFull display_date}}{{/FieldFull}}
+		                	<div class="ui clearing divider"></div>
+		                	{{#FieldLeft featured}}{{/FieldLeft}}
+		                	<br />
+		                	{{#FieldLeft pinned}}{{/FieldLeft}}
+		                	<br />
+		                	{{#FieldLeft comments}}{{/FieldLeft}}
+		                	<div class="ui clearing divider"></div>
+		                	{{#FieldFull categories Categories}}{{/FieldFull}}
+		                	{{#FieldFull authors Authors}}{{/FieldFull}}
+		                	{{#FieldFull tags Tags}}{{/FieldFull}}
+		                {{/DocumentFormRight}}
+		            </div>
 
-            </div>
+		             <div class="ui tab" data-tab="Images">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
+		                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
+		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="External Article">
+		            	 {{#DocumentFormLeft}}
+		                    {{#FieldLeft author Author}}{{/FieldLeft}}
+		                    {{#FieldLeft publication_name Publication}}{{/FieldLeft}}
+		              		{{#FieldLeft link URL}}{{/FieldLeft}}
+		              		{{#FieldLeft date_published Date Published}}{{/FieldLeft}}
+		                {{/DocumentFormLeft}}
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="SEO">
+		            	 {{#DocumentFormLeft}}
+		                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+		                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+		              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+		                {{/DocumentFormLeft}}
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>	        
+	            </div>
+	        </form>
 HBS;
         return $partial;
     }

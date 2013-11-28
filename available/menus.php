@@ -138,24 +138,26 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            <div class="top-container">
-                {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabs}}{{/DocumentTabs}}
-            </div>
+            {{#Form}}{{/Form}}
+                <div class="top-container">
+                    {{#DocumentHeader}}{{/DocumentHeader}}
+                    {{#DocumentTabs}}{{/DocumentTabs}}
+                </div>
 
-            <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft label Label required}}{{/FieldLeft}}
-                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-                    {{#FieldLeft file Image}}{{/FieldLeft}}
-                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
-                
-                {{#DocumentFormRight}}
-                    {{#DocumentButton}}{{/DocumentButton}}
-                {{/DocumentFormRight}}
-            </div>
+                <div class="bottom-container">
+                    {{#DocumentFormLeft}}
+                        {{#FieldLeft label Label required}}{{/FieldLeft}}
+                        {{#FieldLeft url URL required}}{{/FieldLeft}}
+                        {{#FieldLeft file Image}}{{/FieldLeft}}
+                        {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                        {{{id}}}
+                    {{/DocumentFormLeft}}                 
+                    
+                    {{#DocumentFormRight}}
+                        {{#DocumentButton}}{{/DocumentButton}}
+                    {{/DocumentFormRight}}
+                </div>
+            </form>
 HBS;
         return $partial;
     }

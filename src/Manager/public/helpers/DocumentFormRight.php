@@ -2,7 +2,7 @@
 return function ($template, $context, $args, $source) {
 	$engine = $template->getEngine();
 	return '
-				<div class="four wide column manager sidebar form">' .
+				<div class="ui four wide column manager rightside form">' .
 					($source != '' ? $engine->render($source, $context) : '') . '
 				</div>
 	        </div>

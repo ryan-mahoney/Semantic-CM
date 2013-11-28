@@ -4,12 +4,12 @@
     "CollectionHeader",
     "CollectionPagination",
     "DocumentButton",
-    "DocumentFooter",
     "DocumentFormLeft",
     "DocumentFormRight",
     "DocumentHeader",
     "DocumentTabs",
     "FieldEmbedded",
     "FieldFull",
-    "FieldLeft"
+    "FieldLeft",
+    "Form"
 ]

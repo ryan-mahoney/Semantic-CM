@@ -1038,78 +1038,80 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            <div class="top-container">
-                {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabs}}{{/DocumentTabs}}
-            </div>
-
-            <div class="bottom-container">
-                <div class="ui tab active" data-tab="Main">
-                    {{#DocumentFormLeft}}
-                        {{#FieldLeft title Title required}}{{/FieldLeft}}
-                        {{#FieldLeft body Body}}{{/FieldLeft}}
-                        {{#FieldLeft description Summary}}{{/FieldLeft}}
-                        {{#FieldLeft time Time Description}}{{/FieldLeft}}
-                        {{#FieldLeft cost Cost Description}}{{/FieldLeft}}
-                        {{{id}}}
-                    {{/DocumentFormLeft}}                 
-                
-                    {{#DocumentFormRight}}
-                	    {{#DocumentButton}}{{/DocumentButton}}
-	                    {{#FieldFull status}}{{/FieldFull}}
-	                    <br />
-	                    {{#FieldFull display_date}}{{/FieldFull}}
-	                    <div class="ui clearing divider"></div>
-	                    {{#FieldLeft featured}}{{/FieldLeft}}
-	                    <br />
-	                    {{#FieldLeft pinned}}{{/FieldLeft}}
-	                    <br />
-	                    {{#FieldLeft comments}}{{/FieldLeft}}
-	                    <div class="ui clearing divider"></div>
-	                    {{#FieldFull categories Categories}}{{/FieldFull}}
-	                    {{#FieldFull tags Tags}}{{/FieldFull}}
-                    {{/DocumentFormRight}}
-                </div>
-                <div class="ui tab" data-tab="Images">
-	                {{#DocumentFormLeft}}
-	                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
-	                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
-	                    {{#FieldLeft image_sub}}{{/FieldLeft}}
-	                    {{#FieldLeft highlight_images}}{{/FieldLeft}}
-
-	                {{/DocumentFormLeft}}                 
-	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-	                {{/DocumentFormRight}}
+        	{{#Form}}{{/Form}}
+	            <div class="top-container">
+	                {{#DocumentHeader}}{{/DocumentHeader}}
+	                {{#DocumentTabs}}{{/DocumentTabs}}
 	            </div>
-	              <div class="ui tab" data-tab="Venue">
-	                {{#DocumentFormLeft}}
-	                    {{#FieldLeft venue Venue}}{{/FieldLeft}}
-	                    {{#FieldLeft venue_description Description}}{{/FieldLeft}}
-	                    {{#FieldLeft location Address}}{{/FieldLeft}}
-	                    {{#FieldLeft contact_info Contact Information}}{{/FieldLeft}}
-	                    {{#FieldLeft url URL}}{{/FieldLeft}}
-	                    {{#FieldLeft map_url Map URL}}{{/FieldLeft}}
 
-	                {{/DocumentFormLeft}}                 
+	            <div class="bottom-container">
+	                <div class="ui tab active" data-tab="Main">
+	                    {{#DocumentFormLeft}}
+	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+	                        {{#FieldLeft body Body}}{{/FieldLeft}}
+	                        {{#FieldLeft description Summary}}{{/FieldLeft}}
+	                        {{#FieldLeft time Time Description}}{{/FieldLeft}}
+	                        {{#FieldLeft cost Cost Description}}{{/FieldLeft}}
+	                        {{{id}}}
+	                    {{/DocumentFormLeft}}                 
 	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-	                {{/DocumentFormRight}}
+	                    {{#DocumentFormRight}}
+	                	    {{#DocumentButton}}{{/DocumentButton}}
+		                    {{#FieldFull status}}{{/FieldFull}}
+		                    <br />
+		                    {{#FieldFull display_date}}{{/FieldFull}}
+		                    <div class="ui clearing divider"></div>
+		                    {{#FieldLeft featured}}{{/FieldLeft}}
+		                    <br />
+		                    {{#FieldLeft pinned}}{{/FieldLeft}}
+		                    <br />
+		                    {{#FieldLeft comments}}{{/FieldLeft}}
+		                    <div class="ui clearing divider"></div>
+		                    {{#FieldFull categories Categories}}{{/FieldFull}}
+		                    {{#FieldFull tags Tags}}{{/FieldFull}}
+	                    {{/DocumentFormRight}}
+	                </div>
+	                <div class="ui tab" data-tab="Images">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
+		                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
+		                    {{#FieldLeft image_sub}}{{/FieldLeft}}
+		                    {{#FieldLeft highlight_images}}{{/FieldLeft}}
+
+		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		              <div class="ui tab" data-tab="Venue">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft venue Venue}}{{/FieldLeft}}
+		                    {{#FieldLeft venue_description Description}}{{/FieldLeft}}
+		                    {{#FieldLeft location Address}}{{/FieldLeft}}
+		                    {{#FieldLeft contact_info Contact Information}}{{/FieldLeft}}
+		                    {{#FieldLeft url URL}}{{/FieldLeft}}
+		                    {{#FieldLeft map_url Map URL}}{{/FieldLeft}}
+
+		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+	                <div class="ui tab" data-tab="SEO">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+		                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+		              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+		                {{/DocumentFormLeft}}
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
 	            </div>
-                <div class="ui tab" data-tab="SEO">
-	                {{#DocumentFormLeft}}
-	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-	                {{/DocumentFormLeft}}
-	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-	                {{/DocumentFormRight}}
-	            </div>
-            </div>
+	        </form>
 HBS;
         return $partial;
     }
