@@ -12,13 +12,13 @@ class photo_galleries {
     public $form = 'photo_galleries';
     public $title = 'Photo Galleries';
     public $singular = 'Photo Gallery';
-    public $description = '4 photo_galleries';
+    public $description = '4 photo galleries';
     public $definition = 'Photos organizes into individual galleries.';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Flickr', 'SEO'];
     public $icon = 'photo';
     public $category = 'Content';
-    public $notice = 'photo_gallery Saved';
+    public $notice = 'Photo Gallery Saved';
     public $storage = [
         'collection' => 'photo_galleries',
         'key' => '_id'
