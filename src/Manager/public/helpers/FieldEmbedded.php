@@ -5,5 +5,5 @@ return function ($template, $context, $args, $source) {
 	$manager = array_shift($args);
 	$markup = $context->get($field);
 
-	return '<div class="field embedded" data-field="' . $field . '" data-manager="' . $manager . '">' . $markup . '</div>';
+	return '<div class="field embedded" data-field="' . $field . '" data-manager="' . $manager . '">XXX' . $markup . '</div>';
 };

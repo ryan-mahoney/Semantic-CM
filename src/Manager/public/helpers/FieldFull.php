@@ -1,6 +1,6 @@
 <?php
 return function ($template, $context, $args, $source) {
-	$args = explode(' ', trim($args));
+	$args = str_getcsv(trim($args), ' ');
 	$field = array_shift($args);
 	$required = false;
 	if (in_array('required', $args)) {

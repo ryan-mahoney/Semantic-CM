@@ -47,7 +47,6 @@ class subimages {
 			'display'	=> 'InputText'
 		];
 	}
-	
 
 	function imageField () {
 		return [
