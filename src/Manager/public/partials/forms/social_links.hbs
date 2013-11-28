@@ -1,0 +1,20 @@
+        	{{#Form}}{{/Form}}
+	            <div class="top-container">
+	                {{#DocumentHeader}}{{/DocumentHeader}}
+	                {{#DocumentTabs}}{{/DocumentTabs}}
+	            </div>
+s
+	            <div class="bottom-container">
+	                 <div class="ui tab active" data-tab="Main">
+	                     {{#DocumentFormLeft}}
+	                         {{#FieldLeft type Type required}}{{/FieldLeft}}
+	                         {{#FieldLeft url URL required}}{{/FieldLeft}}
+	                         {{{id}}}
+	                     {{/DocumentFormLeft}}                 
+	                
+	                     {{#DocumentFormRight}}
+	                	    {{#DocumentButton}}{{/DocumentButton}}
+	                     {{/DocumentFormRight}}
+	                 </div>
+	            </div>
+	        </form>
