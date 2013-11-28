@@ -3,38 +3,41 @@
             </div>
 
             <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
-                
-                <table class="ui large table segment manager">
-                    <col width="20%">
-                    <col width="70%">
-                    <col width="10%">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Feature</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each photo_galleries}}
-                            <tr data-id="{{dbURI}}">
-                                <td>{{image}}</td>
-                                <td>{{title}}</td>
-                                <td>{{status}}</td>
-                                <td>{{featured}}</td>
-                                <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-
-                {{#CollectionPagination}}{{/CollectionPagination}}
+            	{{#if photo_galleries}}
+	                {{#CollectionPagination}}{{/CollectionPagination}}
+	                {{#CollectionButtons}}{{/CollectionButtons}}
+	                
+	                <table class="ui large table segment manager">
+	                    <col width="20%">
+	                    <col width="70%">
+	                    <col width="10%">
+	                    <thead>
+	                        <tr>
+	                            <th>Image</th>
+	                            <th>Title</th>
+	                            <th>Status</th>
+	                            <th>Feature</th>
+	                            <th class="trash">Delete</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        {{#each photo_galleries}}
+	                            <tr data-id="{{dbURI}}">
+	                                <td>{{image}}</td>
+	                                <td>{{title}}</td>
+	                                <td>{{status}}</td>
+	                                <td>{{featured}}</td>
+	                                <td>
+	                                    <div class="manager trash ui icon button">
+	                                         <i class="trash icon"></i>
+	                                     </div>
+	                                 </td>
+	                            </tr>
+	                        {{/each}}
+	                    </tbody>
+	                </table>
+	                {{#CollectionPagination}}{{/CollectionPagination}}
+                {{else}}
+					{{#CollectionEmpty}}{{/CollectionEmpty}}
+				{{/if}}
             </div>

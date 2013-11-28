@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .1
+ * @version .2
  * @link https://raw.github.com/virtuecenter/manager/master/available/photo_galleries.php
  * @mode upgrade
  */
@@ -13,7 +13,7 @@ class photo_galleries {
     public $title = 'Photo Galleries';
     public $singular = 'Photo Gallery';
     public $description = '4 photo_galleries';
-    public $definition = '...';
+    public $definition = 'Photos organizes into individual galleries.';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Flickr', 'SEO'];
     public $icon = 'photo';
@@ -23,7 +23,6 @@ class photo_galleries {
         'collection' => 'photo_galleries',
         'key' => '_id'
     ];
-	
 
 	function titleField () {	
 		return [
@@ -38,8 +37,7 @@ class photo_galleries {
 		return [
 			'name' => 'description',
 			'label' => 'Summary',
-			'display' => 'Textarea',
-			'tooltip' => 'A description that will be displayed when the entry is listed.'
+			'display' => 'Textarea'
 		];
 	}
 
@@ -47,8 +45,7 @@ class photo_galleries {
 		return [
 			'name' => 'image',
 			'label' => 'Featured Image',
-			'display' => 'InputFile',
-			'tooltip' => 'An image that will be displayed when the entry is listed.'
+			'display' => 'InputFile'
 		];
 	}
 
@@ -83,7 +80,6 @@ class photo_galleries {
 		];
 	}
 
-
 	function featuredField () {
         return [
             'name' => 'featured',
@@ -103,7 +99,7 @@ class photo_galleries {
 			'name' => 'flicker',
 			'label'=> 'URL',
 			'required'=> false,
-			'display'=>'InputText',
+			'display'=>'InputText'
 		];
 	}	
 
@@ -143,7 +139,7 @@ class photo_galleries {
 	}
 
 	function categoriesField () {
-		return array(
+		return [
 			'name'		=> 'categories',
 			'label'		=> 'Category',
 			'required'	=> false,
@@ -158,10 +154,8 @@ class photo_galleries {
 			'display'	=> 'InputToTags',
 			'controlled' => true,
 			'multiple' => true
-		);
+		];
 	}
-
-
 
 	function tagsField () {
 		return [
@@ -182,77 +176,16 @@ class photo_galleries {
 		];
 	}
     
-
-/*
-	function afterFieldsetUpdate () {
-		return function ($admin) {
-			$DOM = VCPF\DOMView::getDOM();
-			$DOM['#image_individual-field .table-actions']->append('<a class="btn btn-small vcms-panel" data-id="" data-attributes="{\'gallery\':\'' . (string)$admin->activeRecord['_id'] . '\'}" data-mode="save" data-vc__admin="vc\ms\site\admin\ImageBatchAdmin" style="float: right">Upload Batch</a>');
-		};
-	}
-
 	public function image_individualField() {
-		return array(
-			'name' => 'image_individual',
-			'label' => 'Add Individual Image',
-			'required' => false,
-			'display'	=>	VCPF\Field::admin(),
-			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSubAdmin'
-		);
-	}
-	
-	
-	function display_dateField() {
-		return array(
-			'name'=> 'display_date',
-			'label'=> 'Display Date',
-			'required'=>true,
-			'display' => VCPF\Field::inputDatePicker(),
-			'transformIn' => function ($data) {
-				return new \MongoDate(strtotime($data));
-			},
-			'transformOut' => function ($data) {
-				return date('m/d/Y', $data->sec);
-			},
-			'default' => function () {
-				return date('m/d/Y', (strtotime('now')));
-			}
-		);
-	}
-
-	function categoriesField () {
-		return array(
-			'name'		=> 'categories',
-			'label'		=> 'Choose a Category',
+		return [
+			'name'		=> 'image_individual',
+			'label'		=> 'Images',
 			'required'	=> false,
-			'tooltip'	=> 'Add one or more categories.',
-			'options'	=> function () {
-				return VCPF\Model::db('categories')->
-					find(['section' => 'Galleries'])->
-						sort(array('title' => 1))->
-						fetchAllGrouped('_id', 'title');
-			},
-			'display'	=> VCPF\Field::selectToPill()
-		);
+			'display'	=> 'Manager',
+			'manager'	=> 'subimages'
+		];
 	}
-			
-	function tagsField () {
-		return array(
-			'name' => 'tags',
-			'label' => 'Tags',
-			'required' => false,
-			'transformIn' => function ($data) {
-				return VCPF\Regex::csvToArray($data);
-			},
-			'display' => VCPF\Field::inputToTags(),
-			'autocomplete' => function () {
-				return VCPF\Model::mongoDistinct('photo_galleries', 'tags');
-			},
-			'tooltip' => 'Another way to make entries more findable.'
-		);
-	}	
 
-	*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -260,40 +193,43 @@ class photo_galleries {
             </div>
 
             <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
-                
-                <table class="ui large table segment manager">
-                    <col width="20%">
-                    <col width="70%">
-                    <col width="10%">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Feature</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each photo_galleries}}
-                            <tr data-id="{{dbURI}}">
-                                <td>{{image}}</td>
-                                <td>{{title}}</td>
-                                <td>{{status}}</td>
-                                <td>{{featured}}</td>
-                                <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-
-                {{#CollectionPagination}}{{/CollectionPagination}}
+            	{{#if photo_galleries}}
+	                {{#CollectionPagination}}{{/CollectionPagination}}
+	                {{#CollectionButtons}}{{/CollectionButtons}}
+	                
+	                <table class="ui large table segment manager">
+	                    <col width="20%">
+	                    <col width="70%">
+	                    <col width="10%">
+	                    <thead>
+	                        <tr>
+	                            <th>Image</th>
+	                            <th>Title</th>
+	                            <th>Status</th>
+	                            <th>Feature</th>
+	                            <th class="trash">Delete</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        {{#each photo_galleries}}
+	                            <tr data-id="{{dbURI}}">
+	                                <td>{{image}}</td>
+	                                <td>{{title}}</td>
+	                                <td>{{status}}</td>
+	                                <td>{{featured}}</td>
+	                                <td>
+	                                    <div class="manager trash ui icon button">
+	                                         <i class="trash icon"></i>
+	                                     </div>
+	                                 </td>
+	                            </tr>
+	                        {{/each}}
+	                    </tbody>
+	                </table>
+	                {{#CollectionPagination}}{{/CollectionPagination}}
+                {{else}}
+					{{#CollectionEmpty}}{{/CollectionEmpty}}
+				{{/if}}
             </div>
 HBS;
         return $partial;
@@ -312,7 +248,8 @@ HBS;
 	                    {{#DocumentFormLeft}}
 	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft description Summary}}{{/FieldLeft}}
-	                        {{#FieldLeft image Featured Image}}{{/FieldLeft}}
+	                        {{#FieldLeft image "Featured Image"}}{{/FieldLeft}}
+	                        {{#FieldEmbedded image_individual subimages}}{{/FieldEmbedded}}
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                
@@ -331,7 +268,10 @@ HBS;
 	                    {{/DocumentFormRight}}
 	                </div>
 	                <div class="ui tab" data-tab="Flickr">
-	                {{#FieldLeft flicker URL}}{{/FieldLeft}}
+	                	{{#DocumentFormLeft}}
+		                	{{#FieldLeft flicker URL}}{{/FieldLeft}}
+		               	{{/DocumentFormLeft}}                 
+	                    {{#DocumentFormRight}}{{/DocumentFormRight}}
 	                </div>
 	                <div class="ui tab" data-tab="SEO">
 		                {{#DocumentFormLeft}}
