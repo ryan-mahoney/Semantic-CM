@@ -251,6 +251,7 @@ class Application {
 				'manager' => $manager,
 				'title' => $managerInstance->title,
 				'singular' => $managerInstance->singular,
+				'titleField' => (property_exists($managerInstance, 'titleField') ? $managerInstance->titleField : ''),
 				'description' => $managerInstance->description,
 				'definition' => $managerInstance->definition,
 				'acl' => $managerInstance->acl,

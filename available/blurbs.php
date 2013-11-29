@@ -11,6 +11,7 @@ class blurbs {
 	public $collection = 'blurbs';
 	public $form = 'blurbs';
 	public $title = 'Blurbs';
+	public $titleField = 'title';
 	public $singular = 'Blurb';
 	public $description = '5 blurbs';
 	public $definition = 'Blurbs are used to control small blocks of text on a website.';

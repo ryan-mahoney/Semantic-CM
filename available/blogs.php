@@ -11,6 +11,7 @@ class blogs {
     public $collection = 'blogs';
     public $form = 'blogs';
     public $title = 'Blogs';
+    public $titleField = 'title';
     public $singular = 'Blog';
     public $description = '4 blogs';
     public $definition = '...';
