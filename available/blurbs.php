@@ -9,7 +9,6 @@ namespace Manager;
 class blurbs {
 	private $field = false;
 	public $collection = 'blurbs';
-	public $form = 'blurbs';
 	public $title = 'Blurbs';
 	public $singular = 'Blurb';
 	public $description = '5 blurbs';
@@ -17,7 +16,8 @@ class blurbs {
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'basic content';
 	public $category = 'Content';
-	public $notice = 'Blurb Saved';
+	public $after = 'function';
+    public $function = 'ManagerSaved';
 	public $storage = [
 		'collection' => 'blurbs',
 		'key' => '_id'

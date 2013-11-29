@@ -10,7 +10,6 @@ namespace Manager;
 class videos {
 	private $field = false;
     public $collection = 'videos';
-    public $form = 'videos';
     public $title = 'Videos';
     public $singular = 'Video';
     public $description = '4 videos';
@@ -19,7 +18,8 @@ class videos {
     public $tabs = ['Main', 'SEO'];
     public $icon = 'facetime video';
     public $category = 'Content';
-    public $notice = 'Video Saved';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $storage = [
         'collection' => 'videos',
         'key' => '_id'
@@ -240,40 +240,44 @@ class videos {
             </div>
 
             <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
-                
-                <table class="ui large table segment manager">
-                    <col width="20%">
-                    <col width="70%">
-                    <col width="10%">
-                    <thead>
-                        <tr>
-                            <th>Video</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Feature</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each videos}}
-                            <tr data-id="{{dbURI}}">
-                                 <td>{{video}}</td>
-                                 <td>{{title}}</td>
-                                 <td>{{status}}</td>
-                                 <td>{{featured}}</td>
-                                 <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                {{#if videos}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionButtons}}{{/CollectionButtons}}
+		                
+		                <table class="ui large table segment manager">
+		                    <col width="20%">
+		                    <col width="70%">
+		                    <col width="10%">
+		                    <thead>
+		                        <tr>
+		                            <th>Video</th>
+		                            <th>Title</th>
+		                            <th>Status</th>
+		                            <th>Feature</th>
+		                            <th class="trash">Delete</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        {{#each videos}}
+		                            <tr data-id="{{dbURI}}">
+		                                 <td>{{video}}</td>
+		                                 <td>{{title}}</td>
+		                                 <td>{{status}}</td>
+		                                 <td>{{featured}}</td>
+		                                 <td>
+		                                    <div class="manager trash ui icon button">
+		                                         <i class="trash icon"></i>
+		                                     </div>
+		                                 </td>
+		                            </tr>
+		                        {{/each}}
+		                    </tbody>
+		                </table>
 
-                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		           {{else}}
+					{{#CollectionEmpty}}{{/CollectionEmpty}}
+				{{/if}}
             </div>
 HBS;
         return $partial;

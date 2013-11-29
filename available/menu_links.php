@@ -9,7 +9,6 @@ namespace Manager;
 class menu_links {
 	private $field = false;
 	public $collection = 'menus';
-	public $form = 'menus';
 	public $title = 'Menus';
 	public $singular = 'Menu';
 	public $description = '4 menu items';

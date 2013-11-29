@@ -17,7 +17,8 @@ class photo_galleries {
     public $tabs = ['Main', 'Flickr', 'SEO'];
     public $icon = 'photo';
     public $category = 'Content';
-    public $notice = 'Photo Gallery Saved';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $storage = [
         'collection' => 'photo_galleries',
         'key' => '_id'

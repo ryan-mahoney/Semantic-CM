@@ -9,7 +9,6 @@ namespace Manager;
 class practice_areas {
 	private $field = false;
     public $collection = 'practice_areas';
-    public $form = 'practice_areas';
     public $title = 'Practice Areas';
     public $singular = 'Practice Area';
     public $description = '4 practice areas';
@@ -18,7 +17,8 @@ class practice_areas {
     public $tabs = ['Main', 'SEO'];
     public $icon = 'legal';
     public $category = 'Content';
-    public $notice = 'Practice Areas Saved';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $storage = [
         'collection' => 'practice_areas',
         'key' => '_id'
@@ -123,7 +123,7 @@ class practice_areas {
             </div>
 
             <div class="bottom-container">
-            	{{#if photo_galleries}}
+            	{{#if practice_areas}}
 	                {{#CollectionPagination}}{{/CollectionPagination}}
 	                {{#CollectionButtons}}{{/CollectionButtons}}
 	                
@@ -155,7 +155,7 @@ class practice_areas {
 	                    </tbody>
 	                </table>
 	                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{else}}
+                  {{else}}
 					{{#CollectionEmpty}}{{/CollectionEmpty}}
 				{{/if}}
             </div>

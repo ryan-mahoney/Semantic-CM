@@ -9,7 +9,6 @@ namespace Manager;
 class membership_levels {
 	private $field = false;
     public $collection = 'membership_levels';
-    public $form = 'membership_levels';
     public $title = 'Membership';
     public $singular = 'Membership Level';
     public $description = '4 membership levels';
@@ -18,7 +17,8 @@ class membership_levels {
     public $tabs = ['Main'];
     public $icon = 'trophy';
     public $category = 'Content';
-    public $notice = 'Membership Levels Saved';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $storage = [
         'collection' => 'membership_levels',
         'key' => '_id'

@@ -9,7 +9,6 @@ namespace Manager;
 class blogs {
 	private $field = false;
     public $collection = 'blogs';
-    public $form = 'blogs';
     public $title = 'Blogs';
     public $singular = 'Blog';
     public $description = '4 blogs';
@@ -271,37 +270,40 @@ class blogs {
                 {{#CollectionHeader}}{{/CollectionHeader}}
             </div>
 
-            <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
+           <div class="bottom-container">
+              {{#if blogs}}
+                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{#CollectionButtons}}{{/CollectionButtons}}
                 
-                <table class="ui large table segment manager">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each blogs}}
-                            <tr data-id="{{dbURI}}">
-                                <td>{{title}}</td>
-                                <td>{{category}}</td>
-                                <td>{{status}}</td>
-                                <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-
-                {{#CollectionPagination}}{{/CollectionPagination}}
-            </div>
+                    <table class="ui large table segment manager">
+                         <thead>
+                               <tr>
+                                  <th>Title</th>
+                                  <th>Category</th>
+                                  <th>Status</th>
+                                  <th class="trash">Delete</th>
+                               </tr>
+                         </thead>
+                         <tbody>
+                            {{#each blogs}}
+                                 <tr data-id="{{dbURI}}">
+                                     <td>{{title}}</td>
+                                     <td>{{category}}</td>
+                                     <td>{{status}}</td>
+                                    <td>
+                                       <div class="manager trash ui icon button">
+                                           <i class="trash icon"></i>
+                                       </div>
+                                    </td>
+                                 </tr>
+                            {{/each}}
+                         </tbody>
+                    </table>
+                     {{#CollectionPagination}}{{/CollectionPagination}}
+                {{else}}
+					 {{#CollectionEmpty}}{{/CollectionEmpty}}
+	          {{/if}}
+           </div>
 HBS;
         return $partial;
     }
