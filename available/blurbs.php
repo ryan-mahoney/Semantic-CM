@@ -64,6 +64,7 @@ class blurbs {
 	}
 
 	public function tablePartial () {
+		f
 		$partial = <<<'HBS'
 			<div class="top-container">
 				{{#CollectionHeader}}{{/CollectionHeader}}

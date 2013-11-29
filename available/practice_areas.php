@@ -1,34 +1,43 @@
 <?php
 /*
- * @version .2
- * @link https://raw.github.com/virtuecenter/manager/master/available/photo_galleries.php
+ * @version .1
+ * @link https://raw.github.com/virtuecenter/manager/master/available/practice_areas.php
  * @mode upgrade
  */
 namespace Manager;
 
-class photo_galleries {
+class practice_areas {
 	private $field = false;
-    public $collection = 'photo_galleries';
-    public $title = 'Photo Galleries';
-    public $singular = 'Photo Gallery';
-    public $description = '4 photo galleries';
-    public $definition = 'Photos organizes into individual galleries.';
+    public $collection = 'practice_areas';
+    public $form = 'practice_areas';
+    public $title = 'Practice Areas';
+    public $singular = 'Practice Area';
+    public $description = '4 practice areas';
+    public $definition = '......';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $tabs = ['Main', 'Flickr', 'SEO'];
-    public $icon = 'photo';
+    public $tabs = ['Main', 'SEO'];
+    public $icon = 'legal';
     public $category = 'Content';
-    public $notice = 'Photo Gallery Saved';
+    public $notice = 'Practice Areas Saved';
     public $storage = [
-        'collection' => 'photo_galleries',
+        'collection' => 'practice_areas',
         'key' => '_id'
     ];
+	
 
-	function titleField () {	
+	function titleField () {
 		return [
-			'name' => 'title',
-			'label' => 'Title',
-			'required' => true,
-			'display' => 'InputText'
+			'name'		=> 'title',
+			'label'		=> 'Title',
+			'required'	=> true,
+			'display'	=> 'InputText'
+		];
+	}
+
+	function bodyField () {
+		return [
+			'display' => 'Ckeditor',
+			'name' => 'body'
 		];
 	}
 
@@ -37,14 +46,6 @@ class photo_galleries {
 			'name' => 'description',
 			'label' => 'Summary',
 			'display' => 'Textarea'
-		];
-	}
-
-	function imageField () {
-		return [
-			'name' => 'image',
-			'label' => 'Featured Image',
-			'display' => 'InputFile'
 		];
 	}
 
@@ -61,60 +62,6 @@ class photo_galleries {
 			'default'	=> 'published'
 		];
 	}
-
-	function dateField() {
-		return [
-			'name'			=> 'display_date',
-			'required'		=> true,
-			'display'		=> 'InputDatePicker',
-			'transformIn'	=> function ($data) {
-				return new \MongoDate(strtotime($data));
-			},
-			'transformOut'	=> function ($data) {
-				return date('m/d/Y', $data->sec);
-			},
-			'default'		=> function () {
-				return date('m/d/Y');
-			}
-		];
-	}
-
-	function featuredField () {
-        return [
-            'name' => 'featured',
-            'label' => 'Feature',
-            'required' => false,
-            'options' => array(
-                't' => 'Yes',
-                'f' => 'No'
-            ),
-            'display' => 'InputSlider',
-            'default' => 'f'
-        ];
-    }
-
-     function flickerField () {
-		return [
-			'name' => 'flicker',
-			'label'=> 'URL',
-			'required'=> false,
-			'display'=>'InputText'
-		];
-	}	
-
-    function pinnedField () {
-        return [
-            'name' => 'pinned',
-            'label' => 'Pin',
-            'required' => false,
-            'options' => array(
-                't' => 'Yes',
-                'f' => 'No'
-            ),
-            'display' => 'InputSlider',
-            'default' => 'f'
-        ];
-    }
 
     function code_nameField () {
 		return [
@@ -137,54 +84,38 @@ class photo_galleries {
 		];
 	}
 
-	function categoriesField () {
-		return [
-			'name'		=> 'categories',
-			'label'		=> 'Category',
-			'required'	=> false,
-			'options'	=> function () {
-				return $this->db->fetchAllGrouped(
-					$this->db->collection('categories')->
-						find(['section' => 'Blog'])->
-						sort(['title' => 1]),
-					'_id', 
-					'title');
-			},
-			'display'	=> 'InputToTags',
-			'controlled' => true,
-			'multiple' => true
-		];
+	/*
+	function created_dateField() {
+		return VCPF\DOMFormTableArray::createdDate();
 	}
 
-	function tagsField () {
-		return [
-			'name' => 'tags',
-			'label' => 'Tags',
+	function naemField () {
+		return array(
+			'name' => 'name',
+			'label' => 'Name',
+			'required' => true,
+			'display' => VCPF\Field::inputText()
+		);
+	}
+
+	function summaryField () {
+		return array(
+			'name' => 'summary',
+			'label' => 'Short Description',
 			'required' => false,
-			'transformIn' => function ($data) {
-				if (is_array($data)) {
-					return $data;
-				}
-				return $this->field->csvToArray($data);
-			},
-			'display' => 'InputToTags',
-			'multiple' => true,
-			'options' => function () {
-				return $this->db->distinct('photo_galleries', 'tags');
-			}
-		];
-	}
-    
-	public function image_individualField() {
-		return [
-			'name'		=> 'image_individual',
-			'label'		=> 'Images',
-			'required'	=> false,
-			'display'	=> 'Manager',
-			'manager'	=> 'subimages'
-		];
+			'display' => VCPF\Field::textarea()
+		);
 	}
 
+	function descriptionField () {
+		return [
+			'name' => 'description',
+			'label' => 'Description',
+			'required' => false,
+			'display' => VCPF\Field::ckeditor()
+		];
+	}		
+*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -202,7 +133,6 @@ class photo_galleries {
 	                    <col width="10%">
 	                    <thead>
 	                        <tr>
-	                            <th>Image</th>
 	                            <th>Title</th>
 	                            <th>Status</th>
 	                            <th>Feature</th>
@@ -210,9 +140,8 @@ class photo_galleries {
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                        {{#each photo_galleries}}
+	                        {{#each practice _areas}}
 	                            <tr data-id="{{dbURI}}">
-	                                <td>{{image}}</td>
 	                                <td>{{title}}</td>
 	                                <td>{{status}}</td>
 	                                <td>{{featured}}</td>
@@ -246,31 +175,15 @@ HBS;
 	                <div class="ui tab active" data-tab="Main">
 	                    {{#DocumentFormLeft}}
 	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+	                        {{#FieldLeft body Body}}{{/FieldLeft}}
 	                        {{#FieldLeft description Summary}}{{/FieldLeft}}
-	                        {{#FieldLeft image "Featured Image"}}{{/FieldLeft}}
-	                        {{#FieldEmbedded image_individual subimages Images}}{{/FieldEmbedded}}
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                
 	                    {{#DocumentFormRight}}
 	                	    {{#DocumentButton}}{{/DocumentButton}}
 		                    {{#FieldFull status}}{{/FieldFull}}
-		                    <br />
-		                    {{#FieldFull display_date}}{{/FieldFull}}
-		                    <div class="ui clearing divider"></div>
-		                    {{#FieldLeft featured}}{{/FieldLeft}}
-		                    <br />
-		                    {{#FieldLeft pinned}}{{/FieldLeft}}
-		                    <div class="ui clearing divider"></div>
-		                    {{#FieldFull categories Categories}}{{/FieldFull}}
-		                	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                    {{/DocumentFormRight}}
-	                </div>
-	                <div class="ui tab" data-tab="Flickr">
-	                	{{#DocumentFormLeft}}
-		                	{{#FieldLeft flicker URL}}{{/FieldLeft}}
-		               	{{/DocumentFormLeft}}                 
-	                    {{#DocumentFormRight}}{{/DocumentFormRight}}
 	                </div>
 	                <div class="ui tab" data-tab="SEO">
 		                {{#DocumentFormLeft}}

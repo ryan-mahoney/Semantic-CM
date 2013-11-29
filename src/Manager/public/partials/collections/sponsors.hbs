@@ -1,0 +1,35 @@
+            <div class="top-container">
+                {{#CollectionHeader}}{{/CollectionHeader}}
+            </div>
+
+            <div class="bottom-container">
+                {{#CollectionPagination}}{{/CollectionPagination}}
+                {{#CollectionButtons}}{{/CollectionButtons}}
+                
+                <table class="ui large table segment manager">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th class="trash">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each sponsors}}
+                            <tr data-id="{{dbURI}}">
+                                <td>{{title}}</td>
+                                <td>{{category}}</td>
+                                <td>{{status}}</td>
+                                <td>
+                                    <div class="manager trash ui icon button">
+                                         <i class="trash icon"></i>
+                                     </div>
+                                 </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+                {{#CollectionPagination}}{{/CollectionPagination}}
+            </div>

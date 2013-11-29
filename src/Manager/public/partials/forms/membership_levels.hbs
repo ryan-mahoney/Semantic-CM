@@ -1,0 +1,24 @@
+	        {{#Form}}{{/Form}}
+	            <div class="top-container">
+	                {{#DocumentHeader}}{{/DocumentHeader}}
+	                {{#DocumentTabs}}{{/DocumentTabs}}
+	            </div>
+
+	            <div class="bottom-container">
+	                <div class="ui tab active" data-tab="Main">
+	                    {{#DocumentFormLeft}}
+	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+	                        {{#FieldLeft price Price}}{{/FieldLeft}}
+	                        {{#FieldLeft term Term}}{{/FieldLeft}}
+	                        {{#FieldEmbedded description Description}}{{/FieldEmbedded}}
+	                        {{{id}}}
+	                    {{/DocumentFormLeft}}                 
+	                
+	                    {{#DocumentFormRight}}
+	                	    {{#DocumentButton}}{{/DocumentButton}}
+		                    {{#FieldFull status}}{{/FieldFull}}
+		                    <br />
+	                    {{/DocumentFormRight}}
+	                </div>
+	            </div>
+	        </form>
