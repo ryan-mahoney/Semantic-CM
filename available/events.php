@@ -10,6 +10,7 @@ class events {
 	private $field = false;
     public $collection = 'events';
     public $title = 'Events';
+    public $titleField = 'title';
     public $singular = 'Event';
     public $description = '4 events';
     public $definition = '...';

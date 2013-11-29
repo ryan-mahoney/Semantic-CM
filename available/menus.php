@@ -10,6 +10,7 @@ class menus {
     private $field = false;
     public $collection = 'menus';
     public $title = 'Menus';
+    public $titleField = 'title';
     public $singular = 'Menu';
     public $description = '4 menu items';
     public $definition = 'Menus are used for the navigation of your public website.';
@@ -30,18 +31,18 @@ class menus {
     function labelField () {
         return [
             'name'        => 'label',
-            'placeholder'        => 'Label',
+            'placeholder' => 'Title',
             'required'    => true,
-            'display'    => 'InputText'
+            'display'     => 'InputText'
         ];
     }    
 
     function urlField () {
         return [
             'name'        => 'url',
-            'placeholder'        => 'URL',
+            'placeholder' => 'URL',
             'required'    => false,
-            'display'    => 'InputText'
+            'display'     => 'InputText'
         ];
     }
 
@@ -150,7 +151,7 @@ HBS;
 
                 <div class="bottom-container">
                     {{#DocumentFormLeft}}
-                        {{#FieldLeft label Label required}}{{/FieldLeft}}
+                        {{#FieldLeft label Title required}}{{/FieldLeft}}
                         {{#FieldLeft url URL required}}{{/FieldLeft}}
                         {{#FieldLeft file Image}}{{/FieldLeft}}
                         {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}

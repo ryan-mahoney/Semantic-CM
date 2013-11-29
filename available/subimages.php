@@ -10,6 +10,7 @@ class subimages {
 	private $field = false;
 	public $collection = 'subimages';
 	public $title = 'Subimage';
+	public $titleField = 'title';
 	public $singular = 'Image';
 	public $description = '4 subimages';
 	public $definition = '';

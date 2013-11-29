@@ -10,6 +10,7 @@ class carousels {
 	private $field = false;
     public $collection = 'carousels';
     public $title = 'Carousel';
+    public $titleField = 'title';
     public $singular = 'Carousel';
     public $description = '4 carousels';
     public $definition = '...';
@@ -243,7 +244,7 @@ class carousels {
 		                    <tbody>
 		                        {{#each carousels}}
 		                            <tr data-id="{{dbURI}}">
-		                                <td>{{label}}</td>
+		                                <td>{{title}}</td>
 		                                <td>{{url}}</td>
 		                                <td>
 		                                    <div class="manager trash ui icon button">

@@ -28,6 +28,7 @@ class programs {
 	private $field = false;
     public $collection = 'programs';
     public $title = 'Programs';
+    public $titleField = 'title';
     public $singular = 'Program';
     public $description = '4 programs';
     public $definition = '...';

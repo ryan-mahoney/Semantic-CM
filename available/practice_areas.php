@@ -10,6 +10,7 @@ class practice_areas {
 	private $field = false;
     public $collection = 'practice_areas';
     public $title = 'Practice Areas';
+    public $titleField = 'title';
     public $singular = 'Practice Area';
     public $description = '4 practice areas';
     public $definition = '......';

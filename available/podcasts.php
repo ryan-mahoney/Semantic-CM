@@ -10,6 +10,7 @@ class podcasts {
 	private $field = false;
     public $collection = 'podcasts';
     public $title = 'Podcasts';
+    public $titleField = 'title';
     public $singular = 'Podcast';
     public $description = '4 podcasts';
     public $definition = '....';

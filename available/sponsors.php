@@ -10,6 +10,7 @@ class sponsors {
 	private $field = false;
     public $collection = 'sponsors';
     public $title = 'Sponsors';
+    public $titleField = 'title';
     public $singular = 'Sponsor';
     public $description = '4 sponsors';
     public $definition = '...';

@@ -11,6 +11,7 @@ class videos {
 	private $field = false;
     public $collection = 'videos';
     public $title = 'Videos';
+    public $titleField = 'title';
     public $singular = 'Video';
     public $description = '4 videos';
     public $definition = '....';

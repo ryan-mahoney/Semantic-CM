@@ -10,6 +10,7 @@ class testimonials {
 	private $field = false;
     public $collection = 'testimonials';
     public $title = 'Testimonials';
+    public $titleField = 'title';
     public $singular = 'Testimonial';
     public $description = '4 testimonials';
     public $definition = '...';

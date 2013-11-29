@@ -10,6 +10,7 @@ class pages {
 	private $field = false;
     public $collection = 'pages';
     public $title = 'Pages';
+    public $titleField = 'title';
     public $singular = 'Page';
     public $description = '4 pages';
     public $definition = '...';

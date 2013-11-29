@@ -10,6 +10,7 @@ class photo_galleries {
 	private $field = false;
     public $collection = 'photo_galleries';
     public $title = 'Photo Galleries';
+    public $titleField = 'title';
     public $singular = 'Photo Gallery';
     public $description = '4 photo galleries';
     public $definition = 'Photos organizes into individual galleries.';

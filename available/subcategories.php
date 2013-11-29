@@ -11,6 +11,7 @@ class subcategories {
 	public $collection = 'categories';
 	public $form = 'subcategories';
 	public $title = 'Subcategories';
+	public $titleField = 'title';
 	public $singular = 'Subcategory';
 	public $description = '4 subcategories';
 	public $definition = '';

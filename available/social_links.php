@@ -10,6 +10,7 @@ class social_links {
 	private $field = false;
     public $collection = 'social_links';
     public $title = 'Social Links';
+    public $titleField = 'title';
     public $singular = 'Social Link';
     public $description = '4 social links';
     public $definition = '...';

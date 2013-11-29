@@ -11,6 +11,7 @@ class file_uploads {
 	private $field = false;
     public $collection = 'file_uploads';
     public $title = 'File Uploads';
+    public $titleField = 'title';
     public $singular = 'File Upload';
     public $description = '4 file upload';
     public $definition = '....';

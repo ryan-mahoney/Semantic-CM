@@ -10,6 +10,7 @@ class membership_levels {
 	private $field = false;
     public $collection = 'membership_levels';
     public $title = 'Membership';
+    public $titleField = 'title';
     public $singular = 'Membership Level';
     public $description = '4 membership levels';
     public $definition = '...';

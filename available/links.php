@@ -10,6 +10,7 @@ class links {
 	private $field = false;
     public $collection = 'links';
     public $title = 'Links';
+    public $titleField = 'title';
     public $singular = 'Link';
     public $description = '4 links';
     public $definition = '...';

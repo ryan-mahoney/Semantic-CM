@@ -12,6 +12,7 @@ class categories{
 	private $field = false;
     public $collection = 'categories';
     public $title = 'Categories';
+    public $titleField = 'title';
     public $singular = 'Category';
     public $description = '4 categories';
     public $definition = '.....';
