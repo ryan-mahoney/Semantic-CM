@@ -56,15 +56,33 @@ var formSubmitInitialize = function () {
 };
 
 var titleInitialize = function () {
-	//find title input
-	
-	//update the breadcrumbs
-	
-	//detect if slug is set
-	
-	//bind input to breadcrumbs
-	
-	//optionally bind input to slugify
+	var formDom = $('form');
+	var titleField = $(formDom).attr('data-titlefield');
+	if (titleField == '' || typeof(titleField) == 'undefined') {
+		return;
+	}
+	var manager = $(formDom).attr('data-manager');
+	var titleFieldName = manager + '[' + titleField + ']';
+	var slugFieldName = manager + '[code_name]';
+	var crumbDom = $('.top-container .breadcrumb a:last-child > h2');
+	var titleDom = $('input[name="' + titleFieldName + '"]');
+	var slugDom = $('input[name="' + slugFieldName + '"]');
+	var watchedObject = {
+		value: $(titleDom).val()
+	};
+	var mode = ($(titleDom).val().length > 0) ? 'update' : 'add';
+	$(titleDom).bind("change keyup input", function () {
+		watchedObject.value = $(this).val();
+	});
+    watch(watchedObject, "value", function () {
+        $(crumbDom).html(watchedObject.value);
+        if (mode == 'add') {
+			$(slugDom).val(slugg(watchedObject.value, '-'));   
+    	}
+    });
+    if (mode == 'update') {
+    	$(crumbDom).html(watchedObject.value);
+    }
 };
 
 var saveEventCopy = function () {

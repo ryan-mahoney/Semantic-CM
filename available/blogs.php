@@ -10,6 +10,7 @@ class blogs {
 	private $field = false;
     public $collection = 'blogs';
     public $title = 'Blogs';
+    public $titleField = 'title';
     public $singular = 'Blog';
     public $description = '4 blogs';
     public $definition = '...';
