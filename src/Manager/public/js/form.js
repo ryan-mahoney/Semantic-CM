@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	titleInitialize();
 	tabularMenuInitialize();
 	formSubmitInitialize();
 });
@@ -7,12 +8,24 @@ var ManagerSaved = function (form, data) {
 	var message = 'Information Saved.';
 	if ($(form).attr('data-singular') !== "undefined") {
 		message = $(form).attr('data-singular') + ' Saved.';
-	} 
+	}
+	$('.form-notice').addClass('teal').removeClass('red');
 	$('.form-notice > .container').html('<div class="header item"><h1>' + message + '</h1></div>');
 	$('.form-notice').sidebar({overlay: true}).sidebar('show');
 	setTimeout(function () {
 		$('.form-notice').sidebar({overlay: true}).sidebar('hide');
 	}, 2500);
+
+	//loop over embedded documents, update
+};
+
+var FormError = function (errors) {
+	$('.form-notice').addClass('red').removeClass('teal');
+	$('.form-notice > .container').html('<div class="header item"><h1>Error in Form</h1></div>');
+	$('.form-notice').sidebar({overlay: true}).sidebar('show');
+	setTimeout(function () {
+		$('.form-notice').sidebar({overlay: true}).sidebar('hide');
+	}, 5000);	
 };
 
 var tabularMenuInitialize = function () {
@@ -40,4 +53,28 @@ var formSubmitInitialize = function () {
 	$('.ui.button.manager.submit').click(function () {
 		$(this).parents('form').submit();
 	});
+};
+
+var titleInitialize = function () {
+	//find title input
+	
+	//update the breadcrumbs
+	
+	//detect if slug is set
+	
+	//bind input to breadcrumbs
+	
+	//optionally bind input to slugify
+};
+
+var saveEventCopy = function () {
+
+};
+
+var saveEventDelete = function () {
+
+};
+
+var saveEventAnother = function () {
+
 };

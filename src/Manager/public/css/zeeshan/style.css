@@ -450,6 +450,7 @@ div.field.embedded > div.ui.menu > a.item {
 div.ui.sidebar.form-notice {
   height: auto !important;
   margin-top: -95px !important;
+  overflow-y: hidden !important;
 }
 
 div.form-notice > .container {
@@ -458,5 +459,5 @@ div.form-notice > .container {
   margin-top: 40px;
   height: 95px;
   min-height: 95px;
-  overflow-y: hidden;
+  overflow-y: hidden !important;
 }
