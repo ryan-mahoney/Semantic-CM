@@ -63,23 +63,6 @@ class blurbs {
 		];
 	}
 
-/*
-	function tagsField () {
-		return [
-			'name' => 'tags',
-			'label' => 'Tags',
-			'required' => false,
-			'transformIn' => function ($data) {
-				return $this->field->csvToArray($data);
-			},
-			'display' => $this->field->inputToTags(),
-			'autocomplete' => function () {
-				return $this->db->mongoDistinct('blurb', 'tags');
-			},
-		];
-	}
-*/
-
 	public function tablePartial () {
 		$partial = <<<'HBS'
 			<div class="top-container">

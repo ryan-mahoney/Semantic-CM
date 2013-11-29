@@ -9,9 +9,8 @@ namespace Manager;
 class subimages {
 	private $field = false;
 	public $collection = 'subimages';
-	public $form = 'subimages';
 	public $title = 'Subimage';
-	public $singular = 'Menu';
+	public $singular = 'Image';
 	public $description = '4 subimages';
 	public $definition = '';
 	public $acl = ['content', 'admin', 'superadmin'];
@@ -22,7 +21,7 @@ class subimages {
 	public $notice = 'Subimages';
 	public $embedded = true;
 	public $storage = [
-		'collection' => 'subimages',
+		'collection' => 'photo_galleries',
 		'key' => '_id'
 	];
 
@@ -58,75 +57,38 @@ class subimages {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			<a class="item">Sub-Menus</a>
-			<!-- <div class="ui borderless pagination menu large fluid"></div> -->
-			<div class="item right">
-        		<div class="ui button manager add">Add</div>
-    		</div>
-			<table class="ui table manager segment">
-				<thead>
-					<tr><th>Label</th></tr>
-				</thead>
-				<tbody>
-					{{#each subimages}}
-						<tr data-id="{{dbURI}}">
-							<td>{{title}}</td>
-						</tr>
-					{{/each}}
-				</tbody>
-			</table>
+			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
+			{{#if image_individual}}
+				<table class="ui table manager segment">
+					<thead>
+						<tr><th>Caption</th></tr>
+					</thead>
+					<tbody>
+						{{#each image_individual}}
+							<tr data-id="{{dbURI}}">
+								<td>{{caption}}</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			{{else}}
+				{{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+			{{/if}}
 HBS;
 		return $partial;
 	}
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			<div class="header">
-          		Sub Menu
-      		</div>
-    		<form class="ui form" data-xhr="true" method="post" action="/Manager/manager/menu_links">
-			    <div class="ui warning message">
-			        <div class="header">There was a problem</div>
-			        <ul class="list">
-			        </ul>
-			    </div>
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Title</label>
-			        <div class="ui left labeled input">
-			            {{{file}}}
-			            <div class="ui corner label">
-			            	<i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
+			{{#EmbeddedHeader}}{{/EmbeddedHeader}}
+			    
+			    {{#FieldFull file Image}}{{/FieldFull}}
 
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>URL</label>
-			        <div class="ui left labeled input">
-			            {{{caption}}}
-			            <div class="ui corner label">
-			                <i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
-
-				<div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Target</label>
-			        <div class="ui left labeled input">
-			            {{{copyright}}}
-			            <div class="ui corner label">
-			                <i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
+			    {{#FieldFull caption Caption}}{{/FieldFull}}
 
 			    {{{id}}}
 
-			    <div class="actions">          
-			    	<div class="ui black button embedded close">Close</div>          
-			    	<button class="ui positive right labeled icon button">Save<i class="checkmark icon"></i></button>
-			   	</div>
-			</form>
+			{{#EmbeddedFooter}}{{/EmbeddedFooter}}    
 HBS;
 		return $partial;
 	}

@@ -9,7 +9,6 @@ namespace Manager;
 class photo_galleries {
 	private $field = false;
     public $collection = 'photo_galleries';
-    public $form = 'photo_galleries';
     public $title = 'Photo Galleries';
     public $singular = 'Photo Gallery';
     public $description = '4 photo_galleries';
@@ -249,7 +248,7 @@ HBS;
 	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft description Summary}}{{/FieldLeft}}
 	                        {{#FieldLeft image "Featured Image"}}{{/FieldLeft}}
-	                        {{#FieldEmbedded image_individual subimages}}{{/FieldEmbedded}}
+	                        {{#FieldEmbedded image_individual subimages Images}}{{/FieldEmbedded}}
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                

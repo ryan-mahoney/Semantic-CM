@@ -1,46 +1,9 @@
-			<div class="header">
-          		Sub Menu
-      		</div>
-    		<form class="ui form" data-xhr="true" method="post" action="/Manager/manager/menu_links">
-			    <div class="ui warning message">
-			        <div class="header">There was a problem</div>
-			        <ul class="list">
-			        </ul>
-			    </div>
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Title</label>
-			        <div class="ui left labeled input">
-			            {{{file}}}
-			            <div class="ui corner label">
-			            	<i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
+			{{#EmbeddedHeader}}{{/EmbeddedHeader}}
+			    
+			    {{#FieldFull file Image}}{{/FieldFull}}
 
-			    <div class="field" style="width: 96%; margin-left: 2%">
-			        <label>URL</label>
-			        <div class="ui left labeled input">
-			            {{{caption}}}
-			            <div class="ui corner label">
-			                <i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
-
-				<div class="field" style="width: 96%; margin-left: 2%">
-			        <label>Target</label>
-			        <div class="ui left labeled input">
-			            {{{copyright}}}
-			            <div class="ui corner label">
-			                <i class="icon asterisk"></i>
-			            </div>
-			        </div>
-			    </div>
+			    {{#FieldFull caption Caption}}{{/FieldFull}}
 
 			    {{{id}}}
 
-			    <div class="actions">          
-			    	<div class="ui black button embedded close">Close</div>          
-			    	<button class="ui positive right labeled icon button">Save<i class="checkmark icon"></i></button>
-			   	</div>
-			</form>
+			{{#EmbeddedFooter}}{{/EmbeddedFooter}}    

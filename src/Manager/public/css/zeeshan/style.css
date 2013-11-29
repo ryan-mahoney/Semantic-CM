@@ -3,8 +3,6 @@ body {
      color:#555;
      color: #000;
      background: url(../images/bg.jpg)repeat;
-     /*padding-left: 200px;
-     padding-right: 200px;*/
      font-size: 0.8em;
      margin: 0;
 }
@@ -18,7 +16,6 @@ body {
      width:100%;
      margin-top: 0px;
      padding-top: 10px;
-     
 }
 
 .top-container>.container{
@@ -119,7 +116,6 @@ li {
      margin-top: 15px;
 }
 
-
 .ui.tabular.menu>.active.bg-image{
      background: url(../images/bg.jpg);
      border-bottom: 0;
@@ -165,13 +161,15 @@ li {
 .ui.tiny.icon.button.padding{
   padding:0.55em;
 }
+
 /*
 Ryan
  */
 
 .main.menu {
-     top 0 !important;
-     margin-top: 0 !important;
+    top 0 !important;
+    margin-top: 0 !important;
+    z-index: 10000 !important;
 }
 
 .ui.items > .manager.item {
@@ -267,10 +265,9 @@ Ryan
     text-align: right;
     position: fixed;
     z-index: 2;
-    width: 1140px;
+    width: 1150px;
     bottom: 0;
     background-color: #fff;
-    margin-left: -1em;
 }
 
 .ui.embedded .actions > .button {
@@ -353,7 +350,8 @@ th.trash {
   text-align: right !important;
 }
 
-div.field.embedded > div.ui.menu > table.ui.manager {
+div.field.embedded > div.ui.menu > table.ui.manager,
+div.field.embedded > div.ui.menu > div.ui.message {
   margin-top: 0 !important;
 }
 
@@ -392,6 +390,54 @@ div.field.embedded > div.ui.menu > a.item {
   width: 90%;
 }
 
+.manager.column.embedded {
+  padding-top: 20px;
+  height: 350px;
+  overflow: scroll;
+}
+
+.manager.column.embedded > div.field {
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.field.embedded > .ui.menu {
+  background-color: transparent; 
+  border: 0; 
+  box-shadow: 0 0;
+}
+
+.field.embedded > .ui.menu .ui.button {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.field.embedded > .ui.menu .item {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.field.embedded > .ui.menu .item:before {
+  width: 0;
+}
+
+.ui.manager.modal {
+  width: 1200px;
+  margin-left: -600px;
+  min-height: 500px;
+}
+
+.ui.embedded.manager > .header {
+    font-size: 1.6em;
+    font-weight: 700;
+    margin: 0;
+    padding: 1.5rem 2rem;
+    background-color: #fff;
+}
+
+.ui.embedded .actions > .button {
+    margin-left: 0.75em;
+}
+
 /*Media Query*/
 
 @media screen and (max-width: 800px) {
@@ -399,4 +445,18 @@ div.field.embedded > div.ui.menu > a.item {
     min-width: 100%;
     padding: 0%;
   }
+}
+
+div.ui.sidebar.form-notice {
+  height: auto !important;
+  margin-top: -95px !important;
+}
+
+div.form-notice > .container {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 40px;
+  height: 95px;
+  min-height: 95px;
+  overflow-y: hidden;
 }

@@ -18,7 +18,8 @@ class blogs {
     public $tabs = ['Main', 'Images', 'External Article', 'SEO'];
     public $icon = 'text file';
     public $category = 'Content';
-    public $notice = 'Blog Saved';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $storage = [
         'collection' => 'blogs',
         'key' => '_id'
