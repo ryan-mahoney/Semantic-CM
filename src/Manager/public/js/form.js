@@ -86,7 +86,7 @@ var saveDropdownInitialize = function () {
 					        <div class="delete content"><p>Are you sure you want to delete the highlighted item?</p></div>\
 					        <div class="actions">\
 					        	<div class="ui negative button">No</div>\
-					        	<div class="ui positive right labeled icon confirmed delete button">Yes<i class="checkmark icon"></i></div>\
+					        	<div class="ui positive right labeled icon confirmed document delete button">Yes<i class="checkmark icon"></i></div>\
 					        </div>';
       					$('body').append(div);
   						$('.delete.modal').modal('show');
@@ -172,5 +172,5 @@ var confirmedDeleteInitialize = function () {
   		  		}
             });
     	}
-	}, '.confirmed.delete');
+	}, '.confirmed.document.delete');
 };

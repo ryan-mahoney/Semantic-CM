@@ -39,7 +39,7 @@ $(document).ready(function () {
         <div class="delete content"><p>Are you sure you want to delete the highlighted item?</p></div>\
         <div class="actions">\
           <div class="ui negative button">No</div>\
-          <div class="ui positive right labeled icon confirmed delete button">Yes<i class="checkmark icon"></i></div>\
+          <div class="ui positive right labeled icon confirmed table delete button">Yes<i class="checkmark icon"></i></div>\
         </div>';
       $('body').append(div);
   		$('.delete.modal').modal('show');
@@ -95,7 +95,7 @@ $(document).ready(function () {
   		  	dataType: 'json'
   		});
     }
-	}, '.confirmed.delete');
+	}, '.confirmed.table.delete');
 
 	$(document).on({
     click: function () {

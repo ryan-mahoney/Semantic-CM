@@ -10,7 +10,7 @@ class menus {
     private $field = false;
     public $collection = 'menus';
     public $title = 'Menus';
-    public $titleField = 'title';
+    public $titleField = 'label';
     public $singular = 'Menu';
     public $description = '4 menu items';
     public $definition = 'Menus are used for the navigation of your public website.';
@@ -60,38 +60,6 @@ class menus {
             'required' => false,
             'display'    =>    'Manager',
             'manager'    => 'menu_links'
-        ];
-    }
-
-    function featuredField () {
-        return [
-            'name' => 'featured',
-            'label' => 'Feature',
-            'required' => false,
-            'options' => array(
-                't' => 'Yes',
-                'f' => 'No'
-            ),
-            'display' => 'InputSlider',
-            'default' => 'f'
-        ];
-    }
-
-    function dateField() {
-        return [
-            'name'          => 'display_date',
-            'label'         => 'Display Date',
-            'required'      => true,
-            'display'       => 'InputDatePicker',
-            'transformIn'   => function ($data) {
-                return new \MongoDate(strtotime($data));
-            },
-            'transformOut'  => function ($data) {
-                return date('m/d/Y', $data->sec);
-            },
-            'default'       => function () {
-                return date('m/d/Y');
-            }
         ];
     }
 

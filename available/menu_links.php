@@ -64,7 +64,7 @@ class menu_links {
 			'default'	=> 'self'
 		];
 	}
-/*	
+	
 	function imageField () {
 		return [
 			'name' => 'file',
@@ -72,7 +72,6 @@ class menu_links {
 			'display' => 'InputFile'
 		];
 	}
-*/
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
