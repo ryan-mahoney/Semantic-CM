@@ -7,25 +7,59 @@ body {
      margin: 0;
 }
 
+.ui.fixed.main.menu > .container {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.ui.items .item:nth-of-type(n+1):hover {
+  border-bottom-color: #6ECFF5 !important;
+}
+
+.ui.items .item:nth-of-type(n+2):hover {
+  border-bottom-color: #6ECFF5 !important;
+}
+
+.ui.items .item:nth-of-type(n+3):hover {
+  border-bottom-color: #6ECFF5 !important;
+}
+
+.ui.items .item:nth-of-type(n+4):hover {
+  border-bottom-color: #6ECFF5 !important;
+}
+
+.ui.items .item:nth-of-type(n+5):hover {
+  border-bottom-color: #6ECFF5 !important;
+}
+
+.ui.items .item:nth-of-type(n+6):hover {
+  border-bottom-color: #6ECFF5 !important;
+}
+
 /******************************************
 /* LAYOUT                   
 /*******************************************/
 
-.top-container{
-     background-color: #fff;
+.ui.main.menu div.menu div.item a {
+  color: #333;
+  text-decoration: none;
+}
+
+.top-container {
+     background-color: #564F8A;
      width:100%;
      margin-top: 0px;
      padding-top: 10px;
 }
 
 .top-container>.container{
-     margin-left: 10%;
-     margin-right: 10%;
+     margin-left: 5%;
+     margin-right: 5%;
 }
 
 .bottom-container{
-     margin-left: 10%;
-     margin-right: 10%;
+     margin-left: 5%;
+     margin-right: 5%;
      position: relative;
 }
 
@@ -70,15 +104,49 @@ li {
 
 .ui.column.grid>.fontSize{
      font-size: 0.9rem;
+     color: #fff;
+     opacity: .8;
 }
 
 .top-container h2 {
-     margin: 0 !important;
-     color: #555;
+     margin: 8px 0 0 0 !important;
+     color: #fff;
+     font-size: 1.2em;
+     text-transform: uppercase;
+}
+
+.top-container > .breadcrumb > a:last-child h2 {
+  font-size: 1.6em;
+}
+
+.top-container > .breadcrumb > a h2:hover {
+  color: #D9D4FF;
+}
+
+.top-container > .breadcrumb > a:last-child h2:hover {
+  color: #fff;
+}
+
+.top-container .ui.menu .item {
+  color: #fff;
+  opacity: .9;
+}
+
+.top-container .ui.menu .item.active {
+  color: #434343;
+  opacity: 1;
 }
 
 .top-container a {
      text-decoration: none;
+}
+
+.top-container .ui.divider {
+  opacity: .2;
+}
+
+.top-container .right.arrow {
+     color: #fff;
 }
 
 .top-container h2:hover{
@@ -123,12 +191,12 @@ li {
 }
 
 .ui.tabular.menu>.align-left{
-     margin-left: 10%;
+     margin-left: 5%;
 }
 
 
 .ui.tabular.menu>.align-right{
-     margin-right: 10%;
+     margin-right: 5%;
 }
 
 .ui.form>h3{
@@ -286,8 +354,8 @@ Ryan
 }
 
 .masthead > .container {
-     margin-left: 10%;
-     margin-right: 10%;
+     margin-left: 5%;
+     margin-right: 5%;
 }
 
 div.ui > div.container > div.title:first-child {
@@ -375,6 +443,18 @@ div.field.embedded > div.ui.menu > a.item {
   background-color: #efefef;
 }
 
+.column.manager.rightside div.buttons.submit .dropdown {
+  border-bottom-right-radius: 0.25em !important; 
+  border-top-right-radius: 0.25em !important;
+}
+
+.column.manager.rightside div.buttons.submit span {
+  float: left;
+  padding: 10px 0 0 10px;
+  color: #999;
+  font-size: .85em;
+}
+
 .column.manager.rightside div.buttons.submit > div {
   display: inline-block;
   float: none;
@@ -387,7 +467,7 @@ div.field.embedded > div.ui.menu > a.item {
 }
 
 .manager.column.main > div.field {
-  width: 90%;
+  width: 95%;
 }
 
 .manager.column.embedded {
@@ -454,10 +534,11 @@ div.ui.sidebar.form-notice {
 }
 
 div.form-notice > .container {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
   margin-top: 40px;
   height: 95px;
   min-height: 95px;
   overflow-y: hidden !important;
 }
+
