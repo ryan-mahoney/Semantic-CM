@@ -12,12 +12,13 @@ return function ($template, $context, $args, $source) {
 			<i class="right arrow icon divider"></i>
 			<a class="active section"><h2>', $metadata['singular'], '</h2></a>
 		</div>
+<!--
 		<div class="ui ignored divider container padding"></div>
 		<div class="ui two column grid container padding">
 			<div class="column fontSize">
 				<p>', (isset($metadata['definition']) ? $metadata['definition'] : ''), '</p>
 			</div>
-  		</div>';
+  		</div>-->';
 
 	$buffer = ob_get_clean();
 	return $buffer;

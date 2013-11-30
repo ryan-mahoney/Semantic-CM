@@ -2,6 +2,7 @@ $(document).ready(function () {
 	titleInitialize();
 	tabularMenuInitialize();
 	formSubmitInitialize();
+	modifiedDateInitialize();
 });
 
 var ManagerSaved = function (form, data) {
@@ -15,6 +16,14 @@ var ManagerSaved = function (form, data) {
 	setTimeout(function () {
 		$('.form-notice').sidebar({overlay: true}).sidebar('hide');
 	}, 2500);
+	$('abbr.time-pending').each(function () {
+		var now = new Date();
+		$(this).attr('title', 'When this page was saved last');
+		$(this).html(now.toISOString());
+		$(this).addClass('timeago');
+		$(this).timeago();
+		$(this).removeClass('time-pending');
+	});
 
 	//loop over embedded documents, update
 };
@@ -26,6 +35,17 @@ var FormError = function (errors) {
 	setTimeout(function () {
 		$('.form-notice').sidebar({overlay: true}).sidebar('hide');
 	}, 5000);	
+};
+
+var modifiedDateInitialize = function () {
+	$('abbr.timeago').each(function () {
+        var uniqid = 'moment-' + Math.random().toString(36).substr(2, 7);
+        if (typeof($(this).attr('data-id')) != 'undefined') {
+            return;
+        }
+        $(this).attr('data-id', uniqid);
+		$(this).timeago();
+	});
 };
 
 var tabularMenuInitialize = function () {

@@ -5,7 +5,7 @@ return function ($template, $context, $args, $source) {
 	return '
 		<div class="ui divided grid">
 	        <div class="row">
-	            <div class="twelve wide column manager main ui form">' .
+	            <div class="eleven wide column manager main ui form">' .
 					($source != '' ? $engine->render($source, $context) : '') . '
 				</div>';
 };
