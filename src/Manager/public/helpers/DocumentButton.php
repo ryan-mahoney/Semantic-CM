@@ -9,15 +9,15 @@ return function ($template, $context, $args, $source) {
     ob_start();
     echo '
         <div class="ui teal medium buttons submit">
-            <div class="ui button manager submit">Save</div><div class="ui floating dropdown icon button top right pointing">
+            <span><i class="time icon"></i> ', $modifiedMarkup, '</span>
+            <div class="ui button manager submit">Save</div><div class="ui teal dropdown icon button">
                 <i class="dropdown icon"></i>
                 <div class="menu">
-                    <div class="item" data-value="horizontal flip">Save &amp; Stay</div>
-                    <div class="item" data-value="fade up">Save, then Add Another</div>
-                    <div class="item" data-value="scale">Save As Copy</div>
+                    <div class="item" data-value="save-another"><i class="plus icon"></i>Save, Add Another</div>
+                    <div class="item" data-value="save-copy"><i class="copy icon"></i>Save As Copy</div>
+                    <div class="item" data-value="save-delete"><i class="delete icon"></i>Delete</div>
                 </div>
             </div>
-            <span><i class="time icon"></i> ', $modifiedMarkup, '</span>
         </div>';
 
 	$buffer = ob_get_clean();

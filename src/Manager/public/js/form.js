@@ -2,7 +2,8 @@ $(document).ready(function () {
 	titleInitialize();
 	tabularMenuInitialize();
 	formSubmitInitialize();
-	modifiedDateInitialize();
+	saveDropdownInitialize();
+	confirmedDeleteInitialize();
 });
 
 var ManagerSaved = function (form, data) {
@@ -21,6 +22,12 @@ var ManagerSaved = function (form, data) {
 		$(this).attr('data-livestamp', now.toISOString());
 	});
 
+	var mode = $('body').attr('date-savemode');
+	var manager = $('.manager form').attr('data-manager');
+	if (mode == 'another') {
+		window.location = '/Manager/add/' + manager;
+		return;
+	}
 	//loop over embedded documents, update
 };
 
@@ -33,14 +40,63 @@ var FormError = function (errors) {
 	}, 5000);	
 };
 
-var modifiedDateInitialize = function () {
-	$('abbr.timeago').each(function () {
-        var uniqid = 'moment-' + Math.random().toString(36).substr(2, 7);
+var saveDropdownInitialize = function () {
+	$('.manager .submit .ui.dropdown').each(function () {
+		var uniqid = 'dropdown-' + Math.random().toString(36).substr(2, 7);
         if (typeof($(this).attr('data-id')) != 'undefined') {
             return;
         }
         $(this).attr('data-id', uniqid);
-		$(this).timeago();
+        var manager = $('.manager form').attr('data-manager');
+        var idFieldName = manager + '[id]';
+		var idDom = $('input[name="' + idFieldName + '"]');
+		var idOld = $(idDom).val();
+
+        $(this).dropdown({
+			onChange: function(value) {
+				switch (value) {
+					case 'save-another':
+						$('body').attr('date-savemode', 'another');
+						$('.manager form').submit();
+						break;
+
+					case 'save-copy':
+						var idSpare = $('.manager form').attr('data-idSpare');
+						var slugFieldName = manager + '[code_name]';
+						var slugDom = $('input[name="' + slugFieldName + '"]');
+						var tmpVal = $(slugDom).val() + '-copy';
+						var idParts = idOld.split(':');
+						idParts.pop();
+						idParts.push(idSpare);
+						idSpare = idParts.join(':');
+						$(slugDom).val(tmpVal);
+						$(idDom).val(idSpare);
+						$('.manager form').submit();
+						break;
+
+					case 'save-delete':
+      					var uniqid = Math.random().toString(36).substr(2, 7);
+      					var div = document.createElement("div");
+      					$('.ui.modal.delete').remove();
+      					$(div).addClass('ui small modal delete');
+      					$(div).attr('id', 'Modal-' + uniqid);
+					    div.innerHTML = '\
+					        <i class="close icon"></i>\
+					        <div class="header">Confirm Delete</div>\
+					        <div class="delete content"><p>Are you sure you want to delete the highlighted item?</p></div>\
+					        <div class="actions">\
+					        	<div class="ui negative button">No</div>\
+					        	<div class="ui positive right labeled icon confirmed delete button">Yes<i class="checkmark icon"></i></div>\
+					        </div>';
+      					$('body').append(div);
+  						$('.delete.modal').modal('show');
+  						$('.delete.content').html('Are you sure you want to delete this?</div>');
+  						$('.confirmed.delete').attr('data-id', idOld);
+      					$('.confirmed.delete').attr('data-manager', manager);
+						break;
+				}
+			}
+		});
 	});
 };
 
@@ -101,14 +157,20 @@ var titleInitialize = function () {
     }
 };
 
-var saveEventCopy = function () {
-
-};
-
-var saveEventDelete = function () {
-
-};
-
-var saveEventAnother = function () {
-
+var confirmedDeleteInitialize = function () {
+	$(document).on({
+    	click: function () {
+  			var pathname = '';
+      		var dbURI = $(this).attr('data-id');
+      		var manager = $(this).attr('data-manager');
+      		var url = '/Manager/manager/' + manager + '/' + dbURI;
+  			$.ajax({
+  		  		type: "DELETE",
+  		  		url: url,
+  		  		success: function (response) {
+  		  			window.location = '/Manager/list/' + manager;
+  		  		}
+            });
+    	}
+	}, '.confirmed.delete');
 };

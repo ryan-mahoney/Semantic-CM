@@ -447,9 +447,9 @@ div.field.embedded > div.ui.menu > a.item {
   background-color: #efefef;
 }
 
-.column.manager.rightside div.buttons.submit .dropdown {
-  border-bottom-right-radius: 0.25em !important; 
-  border-top-right-radius: 0.25em !important;
+.column.manager.rightside div.buttons.submit .manager {
+  border-bottom-left-radius: 0.25em !important; 
+  border-top-left-radius: 0.25em !important;
 }
 
 .column.manager.rightside div.buttons.submit span {
