@@ -63,10 +63,6 @@ body {
      position: relative;
 }
 
-.document .bottom-container{
-     padding-top: 30px;
-}
-
 .ui.right.sidebar{
      background-color: #333;
 }
@@ -117,6 +113,7 @@ li {
 
 .top-container > .breadcrumb > a:last-child h2 {
   font-size: 1.6em;
+  text-transform: none;
 }
 
 .top-container > .breadcrumb > a h2:hover {
@@ -407,11 +404,18 @@ form > .ui.info.message {
 }
 
 .column.manager.main {
-  padding-left: 0 !important;
+  background-color: #FFFFFF;
+  padding-left: 1% !important;
+  padding-top: 30px;
+  -webkit-box-shadow: 2px 0 25px -20px #000000 !important;
+  -moz-box-shadow: 2px 0 25px -20px #000000 !important;
+  box-shadow: 2px 0 25px -20px #000000 !important;
+  padding-bottom: 40px;
 }
 
-.column.manager.sidebar {
+.column.manager.rightside {
   box-shadow: none !important;
+  padding-top: 30px;
 }
 
 th.trash {

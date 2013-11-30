@@ -9,11 +9,11 @@ var checkWidth = function () {
         $('.ui.items').addClass('three');
     } else if (width < 1250) {
         $('.ui.items').addClass('four');
-    } else if (width < 1550) {
+    } else if (width < 1650) {
         $('.ui.items').addClass('five');
-    } else if (width < 1850) {
+    } else if (width < 1950) {
         $('.ui.items').addClass('six');
-    } else if (width < 2100) {
+    } else if (width < 2300) {
         $('.ui.items').addClass('seven');
     } else {
         $('.ui.items').addClass('eight');

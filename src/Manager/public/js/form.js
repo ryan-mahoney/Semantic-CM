@@ -16,13 +16,9 @@ var ManagerSaved = function (form, data) {
 	setTimeout(function () {
 		$('.form-notice').sidebar({overlay: true}).sidebar('hide');
 	}, 2500);
-	$('abbr.time-pending').each(function () {
+	$('abbr.time').each(function () {
 		var now = new Date();
-		$(this).attr('title', 'When this page was saved last');
-		$(this).html(now.toISOString());
-		$(this).addClass('timeago');
-		$(this).timeago();
-		$(this).removeClass('time-pending');
+		$(this).attr('data-livestamp', now.toISOString());
 	});
 
 	//loop over embedded documents, update

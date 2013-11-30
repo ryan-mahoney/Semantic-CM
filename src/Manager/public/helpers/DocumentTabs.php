@@ -10,7 +10,7 @@ return function ($template, $context, $args, $source) {
     }
     $active = 'active align-left ';
     foreach ($metadata['tabs'] as $tab) {
-    	echo '<a class="', $active, 'item bg-image" data-tab="', $tab, '">', $tab, '</a>';
+    	echo '<a class="', $active, 'item" data-tab="', $tab, '">', $tab, '</a>';
         $active = '';
     }
                

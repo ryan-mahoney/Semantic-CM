@@ -19,10 +19,14 @@ return function ($template, $context, $args, $source) {
 		<div class="ui two column grid container padding">
 			<div class="column fontSize">
 				<p>', (isset($metadata['definition']) ? $metadata['definition'] : ''), '</p>
-			</div>
+			</div>';
+	if ($pagination['total'] > 0) {
+		echo '
 			<div id="right" class="column fontSize">
 				<p>', $start, '-', $stop, ' of ', $pagination['total'], ' 
-			</div>
+			</div>';
+	}
+	echo '
   		</div>
 		<div class="ui ignored divider"></div>';
 

@@ -2,9 +2,9 @@
 return function ($template, $context, $args, $source) {
 	$engine = $template->getEngine();
     $modifiedDate = $engine->render('{{modified_date}}', $context);
-    $modifiedMarkup = '<abbr class="time-pending" title="">Not yet saved</abbr>';
+    $modifiedMarkup = '<abbr class="time" title="">Not yet saved</abbr>';
     if (!empty($modifiedDate)) {
-        $modifiedMarkup = '<abbr class="timeago" title="' . $modifiedDate . '">When this page was saved last</abbr>';
+        $modifiedMarkup = '<abbr class="time" data-livestamp="' . $modifiedDate . '"></abbr>';
     }
     ob_start();
     echo '
