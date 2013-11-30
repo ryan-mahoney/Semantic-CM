@@ -63,6 +63,16 @@ class menus {
         ];
     }
 
+    public function link_individualField() {
+        return [
+            'name'      => 'link_individual',
+            'label'     => 'Menus',
+            'required'  => false,
+            'display'   => 'Manager',
+            'manager'   => 'menu_links'
+        ];
+    }
+
     public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">

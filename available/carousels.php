@@ -70,6 +70,16 @@ class carousels {
 			}
 		];
 	}	
+
+	public function carousel_individualField() {
+		return [
+			'name'		=> 'carousel_individual',
+			'label'		=> 'carousels',
+			'required'	=> false,
+			'display'	=> 'Manager',
+			'manager'	=> 'subcarousels'
+		];
+	}
 	
 	public function tablePartial () {
         $partial = <<<'HBS'

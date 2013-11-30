@@ -83,7 +83,7 @@ class menu_links {
 						<tr><th>Label</th></tr>
 					</thead>
 					<tbody>
-						{{#each links}}
+						{{#each link_individual}}
 							<tr><td><i class="reorder icon"></i></td></tr>
 							<tr data-id="{{dbURI}}">
 								<td>{{title}}</td>
