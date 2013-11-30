@@ -77,12 +77,14 @@ class menu_links {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader Sub Menu}}{{/EmbeddedCollectionHeader}}
 			{{#if links_individual}}
-				<table class="ui table manager segment">
+				<table class="ui table manager segment sortable">
 					<thead>
+						<tr><th><i class="reorder icon"></i></th></tr>
 						<tr><th>Label</th></tr>
 					</thead>
 					<tbody>
 						{{#each links}}
+							<tr><td><i class="reorder icon"></i></td></tr>
 							<tr data-id="{{dbURI}}">
 								<td>{{title}}</td>
 							</tr>
