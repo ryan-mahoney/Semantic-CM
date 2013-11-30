@@ -3,38 +3,42 @@
             </div>
 
             <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
-                
-                <table class="ui large table segment manager">
-                    <col width="20%">
-                    <col width="70%">
-                    <col width="10%">
-                    <thead>
-                        <tr>
-                            <th>Video</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Feature</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each videos}}
-                            <tr data-id="{{dbURI}}">
-                                 <td>{{video}}</td>
-                                 <td>{{title}}</td>
-                                 <td>{{status}}</td>
-                                 <td>{{featured}}</td>
-                                 <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                {{#if videos}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionButtons}}{{/CollectionButtons}}
+		                
+		                <table class="ui large table segment manager">
+		                    <col width="20%">
+		                    <col width="70%">
+		                    <col width="10%">
+		                    <thead>
+		                        <tr>
+		                            <th>Video</th>
+		                            <th>Title</th>
+		                            <th>Status</th>
+		                            <th>Feature</th>
+		                            <th class="trash">Delete</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        {{#each videos}}
+		                            <tr data-id="{{dbURI}}">
+		                                 <td>{{video}}</td>
+		                                 <td>{{title}}</td>
+		                                 <td>{{status}}</td>
+		                                 <td>{{featured}}</td>
+		                                 <td>
+		                                    <div class="manager trash ui icon button">
+		                                         <i class="trash icon"></i>
+		                                     </div>
+		                                 </td>
+		                            </tr>
+		                        {{/each}}
+		                    </tbody>
+		                </table>
 
-                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		           {{else}}
+					{{#CollectionEmpty}}{{/CollectionEmpty}}
+				{{/if}}
             </div>

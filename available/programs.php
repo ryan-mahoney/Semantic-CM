@@ -27,8 +27,8 @@ namespace Manager;
 class programs {
 	private $field = false;
     public $collection = 'programs';
-    public $form = 'programs';
     public $title = 'Programs';
+    public $titleField = 'title';
     public $singular = 'Program';
     public $description = '4 programs';
     public $definition = '...';
@@ -36,7 +36,8 @@ class programs {
     public $tabs = ['Main', 'Images', 'SEO'];
     public $icon = 'Grid';
     public $category = 'Content';
-    public $notice = 'Programs Saved';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $storage = [
         'collection' => 'programs',
         'key' => '_id'
@@ -196,35 +197,39 @@ class programs {
             </div>
 
             <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
-                
-                <table class="ui large table segment manager">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each programs}}
-                            <tr data-id="{{dbURI}}">
-                                <td>{{title}}</td>
-                                <td>{{category}}</td>
-                                <td>{{status}}</td>
-                                <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                {{#if programs}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionButtons}}{{/CollectionButtons}}
+		                
+		                <table class="ui large table segment manager">
+		                    <thead>
+		                        <tr>
+		                            <th>Title</th>
+		                            <th>Category</th>
+		                            <th>Status</th>
+		                            <th class="trash">Delete</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        {{#each programs}}
+		                            <tr data-id="{{dbURI}}">
+		                                <td>{{title}}</td>
+		                                <td>{{category}}</td>
+		                                <td>{{status}}</td>
+		                                <td>
+		                                    <div class="manager trash ui icon button">
+		                                         <i class="trash icon"></i>
+		                                     </div>
+		                                 </td>
+		                            </tr>
+		                        {{/each}}
+		                    </tbody>
+		                </table>
 
-                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		           {{else}}
+					{{#CollectionEmpty}}{{/CollectionEmpty}}
+				{{/if}}
             </div>
 HBS;
         return $partial;

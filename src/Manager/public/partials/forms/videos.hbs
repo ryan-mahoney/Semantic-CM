@@ -1,25 +1,43 @@
-            <div class="top-container">
-                {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabs}}{{/DocumentTabs}}
-            </div>
+        	{{#Form}}{{/Form}}
+	            <div class="top-container">
+	                {{#DocumentHeader}}{{/DocumentHeader}}
+	                {{#DocumentTabs}}{{/DocumentTabs}}
+	            </div>
 
-            <div class="bottom-container">
-                {{#DocumentFormLeft}}
-                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-                    {{#FieldLeft description Summary}}{{/FieldLeft}}
-                    {{#FieldLeft image Featured Image}}{{/FieldLeft}}
-                    {{#FieldLeft video URL}}{{/FieldLeft}}
-                    {{{id}}}
-                {{/DocumentFormLeft}}                 
-                
-                {{#DocumentFormRight}}
-	                {{#DocumentButton}}{{/DocumentButton}}
-	                {{#FieldFull status}}{{/FieldFull}}
-	                <br />
-	                {{#FieldFull display_date}}{{/FieldFull}}
-	                <br />
-	                {{#FieldLeft featured}}{{/FieldLeft}}
-	                <br />
-	                {{#FieldLeft pinned}}{{/FieldLeft}}
-                {{/DocumentFormRight}}
-            </div>
+	            <div class="bottom-container">
+	                <div class="ui tab active" data-tab="Main">
+	                    {{#DocumentFormLeft}}
+	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+	                        {{#FieldLeft description Summary}}{{/FieldLeft}}
+	                        {{#FieldLeft image Featured Image}}{{/FieldLeft}}
+	                        {{#FieldLeft video URL}}{{/FieldLeft}}
+	                        {{{id}}}
+	                    {{/DocumentFormLeft}}                 
+	                
+	                    {{#DocumentFormRight}}
+		                    {{#DocumentButton}}{{/DocumentButton}}
+		                    {{#FieldFull status}}{{/FieldFull}}
+		                    <br />
+		                    {{#FieldFull display_date}}{{/FieldFull}}
+		                     <div class="ui clearing divider"></div>
+		                    {{#FieldLeft featured}}{{/FieldLeft}}
+		                    <br />
+		                    {{#FieldLeft pinned}}{{/FieldLeft}}
+		                     <div class="ui clearing divider"></div>
+		                    {{#FieldFull categories Categories}}{{/FieldFull}}
+		                	{{#FieldFull tags Tags}}{{/FieldFull}}
+	                    {{/DocumentFormRight}}
+	                </div>
+	                <div class="ui tab" data-tab="SEO">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+		                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+		              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+		                {{/DocumentFormLeft}}
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+	            </div>
+	        </form>

@@ -9,8 +9,8 @@ namespace Manager;
 class social_links {
 	private $field = false;
     public $collection = 'social_links';
-    public $form = 'social_links';
     public $title = 'Social Links';
+    public $titleField = 'title';
     public $singular = 'Social Link';
     public $description = '4 social links';
     public $definition = '...';
@@ -18,7 +18,8 @@ class social_links {
     public $tabs = ['Main'];
     public $icon = 'url';
     public $category = 'Content';
-    public $notice = 'Social Links Saved';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $storage = [
         'collection' => 'social_links',
         'key' => '_id'
@@ -58,36 +59,40 @@ class social_links {
             </div>
 
             <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
-                
-                <table class="ui large table segment manager">
-                    <col width="20%">
-                    <col width="70%">
-                    <col width="10%">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each social_links}}
-                            <tr data-id="{{dbURI}}">
-                                <td>{{title}}</td>
-                                <td>{{category}}</td>
-                                <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                {{#if social_links}}
+                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        
+                        <table class="ui large table segment manager">
+                            <col width="20%">
+                            <col width="70%">
+                            <col width="10%">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th class="trash">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each social_links}}
+                                    <tr data-id="{{dbURI}}">
+                                        <td>{{title}}</td>
+                                        <td>{{category}}</td>
+                                        <td>
+                                            <div class="manager trash ui icon button">
+                                                 <i class="trash icon"></i>
+                                             </div>
+                                         </td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
 
-                {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{#CollectionPagination}}{{/CollectionPagination}}
+                   {{else}}
+                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                {{/if}}
             </div>
 HBS;
         return $partial;

@@ -9,14 +9,16 @@ namespace Manager;
 class carousels {
 	private $field = false;
     public $collection = 'carousels';
-    public $form = 'carousel';
     public $title = 'Carousel';
+    public $titleField = 'title';
     public $singular = 'Carousel';
     public $description = '4 carousels';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
     public $icon = 'sign in';
     public $category = 'Content';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $notice = 'Carousel Saved';
     public $storage = [
         'collection' => 'carousels',
@@ -224,36 +226,40 @@ class carousels {
             </div>
 
             <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
-                
-                <table class="ui large table segment manager">
-                    <col width="20%">
-                    <col width="70%">
-                    <col width="10%">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>URL</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each carousels}}
-                            <tr data-id="{{dbURI}}">
-                                <td>{{label}}</td>
-                                <td>{{url}}</td>
-                                <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                {{#if carousels}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionButtons}}{{/CollectionButtons}}
+		                
+		                <table class="ui large table segment manager">
+		                    <col width="20%">
+		                    <col width="70%">
+		                    <col width="10%">
+		                    <thead>
+		                        <tr>
+		                            <th>Title</th>
+		                            <th>URL</th>
+		                            <th class="trash">Delete</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        {{#each carousels}}
+		                            <tr data-id="{{dbURI}}">
+		                                <td>{{title}}</td>
+		                                <td>{{url}}</td>
+		                                <td>
+		                                    <div class="manager trash ui icon button">
+		                                         <i class="trash icon"></i>
+		                                     </div>
+		                                 </td>
+		                            </tr>
+		                        {{/each}}
+		                    </tbody>
+		                </table>
 
-                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		            {{else}}
+					{{#CollectionEmpty}}{{/CollectionEmpty}}
+				{{/if}}
             </div>
 HBS;
         return $partial;

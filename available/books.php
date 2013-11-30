@@ -9,7 +9,6 @@ namespace Manager;
 class books {
 	private $field = false;
     public $collection = 'books';
-    public $form = 'books';
     public $title = 'Books';
     public $singular = 'Book';
     public $description = '4 books';
@@ -18,6 +17,8 @@ class books {
     public $tabs = ['Main', 'Images', 'SEO'];
     public $icon = 'book';
     public $category = 'Content';
+    public $after = 'function';
+    public $function = 'ManagerSaved';
     public $notice = 'Book Saved';
     public $storage = [
         'collection' => 'books',
@@ -188,38 +189,41 @@ class books {
             </div>
 
             <div class="bottom-container">
-                {{#CollectionPagination}}{{/CollectionPagination}}
-                {{#CollectionButtons}}{{/CollectionButtons}}
-                
-                <table class="ui large table segment manager">
-                    <col width="20%">
-                    <col width="70%">
-                    <col width="10%">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Feature</th>
-                            <th class="trash">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each books}}
-                            <tr data-id="{{dbURI}}">
-                                <td>{{title}}</td>
-                                <td>{{status}}</td>
-                                <td>{{featured}}</td>
-                                <td>
-                                    <div class="manager trash ui icon button">
-                                         <i class="trash icon"></i>
-                                     </div>
-                                 </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-
-                {{#CollectionPagination}}{{/CollectionPagination}}
+                {{#if books}}
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		                {{#CollectionButtons}}{{/CollectionButtons}}
+		                
+		                <table class="ui large table segment manager">
+		                    <col width="20%">
+		                    <col width="70%">
+		                    <col width="10%">
+		                    <thead>
+		                        <tr>
+		                            <th>Title</th>
+		                            <th>Status</th>
+		                            <th>Feature</th>
+		                            <th class="trash">Delete</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        {{#each books}}
+		                            <tr data-id="{{dbURI}}">
+		                                <td>{{title}}</td>
+		                                <td>{{status}}</td>
+		                                <td>{{featured}}</td>
+		                                <td>
+		                                    <div class="manager trash ui icon button">
+		                                         <i class="trash icon"></i>
+		                                     </div>
+		                                 </td>
+		                            </tr>
+		                        {{/each}}
+		                    </tbody>
+		                </table>
+		                {{#CollectionPagination}}{{/CollectionPagination}}
+		          {{else}}
+					{{#CollectionEmpty}}{{/CollectionEmpty}}
+			    {{/if}}
             </div>
 HBS;
         return $partial;

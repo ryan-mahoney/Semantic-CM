@@ -1,44 +1,63 @@
-            <div class="top-container">
-                {{#DocumentHeader}}{{/DocumentHeader}}
-                {{#DocumentTabs}}{{/DocumentTabs}}
-            </div>
+        	{{#Form}}{{/Form}}
+	            <div class="top-container">
+	                {{#DocumentHeader}}{{/DocumentHeader}}
+	                {{#DocumentTabs}}{{/DocumentTabs}}
+	            </div>
 
-            <div class="bottom-container">
-            	<div class="ui tab active" data-tab="Main">
-	                {{#DocumentFormLeft}}
-	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-	                    {{#FieldLeft description Body}}{{/FieldLeft}}
-	                    {{#FieldLeft short_description Summary}}{{/FieldLeft}}
-	                    {{#FieldLeft link URL}}{{/FieldLeft}}
-	                    {{#FieldLeft price Price}}{{/FieldLeft}}
-	                    {{{id}}}
-	                {{/DocumentFormLeft}}                 
-	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-		                {{#FieldFull status}}{{/FieldFull}}
-	    	            <br />
-	       	        	{{#FieldLeft featured}}{{/FieldLeft}}
-	                {{/DocumentFormRight}}
+	            <div class="bottom-container">
+	            	<div class="ui tab active" data-tab="Main">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+		                    {{#FieldLeft description Body}}{{/FieldLeft}}
+		                    {{#FieldLeft short_description Summary}}{{/FieldLeft}}
+		                    {{#FieldLeft link URL}}{{/FieldLeft}}
+		                    {{#FieldLeft price Price}}{{/FieldLeft}}
+		                    {{{id}}}
+		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+			                {{#FieldFull status}}{{/FieldFull}}
+			                <br>
+		       	        	{{#FieldLeft featured}}{{/FieldLeft}}
+		       	        	<div class="ui clearing divider"></div>
+		       	        	{{#FieldFull categories Categories}}{{/FieldFull}}
+		       	        	{{#FieldFull tags Tags}}{{/FieldFull}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="External Article">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft }}{{/FieldLeft}}
+		                    {{#FieldLeft }}{{/FieldLeft}}
+		                    {{#FieldLeft }}{{/FieldLeft}}
+		                    {{#FieldLeft }}{{/FieldLeft}}
+		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="Images">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft image Book Cover Image}}{{/FieldLeft}}
+		                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
+		                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
+		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="SEO">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
+		                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
+		              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+		                {{/DocumentFormLeft}}
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
 	            </div>
-	            <div class="ui tab" data-tab="Images">
-	                {{#DocumentFormLeft}}
-	                    {{#FieldLeft image Book Cover Image}}{{/FieldLeft}}
-	                {{/DocumentFormLeft}}                 
-	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-	                {{/DocumentFormRight}}
-	            </div>
-	            <div class="ui tab" data-tab="SEO">
-	                {{#DocumentFormLeft}}
-	                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-	                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-	              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-	                {{/DocumentFormLeft}}
-	                
-	                {{#DocumentFormRight}}
-		                {{#DocumentButton}}{{/DocumentButton}}
-	                {{/DocumentFormRight}}
-	            </div>
-            </div>
+	        </form>
