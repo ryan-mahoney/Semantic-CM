@@ -76,13 +76,13 @@ class menu_links {
 	public function tablePartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader Sub Menu}}{{/EmbeddedCollectionHeader}}
-			{{#if links_individual}}
+			{{#if link_individual}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Label</th></tr>
 					</thead>
 					<tbody>
-						{{#each links}}
+						{{#each link_individual}}
 							<tr data-id="{{dbURI}}">
 								<td>{{title}}</td>
 							</tr>

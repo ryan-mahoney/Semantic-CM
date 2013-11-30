@@ -112,6 +112,17 @@ class categories{
 		];
 	}
 
+	public function categories_individualField() {
+		return [
+			'name'		=> 'categories_individual',
+			'label'		=> 'categories',
+			'required'	=> false,
+			'display'	=> 'Manager',
+			'manager'	=> 'subcategories'
+		];
+	}
+	
+
 	/*
 
 	function tagsField () {
