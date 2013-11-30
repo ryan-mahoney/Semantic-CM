@@ -7,13 +7,14 @@
 	            <div class="bottom-container">
 	                {{#DocumentFormLeft}}
 	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-	                    {{#FieldLeft url URL required}}{{/FieldLeft}}
-	                    {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+	                    {{#FieldLeft description Description required}}{{/FieldLeft}}
+	                    {{#FieldEmbedded image_individual subcarousels Frames}}{{/FieldEmbedded}}
 	                    {{{id}}}
 	                {{/DocumentFormLeft}}                 
 	                
 	                {{#DocumentFormRight}}
 	                	{{#DocumentButton}}{{/DocumentButton}}
+	                	{{#FieldFull tags Tags}}{{/FieldFull}}
 	                {{/DocumentFormRight}}
 	            </div>
 	        </form>
