@@ -22,8 +22,8 @@
  * @mode upgrade
  */
 
-
 namespace Manager;
+
 class programs {
 	private $field = false;
     public $collection = 'programs';
@@ -34,7 +34,7 @@ class programs {
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images', 'SEO'];
-    public $icon = 'Grid';
+    public $icon = 'grid layout';
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
