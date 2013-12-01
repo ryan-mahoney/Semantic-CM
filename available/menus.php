@@ -19,6 +19,7 @@ class menus {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
+    public $sort = '{"sort_key":1, "created_date":-1}';
     public $storage = [
         'collection' => 'menus',
         'key' => '_id'
@@ -81,6 +82,7 @@ class menus {
                             <thead>
                                 <tr>
                                     <th><i class="shuffle basic icon"></i></th>
+                                    <th>Sort</th>
                                     <th>Title</th>
                                     <th>URL</th>
                                     <th class="trash">Delete</th>
@@ -90,6 +92,7 @@ class menus {
                                 {{#each menus}}
                                     <tr data-id="{{dbURI}}">
                                         <td class="handle"><i class="reorder icon"></i></td>
+                                        <td>{{sort_key}}</td>
                                         <td>{{label}}</td>
                                         <td>{{url}}</td>
                                         <td>

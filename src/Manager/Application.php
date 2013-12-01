@@ -312,7 +312,8 @@ class Application {
 				'icon' => $managerInstance->icon,
 				'category' => $managerInstance->category,
 				'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0),
-				'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : [])
+				'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : []),
+				'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":1}')
 			];
 			$managers[] = $record;
 			if (method_exists($managerInstance, 'formPartial')) {

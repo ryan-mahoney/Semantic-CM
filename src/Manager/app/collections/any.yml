@@ -7,4 +7,3 @@ binding:
     table:
         url: '%dataAPI%/Manager/data/?/all/50/0/{"created_date":-1}'
         partial: 'Manager/forms/?.hbs'
-        type: 'Collection'

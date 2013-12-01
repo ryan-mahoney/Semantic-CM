@@ -14,6 +14,7 @@
                             <thead>
                                 <tr>
                                     <th><i class="shuffle basic icon"></i></th>
+                                    <th>Sort</th>
                                     <th>Title</th>
                                     <th>URL</th>
                                     <th class="trash">Delete</th>
@@ -23,6 +24,7 @@
                                 {{#each menus}}
                                     <tr data-id="{{dbURI}}">
                                         <td class="handle"><i class="reorder icon"></i></td>
+                                        <td>{{sort_key}}</td>
                                         <td>{{label}}</td>
                                         <td>{{url}}</td>
                                         <td>
