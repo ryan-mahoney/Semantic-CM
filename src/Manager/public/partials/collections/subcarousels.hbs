@@ -1,17 +1,17 @@
-			{{#EmbeddedCollectionHeader Sub Menu}}{{/EmbeddedCollectionHeader}}
-			{{#if link_individual}}
+			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
+			{{#if subcarousel_individual}}
 				<table class="ui table manager segment">
 					<thead>
-						<tr><th>Label</th></tr>
+						<tr><th>Caption</th></tr>
 					</thead>
 					<tbody>
-						{{#each link_individual}}
+						{{#each carousel_individual}}
 							<tr data-id="{{dbURI}}">
-								<td>{{title}}</td>
+								<td>{{caption}}</td>
 							</tr>
 						{{/each}}
 					</tbody>
 				</table>
-			  {{else}}
+			{{else}}
 				{{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
 			{{/if}}
