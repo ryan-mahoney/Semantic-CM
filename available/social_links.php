@@ -105,7 +105,6 @@ HBS;
 	                {{#DocumentHeader}}{{/DocumentHeader}}
 	                {{#DocumentTabs}}{{/DocumentTabs}}
 	            </div>
-s
 	            <div class="bottom-container">
 	                 <div class="ui tab active" data-tab="Main">
 	                     {{#DocumentFormLeft}}

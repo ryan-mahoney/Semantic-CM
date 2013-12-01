@@ -137,9 +137,7 @@ var dragInitialize = function () {
           type: "POST",
             url: '/Manager/sort/' + manager,
           data: data,
-          success: function (response) {
-              console.log(response);
-            },
+          success: function (response) {},
             error: function () {
               console.log('Error');
             },
