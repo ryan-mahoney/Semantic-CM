@@ -19,7 +19,6 @@ class menu_links {
 	public $category = 'Content';
 	public $after = 'function';
 	public $function = 'embeddedUpsert';
-	public $notice = 'Menulinks';
 	public $embedded = true;
 	public $storage = [
 		'collection' => 'menus',
@@ -75,24 +74,26 @@ class menu_links {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader Sub Menu}}{{/EmbeddedCollectionHeader}}
-			{{#if links_individual}}
+			{{#EmbeddedCollectionHeader SubMenu}}{{/EmbeddedCollectionHeader}}
+			{{#if link}}
 				<table class="ui table manager segment sortable">
 					<thead>
-						<tr><th><i class="reorder icon"></i></th></tr>
-						<tr><th>Label</th></tr>
+						<tr>
+							<th><i class="shuffle basic icon"></i></th>
+							<th>Label</th>
+						</tr>
 					</thead>
 					<tbody>
-						{{#each link_individual}}
-							<tr><td><i class="reorder icon"></i></td></tr>
+						{{#each link}}
 							<tr data-id="{{dbURI}}">
+								<td class="handle"><i class="reorder icon"></i></td>
 								<td>{{title}}</td>
 							</tr>
 						{{/each}}
 					</tbody>
 				</table>
-			  {{else}}
-				{{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+			{{else}}
+				{{#EmbeddedCollectionEmpty submenu}}{{/EmbeddedCollectionEmpty}}
 			{{/if}}
 HBS;
 		return $partial;

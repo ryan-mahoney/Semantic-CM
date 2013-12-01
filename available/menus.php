@@ -63,16 +63,6 @@ class menus {
         ];
     }
 
-    public function link_individualField() {
-        return [
-            'name'      => 'link_individual',
-            'label'     => 'Menus',
-            'required'  => false,
-            'display'   => 'Manager',
-            'manager'   => 'menu_links'
-        ];
-    }
-
     public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -84,12 +74,13 @@ class menus {
                         {{#CollectionPagination}}{{/CollectionPagination}}
                         {{#CollectionButtons}}{{/CollectionButtons}}
                         
-                        <table class="ui large table segment manager">
+                        <table class="ui large table segment manager sortable">
                             <col width="20%">
                             <col width="70%">
                             <col width="10%">
                             <thead>
                                 <tr>
+                                    <th><i class="shuffle basic icon"></i></th>
                                     <th>Title</th>
                                     <th>URL</th>
                                     <th class="trash">Delete</th>
@@ -98,6 +89,7 @@ class menus {
                             <tbody>
                                 {{#each menus}}
                                     <tr data-id="{{dbURI}}">
+                                        <td class="handle"><i class="reorder icon"></i></td>
                                         <td>{{label}}</td>
                                         <td>{{url}}</td>
                                         <td>

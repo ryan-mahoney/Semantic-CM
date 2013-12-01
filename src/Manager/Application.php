@@ -25,7 +25,7 @@ class Application {
 		$this->formRoute = $container->formRoute;
 		$this->manager = $container->manager;
 		$this->upload = $container->uploadwrapper;
-		$this->slugify = $container->slugify;
+		$this->db = $container->db;
 	}
 
 	public function app () {
@@ -213,6 +213,60 @@ class Application {
 			}
 			echo json_encode($data, JSON_PRETTY_PRINT);
 			exit;
+		});
+
+		$this->slim->post('/Manager/sort/:manager', function ($manager) {
+			//echo $manager;
+			if (!isset($_POST['sorted']) || !is_array($_POST['sorted']) || count($_POST['sorted']) == 0) {
+				echo json_encode(['success' => true]);
+				exit;
+			}
+			$sample = $_POST['sorted'][0];
+			$depth = substr_count($sample, ':');
+			if ($depth == 1) {
+				$offset = 1;
+				foreach ($_POST['sorted'] as $dbURI) {
+					$parts = explode(':', $dbURI);
+					$this->db->collection($parts[0])->update([
+							'_id' => $this->db->id($parts[1])
+						], [
+							'$set' => [
+								'sort_key' => $offset
+							]
+						]);
+					$offset++;
+				}
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				$parts = explode(':', $sample);
+				$dbURI = $parts[0] . ':' . $parts[1];
+				$documentInstance = $this->db->documentStage($dbURI);
+				$document = $documentInstance->current();
+				if ($depth == 3) {
+					$embedded = $parts[($depth - 1)];
+					$newDocument = [];
+					foreach ($_POST['sorted'] as $dbURIEmbedded) {
+						foreach ($document[$embedded] as $embeddedDocument) {
+							if ($dbURIEmbedded == $embeddedDocument['dbURI']) {
+								$newDocument[] = $embeddedDocument;
+								continue;
+							}
+						}
+					}
+					$document[$embedded] = $newDocument;
+					$this->db->documentStage($dbURI, $document)->upsert();
+					echo json_encode(['success' => true]);
+					exit;
+				} elseif ($depth == 5) {
+					$embedded = $parts[($depth - 3)];
+					$embeddedId = $parts[($depth - 2)];
+					$embedded = $parts[($depth - 1)];
+					echo 'Five';
+				} else {
+					echo 'Wow!  That is a deep sort!';
+				}
+			}
 		});
 	}
 

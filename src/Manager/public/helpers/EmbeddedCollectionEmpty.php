@@ -3,7 +3,6 @@ return function ($template, $context, $args, $source) {
 	$args = str_getcsv(trim($args), ' ');
 	$singular = array_shift($args);
 	ob_start();
-	$metadata = $context->get('metadata');
 	echo '
 		<div class="ui message">
 			<div class="content">

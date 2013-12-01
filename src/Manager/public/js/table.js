@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  dragInitialize();
+
     $(document).on({
       mouseenter: function(){
         $(this).addClass('warning').css({cursor: 'pointer'});
@@ -109,6 +111,43 @@ $(document).ready(function () {
     }
 	}, '.manager.add');
 });
+
+var dragInitialize = function () {
+    $('.field.embedded table.sortable, table.sortable').each(function () {
+        var uniqid = 'sortable-' + Math.random().toString(36).substr(2, 7);
+        var manager = $(this).parents('form').attr('data-manager');
+        if (typeof($(this).attr('data-id')) != 'undefined') {
+            return;
+        }
+        var colspan = $(this).find('thead > tr > th').length;
+        $(this).attr('data-id', uniqid);
+        $(this).find('tbody').sortable({
+            items: 'tr',
+            handle: 'td.handle',
+            placeholder : '<tr><td colspan="' + colspan + '">&nbsp;</td></tr>'
+        });
+        $(this).find('tbody').sortable().bind('sortupdate', function(e, ui) {
+            var sorted = [];
+            $(e.currentTarget).children().each(function () {
+                sorted.push($(this).attr('data-id'));
+            });
+            var data = {};
+            data.sorted = sorted;
+            $.ajax({
+          type: "POST",
+            url: '/Manager/sort/' + manager,
+          data: data,
+          success: function (response) {
+              console.log(response);
+            },
+            error: function () {
+              console.log('Error');
+            },
+            dataType: 'json'
+        });
+        });
+    });
+};
 
 var embeddedCheck = function (DOMnode) {
   return $(DOMnode).parents('.field').length;
