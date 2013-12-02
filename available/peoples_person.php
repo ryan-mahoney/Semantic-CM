@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .1
+ * @version .2
  * @link https://raw.github.com/virtuecenter/manager/master/available/peoples_person.php
  * @mode upgrade
  */

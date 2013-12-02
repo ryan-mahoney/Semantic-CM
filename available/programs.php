@@ -17,7 +17,7 @@
  *  along with Nothing Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
- * @version .1
+ * @version .2
  * @link https://raw.github.com/virtuecenter/manager/master/available/programs.php
  * @mode upgrade
  */
