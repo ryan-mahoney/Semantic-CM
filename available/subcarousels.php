@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
  *
