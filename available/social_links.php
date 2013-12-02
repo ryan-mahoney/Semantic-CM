@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/social_links.php
  * @mode upgrade
  *
  * .4 lacks title field
+ * .5 list view does not make sense
  */
 namespace Manager;
 
@@ -71,16 +72,16 @@ class social_links {
                             <col width="10%">
                             <thead>
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Category</th>
+                                    <th>Type</th>
+                                    <th>URL</th>
                                     <th class="trash">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each social_links}}
                                     <tr data-id="{{dbURI}}">
-                                        <td>{{title}}</td>
-                                        <td>{{category}}</td>
+                                        <td>{{type}}</td>
+                                        <td>{{url}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
