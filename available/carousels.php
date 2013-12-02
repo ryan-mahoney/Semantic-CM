@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/carousels.php
  * @mode upgrade
  *
  *
  * .3 duplicate subcarousels field
+ * .4 field name issue
  */
 namespace Manager;
 
@@ -132,7 +133,7 @@ HBS;
 	                {{#DocumentFormLeft}}
 	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                    {{#FieldLeft description Description required}}{{/FieldLeft}}
-	                    {{#FieldEmbedded image_individual subcarousels Frames}}{{/FieldEmbedded}}
+	                    {{#FieldEmbedded carousel_individual subcarousels Frames}}{{/FieldEmbedded}}
 	                    {{{id}}}
 	                {{/DocumentFormLeft}}                 
 	                
