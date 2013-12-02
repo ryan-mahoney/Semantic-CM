@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
  *
  * .3 field name isssues
+ * .4 typo
  */
 namespace Manager;
 
@@ -90,7 +91,7 @@ HBS;
 			    
 			    {{#FieldFull file Image}}{{/FieldFull}}
 
-			    {{#FieldFull url URL}}{{/FieldFull}}4
+			    {{#FieldFull url URL}}{{/FieldFull}}
 
 			    {{#FieldFull target Target}}{{/FieldFull}}
 
