@@ -8,7 +8,7 @@
         "department_profiles": ".2",
         "departments": ".2",
         "events": ".2",
-        "file_uploads": ".3",
+        "file_uploads": ".4",
         "links": ".2",
         "membership_levels": ".2",
         "menu_links": ".2",
@@ -25,7 +25,7 @@
         "subcarousels": ".9",
         "subcategories": ".3",
         "subimages": ".3",
-        "testimonials": ".2",
+        "testimonials": ".3",
         "videos": ".3"
     }
 }
