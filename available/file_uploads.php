@@ -13,7 +13,7 @@ class file_uploads {
     public $title = 'File Uploads';
     public $titleField = 'title';
     public $singular = 'File Upload';
-    public $description = '4 file upload';
+    public $description = '4 file uploads';
     public $definition = '....';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main'];
