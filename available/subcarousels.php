@@ -6,6 +6,7 @@
  *
  * .3 field name isssues
  * .4 typo
+ * .5 missing caption field
  */
 namespace Manager;
 
@@ -59,6 +60,15 @@ class subcarousels {
 			'display'	=> 'Select',
 			'nullable'	=> false,
 			'default'	=> 'self'
+		];
+	}
+
+	function captionField () {
+		return [
+			'name'		=> 'caption',
+			'label'		=> 'Caption',
+			'required'	=> false,
+			'display'	=> 'InputText'
 		];
 	}
 	

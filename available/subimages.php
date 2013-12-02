@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/subimages.php
  * @mode upgrade
+ *
+ * .3 bad field label
  */
 namespace Manager;
 
@@ -30,7 +32,7 @@ class subimages {
 		$this->field = $field;
 	}
 
-	function urlField () {
+	function captionField () {
 		return [
 			'name'		=> 'caption',
 			'label'		=> 'Caption',
