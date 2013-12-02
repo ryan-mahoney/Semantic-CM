@@ -1,8 +1,11 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/carousels.php
  * @mode upgrade
+ *
+ *
+ * .3 duplicate subcarousels field
  */
 namespace Manager;
 
@@ -31,16 +34,6 @@ class carousels {
 			'label' => 'Title',
 			'required' => true,
 			'display' => 'InputText'
-		];
-	}
-	
-	public function image_individualField() {
-		return [
-			'name'		=> 'image_individual',
-			'label'		=> 'Frames',
-			'required'	=> false,
-			'display'	=> 'Manager',
-			'manager'	=> 'subcarousels'
 		];
 	}
 	
