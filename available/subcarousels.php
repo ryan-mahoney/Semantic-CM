@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
+ *
+ * .3 field name isssues
  */
 namespace Manager;
 
@@ -58,76 +60,6 @@ class subcarousels {
 			'default'	=> 'self'
 		];
 	}
-/*
-	function captionField () {
-		return [
-			'name'		=> 'caption',
-			'label'		=> 'Caption',
-			'required'	=> false,
-			'display'	=> 'Ckeditor'
-		];
-	}
-
-
-	function titleField () {	
-		return [
-			'name' => 'title',
-			'label' => 'Title',
-			'required' => true,
-			'display' => 'InputText'
-		];
-	}
-
-
-	function afterFieldsetUpdate () {
-		return function ($admin) {
-			$DOM = VCPF\DOMView::getDOM();
-			$DOM['#image_individual-field .table-actions']->append('<a class="btn btn-small vcms-panel" data-id="" data-attributes="{\'gallery\':\'' . (string)$admin->activeRecord['_id'] . '\'}" data-mode="save" data-vc__admin="vc\ms\site\admin\ImageBatchAdmin" style="float: right">Upload Batch</a>');
-		};
-	}
-	
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'photo_galleries'),
-			[
-				'path' => '/gallery/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
-		);
-	}
-	
-	public function image_individualField() {
-		return array(
-			'name' => 'image_individual',
-			'label' => 'Add Individual Image',
-			'required' => false,
-			'display'	=>	VCPF\Field::admin(),
-			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSubAdmin'
-		);
-	}
-	
-	
-	function display_dateField() {
-		return array(
-			'name'=> 'display_date',
-			'label'=> 'Display Date',
-			'required'=>true,
-			'display' => VCPF\Field::inputDatePicker(),
-			'transformIn' => function ($data) {
-				return new \MongoDate(strtotime($data));
-			},
-			'transformOut' => function ($data) {
-				return date('m/d/Y', $data->sec);
-			},
-			'default' => function () {
-				return date('m/d/Y', (strtotime('now')));
-			}
-		);
-	}
-
-		
-	*/
 	
 	public function tablePartial () {
 		$partial = <<<'HBS'
@@ -146,7 +78,7 @@ class subcarousels {
 					</tbody>
 				</table>
 			{{else}}
-				{{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+				{{#EmbeddedCollectionEmpty carousel_individual}}{{/EmbeddedCollectionEmpty}}
 			{{/if}}
 HBS;
 		return $partial;
