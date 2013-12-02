@@ -214,7 +214,7 @@ class photo_galleries {
 	                    <tbody>
 	                        {{#each photo_galleries}}
 	                            <tr data-id="{{dbURI}}">
-	                                <td>{{image}}</td>
+	                                <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
 	                                <td>{{title}}</td>
 	                                <td>{{status}}</td>
 	                                <td>{{featured}}</td>

@@ -77,14 +77,16 @@ class menus {
                         
                         <table class="ui large table segment manager sortable">
                             <col width="10%">
-                            <col width="50%">
-                            <col width="30%">
+                            <col width="40%">
+                            <col width="20%">
+                            <col width="20%">
                             <col width="10%">
                             <thead>
                                 <tr>
                                     <th><i class="shuffle basic icon"></i></th>
                                     <th>Title</th>
                                     <th>URL</th>
+                                    <th>Created Date</th>
                                     <th class="trash">Delete</th>
                                 </tr>
                             </thead>
@@ -94,6 +96,7 @@ class menus {
                                         <td class="handle"><i class="reorder icon"></i></td>
                                         <td>{{label}}</td>
                                         <td>{{url}}</td>
+                                        <td>{{#MongoDate created_date m/d/Y}}{{/MongoDate}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
