@@ -26,6 +26,7 @@ class Application {
 		$this->manager = $container->manager;
 		$this->upload = $container->uploadwrapper;
 		$this->db = $container->db;
+		$this->slugify = $container->slugify;
 	}
 
 	public function app () {

@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .2
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/blogs.php
  * @mode upgrade
  */

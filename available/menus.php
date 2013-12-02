@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/menus.php
  * @mode upgrade
  */
