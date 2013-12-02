@@ -9,7 +9,6 @@ namespace Manager;
 class subcategories {
 	private $field = false;
 	public $collection = 'categories';
-	public $form = 'subcategories';
 	public $title = 'Subcategories';
 	public $titleField = 'title';
 	public $singular = 'Subcategory';

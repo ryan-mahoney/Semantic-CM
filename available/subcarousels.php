@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
  *
@@ -9,15 +9,16 @@
  * .5 missing caption field
  * .6 change save function
  * .7 bad field name
+ * .8 wrong collection
  */
 namespace Manager;
 
 class subcarousels {
 	private $field = false;
-    public $collection = 'subcarousels';
-    public $title = '"Sub Carousels"';
+    public $collection = 'carousels';
+    public $title = 'SubCarousels';
     public $titleField = 'title';
-    public $singular = '"Sub Carousel"';
+    public $singular = 'SubCarousel';
     public $description = '4 subcarousels';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
