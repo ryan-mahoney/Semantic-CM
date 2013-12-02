@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
  *
  * .3 field name isssues
  * .4 typo
  * .5 missing caption field
+ * .6 change save function
  */
 namespace Manager;
 
@@ -22,7 +23,7 @@ class subcarousels {
     public $icon = 'browser';
     public $category = 'Content';
     public $after = 'function';
-    public $function = 'ManagerSaved';
+    public $function = 'embeddedUpsert';
     public $notice = 'Carousel Saved';
     public $storage = [
         'collection' => 'carousels',
