@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/social_links.php
  * @mode upgrade
+ *
+ * .3 lacks title field
  */
 namespace Manager;
 
@@ -10,7 +12,7 @@ class social_links {
 	private $field = false;
     public $collection = 'social_links';
     public $title = 'Social Links';
-    public $titleField = 'title';
+    public $titleField = 'type';
     public $singular = 'Social Link';
     public $description = '4 social links';
     public $definition = '...';
