@@ -8,6 +8,7 @@
  * .4 typo
  * .5 missing caption field
  * .6 change save function
+ * .7 bad field name
  */
 namespace Manager;
 
@@ -76,7 +77,7 @@ class subcarousels {
 	public function tablePartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
-			{{#if subcarousel_individual}}
+			{{#if carousel_individual}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Caption</th></tr>
