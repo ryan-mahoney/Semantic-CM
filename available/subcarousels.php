@@ -1,24 +1,31 @@
 <?php
 /*
- * @version .2
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
+ *
+ * .3 field name isssues
+ * .4 typo
+ * .5 missing caption field
+ * .6 change save function
+ * .7 bad field name
+ * .8 wrong collection
  */
 namespace Manager;
 
 class subcarousels {
 	private $field = false;
-    public $collection = 'subcarousels';
-    public $title = '"Sub Carousels"';
+    public $collection = 'carousels';
+    public $title = 'SubCarousels';
     public $titleField = 'title';
-    public $singular = '"Sub Carousel"';
+    public $singular = 'SubCarousel';
     public $description = '4 subcarousels';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
     public $icon = 'browser';
     public $category = 'Content';
     public $after = 'function';
-    public $function = 'ManagerSaved';
+    public $function = 'embeddedUpsert';
     public $notice = 'Carousel Saved';
     public $storage = [
         'collection' => 'carousels',
@@ -58,81 +65,20 @@ class subcarousels {
 			'default'	=> 'self'
 		];
 	}
-/*
+
 	function captionField () {
 		return [
 			'name'		=> 'caption',
 			'label'		=> 'Caption',
 			'required'	=> false,
-			'display'	=> 'Ckeditor'
+			'display'	=> 'InputText'
 		];
 	}
-
-
-	function titleField () {	
-		return [
-			'name' => 'title',
-			'label' => 'Title',
-			'required' => true,
-			'display' => 'InputText'
-		];
-	}
-
-
-	function afterFieldsetUpdate () {
-		return function ($admin) {
-			$DOM = VCPF\DOMView::getDOM();
-			$DOM['#image_individual-field .table-actions']->append('<a class="btn btn-small vcms-panel" data-id="" data-attributes="{\'gallery\':\'' . (string)$admin->activeRecord['_id'] . '\'}" data-mode="save" data-vc__admin="vc\ms\site\admin\ImageBatchAdmin" style="float: right">Upload Batch</a>');
-		};
-	}
-	
-	function code_nameField () {
-		return array_merge(
-			VCPF\DOMFormTableArray::codename('title', 'photo_galleries'),
-			[
-				'path' => '/gallery/',
-				'selector' => '#title-field input',
-				'mode' => 'after'
-			]
-		);
-	}
-	
-	public function image_individualField() {
-		return array(
-			'name' => 'image_individual',
-			'label' => 'Add Individual Image',
-			'required' => false,
-			'display'	=>	VCPF\Field::admin(),
-			'adminClass'	=> 'vc\ms\site\subdocuments\ImageSubAdmin'
-		);
-	}
-	
-	
-	function display_dateField() {
-		return array(
-			'name'=> 'display_date',
-			'label'=> 'Display Date',
-			'required'=>true,
-			'display' => VCPF\Field::inputDatePicker(),
-			'transformIn' => function ($data) {
-				return new \MongoDate(strtotime($data));
-			},
-			'transformOut' => function ($data) {
-				return date('m/d/Y', $data->sec);
-			},
-			'default' => function () {
-				return date('m/d/Y', (strtotime('now')));
-			}
-		);
-	}
-
-		
-	*/
 	
 	public function tablePartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
-			{{#if subcarousel_individual}}
+			{{#if carousel_individual}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Caption</th></tr>
@@ -146,7 +92,7 @@ class subcarousels {
 					</tbody>
 				</table>
 			{{else}}
-				{{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+				{{#EmbeddedCollectionEmpty carousel_individual}}{{/EmbeddedCollectionEmpty}}
 			{{/if}}
 HBS;
 		return $partial;
@@ -158,7 +104,7 @@ HBS;
 			    
 			    {{#FieldFull file Image}}{{/FieldFull}}
 
-			    {{#FieldFull url URL}}{{/FieldFull}}4
+			    {{#FieldFull url URL}}{{/FieldFull}}
 
 			    {{#FieldFull target Target}}{{/FieldFull}}
 

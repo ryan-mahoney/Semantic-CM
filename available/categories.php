@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/categories.php
  * @mode upgrade
+ *
+ * .3 duplicate field
  */
 
 namespace Manager;
@@ -111,68 +113,6 @@ class categories{
 			'display'	=> 'InputText'
 		];
 	}
-
-	public function categories_individualField() {
-		return [
-			'name'		=> 'categories_individual',
-			'label'		=> 'categories',
-			'required'	=> false,
-			'display'	=> 'Manager',
-			'manager'	=> 'subcategories'
-		];
-	}
-	
-
-	/*
-
-	function tagsField () {
-		return array(
-			'name' => 'tags',
-			'label' => 'Tags for Categories',
-			'required' => false,
-			'transformIn' => function ($data) {
-				return VCPF\Regex::csvToArray($data);
-			},
-			'display' => VCPF\Field::inputToTags(),
-			'autocomplete' => function () {
-				return VCPF\Model::mongoDistinct('categories', 'tags');
-			},
-			'tooltip' => 'Another way to make entries more findable.'
-		);
-	}	
-
-	function featuredField () {
-		return array(
-			'name' => 'featured',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => 'InputRadioButton',
-			'default' => 'f'
-		);
-	}
-	
-	function templateField () {
-		return [
-			'name' => 'template',
-			'label' => 'Type',
-			'required' => true,
-			'options' => function () {
-				$templates = VCPF\Config::category()['templates'];
-				if (!is_array($templates) || count($templates) == 0) {
-					$templates = ['__vc__ms__site__admin__CategoryAdmin' => 'Basic'];
-				}
-				return $templates;
-			},
-			'display' => VCPF\Field::select(),
-			//'nullable' => 'Choose a Template'
-		];
-	}
-	
-*/
 
 	public function tablePartial () {
         $partial = <<<'HBS'

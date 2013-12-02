@@ -1,15 +1,16 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcategories.php
  * @mode upgrade
+ *
+ * .3 wrong field referenced
  */
 namespace Manager;
 
 class subcategories {
 	private $field = false;
 	public $collection = 'categories';
-	public $form = 'subcategories';
 	public $title = 'Subcategories';
 	public $titleField = 'title';
 	public $singular = 'Subcategory';
@@ -51,13 +52,13 @@ class subcategories {
 	public function tablePartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
-			{{#if categories_individual}}
+			{{#if subcategory}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Title</th></tr>
 					</thead>
 					<tbody>
-						{{#each categories}}
+						{{#each subcategory}}
 							<tr data-id="{{dbURI}}">
 								<td>{{title}}</td>
 							</tr>
@@ -65,7 +66,7 @@ class subcategories {
 					</tbody>
 				</table>
 		      {{else}}
-			   {{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+			   {{#EmbeddedCollectionEmpty subcategory}}{{/EmbeddedCollectionEmpty}}
 	       {{/if}}
 HBS;
 		return $partial;

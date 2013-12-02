@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/photo_galleries.php
  * @mode upgrade
+ *
+ * .5 remove dead code
  */
 namespace Manager;
 

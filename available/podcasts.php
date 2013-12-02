@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/podcasts.php
  * @mode upgrade
+ *
+ * .4 make audio file non-mandatory
  */
 namespace Manager;
 
@@ -47,21 +49,12 @@ class podcasts {
 		return [
 			'name' => 'audio',
 			'label' => 'File',
-			'required' => true,
+			'required' => false,
 			'display' => 'InputFile'
 		];
 	}
 
-
-	function imageField () {
-		return [
-			'name' => 'image',
-			'label' => 'List',
-			'display' => 'InputFile'
-		];
-	}
-
-	 function code_nameField () {
+	function code_nameField () {
 		return [
 			'name' => 'code_name',
 			'display'	=> 'InputText'
