@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .2
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/blogs.php
  * @mode upgrade
  */
@@ -277,30 +277,30 @@ class blogs {
                     {{#CollectionButtons}}{{/CollectionButtons}}
                 
                     <table class="ui large table segment manager">
-                         <thead>
+                        <thead>
                                <tr>
                                   <th>Title</th>
                                   <th>Category</th>
                                   <th>Status</th>
+                                  <th>Featured</th>
                                   <th class="trash">Delete</th>
                                </tr>
-                         </thead>
-                         <tbody>
+                        </thead>
+                        <tbody>
                             {{#each blogs}}
-                                 <tr data-id="{{dbURI}}">
-                                     <td>{{title}}</td>
-                                     <td>{{category}}</td>
-                                     <td>{{status}}</td>
+                                <tr data-id="{{dbURI}}">
+                                    <td>{{title}}</td>
+                                    <td>{{category}}</td>
+                                    <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+                                    <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
                                     <td>
-                                       <div class="manager trash ui icon button">
-                                           <i class="trash icon"></i>
-                                       </div>
+                                       <div class="manager trash ui icon button"><i class="trash icon"></i></div>
                                     </td>
                                  </tr>
                             {{/each}}
                          </tbody>
                     </table>
-                     {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{#CollectionPagination}}{{/CollectionPagination}}
                 {{else}}
 					 {{#CollectionEmpty}}{{/CollectionEmpty}}
 	          {{/if}}

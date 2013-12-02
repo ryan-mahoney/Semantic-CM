@@ -1,17 +1,21 @@
-			{{#EmbeddedCollectionHeader Sub Menu}}{{/EmbeddedCollectionHeader}}
-			{{#if link_individual}}
-				<table class="ui table manager segment">
+			{{#EmbeddedCollectionHeader SubMenu}}{{/EmbeddedCollectionHeader}}
+			{{#if link}}
+				<table class="ui table manager segment sortable">
 					<thead>
-						<tr><th>Label</th></tr>
+						<tr>
+							<th><i class="shuffle basic icon"></i></th>
+							<th>Label</th>
+						</tr>
 					</thead>
 					<tbody>
-						{{#each link_individual}}
+						{{#each link}}
 							<tr data-id="{{dbURI}}">
+								<td class="handle"><i class="reorder icon"></i></td>
 								<td>{{title}}</td>
 							</tr>
 						{{/each}}
 					</tbody>
 				</table>
-			  {{else}}
-				{{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+			{{else}}
+				{{#EmbeddedCollectionEmpty submenu}}{{/EmbeddedCollectionEmpty}}
 			{{/if}}
