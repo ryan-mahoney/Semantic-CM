@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/books.php
  * @mode upgrade
+ *
+ * .4 do not require price and url
  */
 namespace Manager;
 
@@ -78,7 +80,7 @@ class books {
 		return [
 			'name'		=> 'link',
 			'label'		=> 'URL',
-			'required'	=> true,
+			'required'	=> false,
 			'display'	=> 'InputText'
 		];
 	}
@@ -88,7 +90,7 @@ class books {
 		return [
 			'name'		=> 'price',
 			'label'		=> 'Price',
-			'required'	=> true,
+			'required'	=> false,
 			'display'	=> 'InputText'
 		];
 	}
