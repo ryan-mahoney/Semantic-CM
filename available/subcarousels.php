@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .8
+ * @version .9
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
  *
@@ -10,6 +10,7 @@
  * .6 change save function
  * .7 bad field name
  * .8 wrong collection
+ * .9 mark as embedded
  */
 namespace Manager;
 
@@ -25,6 +26,7 @@ class subcarousels {
     public $icon = 'browser';
     public $category = 'Content';
     public $after = 'function';
+    public $embedded = true;
     public $function = 'embeddedUpsert';
     public $notice = 'Carousel Saved';
     public $storage = [
