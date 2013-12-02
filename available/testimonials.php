@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/testimonials.php
  * @mode upgrade
  */
@@ -24,6 +24,15 @@ class testimonials {
         'collection' => 'testimonials',
         'key' => '_id'
     ];
+
+    function titleField () {
+		return [
+			'name'		=> 'title',
+			'label'		=> 'Name',
+			'required'	=> true,
+			'display'	=> 'InputText'
+		];
+	}
 
     function locationField(){
 		return [
@@ -197,6 +206,7 @@ HBS;
 	            <div class="bottom-container">
 	            	<div class="ui tab active" data-tab="Main">
 		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft title Name required}}{{/FieldLeft}}
 		                    {{#FieldLeft location Location required}}{{/FieldLeft}}
 		                    {{#FieldLeft occupation Occupation}}{{/FieldLeft}}
 		                    {{#FieldLeft message Message}}{{/FieldLeft}}
