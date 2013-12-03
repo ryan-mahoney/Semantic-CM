@@ -1,11 +1,12 @@
 <?php
 
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
  * @mode upgrade
  *
  * .5 add title
+ * .6 add title for form
  */
 namespace Manager;
 
@@ -102,7 +103,8 @@ HBS;
 	            <div class="bottom-container">
 	                <div class="ui tab active" data-tab="Main">
 	                    {{#DocumentFormLeft}}
-	                        {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
+	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+                            {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                
