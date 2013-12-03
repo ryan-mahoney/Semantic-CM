@@ -1,11 +1,11 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/categories.php
  * @mode upgrade
  *
  * .3 duplicate field
- * .5 better handling of section
+ * .6 better handling of section
  */
 
 namespace Manager;
@@ -42,13 +42,7 @@ class categories {
 		return [
 			'name' => 'section',
 			'label' => 'Section',
-			'required' => false,
-			'transformIn' => function ($data) {
-				if (is_array($data)) {
-					return $data;
-				}
-				return $this->field->csvToArray($data);
-			},
+			'required' => true,
 			'display' => 'InputToTags',
 			'multiple' => false,
 			'options' => function () {
