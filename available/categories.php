@@ -1,11 +1,11 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/categories.php
  * @mode upgrade
  *
  * .3 duplicate field
- * .4 better handling of section
+ * .5 better handling of section
  */
 
 namespace Manager;
