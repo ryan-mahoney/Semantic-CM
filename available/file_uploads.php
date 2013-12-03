@@ -1,7 +1,11 @@
 <?php
 
 /*
+<<<<<<< HEAD
+ * @version .5
+=======
  * @version .6
+>>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
  * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
  * @mode upgrade
  *
@@ -28,6 +32,16 @@ class file_uploads {
         'collection' => 'file_uploads',
         'key' => '_id'
     ];
+
+    
+    function titleField () {
+        return [
+            'name'      => 'title',
+            'label'     => 'Title',
+            'required'  => true,
+            'display'   => 'InputText'
+        ];
+    }
 	
     function titleField () {
         return [
@@ -57,12 +71,14 @@ class file_uploads {
                         {{#CollectionPagination}}{{/CollectionPagination}}
                         {{#CollectionButtons}}{{/CollectionButtons}}
                         
-                        <table class="ui large table segment manager">
-                            <col width="20%">
+                        <table class="ui large table segment manager sortable">
+                            <col width="10%">
                             <col width="70%">
+                            <col width="10%">
                             <col width="10%">
                             <thead>
                                 <tr>
+                                    <th><i class="shuffle basic icon"></i></th>
                                     <th>Title</th>
                                     <th>URL</th>
                                     <th class="trash">Delete</th>
@@ -70,7 +86,8 @@ class file_uploads {
                             </thead>
                             <tbody>
                                 {{#each file_uploads}}
-                                    <tr data-id="{{dbURI}}">                                         
+                                    <tr data-id="{{dbURI}}">
+                                         <td class="handle"><i class="reorder icon"></i></td>
                                          <td>{{title}}</td>
                                          <td>{{image.url}}</td>
                                          <td>
@@ -103,8 +120,13 @@ HBS;
 	            <div class="bottom-container">
 	                <div class="ui tab active" data-tab="Main">
 	                    {{#DocumentFormLeft}}
+<<<<<<< HEAD
+                            {{#FieldLeft title Title required}}{{/FieldLeft}}
+	                        {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
+=======
 	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
                             {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
+>>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                

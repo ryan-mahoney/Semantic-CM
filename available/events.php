@@ -1004,13 +1004,19 @@ class events {
 		                {{#CollectionPagination}}{{/CollectionPagination}}
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
-		                <table class="ui large table segment manager">
-		                    <col width="20%">
-		                    <col width="70%">
+		                <table class="ui large table segment manager sortable">
 		                    <col width="10%">
+                            <col width="40%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
 		                    <thead>
 		                        <tr>
+		                            <th><i class="shuffle basic icon"></i></th>
 		                            <th>Title</th>
+		                            <th>Date</th>
 		                            <th>Status</th>
 		                            <th>Pinned</th>
 		                            <th>Recurring</th>
@@ -1020,9 +1026,11 @@ class events {
 		                    <tbody>
 		                        {{#each events}}
 		                            <tr data-id="{{dbURI}}">
+		                                <td class="handle"><i class="reorder icon"></i></td>
 		                                <td>{{title}}</td>
-		                                <td>{{status}}</td>
-		                                <td>{{pinned}}</td>
+		                                <td></td>
+		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+		                                <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
 		                                <td>{{recurring_event}}</td>
 		                                <td>
 		                                    <div class="manager trash ui icon button">
@@ -1080,8 +1088,8 @@ HBS;
 	                </div>
 	                <div class="ui tab" data-tab="Images">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
-		                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
+		                    {{#FieldLeft image "List View"}}{{/FieldLeft}}
+		                    {{#FieldLeft image_feature Featured}}{{/FieldLeft}}
 		                    {{#FieldLeft image_sub}}{{/FieldLeft}}
 		                    {{#FieldLeft highlight_images}}{{/FieldLeft}}
 

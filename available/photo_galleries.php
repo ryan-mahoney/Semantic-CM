@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/photo_galleries.php
  * @mode upgrade
  *
@@ -200,26 +200,34 @@ class photo_galleries {
 	                {{#CollectionPagination}}{{/CollectionPagination}}
 	                {{#CollectionButtons}}{{/CollectionButtons}}
 	                
-	                <table class="ui large table segment manager">
-	                    <col width="20%">
-	                    <col width="70%">
-	                    <col width="10%">
+	                <table class="ui large table segment manager sortable">
+	                        <col width="10%">
+                            <col width="10%">
+                            <col width="40%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
 	                    <thead>
 	                        <tr>
+	                            <th><i class="shuffle basic icon"></i></th>
 	                            <th>Image</th>
 	                            <th>Title</th>
 	                            <th>Status</th>
-	                            <th>Feature</th>
+	                            <th>Featured</th>
+	                            <th>Pinned</th>
 	                            <th class="trash">Delete</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
 	                        {{#each photo_galleries}}
 	                            <tr data-id="{{dbURI}}">
+	                                <td class="handle"><i class="reorder icon"></i></td>
 	                                <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
 	                                <td>{{title}}</td>
-	                                <td>{{status}}</td>
-	                                <td>{{featured}}</td>
+	                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+                                    <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+                                    <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
 	                                <td>
 	                                    <div class="manager trash ui icon button">
 	                                         <i class="trash icon"></i>

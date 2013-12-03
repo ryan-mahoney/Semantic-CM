@@ -7,14 +7,16 @@
                         {{#CollectionPagination}}{{/CollectionPagination}}
                         {{#CollectionButtons}}{{/CollectionButtons}}
                         
-                        <table class="ui large table segment manager">
-                            <col width="20%">
-                            <col width="70%">
+                        <table class="ui large table segment manager sortable">
+                            <col width="10%">
+                            <col width="80%">
                             <col width="10%">
                             <thead>
                                 <tr>
                                     <th>Title</th>
                                     <th>URL</th>
+                                    <th><i class="shuffle basic icon"></i></th>
+                                    <th>Title</th>
                                     <th class="trash">Delete</th>
                                 </tr>
                             </thead>
@@ -23,6 +25,8 @@
                                     <tr data-id="{{dbURI}}">                                         
                                          <td>{{title}}</td>
                                          <td>{{image.url}}</td>
+                                         <td class="handle"><i class="reorder icon"></i></td>
+                                         <td>{{title}}</td>
                                          <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>

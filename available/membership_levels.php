@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/membership_levels.php
  * @mode upgrade
  */
@@ -66,23 +66,22 @@ class membership_levels {
 			'display' => 'Ckeditor'
 		);
 	}
-	/*
+	
 	function statusField () {
-		return array(
+		return [
 			'name'		=> 'status',
-			'label'		=> false,
 			'required'	=> true,
 			'options'	=> array(
-				'Public'	=> 'Public',
-				'Draft'		=> 'Draft'
+				'published'	=> 'Published',
+				'draft'		=> 'Draft'
 			),
-			'display'	=> VCPF\Field::inputRadioButton(),
+			'display'	=> 'Select',
 			'nullable'	=> false,
-			'default'	=> 'Draft',
-
-		);
+			'default'	=> 'published'
+		];
 	}
-	
+
+	/*
 	function nameField () {
 		return array(
 			'name' => 'name',
@@ -103,26 +102,31 @@ class membership_levels {
 	                {{#CollectionPagination}}{{/CollectionPagination}}
 	                {{#CollectionButtons}}{{/CollectionButtons}}
 	                
-	                <table class="ui large table segment manager">
+	                <table class="ui large table segment manager sortable">
+	                    <col width="10%">
+	                    <col width="40%">
 	                    <col width="20%">
-	                    <col width="70%">
+	                    <col width="10%">
+	                    <col width="10%">
 	                    <col width="10%">
 	                    <thead>
 	                        <tr>
-	                            
+	                            <th><i class="shuffle basic icon"></i></th>
 	                            <th>Title</th>
+	                            <th>Term</th>
+	                            <th>Price</th>
 	                            <th>Status</th>
-	                            <th>Feature</th>
 	                            <th class="trash">Delete</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
 	                        {{#each membership_levels}}
 	                            <tr data-id="{{dbURI}}">
-	                               
+	                                <td class="handle"><i class="reorder icon"></i></td>
 	                                <td>{{title}}</td>
-	                                <td>{{status}}</td>
-	                                <td>{{featured}}</td>
+	                                <td>{{term}}</td>
+	                                <td>{{price}}</td>
+	                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
 	                                <td>
 	                                    <div class="manager trash ui icon button">
 	                                         <i class="trash icon"></i>
@@ -155,7 +159,7 @@ HBS;
 	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft price Price}}{{/FieldLeft}}
 	                        {{#FieldLeft term Term}}{{/FieldLeft}}
-	                        {{#FieldEmbedded description Description}}{{/FieldEmbedded}}
+	                        {{#FieldLeft description Description}}{{/FieldLeft}}
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                
