@@ -42,15 +42,6 @@ class file_uploads {
             'display'   => 'InputText'
         ];
     }
-	
-    function titleField () {
-        return [
-            'name'      => 'title',
-            'label'     => 'Title',
-            'required'  => true,
-            'display'   => 'InputText'
-        ];
-    }
 
 	function imageField () {
 		return [
