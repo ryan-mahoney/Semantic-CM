@@ -1,9 +1,11 @@
 <?php
 
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
  * @mode upgrade
+ *
+ * .5 add title
  */
 namespace Manager;
 
@@ -26,10 +28,19 @@ class file_uploads {
         'key' => '_id'
     ];
 	
+    function titleField () {
+        return [
+            'name'      => 'title',
+            'label'     => 'Title',
+            'required'  => true,
+            'display'   => 'InputText'
+        ];
+    }
+
 	function imageField () {
 		return [
 			'name' => 'image',
-			'label' => '"File Upload"',
+			'label' => 'File Upload',
 			'display' => 'InputFile'
 		];
 	}
@@ -51,20 +62,16 @@ class file_uploads {
                             <col width="10%">
                             <thead>
                                 <tr>
-                                    
                                     <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Feature</th>
+                                    <th>URL</th>
                                     <th class="trash">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each file_uploads}}
-                                    <tr data-id="{{dbURI}}">
-                                         
+                                    <tr data-id="{{dbURI}}">                                         
                                          <td>{{title}}</td>
-                                         <td>{{status}}</td>
-                                         <td>{{featured}}</td>
+                                         <td>{{image.url}}</td>
                                          <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
