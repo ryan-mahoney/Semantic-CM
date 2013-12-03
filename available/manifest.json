@@ -1,6 +1,6 @@
 {
     "managers": {
-        "blogs": ".5",
+        "blogs": ".6",
         "blurbs": ".5",
         "books": ".5",
         "carousels": ".5",
@@ -8,7 +8,7 @@
         "department_profiles": ".2",
         "departments": ".2",
         "events": ".3",
-        "file_uploads": ".6",
+        "file_uploads": ".7",
         "links": ".3",
         "membership_levels": ".3",
         "menu_links": ".2",
@@ -20,7 +20,7 @@
         "practice_areas": ".3",
         "profiles": ".2",
         "programs": ".3",
-        "social_links": ".5",
+        "social_links": ".6",
         "sponsors": ".3",
         "subcarousels": ".9",
         "subcategories": ".4",

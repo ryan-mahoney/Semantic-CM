@@ -1,15 +1,12 @@
 <?php
 /*
-<<<<<<< HEAD
- * @version .3
-=======
- * @version .5
->>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/social_links.php
  * @mode upgrade
  *
  * .4 lacks title field
  * .5 list view does not make sense
+ * .6 fix conflict
  */
 namespace Manager;
 

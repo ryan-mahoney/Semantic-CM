@@ -1,16 +1,12 @@
 <?php
-
 /*
-<<<<<<< HEAD
- * @version .5
-=======
- * @version .6
->>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
  * @mode upgrade
  *
  * .5 add title
  * .6 add title for form
+ * .7 resolve conflict
  */
 namespace Manager;
 
@@ -42,7 +38,7 @@ class file_uploads {
             'display'   => 'InputText'
         ];
     }
-
+    
 	function imageField () {
 		return [
 			'name' => 'image',
@@ -111,13 +107,9 @@ HBS;
 	            <div class="bottom-container">
 	                <div class="ui tab active" data-tab="Main">
 	                    {{#DocumentFormLeft}}
-<<<<<<< HEAD
                             {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
-=======
-	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
                             {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
->>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                
