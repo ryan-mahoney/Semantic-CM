@@ -8,7 +8,7 @@
 	            	<div class="ui tab active" data-tab="Main">
 		                {{#DocumentFormLeft}}
 		                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-		                    {{#FieldLeft short_description Summary}}{{/FieldLeft}}
+		                    {{#FieldLeft description Summary}}{{/FieldLeft}}
 		                    {{#FieldLeft audio File}}{{/FieldLeft}}
 		                    {{{id}}}
 		                {{/DocumentFormLeft}}                 
@@ -26,7 +26,7 @@
 		            </div>
 		            <div class="ui tab" data-tab="Images">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft image List}}{{/FieldLeft}}
+		                    {{#FieldLeft image "List View"}}{{/FieldLeft}}
 		                {{/DocumentFormLeft}}                 
 		                
 		                {{#DocumentFormRight}}

@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/blurbs.php
  * @mode upgrade
  */
@@ -75,17 +75,25 @@ class blurbs {
 					{{#CollectionPagination}}{{/CollectionPagination}}
 					{{#CollectionButtons}}{{/CollectionButtons}}
 					
-					<table class="ui large table segment manager">
+					<table class="ui large table segment manager sortable">
+					        <col width="10%">
+                            <col width="40%">
+                            <col width="40%">
+                            <col width="10%">
 				  		<thead>
 							<tr>
+								<th><i class="shuffle basic icon"></i></th>
 								<th>Title</th>
+								<th>Tags</th>
 								<th class="trash">Delete</th>
 							</tr>
 				  		</thead>
 				   		<tbody>
 				   			{{#each blurbs}}
 								<tr data-id="{{dbURI}}">
+								    <td class="handle"><i class="reorder icon"></i></td>
 									<td>{{title}}</td>
+									<td></td>
 									<td>
 										<div class="manager trash ui icon button">
 		                 					<i class="trash icon"></i>

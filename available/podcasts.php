@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/podcasts.php
  * @mode upgrade
  *
@@ -42,6 +42,15 @@ class podcasts {
 			'label'=>'Summary',
 			'required'=>false,
 			'display' => 'Textarea'
+		];
+	}
+
+
+	function imageField () {
+		return [
+			'name' => 'image',
+			'label' => 'List View',
+			'display' => 'InputFile'
 		];
 	}
 
@@ -186,29 +195,36 @@ class podcasts {
 		                {{#CollectionPagination}}{{/CollectionPagination}}
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
-		                <table class="ui large table segment manager">
-		                    <col width="20%">
-		                    <col width="70%">
-		                    <col width="10%">
+		                <table class="ui large table segment manager sortable">
+			                    <col width="10%">
+	                            <col width="40%">
+	                            <col width="20%">
+	                            <col width="10%">
+	                            <col width="10%">
+	                            <col width="10%">
 		                    <thead>
 		                        <tr>
+		                            <th><i class="shuffle basic icon"></i></th>
 		                            <th>Title</th>
 		                            <th>Status</th>
-		                            <th>Feature</th>
+		                            <th>Featured</th>
+		                            <th>Pinned</th>
 		                            <th class="trash">Delete</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody>
 		                        {{#each podcasts}}
 		                            <tr data-id="{{dbURI}}">
+		                                <td class="handle"><i class="reorder icon"></i></td>
 		                                <td>{{title}}</td>
-		                                <td>{{status}}</td>
-		                                <td>{{featured}}</td>
-		                                <td>
+		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+	                                    <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+	                                    <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
+			                            <td>
 		                                    <div class="manager trash ui icon button">
 		                                         <i class="trash icon"></i>
 		                                     </div>
-		                                 </td>
+		                                </td>
 		                            </tr>
 		                        {{/each}}
 		                    </tbody>
@@ -235,7 +251,7 @@ HBS;
 	            	<div class="ui tab active" data-tab="Main">
 		                {{#DocumentFormLeft}}
 		                    {{#FieldLeft title Title required}}{{/FieldLeft}}
-		                    {{#FieldLeft short_description Summary}}{{/FieldLeft}}
+		                    {{#FieldLeft description Summary}}{{/FieldLeft}}
 		                    {{#FieldLeft audio File}}{{/FieldLeft}}
 		                    {{{id}}}
 		                {{/DocumentFormLeft}}                 
@@ -253,7 +269,7 @@ HBS;
 		            </div>
 		            <div class="ui tab" data-tab="Images">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft image List}}{{/FieldLeft}}
+		                    {{#FieldLeft image "List View"}}{{/FieldLeft}}
 		                {{/DocumentFormLeft}}                 
 		                
 		                {{#DocumentFormRight}}

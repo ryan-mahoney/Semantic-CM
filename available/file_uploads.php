@@ -1,7 +1,7 @@
 <?php
 
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
  * @mode upgrade
  */
@@ -25,6 +25,16 @@ class file_uploads {
         'collection' => 'file_uploads',
         'key' => '_id'
     ];
+
+    
+    function titleField () {
+        return [
+            'name'      => 'title',
+            'label'     => 'Title',
+            'required'  => true,
+            'display'   => 'InputText'
+        ];
+    }
 	
 	function imageField () {
 		return [
@@ -45,26 +55,23 @@ class file_uploads {
                         {{#CollectionPagination}}{{/CollectionPagination}}
                         {{#CollectionButtons}}{{/CollectionButtons}}
                         
-                        <table class="ui large table segment manager">
-                            <col width="20%">
-                            <col width="70%">
+                        <table class="ui large table segment manager sortable">
+                            <col width="10%">
+                            <col width="80%">
                             <col width="10%">
                             <thead>
                                 <tr>
                                     
+                                    <th><i class="shuffle basic icon"></i></th>
                                     <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Feature</th>
                                     <th class="trash">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each file_uploads}}
                                     <tr data-id="{{dbURI}}">
-                                         
+                                         <td class="handle"><i class="reorder icon"></i></td>
                                          <td>{{title}}</td>
-                                         <td>{{status}}</td>
-                                         <td>{{featured}}</td>
                                          <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
@@ -95,6 +102,7 @@ HBS;
 	            <div class="bottom-container">
 	                <div class="ui tab active" data-tab="Main">
 	                    {{#DocumentFormLeft}}
+                            {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 

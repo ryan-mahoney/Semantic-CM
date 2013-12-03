@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/books.php
  * @mode upgrade
  */
@@ -193,12 +193,15 @@ class books {
 		                {{#CollectionPagination}}{{/CollectionPagination}}
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
-		                <table class="ui large table segment manager">
-		                    <col width="20%">
-		                    <col width="70%">
+		                <table class="ui large table segment manager sortable">
 		                    <col width="10%">
+                            <col width="40%">
+                            <col width="20%">
+                            <col width="20%">
+                            <col width="10%">
 		                    <thead>
 		                        <tr>
+		                            <th><i class="shuffle basic icon"></i></th>
 		                            <th>Title</th>
 		                            <th>Status</th>
 		                            <th>Feature</th>
@@ -208,9 +211,10 @@ class books {
 		                    <tbody>
 		                        {{#each books}}
 		                            <tr data-id="{{dbURI}}">
+		                                <td class="handle"><i class="reorder icon"></i></td>
 		                                <td>{{title}}</td>
-		                                <td>{{status}}</td>
-		                                <td>{{featured}}</td>
+		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+		                                <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
 		                                <td>
 		                                    <div class="manager trash ui icon button">
 		                                         <i class="trash icon"></i>
@@ -272,9 +276,9 @@ HBS;
 		            </div>
 		            <div class="ui tab" data-tab="Images">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft image Book Cover Image}}{{/FieldLeft}}
-		                    {{#FieldLeft image List View Image}}{{/FieldLeft}}
-		                    {{#FieldLeft image_feature Featured View Image}}{{/FieldLeft}}
+		                    {{#FieldLeft image "Book Cover"}}{{/FieldLeft}}
+		                    {{#FieldLeft image "List View"}}{{/FieldLeft}}
+		                    {{#FieldLeft image_feature Featured}}{{/FieldLeft}}
 		                {{/DocumentFormLeft}}                 
 		                
 		                {{#DocumentFormRight}}

@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/pages.php
  * @mode upgrade
  */
@@ -136,22 +136,25 @@ class pages {
 		                {{#CollectionPagination}}{{/CollectionPagination}}
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
-		                <table class="ui large table segment manager">
-		                    <col width="20%">
-		                    <col width="70%">
+		                <table class="ui large table segment manager sortable">
+		                    <col width="10%">
+		                    <col width="40%">
+		                    <col width="40%">
 		                    <col width="10%">
 		                    <thead>
 		                        <tr>
+		                            <th><i class="shuffle basic icon"></i></th>
 		                            <th>Title</th>
-		                            <th>Category</th>
+		                            <th>Status</th>
 		                            <th class="trash">Delete</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody>
 		                        {{#each pages}}
 		                            <tr data-id="{{dbURI}}">
+		                                <td class="handle"><i class="reorder icon"></i></td>
 		                                <td>{{title}}</td>
-		                                <td>{{category}}</td>
+		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
 		                                <td>
 		                                    <div class="manager trash ui icon button">
 		                                         <i class="trash icon"></i>

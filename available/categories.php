@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/categories.php
  * @mode upgrade
  *
@@ -125,9 +125,14 @@ class categories{
 		                {{#CollectionPagination}}{{/CollectionPagination}}
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
-		                <table class="ui large table segment manager">
+		                <table class="ui large table segment manager sortable">
+		                    <col width="10%">
+                            <col width="40%">
+                            <col width="40%">
+                            <col width="10%">
 		                    <thead>
 		                        <tr>
+		                            <th><i class="shuffle basic icon"></i></th>
 		                            <th>Title</th>
 		                            <th>Section</th>
 		                            <th class="trash">Delete</th>
@@ -136,6 +141,7 @@ class categories{
 		                    <tbody>
 		                        {{#each categories}}
 		                            <tr data-id="{{dbURI}}">
+		                                <td class="handle"><i class="reorder icon"></i></td>
 		                                <td>{{title}}</td>
 		                                <td>{{section}}</td>
 		                                <td>

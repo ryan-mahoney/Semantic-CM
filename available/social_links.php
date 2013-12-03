@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/social_links.php
  * @mode upgrade
  */
@@ -63,22 +63,25 @@ class social_links {
                         {{#CollectionPagination}}{{/CollectionPagination}}
                         {{#CollectionButtons}}{{/CollectionButtons}}
                         
-                        <table class="ui large table segment manager">
+                        <table class="ui large table segment manager sortable">
                             <col width="20%">
-                            <col width="70%">
-                            <col width="10%">
+                            <col width="50%">
+                            <col width="15%">
+                            <col width="15%">
                             <thead>
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Category</th>
+                                    <th><i class="shuffle basic icon"></i></th>
+                                    <th>Type</th>
+                                    <th>URL</th>
                                     <th class="trash">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each social_links}}
                                     <tr data-id="{{dbURI}}">
-                                        <td>{{title}}</td>
-                                        <td>{{category}}</td>
+                                        <td class="handle"><i class="reorder icon"></i></td>
+                                        <td>{{type}}</td>
+                                        <td>{{url}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>

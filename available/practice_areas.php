@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/practice_areas.php
  * @mode upgrade
  */
@@ -128,24 +128,25 @@ class practice_areas {
 	                {{#CollectionPagination}}{{/CollectionPagination}}
 	                {{#CollectionButtons}}{{/CollectionButtons}}
 	                
-	                <table class="ui large table segment manager">
-	                    <col width="20%">
-	                    <col width="70%">
+	                <table class="ui large table segment manager sortable">
+	                    <col width="30%">
+	                    <col width="50%">
+	                    <col width="10%">
 	                    <col width="10%">
 	                    <thead>
 	                        <tr>
+	                            <th><i class="shuffle basic icon"></i></th>
 	                            <th>Title</th>
 	                            <th>Status</th>
-	                            <th>Feature</th>
 	                            <th class="trash">Delete</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
 	                        {{#each practice _areas}}
 	                            <tr data-id="{{dbURI}}">
+	                                <td class="handle"><i class="reorder icon"></i></td>
 	                                <td>{{title}}</td>
-	                                <td>{{status}}</td>
-	                                <td>{{featured}}</td>
+	                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
 	                                <td>
 	                                    <div class="manager trash ui icon button">
 	                                         <i class="trash icon"></i>
