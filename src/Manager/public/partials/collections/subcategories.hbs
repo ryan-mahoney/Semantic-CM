@@ -1,11 +1,11 @@
-			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
-			{{#if categories_individual}}
+			{{#EmbeddedCollectionHeader Subcategories}}{{/EmbeddedCollectionHeader}}
+			{{#if subcategory}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Title</th></tr>
 					</thead>
 					<tbody>
-						{{#each categories}}
+						{{#each subcategory}}
 							<tr data-id="{{dbURI}}">
 								<td>{{title}}</td>
 							</tr>
@@ -13,5 +13,5 @@
 					</tbody>
 				</table>
 		      {{else}}
-			   {{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+			   {{#EmbeddedCollectionEmpty subcategory}}{{/EmbeddedCollectionEmpty}}
 	       {{/if}}

@@ -96,7 +96,7 @@ class menus {
                                         <td class="handle"><i class="reorder icon"></i></td>
                                         <td>{{label}}</td>
                                         <td>{{url}}</td>
-                                        <td>{{#MongoDate created_date m/d/Y}}{{/MongoDate}}</td>
+                                        <td>{{#MongoDate m/d/Y}}{{created_date}}{{/MongoDate}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
