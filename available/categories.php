@@ -10,8 +10,7 @@
 
 namespace Manager;
 
-
-class categories{
+class categories {
 	private $field = false;
     public $collection = 'categories';
     public $title = 'Categories';
