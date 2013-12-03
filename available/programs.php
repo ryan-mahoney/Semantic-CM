@@ -17,9 +17,11 @@
  *  along with Nothing Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/programs.php
  * @mode upgrade
+ *
+ * .3 pull tags from correct collection
  */
 
 namespace Manager;
@@ -163,33 +165,11 @@ class programs {
 			'display' => 'InputToTags',
 			'multiple' => true,
 			'options' => function () {
-				return $this->db->distinct('blogs', 'tags');
+				return $this->db->distinct('programs', 'tags');
 			}
 		];
 	}
-/*
-	public function homepage_image_wideField() {
-		return array(
-			'name'		=> 'homepage_image_wide',
-			'label' 	=> 'Home Page Image',
-			'display'   => VCPF\Field::inputFile()	
-		);
-	}	
-		
-	function featuredField () {
-		return array(
-			'name' => 'featured',
-			'label' => false,
-			'required' => false,
-			'options' => array(
-				't' => 'Yes',
-				'f' => 'No'
-			),
-			'display' => VCPF\Field::inputRadioButton(),
-			'default' => 'f'
-			);
-	}
-	*/
+
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">

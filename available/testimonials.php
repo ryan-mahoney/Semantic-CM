@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/testimonials.php
  * @mode upgrade
+ *
+ * .4 use name not title
  */
 namespace Manager;
 
@@ -10,7 +12,7 @@ class testimonials {
 	private $field = false;
     public $collection = 'testimonials';
     public $title = 'Testimonials';
-    public $titleField = 'title';
+    public $titleField = 'name';
     public $singular = 'Testimonial';
     public $description = '4 testimonials';
     public $definition = '...';
@@ -27,7 +29,7 @@ class testimonials {
 
     function titleField () {
 		return [
-			'name'		=> 'title',
+			'name'		=> 'name',
 			'label'		=> 'Name',
 			'required'	=> true,
 			'display'	=> 'InputText'
@@ -36,9 +38,9 @@ class testimonials {
 
     function locationField(){
 		return [
-				'name'=>'location',
-				'label'=>'Location',
-				'display'	=> 'InputText'
+			'name'=>'location',
+			'label'=>'Location',
+			'display'	=> 'InputText'
 		];
 	}
 	
@@ -50,13 +52,12 @@ class testimonials {
 		);
 	}	
 
-
 	function messageField(){
 		return [
 			'name'=>'message',
 			'label'=>'Message',
 			'display' => 'Ckeditor',
-			];
+		];
 	}
 
 	function messageshortField(){
@@ -66,7 +67,6 @@ class testimonials {
 			'display' => 'Ckeditor',
 		];
 	}
-
 
 	function imageField () {
 		return [
@@ -90,7 +90,7 @@ class testimonials {
 		];
 	}
 
-		function dateField() {
+	function dateField() {
 		return [
 			'name'			=> 'display_date',
 			'required'		=> true,
@@ -107,7 +107,7 @@ class testimonials {
 		];
 	}
 
-		function featuredField () {
+	function featuredField () {
         return [
             'name' => 'featured',
             'label' => 'Feature',
@@ -135,21 +135,6 @@ class testimonials {
 		];
 	}
 
-	/*
-	function code_nameField () {
-		return VCPF\DOMFormTableArray::codename('name', 'testimonials');
-	}
-	
-
-	function nameField(){
-		return array(
-			'name'=>'name',
-			'label'=>'Name',
-			'display'=>VCPF\Field::inputText(),
-			);
-	}
-		
-	*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">

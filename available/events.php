@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/events.php
  * @mode upgrade
+ *
+ * .3 set categories correctly
  */
 namespace Manager;
 
@@ -205,7 +207,7 @@ class events {
 			'options'	=> function () {
 				return $this->db->fetchAllGrouped(
 					$this->db->collection('categories')->
-						find(['section' => 'Blog'])->
+						find(['section' => 'Events'])->
 						sort(['title' => 1]),
 					'_id', 
 					'title');

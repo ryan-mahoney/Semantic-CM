@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/podcasts.php
  * @mode upgrade
  *
  * .4 make audio file non-mandatory
+ * .5 set categories correctly
  */
 namespace Manager;
 
@@ -126,7 +127,7 @@ class podcasts {
 			'options'	=> function () {
 				return $this->db->fetchAllGrouped(
 					$this->db->collection('categories')->
-						find(['section' => 'Blog'])->
+						find(['section' => 'Podcasts'])->
 						sort(['title' => 1]),
 					'_id', 
 					'title');

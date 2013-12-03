@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/categories.php
  * @mode upgrade
  *
  * .3 duplicate field
+ * .4 better handling of section
  */
 
 namespace Manager;
@@ -37,14 +38,31 @@ class categories{
 			'display' => 'InputText'
 		);
 	}
-	
+
 	function sectionField () {
-		return array(
+		return [
 			'name' => 'section',
 			'label' => 'Section',
-			'required' => true,
-			'display' => 'InputText'
-		);
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => false,
+			'options' => function () {
+				$existing = $this->db->distinct('categories', 'section');
+				if (empty($existing)) {
+					$existing = [];
+				}
+				$common = ['Blog', 'Books', 'Events', 'Links', 'Pages', 'Galleries', 'Podcasts', 'Sponsors', 'Videos'];
+				$categories = array_unique(array_merge($existing, $common));
+				sort($categories);
+				return $categories;
+			}
+		];
 	}
 
 	function imageField () {

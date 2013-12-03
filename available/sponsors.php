@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/sponsors.php
  * @mode upgrade
+ *
+ * .3 set categories from correct query
  */
 namespace Manager;
 
@@ -115,7 +117,7 @@ class sponsors {
 			'options'	=> function () {
 				return $this->db->fetchAllGrouped(
 					$this->db->collection('categories')->
-						find(['section' => 'Blog'])->
+						find(['section' => 'Sponsors'])->
 						sort(['title' => 1]),
 					'_id', 
 					'title');
@@ -124,30 +126,7 @@ class sponsors {
 			'controlled' => true,
 			'multiple' => true
 		);
-	}	
-	/*
-	function code_nameField () {
-		return VCPF\DOMFormTableArray::codename('title', 'sponsors');
 	}
-
-	function added_dateField() {
-		return array(
-			'name'			=> 'added_date',
-			'label'			=> 'Added Date',
-			'required'		=> true,
-			'display'		=> VCPF\Field::inputDatePicker(),
-			'tooltip'		=> 'Helpful for back-dating and scheduling future posts.',
-			'transformIn'	=> function ($data) {
-				return new \MongoDate(strtotime($data));
-				},
-			'transformOut'	=> function ($data) {
-				return date('m/d/Y', $data->sec);
-				},
-			'default'		=> function () {
-				return date('m/d/Y');
-		}
-		);
-	}*/
 
 	public function tablePartial () {
         $partial = <<<'HBS'
