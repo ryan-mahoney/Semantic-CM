@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/blurbs.php
  * @mode upgrade
+ *
+ * .5 show tags on list
  */
 namespace Manager;
 
@@ -93,7 +95,7 @@ class blurbs {
 								<tr data-id="{{dbURI}}">
 								    <td class="handle"><i class="reorder icon"></i></td>
 									<td>{{title}}</td>
-									<td></td>
+									<td>{{#ArrayToCSV}}{{tags}}{{/ArrayToCSV}}</td>
 									<td>
 										<div class="manager trash ui icon button">
 		                 					<i class="trash icon"></i>
