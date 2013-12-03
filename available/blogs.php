@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/blogs.php
  * @mode upgrade
+ *
+ * .6 add categories to list
  */
 namespace Manager;
 
@@ -277,16 +279,16 @@ class blogs {
                     {{#CollectionButtons}}{{/CollectionButtons}}
                 
                     <table class="ui large table segment manager sortable">
-                            <col width="10%">
-                            <col width="40%">
-                            <col width="20%">
-                            <col width="20%">
-                            <col width="10%">
+                        <col width="45%">
+                        <col width="25%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="10%">
                         <thead>
                                <tr>
-                                  <th><i class="shuffle basic icon"></i></th>
                                   <th>Title</th>
                                   <th>Status</th>
+                                  <th>Categories</th>
                                   <th>Featured</th>
                                   <th>Pinned</th>
                                   <th class="trash">Delete</th>
@@ -295,9 +297,9 @@ class blogs {
                         <tbody>
                             {{#each blogs}}
                                 <tr data-id="{{dbURI}}">
-                                    <td class="handle"><i class="reorder icon"></i></td>
                                     <td>{{title}}</td>
                                     <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+                                    <td>{{#CategoriesCSV}}{{categories}}{{/CategoriesCSV}}</td>
                                     <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
                                     <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
                                     <td>
