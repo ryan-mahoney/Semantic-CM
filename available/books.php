@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/books.php
  * @mode upgrade
  *
  * .4 do not require price and url
+ * .5 title field not set
  */
 namespace Manager;
 
@@ -13,6 +14,7 @@ class books {
     public $collection = 'books';
     public $title = 'Books';
     public $singular = 'Book';
+    public $titleField = 'title';
     public $description = '4 books';
     public $definition = '....';
     public $acl = ['content', 'admin', 'superadmin'];
@@ -122,8 +124,6 @@ class books {
             'default' => 'f'
         ];
     }
-
-
 
     function code_nameField () {
 		return [
@@ -300,4 +300,3 @@ HBS;
         return $partial;
     }
 }
-	
