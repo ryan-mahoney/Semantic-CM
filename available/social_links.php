@@ -1,8 +1,15 @@
 <?php
 /*
+<<<<<<< HEAD
  * @version .3
+=======
+ * @version .5
+>>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
  * @link https://raw.github.com/virtuecenter/manager/master/available/social_links.php
  * @mode upgrade
+ *
+ * .4 lacks title field
+ * .5 list view does not make sense
  */
 namespace Manager;
 
@@ -10,7 +17,7 @@ class social_links {
 	private $field = false;
     public $collection = 'social_links';
     public $title = 'Social Links';
-    public $titleField = 'title';
+    public $titleField = 'url';
     public $singular = 'Social Link';
     public $description = '4 social links';
     public $definition = '...';

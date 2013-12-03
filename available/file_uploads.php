@@ -1,9 +1,16 @@
 <?php
 
 /*
+<<<<<<< HEAD
  * @version .5
+=======
+ * @version .6
+>>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
  * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
  * @mode upgrade
+ *
+ * .5 add title
+ * .6 add title for form
  */
 namespace Manager;
 
@@ -36,10 +43,19 @@ class file_uploads {
         ];
     }
 	
+    function titleField () {
+        return [
+            'name'      => 'title',
+            'label'     => 'Title',
+            'required'  => true,
+            'display'   => 'InputText'
+        ];
+    }
+
 	function imageField () {
 		return [
 			'name' => 'image',
-			'label' => '"File Upload"',
+			'label' => 'File Upload',
 			'display' => 'InputFile'
 		];
 	}
@@ -57,13 +73,14 @@ class file_uploads {
                         
                         <table class="ui large table segment manager sortable">
                             <col width="10%">
-                            <col width="80%">
+                            <col width="70%">
+                            <col width="10%">
                             <col width="10%">
                             <thead>
                                 <tr>
-                                    
                                     <th><i class="shuffle basic icon"></i></th>
                                     <th>Title</th>
+                                    <th>URL</th>
                                     <th class="trash">Delete</th>
                                 </tr>
                             </thead>
@@ -72,6 +89,7 @@ class file_uploads {
                                     <tr data-id="{{dbURI}}">
                                          <td class="handle"><i class="reorder icon"></i></td>
                                          <td>{{title}}</td>
+                                         <td>{{image.url}}</td>
                                          <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
@@ -102,8 +120,13 @@ HBS;
 	            <div class="bottom-container">
 	                <div class="ui tab active" data-tab="Main">
 	                    {{#DocumentFormLeft}}
+<<<<<<< HEAD
                             {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
+=======
+	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
+                            {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
+>>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                

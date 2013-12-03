@@ -29,8 +29,6 @@ class links {
 		$this->field = $field;
 	}
 
-
-
     function titleField() {
 		return [
 			'name'		=> 'title',
@@ -83,24 +81,6 @@ class links {
 		];
 	}	
 /*
-	function added_dateField() {
-		return array(
-			'name'			=> 'added_date',
-			'label'			=> 'Added Date',
-			'required'		=> true,
-			'display'		=> VCPF\Field::inputDatePicker(),
-			'tooltip'		=> 'Helpful for back-dating and scheduling future posts.',
-			'transformIn'	=> function ($data) {
-				return new \MongoDate(strtotime($data));
-				},
-			'transformOut'	=> function ($data) {
-				return date('m/d/Y', $data->sec);
-				},
-			'default'		=> function () {
-				return date('m/d/Y');
-		}
-		);
-	}
 	
 	function categoriesField () {
 		return array(

@@ -1,8 +1,15 @@
 <?php
 /*
+<<<<<<< HEAD
  * @version .4
+=======
+ * @version .5
+>>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
  * @link https://raw.github.com/virtuecenter/manager/master/available/books.php
  * @mode upgrade
+ *
+ * .4 do not require price and url
+ * .5 title field not set
  */
 namespace Manager;
 
@@ -11,6 +18,7 @@ class books {
     public $collection = 'books';
     public $title = 'Books';
     public $singular = 'Book';
+    public $titleField = 'title';
     public $description = '4 books';
     public $definition = '....';
     public $acl = ['content', 'admin', 'superadmin'];
@@ -78,7 +86,7 @@ class books {
 		return [
 			'name'		=> 'link',
 			'label'		=> 'URL',
-			'required'	=> true,
+			'required'	=> false,
 			'display'	=> 'InputText'
 		];
 	}
@@ -88,7 +96,7 @@ class books {
 		return [
 			'name'		=> 'price',
 			'label'		=> 'Price',
-			'required'	=> true,
+			'required'	=> false,
 			'display'	=> 'InputText'
 		];
 	}
@@ -120,8 +128,6 @@ class books {
             'default' => 'f'
         ];
     }
-
-
 
     function code_nameField () {
 		return [
@@ -302,4 +308,3 @@ HBS;
         return $partial;
     }
 }
-	

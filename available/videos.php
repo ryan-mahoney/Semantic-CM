@@ -4,6 +4,8 @@
  * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/videos.php
  * @mode upgrade
+ *
+ * .4 pull categories from correct query
  */
 namespace Manager;
 
@@ -26,7 +28,6 @@ class videos {
         'key' => '_id'
     ];
 	
-
 	function titleField () {	
 		return [
 			'name' => 'title',
@@ -93,7 +94,6 @@ class videos {
 		];
 	}
 
-
 	function featuredField () {
         return [
             'name' => 'featured',
@@ -151,7 +151,7 @@ class videos {
 			'options'	=> function () {
 				return $this->db->fetchAllGrouped(
 					$this->db->collection('categories')->
-						find(['section' => 'Blog'])->
+						find(['section' => 'Videos'])->
 						sort(['title' => 1]),
 					'_id', 
 					'title');
@@ -181,59 +181,6 @@ class videos {
 		];
 	}
 
-/*	
-	
-	function categoriesField () {
-		return array(
-			'name'		=> 'categories',
-			'label'		=> 'Choose a Category',
-			'required'	=> false,
-			'tooltip'	=> 'Add one or more categories.',
-			'options'	=> function () {
-				return VCPF\Model::db('categories')->
-				find(['section' => 'Videos'])->
-				sort(array('title' => 1))->
-				fetchAllGrouped('_id', 'title');
-			},
-			'display'	=> VCPF\Field::selectToPill()
-		);
-	}
-	
-	function tagsField () {
-		return array(
-			'name' => 'tags',
-			'label' => 'Tags',
-			'required' => false,
-			'transformIn' => function ($data) {
-				return VCPF\Regex::csvToArray($data);
-			},
-			'display' => VCPF\Field::inputToTags(),
-			'autocomplete' => function () {
-				return VCPF\Model::mongoDistinct('videos', 'tags');
-			},
-			'tooltip' => 'Another way to make entries more findable.'
-		);
-	}
-	
-	function dateField() {
-		return array(
-			'name'			=> 'display_date',
-			'label'			=> 'Display Date',
-			'required'		=> true,
-			'display'		=> VCPF\Field::inputDatePicker(),
-			'tooltip'		=> 'Helpful for back-dating and scheduling future posts.',
-			'transformIn'	=> function ($data) {
-				return new \MongoDate(strtotime($data));
-			},
-			'transformOut'	=> function ($data) {
-				return date('m/d/Y', $data->sec);
-			},
-			'default'		=> function () {
-				return date('m/d/Y');
-			}
-		);
-	}
-	*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">

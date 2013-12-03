@@ -108,7 +108,7 @@ class pages {
 			'options'	=> function () {
 				return $this->db->fetchAllGrouped(
 					$this->db->collection('categories')->
-						find(['section' => 'Blog'])->
+						find(['section' => 'Pages'])->
 						sort(['title' => 1]),
 					'_id', 
 					'title');
@@ -119,12 +119,6 @@ class pages {
 		);
 	}
 
-	
-/*
-	function created_dateField() {
-		return VCPF\DOMFormTableArray::createdDate();
-	}
-*/
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
