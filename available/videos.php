@@ -1,11 +1,12 @@
 <?php
 
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/videos.php
  * @mode upgrade
  *
  * .4 pull categories from correct query
+ * .5 remove sort
  */
 namespace Manager;
 
@@ -193,16 +194,14 @@ class videos {
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
 		                <table class="ui large table segment manager soratble">
-		                    <col width="10%">
+		                    <col width="20%">
 		                    <col width="40%">
-		                    <col width="10%">
 		                    <col width="10%">
 		                    <col width="10%">
 		                    <col width="10%">
 		                    <col width="10%">
 		                    <thead>
 		                        <tr>
-		                            <th><i class="shuffle basic icon"></i></th>
 		                            <th>Video</th>
 		                            <th>Title</th>
 		                            <th>Status</th>
@@ -214,7 +213,7 @@ class videos {
 		                    <tbody>
 		                        {{#each videos}}
 		                            <tr data-id="{{dbURI}}">
-		                                 <td class="handle"><i class="reorder icon"></i></td>
+		                               
 		                                 <td>{{video}}</td>
 		                                 <td>{{title}}</td>
 		                                 <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>

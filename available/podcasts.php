@@ -6,6 +6,7 @@
  *
  * .4 make audio file non-mandatory
  * .5 set categories correctly
+ * .6 remove sort
  */
 namespace Manager;
 
@@ -197,15 +198,14 @@ class podcasts {
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
 		                <table class="ui large table segment manager sortable">
-			                    <col width="10%">
 	                            <col width="40%">
-	                            <col width="20%">
+	                            <col width="30%">
 	                            <col width="10%">
 	                            <col width="10%">
 	                            <col width="10%">
 		                    <thead>
 		                        <tr>
-		                            <th><i class="shuffle basic icon"></i></th>
+		                            
 		                            <th>Title</th>
 		                            <th>Status</th>
 		                            <th>Featured</th>
@@ -216,7 +216,7 @@ class podcasts {
 		                    <tbody>
 		                        {{#each podcasts}}
 		                            <tr data-id="{{dbURI}}">
-		                                <td class="handle"><i class="reorder icon"></i></td>
+		                               
 		                                <td>{{title}}</td>
 		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
 	                                    <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>

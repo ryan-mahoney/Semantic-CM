@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/practice_areas.php
  * @mode upgrade
+ *
+ * .4 remove sort
  */
 namespace Manager;
 
@@ -129,13 +131,12 @@ class practice_areas {
 	                {{#CollectionButtons}}{{/CollectionButtons}}
 	                
 	                <table class="ui large table segment manager sortable">
-	                    <col width="30%">
-	                    <col width="50%">
-	                    <col width="10%">
-	                    <col width="10%">
+	                    <col width="60%">
+	                    <col width="20%">
+	                    <col width="20%">
 	                    <thead>
 	                        <tr>
-	                            <th><i class="shuffle basic icon"></i></th>
+	                            
 	                            <th>Title</th>
 	                            <th>Status</th>
 	                            <th class="trash">Delete</th>
@@ -144,7 +145,7 @@ class practice_areas {
 	                    <tbody>
 	                        {{#each practice _areas}}
 	                            <tr data-id="{{dbURI}}">
-	                                <td class="handle"><i class="reorder icon"></i></td>
+	                               
 	                                <td>{{title}}</td>
 	                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
 	                                <td>

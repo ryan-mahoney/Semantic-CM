@@ -5,6 +5,7 @@
  * @mode upgrade
  *
  * .5 remove dead code
+ * .6 remove sort
  */
 namespace Manager;
 
@@ -201,8 +202,7 @@ class photo_galleries {
 	                {{#CollectionButtons}}{{/CollectionButtons}}
 	                
 	                <table class="ui large table segment manager sortable">
-	                        <col width="10%">
-                            <col width="10%">
+                            <col width="20%">
                             <col width="40%">
                             <col width="10%">
                             <col width="10%">
@@ -210,7 +210,7 @@ class photo_galleries {
                             <col width="10%">
 	                    <thead>
 	                        <tr>
-	                            <th><i class="shuffle basic icon"></i></th>
+	                            
 	                            <th>Image</th>
 	                            <th>Title</th>
 	                            <th>Status</th>
@@ -222,7 +222,7 @@ class photo_galleries {
 	                    <tbody>
 	                        {{#each photo_galleries}}
 	                            <tr data-id="{{dbURI}}">
-	                                <td class="handle"><i class="reorder icon"></i></td>
+	                                
 	                                <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
 	                                <td>{{title}}</td>
 	                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>

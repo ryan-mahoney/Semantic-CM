@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
  * @mode upgrade
  *
  * .5 add title
  * .6 add title for form
  * .7 resolve conflict
+ * .8 remove sort
  */
 namespace Manager;
 
@@ -59,13 +60,12 @@ class file_uploads {
                         {{#CollectionButtons}}{{/CollectionButtons}}
                         
                         <table class="ui large table segment manager sortable">
-                            <col width="10%">
-                            <col width="70%">
-                            <col width="10%">
-                            <col width="10%">
+                            <col width="60%">
+                            <col width="20%">
+                            <col width="20%">
                             <thead>
                                 <tr>
-                                    <th><i class="shuffle basic icon"></i></th>
+                                    
                                     <th>Title</th>
                                     <th>URL</th>
                                     <th class="trash">Delete</th>
@@ -74,7 +74,7 @@ class file_uploads {
                             <tbody>
                                 {{#each file_uploads}}
                                     <tr data-id="{{dbURI}}">
-                                         <td class="handle"><i class="reorder icon"></i></td>
+                                         
                                          <td>{{title}}</td>
                                          <td>{{image.url}}</td>
                                          <td>

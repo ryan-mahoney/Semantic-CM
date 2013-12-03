@@ -17,11 +17,12 @@
  *  along with Nothing Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/programs.php
  * @mode upgrade
  *
  * .3 pull tags from correct collection
+ * .4 remove sort
  */
 
 namespace Manager;
@@ -182,15 +183,14 @@ class programs {
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
 		                <table class="ui large table segment manager sortable">
-		                        <col width="10%">
 	                            <col width="40%">
-	                            <col width="20%">
+	                            <col width="30%">
 	                            <col width="10%">
 	                            <col width="10%">
 	                            <col width="10%">
 		                    <thead>
 		                        <tr>
-		                            <th><i class="shuffle basic icon"></i></th>
+		                            
 		                            <th>Title</th>
 		                            <th>Status</th>
 		                            <th>Featured</th>
@@ -201,7 +201,7 @@ class programs {
 		                    <tbody>
 		                        {{#each programs}}
 		                            <tr data-id="{{dbURI}}">
-		                                <td class="handle"><i class="reorder icon"></i></td>
+		                               
 		                                <td>{{title}}</td>
 		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
 	                                    <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>

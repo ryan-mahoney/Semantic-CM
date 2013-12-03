@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/carousels.php
  * @mode upgrade
  *
  *
  * .3 duplicate subcarousels field
  * .4 field name issue
+ * .6 sort removed
  */
 namespace Manager;
 
@@ -87,13 +88,12 @@ class carousels {
 	                {{#CollectionButtons}}{{/CollectionButtons}}
 	                
 	                <table class="ui large table segment manager sortable">
-	                        <col width="10%">
-                            <col width="40%">
-                            <col width="40%">
-                            <col width="10%">
+                            <col width="60%">
+                            <col width="20%">
+                            <col width="20%">
 	                    <thead>
 	                        <tr>
-	                            <th><i class="shuffle basic icon"></i></th>
+	                            
 	                            <th>Title</th>
 	                            <th>Tags</th>
 	                            <th class="trash">Delete</th>
@@ -102,9 +102,9 @@ class carousels {
 	                    <tbody>
 	                        {{#each carousels}}
 	                            <tr data-id="{{dbURI}}">
-	                                <td class="handle"><i class="reorder icon"></i></td>
+	                               
 	                                <td>{{title}}</td>
-	                                <td></td>
+	                                <td>{{#ArrayToCSV}}{{tags}}{{/ArrayToCSV}}</td>
 	                                <td>
 	                                    <div class="manager trash ui icon button">
 	                                         <i class="trash icon"></i>

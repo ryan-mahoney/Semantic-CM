@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/testimonials.php
  * @mode upgrade
  *
  * .4 use name not title
+ *.5 remove sort
  */
 namespace Manager;
 
@@ -147,14 +148,13 @@ class testimonials {
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
 		                <table class="ui large table segment manager sortable">
-		                        <col width="10%">
 	                            <col width="40%">
-	                            <col width="20%">
+	                            <col width="30%">
 	                            <col width="20%">
 	                            <col width="10%">
 		                    <thead>
 		                        <tr>
-		                            <th><i class="shuffle basic icon"></i></th>
+		                           
 		                            <th>Title</th>
 		                            <th>Status</th>
 		                            <th>Featured</th>
@@ -164,7 +164,7 @@ class testimonials {
 		                    <tbody>
 		                        {{#each testimonials}}
 		                            <tr data-id="{{dbURI}}">
-		                                <td class="handle"><i class="reorder icon"></i></td>
+		                                
 		                                <td>{{title}}</td>
 		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
                                         <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>

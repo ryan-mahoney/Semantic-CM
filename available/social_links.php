@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/social_links.php
  * @mode upgrade
  *
  * .4 lacks title field
  * .5 list view does not make sense
  * .6 fix conflict
+ * .7 remove sort
  */
 namespace Manager;
 
@@ -68,13 +69,12 @@ class social_links {
                         {{#CollectionButtons}}{{/CollectionButtons}}
                         
                         <table class="ui large table segment manager sortable">
+                            <col width="60%">
                             <col width="20%">
-                            <col width="50%">
-                            <col width="15%">
-                            <col width="15%">
+                            <col width="20%">
                             <thead>
                                 <tr>
-                                    <th><i class="shuffle basic icon"></i></th>
+                                    
                                     <th>Type</th>
                                     <th>URL</th>
                                     <th class="trash">Delete</th>
@@ -83,7 +83,7 @@ class social_links {
                             <tbody>
                                 {{#each social_links}}
                                     <tr data-id="{{dbURI}}">
-                                        <td class="handle"><i class="reorder icon"></i></td>
+                                      
                                         <td>{{type}}</td>
                                         <td>{{url}}</td>
                                         <td>
