@@ -1,10 +1,6 @@
 <?php
 /*
-<<<<<<< HEAD
- * @version .4
-=======
  * @version .5
->>>>>>> 59005f8fb8276442c6ac8759fc8d83a03e27c387
  * @link https://raw.github.com/virtuecenter/manager/master/available/books.php
  * @mode upgrade
  *
