@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcategories.php
  * @mode upgrade
  *
  * .3 wrong field referenced
+ * .4 set correct lable for embedded doc
  */
 namespace Manager;
 
@@ -51,7 +52,7 @@ class subcategories {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
+			{{#EmbeddedCollectionHeader Subcategories}}{{/EmbeddedCollectionHeader}}
 			{{#if subcategory}}
 				<table class="ui table manager segment">
 					<thead>
@@ -74,7 +75,7 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-		{{#EmbeddedHeader}}{{/EmbeddedHeader}}
+			{{#EmbeddedHeader}}{{/EmbeddedHeader}}
 
 		        {{#FieldFull title Title}}{{/FieldFull}}
 
@@ -82,7 +83,7 @@ HBS;
 
 			    {{{id}}}
 
-		{{#EmbeddedFooter}}{{/EmbeddedFooter}}
+			{{#EmbeddedFooter}}{{/EmbeddedFooter}}
 HBS;
 		return $partial;
 	}
