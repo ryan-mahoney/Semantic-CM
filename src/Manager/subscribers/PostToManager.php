@@ -21,4 +21,5 @@ return function ($context, $post, $db, $collection, $search) {
 		return;
 	}
 	$collectionInstance->index($search, $id, $document);
+	$collectionInstance->views('upsert', $id, $document);
 };
