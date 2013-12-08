@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/testimonials.php
  * @mode upgrade
  *
  * .4 use name not title
- *.5 remove sort
+ * .5 remove sort
+ * .6 typo
  */
 namespace Manager;
 
@@ -167,7 +168,7 @@ class testimonials {
 		                                
 		                                <td>{{title}}</td>
 		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                        <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+                                        <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
 		                                <td>
 		                                    <div class="manager trash ui icon button">
 		                                         <i class="trash icon"></i>

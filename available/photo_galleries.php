@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/photo_galleries.php
  * @mode upgrade
  *
  * .5 remove dead code
  * .6 remove sort
+ * .7 typo
  */
 namespace Manager;
 
@@ -226,7 +227,7 @@ class photo_galleries {
 	                                <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
 	                                <td>{{title}}</td>
 	                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                    <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+                                    <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
                                     <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
 	                                <td>
 	                                    <div class="manager trash ui icon button">

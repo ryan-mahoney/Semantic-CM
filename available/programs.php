@@ -17,12 +17,13 @@
  *  along with Nothing Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/programs.php
  * @mode upgrade
  *
  * .3 pull tags from correct collection
  * .4 remove sort
+ * .5 typo
  */
 
 namespace Manager;
@@ -204,7 +205,7 @@ class programs {
 		                               
 		                                <td>{{title}}</td>
 		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-	                                    <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+	                                    <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
 	                                    <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
 		                                <td>
 		                                    <div class="manager trash ui icon button">

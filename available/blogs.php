@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/blogs.php
  * @mode upgrade
  *
  * .6 add categories to list
+ * .7 typo
  */
 namespace Manager;
 
@@ -300,7 +301,7 @@ class blogs {
                                     <td>{{title}}</td>
                                     <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
                                     <td>{{#CategoriesCSV}}{{categories}}{{/CategoriesCSV}}</td>
-                                    <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+                                    <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
                                     <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
                                     <td>
                                        <div class="manager trash ui icon button"><i class="trash icon"></i></div>
