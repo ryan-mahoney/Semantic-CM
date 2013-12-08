@@ -1,12 +1,13 @@
 <?php
 
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/videos.php
  * @mode upgrade
  *
  * .4 pull categories from correct query
  * .5 remove sort
+ * .6 typo
  */
 namespace Manager;
 
@@ -217,7 +218,7 @@ class videos {
 		                                 <td>{{video}}</td>
 		                                 <td>{{title}}</td>
 		                                 <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                         <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+                                         <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
                                          <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
 		                                 <td>
 		                                    <div class="manager trash ui icon button">
