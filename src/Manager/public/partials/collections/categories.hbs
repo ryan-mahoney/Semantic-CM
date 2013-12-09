@@ -7,13 +7,9 @@
 		                {{#CollectionPagination}}{{/CollectionPagination}}
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
-		                <table class="ui large table segment manager sortable">
-                            <col width="60%">
-                            <col width="20%">
-                            <col width="20%">
+		                <table class="ui large table segment manager">
 		                    <thead>
 		                        <tr>
-		                            
 		                            <th>Title</th>
 		                            <th>Section</th>
 		                            <th class="trash">Delete</th>
@@ -22,7 +18,6 @@
 		                    <tbody>
 		                        {{#each categories}}
 		                            <tr data-id="{{dbURI}}">
-		                               
 		                                <td>{{title}}</td>
 		                                <td>{{section}}</td>
 		                                <td>

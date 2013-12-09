@@ -7,19 +7,13 @@
                     {{#CollectionPagination}}{{/CollectionPagination}}
                     {{#CollectionButtons}}{{/CollectionButtons}}
                 
-                    <table class="ui large table segment manager sortable">
-                        <col width="45%">
-                        <col width="25%">
-                        <col width="15%">
-                        <col width="15%">
-                        <col width="10%">
+                    <table class="ui large table segment manager">
                         <thead>
                                <tr>
                                   <th>Title</th>
+                                  <th>Category</th>
                                   <th>Status</th>
-                                  <th>Categories</th>
                                   <th>Featured</th>
-                                  <th>Pinned</th>
                                   <th class="trash">Delete</th>
                                </tr>
                         </thead>
@@ -27,10 +21,9 @@
                             {{#each blogs}}
                                 <tr data-id="{{dbURI}}">
                                     <td>{{title}}</td>
+                                    <td>{{category}}</td>
                                     <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                    <td>{{#CategoriesCSV}}{{categories}}{{/CategoriesCSV}}</td>
                                     <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
-                                    <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
                                     <td>
                                        <div class="manager trash ui icon button"><i class="trash icon"></i></div>
                                     </td>

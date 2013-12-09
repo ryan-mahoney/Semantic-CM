@@ -7,24 +7,17 @@
 					{{#CollectionPagination}}{{/CollectionPagination}}
 					{{#CollectionButtons}}{{/CollectionButtons}}
 					
-					<table class="ui large table segment manager sortable">
-                            <col width="60%">
-                            <col width="20%">
-                            <col width="20%">
+					<table class="ui large table segment manager">
 				  		<thead>
 							<tr>
-								
 								<th>Title</th>
-								<th>Tags</th>
 								<th class="trash">Delete</th>
 							</tr>
 				  		</thead>
 				   		<tbody>
 				   			{{#each blurbs}}
 								<tr data-id="{{dbURI}}">
-								    
 									<td>{{title}}</td>
-									<td>{{#ArrayToCSV}}{{tags}}{{/ArrayToCSV}}</td>
 									<td>
 										<div class="manager trash ui icon button">
 		                 					<i class="trash icon"></i>
