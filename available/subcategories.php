@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcategories.php
  * @mode upgrade
  *
  * .3 wrong field referenced
  * .4 set correct lable for embedded doc
+ * .5 delete feature
  */
 namespace Manager;
 
@@ -57,12 +58,14 @@ class subcategories {
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Title</th></tr>
+						<tr><th class="trash">Delete</th></tr>
 					</thead>
 					<tbody>
 						{{#each subcategory}}
 							<tr data-id="{{dbURI}}">
 								<td>{{title}}</td>
 							</tr>
+							<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 						{{/each}}
 					</tbody>
 				</table>

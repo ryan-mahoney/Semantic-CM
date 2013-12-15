@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .9
+ * @version 1.0
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
  *
@@ -11,6 +11,7 @@
  * .7 bad field name
  * .8 wrong collection
  * .9 mark as embedded
+ * 1.0 delete feature 
  */
 namespace Manager;
 
@@ -84,11 +85,13 @@ class subcarousels {
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Caption</th></tr>
+						<tr><th class="trash">Delete</th>
 					</thead>
 					<tbody>
 						{{#each carousel_individual}}
 							<tr data-id="{{dbURI}}">
 								<td>{{caption}}</td>
+								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}
 					</tbody>

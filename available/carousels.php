@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/carousels.php
  * @mode upgrade
  *
@@ -8,6 +8,7 @@
  * .3 duplicate subcarousels field
  * .4 field name issue
  * .6 sort removed
+ * .7 trash smaller
  */
 namespace Manager;
 
@@ -105,11 +106,7 @@ class carousels {
 	                               
 	                                <td>{{title}}</td>
 	                                <td>{{#ArrayToCSV}}{{tags}}{{/ArrayToCSV}}</td>
-	                                <td>
-	                                    <div class="manager trash ui icon button">
-	                                         <i class="trash icon"></i>
-	                                     </div>
-	                                 </td>
+	                                <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 	                            </tr>
 	                        {{/each}}
 	                    </tbody>

@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/subimages.php
  * @mode upgrade
  *
  * .3 bad field label
+ * .4 delete feature
  */
 namespace Manager;
 
@@ -65,12 +66,14 @@ class subimages {
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Caption</th></tr>
+						<tr><th class="trash">Delete</th></tr>
 					</thead>
 					<tbody>
 						{{#each image_individual}}
 							<tr data-id="{{dbURI}}">
 								<td>{{caption}}</td>
 							</tr>
+							<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 						{{/each}}
 					</tbody>
 				</table>
