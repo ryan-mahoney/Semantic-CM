@@ -12,4 +12,7 @@ return function ($context, $post, $db, $collection, $search) {
 	$id = $documentInstance->id();
 	$collectionName = $documentInstance->collection();
 	$search->delete($id, $collectionName);
+	$collectionInstance = $collection->factory($collectionName);
+	$collectionInstance->views('upsert', $id, $document);
+	$collectionInstance->statsUpdate();
 };

@@ -88,6 +88,7 @@ body {
      color:#00BAFF;
 }
 
+/*
  ul{
      float:right;
      margin:0;
@@ -97,6 +98,7 @@ body {
 li {
      display: inline-block;
 }
+*/
 
 .ui.column.grid>.fontSize{
      font-size: 0.9rem;

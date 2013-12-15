@@ -97,11 +97,7 @@ class menus {
                                         <td>{{label}}</td>
                                         <td>{{url}}</td>
                                         <td>{{#MongoDate m/d/Y}}{{created_date}}{{/MongoDate}}</td>
-                                        <td>
-                                            <div class="manager trash ui icon button">
-                                                 <i class="trash icon"></i>
-                                             </div>
-                                         </td>
+                                        <td><div class="manager trash ui icon button"><i class="trash icon"></i></div></td>
                                     </tr>
                                 {{/each}}
                             </tbody>
