@@ -1,9 +1,6 @@
 <?php
-echo 'Called', "\n";
-exit;;
 $manifest = ['managers' => []];
 foreach (glob("*.php") as $filename) {
-    echo $filename, "\n";
 	if ($filename == basename(__FILE__)) {
 		continue;
 	}
@@ -17,5 +14,4 @@ foreach (glob("*.php") as $filename) {
     	}
     }
 }
-print_r($manifest);
 file_put_contents('manifest.json', json_encode($manifest, JSON_PRETTY_PRINT));
