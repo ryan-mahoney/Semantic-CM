@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/books.php
  * @mode upgrade
  *
  * .4 do not require price and url
  * .5 title field not set
+ * .6 typo
  */
 namespace Manager;
 
@@ -216,7 +217,7 @@ class books {
 		                                <td class="handle"><i class="reorder icon"></i></td>
 		                                <td>{{title}}</td>
 		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-		                                <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+		                                <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
 		                                <td>
 		                                    <div class="manager trash ui icon button">
 		                                         <i class="trash icon"></i>

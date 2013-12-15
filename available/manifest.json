@@ -1,8 +1,8 @@
 {
     "managers": {
-        "blogs": ".6",
+        "blogs": ".7",
         "blurbs": ".6",
-        "books": ".5",
+        "books": ".6",
         "carousels": ".6",
         "categories": ".7",
         "department_profiles": ".2",
@@ -15,17 +15,17 @@
         "menus": ".5",
         "pages": ".4",
         "peoples_person": ".2",
-        "photo_galleries": ".6",
-        "podcasts": ".5",
+        "photo_galleries": ".7",
+        "podcasts": ".7",
         "practice_areas": ".4",
         "profiles": ".2",
-        "programs": ".4",
+        "programs": ".5",
         "social_links": ".7",
-        "sponsors": ".4",
+        "sponsors": ".5",
         "subcarousels": ".9",
         "subcategories": ".4",
         "subimages": ".3",
-        "testimonials": ".5",
-        "videos": ".5"
+        "testimonials": ".6",
+        "videos": ".6"
     }
 }

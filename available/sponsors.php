@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/sponsors.php
  * @mode upgrade
  *
  * .3 set categories from correct query
  * .4 remove sort
+ * .5 typo
  */
 namespace Manager;
 
@@ -160,7 +161,7 @@ class sponsors {
 		                                
 		                                <td>{{title}}</td>
 		                                <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                        <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+                                        <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
 		                                <td>
 		                                    <div class="manager trash ui icon button">
 		                                         <i class="trash icon"></i>
