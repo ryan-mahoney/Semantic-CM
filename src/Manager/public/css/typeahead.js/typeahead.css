@@ -30,7 +30,7 @@
 }
 .tt-suggestion {
     display: block;
-    padding: 3px 20px;
+    padding: 3px 8px;
 }
 .tt-suggestion.tt-is-under-cursor {
     color: #fff;
@@ -48,4 +48,9 @@
 }
 .tt-suggestion p {
     margin: 0;
+}
+
+.twitter-typeahead .label {
+    width: 174px;
+    margin-right: 10px !important;
 }
