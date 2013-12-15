@@ -22,5 +22,5 @@ return function ($context, $post, $db, $collection, $search) {
 	}
 	$collectionInstance->index($search, $id, $document);
 	$collectionInstance->views('upsert', $id, $document);
-	//$collectionInstance->statsUpdate();
+	$collectionInstance->statsUpdate($context['dbURI']);
 };
