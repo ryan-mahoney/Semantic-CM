@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/menu_links.php
  * @mode upgrade
+ *
+ * .3 trash in list view
  */
 namespace Manager;
 
@@ -81,6 +83,7 @@ class menu_links {
 						<tr>
 							<th><i class="shuffle basic icon"></i></th>
 							<th>Label</th>
+							<th class="trash">Delete</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -88,6 +91,7 @@ class menu_links {
 							<tr data-id="{{dbURI}}">
 								<td class="handle"><i class="reorder icon"></i></td>
 								<td>{{title}}</td>
+								<td><div class="manager trash ui icon button"><i class="trash icon"></i></div></td>
 							</tr>
 						{{/each}}
 					</tbody>
