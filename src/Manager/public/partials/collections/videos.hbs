@@ -7,9 +7,12 @@
 		                {{#CollectionPagination}}{{/CollectionPagination}}
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
-		                <table class="ui large table segment manager">
+		                <table class="ui large table segment manager soratble">
 		                    <col width="20%">
-		                    <col width="70%">
+		                    <col width="40%">
+		                    <col width="10%">
+		                    <col width="10%">
+		                    <col width="10%">
 		                    <col width="10%">
 		                    <thead>
 		                        <tr>
@@ -17,16 +20,19 @@
 		                            <th>Title</th>
 		                            <th>Status</th>
 		                            <th>Feature</th>
+		                            <th>Pinned</th>
 		                            <th class="trash">Delete</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody>
 		                        {{#each videos}}
 		                            <tr data-id="{{dbURI}}">
+		                               
 		                                 <td>{{video}}</td>
 		                                 <td>{{title}}</td>
-		                                 <td>{{status}}</td>
-		                                 <td>{{featured}}</td>
+		                                 <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+                                         <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
+                                         <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
 		                                 <td>
 		                                    <div class="manager trash ui icon button">
 		                                         <i class="trash icon"></i>
