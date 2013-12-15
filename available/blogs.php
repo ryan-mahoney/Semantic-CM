@@ -1,4 +1,4 @@
-p<?php
+<?php
 /*
  * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/blogs.php
