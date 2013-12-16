@@ -3,11 +3,13 @@
 				<table class="ui table manager segment">
 					<thead>
 						<tr><th>Caption</th></tr>
+						<tr><th class="trash">Delete</th>
 					</thead>
 					<tbody>
 						{{#each carousel_individual}}
 							<tr data-id="{{dbURI}}">
 								<td>{{caption}}</td>
+								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}
 					</tbody>

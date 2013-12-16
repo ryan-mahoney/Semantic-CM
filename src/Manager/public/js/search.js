@@ -2,14 +2,14 @@ $(document).ready(function () {
 	$('#omnisearch').typeahead({
         remote: '/Manager/api/search?q=%QUERY',
         limit: 20,
-        template: '<div class="ui teal ribbon label">{{type}}</div>{{value}}',                                                                 
+        template: '<div class="ui teal label">{{type}}</div>{{value}}',                                                                 
   		engine: Hogan
     });
     $("#omnisearch").on('typeahead:selected', function(evt, data) {
         if (data['id'] == '' || data['id'] == null) {
             return;
         }
-        window.location = data['id'];
+        window.location = data['id'] + '?s=' + data['value'];
     });
     $("#omnisearch").on('typeahead:autocompleted', function(evt, data) {
         if (data['id'] == '' || data['id'] == null) {
@@ -28,7 +28,35 @@ $(document).ready(function () {
     		itemOut(this);
     	}
     );
+    var qs = getParameterByName('s');
+    if (qs !== false) {
+        $('#omnisearch').val(qs);
+    }
+    var tmpSearch = '';
+    $('#omnisearch').focus(function () {
+        if ($(this).val() != '') {
+            tmpSearch = $(this).val();
+            $(this).val('');
+        }
+    });
+    $('#omnisearch').blur(function () {
+       if ($(this).val() == '' && tmpSearch != '') {
+            $(this).val(tmpSearch);
+        } 
+    });
 });
+
+var getParameterByName = function(name) {
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+    if (results == null) {
+        return false;
+    } else {
+        return decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+};
 
 var itemIn = function (item) {
 	$(item).find('.ui.buttons').css({display: 'none'});

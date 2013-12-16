@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/menu_links.php
  * @mode upgrade
  *
  * .3 trash in list view
  * .4 small delete button
+ * .5 change label
  */
 namespace Manager;
 
@@ -77,7 +78,7 @@ class menu_links {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader SubMenu}}{{/EmbeddedCollectionHeader}}
+			{{#EmbeddedCollectionHeader "Sub Menus"}}{{/EmbeddedCollectionHeader}}
 			{{#if link}}
 				<table class="ui table manager segment sortable">
 					<thead>

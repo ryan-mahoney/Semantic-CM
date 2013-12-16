@@ -13,6 +13,6 @@ return function ($context, $post, $db, $collection, $search) {
 	$collectionName = $documentInstance->collection();
 	$search->delete($id, $collectionName);
 	$collectionInstance = $collection->factory($collectionName);
-	$collectionInstance->views('upsert', $id, $document);
-	$collectionInstance->statsUpdate();
+	$collectionInstance->views('upsert', $id);
+	$collectionInstance->statsUpdate($context['dbURI']);
 };
