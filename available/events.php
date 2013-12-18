@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/events.php
  * @mode upgrade
  *
  * .3 set categories correctly
  * .4 sort removed
+ * .5 spelling errors
  */
 namespace Manager;
 
@@ -18,7 +19,7 @@ class events {
     public $description = '4 events';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $tabs = ['Main', 'Images', 'Venue', 'Recur', 'Registration', 'Adavance', 'SEO'];
+    public $tabs = ['Main', 'Images', 'Venue', 'Recurring', 'Registration', 'Advanced', 'SEO'];
     public $icon = 'empty calendar';
     public $category = 'Content';
     public $after = 'function';
