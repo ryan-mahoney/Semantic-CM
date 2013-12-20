@@ -101,6 +101,11 @@ class Application {
                 $userId = $_GET['userId'];
             }
             $managersCacheFile = $this->root . '/../managers/cache.json';
+            $countsTemp = $this->db->collection('collection_stats')->find();
+            $counts = [];
+            foreach ($countsTemp as $count) {
+                $counts[$count['collection']] = $count;
+            }
             if (!file_exists($managersCacheFile)) {
                 $this->response->body = json_encode(['managers' => []]);
                 return; 
@@ -110,6 +115,14 @@ class Application {
             foreach ($managers['managers'] as $manager) {
                 if ($manager['embedded'] == 1) {
                     continue;
+                }
+                if (isset($manager['collection']) && isset($counts[$manager['collection']])) {
+                    $manager['count'] = $counts[$manager['collection']]['count'];
+                    if (isset ($counts[$manager['collection']]['modified_date'])) {
+                        $manager['modified_date'] = $counts[$manager['collection']]['modified_date'];
+                    }
+                } else {
+                    $manager['count'] = 0;
                 }
                 $managersOut[] = $manager;
             }
@@ -321,7 +334,8 @@ class Application {
                 'category' => $managerInstance->category,
                 'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0),
                 'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : []),
-                'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":1}')
+                'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":1}'),
+                'collection' => $managerInstance->collection
             ];
             $managers[] = $record;
             if (method_exists($managerInstance, 'formPartial')) {

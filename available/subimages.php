@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/subimages.php
  * @mode upgrade
  *
  * .3 bad field label
  * .4 delete feature
+ * .5 missing image field
  */
 namespace Manager;
 
@@ -71,17 +72,16 @@ class subimages {
 					<thead>
 					        <tr>
 							    <th><i class="shuffle basic icon"></i></th>
-							    <th>Image</th>
-								<th><th>Caption</th>
-								<th><th class="trash">Delete</th>
 						    </tr>
-
+							<tr><th>Image</th></tr>
+							<tr><th>Caption</th></tr>
+							<tr><th class="trash">Delete</th></tr>
 					</thead>
 					<tbody>
 						{{#each image_individual}}
 							<tr data-id="{{dbURI}}">
 							    <td class="handle"><i class="reorder icon"></i></td>
-							    <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
+								<td>{{#ImageResize}}{{file}}{{/ImageResize}}</td>
 								<td>{{caption}}</td>
 							    <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>

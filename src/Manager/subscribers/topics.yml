@@ -5,3 +5,5 @@ topics:
        PostToManager: ['post', 'db', 'collection', 'search']
     Manager-manager-delete:
        DeleteFromManager: ['post', 'db', 'collection', 'search']
+    CollectionStats:
+       CollectionStats: ['collection']
