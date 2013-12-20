@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/blogs.php
  * @mode upgrade
  *
  * .6 add categories to list
  * .7 typo
+ * .8 make description use count variable
  */
 namespace Manager;
 
@@ -15,7 +16,7 @@ class blogs {
     public $title = 'Blogs';
     public $titleField = 'title';
     public $singular = 'Blog';
-    public $description = '4 blogs';
+    public $description = '{{count}} blogs';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images', 'External Article', 'SEO'];
