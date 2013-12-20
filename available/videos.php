@@ -1,13 +1,14 @@
 <?php
 
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/videos.php
  * @mode upgrade
  *
  * .4 pull categories from correct query
  * .5 remove sort
  * .6 typo
+ * .7 definition and description for count added
  */
 namespace Manager;
 
@@ -17,8 +18,8 @@ class videos {
     public $title = 'Videos';
     public $titleField = 'title';
     public $singular = 'Video';
-    public $description = '4 videos';
-    public $definition = '....';
+    public $description = '{{count}} videos';
+    public $definition = 'Upload Youtube links for video galleries here. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'SEO'];
     public $icon = 'facetime video';

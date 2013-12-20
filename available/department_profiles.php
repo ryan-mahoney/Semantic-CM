@@ -1,8 +1,9 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/department_profiles.php
  * @mode upgrade
+ * .3 definiton and description for count added
  */
 namespace Manager;
 
@@ -12,8 +13,8 @@ class department_profiles {
     public $title = '"Department Profiles"';
     public $titleField = 'title';
     public $singular = '"Department Profile"';
-    public $description = '4 "department profiles"';
-    public $definition = '...';
+    public $description = '{{count}} "department profiles"';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $icon = 'browser';
     public $category = 'Content';

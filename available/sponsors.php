@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/sponsors.php
  * @mode upgrade
  *
  * .3 set categories from correct query
  * .4 remove sort
  * .5 typo
+ * .6 definition and description for count added
  */
 namespace Manager;
 
@@ -16,8 +17,8 @@ class sponsors {
     public $title = 'Sponsors';
     public $titleField = 'title';
     public $singular = 'Sponsor';
-    public $description = '4 sponsors';
-    public $definition = '...';
+    public $description = '{{count}} sponsors';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images'];
     public $icon = 'us dollar';

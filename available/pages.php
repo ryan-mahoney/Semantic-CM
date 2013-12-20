@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/pages.php
  * @mode upgrade
  *
- *.4 remove sort
+ * .4 remove sort
+ * .5 definiton and description for count added
  */
 namespace Manager;
 
@@ -14,8 +15,8 @@ class pages {
     public $title = 'Pages';
     public $titleField = 'title';
     public $singular = 'Page';
-    public $description = '4 pages';
-    public $definition = '...';
+    public $description = '{{count}} pages';
+    public $definition = 'Individual content pages can be created and linked to your site through menus. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'SEO'];
     public $icon = 'copy';

@@ -3,37 +3,24 @@
             </div>
 
             <div class="bottom-container">
-                {{#if videos}}
+                {{#if departments}}
 		                {{#CollectionPagination}}{{/CollectionPagination}}
 		                {{#CollectionButtons}}{{/CollectionButtons}}
 		                
-		                <table class="ui large table segment manager soratble">
-		                    <col width="20%">
-		                    <col width="40%">
-		                    <col width="10%">
-		                    <col width="10%">
-		                    <col width="10%">
-		                    <col width="10%">
+		                <table class="ui large table segment manager">
 		                    <thead>
 		                        <tr>
-		                            <th>Video</th>
 		                            <th>Title</th>
-		                            <th>Status</th>
-		                            <th>Feature</th>
-		                            <th>Pinned</th>
+		                            <th>Section</th>
 		                            <th class="trash">Delete</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody>
-		                        {{#each videos}}
+		                        {{#each departments}}
 		                            <tr data-id="{{dbURI}}">
-		                               
-		                                 <td>{{video}}</td>
-		                                 <td>{{title}}</td>
-		                                 <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                         <td>{{#BooleanReadable}}{{feaured}}{{/BooleanReadable}}</td>
-                                         <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
-		                                 <td>
+		                                <td>{{title}}</td>
+		                                <td>{{section}}</td>
+		                                <td>
 		                                    <div class="manager trash ui icon button">
 		                                         <i class="trash icon"></i>
 		                                     </div>
@@ -44,7 +31,7 @@
 		                </table>
 
 		                {{#CollectionPagination}}{{/CollectionPagination}}
-		           {{else}}
+		            {{else}}
 					{{#CollectionEmpty}}{{/CollectionEmpty}}
 				{{/if}}
             </div>

@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .8
+ * @version .9
  * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
  * @mode upgrade
  *
@@ -8,6 +8,7 @@
  * .6 add title for form
  * .7 resolve conflict
  * .8 remove sort
+ * .9 definition  and description for count added
  */
 namespace Manager;
 
@@ -17,8 +18,8 @@ class file_uploads {
     public $title = 'File Uploads';
     public $titleField = 'title';
     public $singular = 'File Upload';
-    public $description = '4 file uploads';
-    public $definition = '....';
+    public $description = '{{count}} file uploads';
+    public $definition = 'Files that visitors can download from your site, such as high resolution images, PDF\'s, and white papers, can be uploaded here. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main'];
     public $icon = 'cloud upload';

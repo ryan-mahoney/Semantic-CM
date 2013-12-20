@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/photo_galleries.php
  * @mode upgrade
  *
  * .5 remove dead code
  * .6 remove sort
  * .7 typo
+ * .8 definition and description for count added
  */
 namespace Manager;
 
@@ -16,8 +17,8 @@ class photo_galleries {
     public $title = 'Photo Galleries';
     public $titleField = 'title';
     public $singular = 'Photo Gallery';
-    public $description = '4 photo galleries';
-    public $definition = 'Photos organizes into individual galleries.';
+    public $description = '{{count}} photo galleries';
+    public $definition = 'Upload and arrange photo galleries with captions. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Flickr', 'SEO'];
     public $icon = 'photo';

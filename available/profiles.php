@@ -1,8 +1,9 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/profiles.php
  * @mode upgrade
+ * .3 definition and description for count added
  */
 namespace Manager;
 
@@ -12,8 +13,8 @@ class profiles {
     public $title = 'Profiles';
     public $titleField = 'title';
     public $singular = 'Profile';
-    public $description = '4 profiles';
-    public $definition = '...';
+    public $description = '{{count}} profiles';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main'];
     public $icon = 'text file';

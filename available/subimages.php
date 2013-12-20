@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/subimages.php
  * @mode upgrade
  *
  * .3 bad field label
  * .4 delete feature
  * .5 missing image field
+ * .6 definition and description for count added
  */
 namespace Manager;
 
@@ -16,8 +17,8 @@ class subimages {
 	public $title = 'Subimage';
 	public $titleField = 'title';
 	public $singular = 'Image';
-	public $description = '4 subimages';
-	public $definition = '';
+	public $description = '{{count}} subimages';
+	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';

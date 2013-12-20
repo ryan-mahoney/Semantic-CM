@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/menu_links.php
  * @mode upgrade
  *
  * .3 trash in list view
  * .4 small delete button
  * .5 change label
+ * .6 definition and description for count added
  */
 namespace Manager;
 
@@ -16,8 +17,8 @@ class menu_links {
 	public $title = 'Menus';
 	public $titleField = 'title';
 	public $singular = 'Menu';
-	public $description = '4 menulinks';
-	public $definition = '';
+	public $description = '{{count}} menulinks';
+	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
@@ -81,10 +82,15 @@ class menu_links {
 			{{#EmbeddedCollectionHeader "Sub Menus"}}{{/EmbeddedCollectionHeader}}
 			{{#if link}}
 				<table class="ui table manager segment sortable">
+				      <col width="10%">
+	                  <col width="40%">
+	                  <col width="40%">
+	                  <col width="10%">
 					<thead>
 						<tr>
 							<th><i class="shuffle basic icon"></i></th>
-							<th>Label</th>
+							<th>Title</th>
+							<th>URL</th>
 							<th class="trash">Delete</th>
 						</tr>
 					</thead>
@@ -93,6 +99,7 @@ class menu_links {
 							<tr data-id="{{dbURI}}">
 								<td class="handle"><i class="reorder icon"></i></td>
 								<td>{{title}}</td>
+								<th>{{url}}</td
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}

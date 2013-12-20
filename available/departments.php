@@ -1,8 +1,9 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/departments.php
  * @mode upgrade
+ * .3 definition and description for count added
  */
 
 namespace Manager;
@@ -14,8 +15,8 @@ class departments{
     public $title = 'Departments';
     public $titleField = 'title';
     public $singular = 'Department';
-    public $description = '4 departments';
-    public $definition = '.....';
+    public $description = '{{cout}} departments';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main'];
     public $icon = 'browser';

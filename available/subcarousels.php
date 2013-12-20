@@ -1,6 +1,6 @@
 <?php
 /*
- * @version 1.0
+ * @version 1.1
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
  * @mode upgrade
  *
@@ -12,6 +12,7 @@
  * .8 wrong collection
  * .9 mark as embedded
  * 1.0 delete feature 
+ * 1.1 definition and description for count added
  */
 namespace Manager;
 
@@ -21,8 +22,8 @@ class subcarousels {
     public $title = 'SubCarousels';
     public $titleField = 'title';
     public $singular = 'SubCarousel';
-    public $description = '4 subcarousels';
-    public $definition = '...';
+    public $description = '{{count}} subcarousels';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $icon = 'browser';
     public $category = 'Content';

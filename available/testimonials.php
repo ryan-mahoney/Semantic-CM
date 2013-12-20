@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/testimonials.php
  * @mode upgrade
  *
  * .4 use name not title
  * .5 remove sort
  * .6 typo
+ * .7 definition and description for count added
  */
 namespace Manager;
 
@@ -16,8 +17,8 @@ class testimonials {
     public $title = 'Testimonials';
     public $titleField = 'name';
     public $singular = 'Testimonial';
-    public $description = '4 testimonials';
-    public $definition = '...';
+    public $description = '{{count}} testimonials';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images'];
     public $icon = 'chat';

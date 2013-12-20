@@ -1,8 +1,9 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/membership_levels.php
  * @mode upgrade
+ * .4 definition and description for count added
  */
 namespace Manager;
 
@@ -12,8 +13,8 @@ class membership_levels {
     public $title = 'Membership';
     public $titleField = 'title';
     public $singular = 'Membership Level';
-    public $description = '4 membership levels';
-    public $definition = '...';
+    public $description = '{{count}} membership levels';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main'];
     public $icon = 'trophy';

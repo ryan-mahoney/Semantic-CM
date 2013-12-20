@@ -17,13 +17,14 @@
  *  along with Nothing Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/programs.php
  * @mode upgrade
  *
  * .3 pull tags from correct collection
  * .4 remove sort
  * .5 typo
+ * .6 definition and description for count added
  */
 
 namespace Manager;
@@ -34,8 +35,8 @@ class programs {
     public $title = 'Programs';
     public $titleField = 'title';
     public $singular = 'Program';
-    public $description = '4 programs';
-    public $definition = '...';
+    public $description = '{{count}} programs';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images', 'SEO'];
     public $icon = 'grid layout';
