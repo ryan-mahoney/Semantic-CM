@@ -57,6 +57,23 @@ class social_links {
 		);
 	}
 
+
+    function headerField () {
+        return [
+            'name' => 'headerIcon',
+            'label' => 'Header Icon',
+            'display' => 'InputFile'
+        ];
+    }
+
+    function footerField () {
+        return [
+            'name' => 'footerIcon',
+            'label' => 'Footer Icon',
+            'display' => 'InputFile'
+        ];
+    }
+
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -117,6 +134,8 @@ HBS;
 	                     {{#DocumentFormLeft}}
 	                         {{#FieldLeft type Type required}}{{/FieldLeft}}
 	                         {{#FieldLeft url URL required}}{{/FieldLeft}}
+                             {{#FieldLeft headerIcon "Header Icon" required}}{{/FieldLeft}}
+                             {{#FieldLeft footerIcon "Footer Icon" required}}{{/FieldLeft}}
 	                         {{{id}}}
 	                     {{/DocumentFormLeft}}                 
 	                

@@ -1,16 +1,27 @@
 			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
 			{{#if image_individual}}
-				<table class="ui table manager segment">
+				<table class="ui table manager segment manager sortable">
+				      <col width="10%">
+	                  <col width="40%">
+	                  <col width="40%">
+	                  <col width="10%">
 					<thead>
-						<tr><th>Caption</th></tr>
-						<tr><th class="trash">Delete</th></tr>
+					        <tr>
+							    <th><i class="shuffle basic icon"></i></th>
+							    <th>Image</th>
+								<th><th>Caption</th>
+								<th><th class="trash">Delete</th>
+						    </tr>
+
 					</thead>
 					<tbody>
 						{{#each image_individual}}
 							<tr data-id="{{dbURI}}">
+							    <td class="handle"><i class="reorder icon"></i></td>
+							    <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
 								<td>{{caption}}</td>
+							    <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
-							<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 						{{/each}}
 					</tbody>
 				</table>
