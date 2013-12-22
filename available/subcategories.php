@@ -7,6 +7,7 @@
  * .3 wrong field referenced
  * .4 set correct lable for embedded doc
  * .5 delete feature
+ * .6 fix html
  */
 namespace Manager;
 
@@ -64,14 +65,14 @@ class subcategories {
 						{{#each subcategory}}
 							<tr data-id="{{dbURI}}">
 								<td>{{title}}</td>
+								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
-							<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 						{{/each}}
 					</tbody>
 				</table>
-		      {{else}}
-			   {{#EmbeddedCollectionEmpty subcategory}}{{/EmbeddedCollectionEmpty}}
-	       {{/if}}
+		    {{else}}
+			    {{#EmbeddedCollectionEmpty subcategory}}{{/EmbeddedCollectionEmpty}}
+	        {{/if}}
 HBS;
 		return $partial;
 	}
