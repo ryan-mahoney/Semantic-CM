@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/carousels.php
  * @mode upgrade
  *
@@ -9,6 +9,7 @@
  * .4 field name issue
  * .6 sort removed
  * .7 trash smaller
+ * .8 definiton and description for count added 
  */
 namespace Manager;
 
@@ -18,8 +19,8 @@ class carousels {
     public $title = 'Carousel';
     public $titleField = 'title';
     public $singular = 'Carousel';
-    public $description = '4 carousels';
-    public $definition = '...';
+    public $description = '{{count}} carousels';
+    public $definition = 'A carousel is a rotating photo module that most typically appears on a homepage.';
     public $acl = ['content', 'admin', 'superadmin'];
     public $icon = 'sign in';
     public $category = 'Content';

@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .6	
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcategories.php
  * @mode upgrade
  *
@@ -8,6 +8,7 @@
  * .4 set correct lable for embedded doc
  * .5 delete feature
  * .6 fix html
+ * .7 definition and description for count added
  */
 namespace Manager;
 
@@ -17,8 +18,8 @@ class subcategories {
 	public $title = 'Subcategories';
 	public $titleField = 'title';
 	public $singular = 'Subcategory';
-	public $description = '4 subcategories';
-	public $definition = '';
+	public $description = '{{count}} subcategories';
+	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
@@ -43,7 +44,7 @@ class subcategories {
 			'display'	=> 'InputText'
 		];
 	}
-	
+
 	function imageField () {
 		return [
 			'name' => 'image',
@@ -92,3 +93,4 @@ HBS;
 		return $partial;
 	}
 }
+

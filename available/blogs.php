@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .8
+ * @version .9
  * @link https://raw.github.com/virtuecenter/manager/master/available/blogs.php
  * @mode upgrade
  *
  * .6 add categories to list
  * .7 typo
  * .8 make description use count variable
+ * .9 definition added
  */
 namespace Manager;
 
@@ -17,7 +18,7 @@ class blogs {
     public $titleField = 'title';
     public $singular = 'Blog';
     public $description = '{{count}} blogs';
-    public $definition = '...';
+    public $definition = 'Regularly updated content can be added through blog posts. Entries are displayed in a list view where the most recent appears first. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images', 'External Article', 'SEO'];
     public $icon = 'text file';

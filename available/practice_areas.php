@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/practice_areas.php
  * @mode upgrade
  *
  * .4 remove sort
+ * .5 definition and description for count added
  */
 namespace Manager;
 
@@ -14,8 +15,8 @@ class practice_areas {
     public $title = 'Practice Areas';
     public $titleField = 'title';
     public $singular = 'Practice Area';
-    public $description = '4 practice areas';
-    public $definition = '......';
+    public $description = '{{count}} practice areas';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'SEO'];
     public $icon = 'legal';

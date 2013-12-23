@@ -1,11 +1,12 @@
 <?php
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/blurbs.php
  * @mode upgrade
  *
  * .5 show tags on list
  * .6 sort removed
+ * .7 definition and description for count added
  */
 namespace Manager;
 
@@ -15,8 +16,8 @@ class blurbs {
 	public $title = 'Blurbs';
 	public $titleField = 'title';
 	public $singular = 'Blurb';
-	public $description = '5 blurbs';
-	public $definition = 'Blurbs are used to control small blocks of text on a website.';
+	public $description = '{{count}} blurbs';
+	public $definition = 'Blurbs are small blocks of content that don\'t fit the conventions of a whole web page. Many appear on multiple pages in the same format. ';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'basic content';
 	public $category = 'Content';

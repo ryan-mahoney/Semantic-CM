@@ -1,8 +1,9 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/menus.php
  * @mode upgrade
+ * .6 definiton and description for count added
  */
 namespace Manager;
 
@@ -12,8 +13,8 @@ class menus {
     public $title = 'Menus';
     public $titleField = 'label';
     public $singular = 'Menu';
-    public $description = '4 menu items';
-    public $definition = 'Menus are used for the navigation of your public website.';
+    public $description = '{{count}} menu items';
+    public $definition = 'Menus determine how a site is organized. Use them as a road map to lay out your content. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $icon = 'browser';
     public $category = 'Content';

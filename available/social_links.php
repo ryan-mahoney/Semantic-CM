@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/social_links.php
  * @mode upgrade
  *
@@ -8,6 +8,7 @@
  * .5 list view does not make sense
  * .6 fix conflict
  * .7 remove sort
+ * .8 definition and description for count added
  */
 namespace Manager;
 
@@ -17,8 +18,8 @@ class social_links {
     public $title = 'Social Links';
     public $titleField = 'url';
     public $singular = 'Social Link';
-    public $description = '4 social links';
-    public $definition = '...';
+    public $description = '{{count}} social links';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main'];
     public $icon = 'url';
@@ -57,6 +58,23 @@ class social_links {
 		);
 	}
 
+
+    function headerField () {
+        return [
+            'name' => 'headerIcon',
+            'label' => 'Header Icon',
+            'display' => 'InputFile'
+        ];
+    }
+
+    function footerField () {
+        return [
+            'name' => 'footerIcon',
+            'label' => 'Footer Icon',
+            'display' => 'InputFile'
+        ];
+    }
+
 	public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
@@ -69,12 +87,13 @@ class social_links {
                         {{#CollectionButtons}}{{/CollectionButtons}}
                         
                         <table class="ui large table segment manager sortable">
-                            <col width="60%">
-                            <col width="20%">
-                            <col width="20%">
+                            <col width="10%">
+                            <col width="40%">
+                            <col width="40%">
+                            <col width="10%">
                             <thead>
                                 <tr>
-                                    
+                                    <th>Sort</th>
                                     <th>Type</th>
                                     <th>URL</th>
                                     <th class="trash">Delete</th>
@@ -83,14 +102,14 @@ class social_links {
                             <tbody>
                                 {{#each social_links}}
                                     <tr data-id="{{dbURI}}">
-                                      
-                                        <td>{{type}}</td>
+                                        <td class="handle"><i class="reorder icon"></i></td>
+                                        <td>{{#Capitalize}}{{type}}{{/Capitalize}}</td>
                                         <td>{{url}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
                                              </div>
-                                         </td>
+                                        </td>
                                     </tr>
                                 {{/each}}
                             </tbody>
@@ -117,6 +136,8 @@ HBS;
 	                     {{#DocumentFormLeft}}
 	                         {{#FieldLeft type Type required}}{{/FieldLeft}}
 	                         {{#FieldLeft url URL required}}{{/FieldLeft}}
+                             {{#FieldLeft headerIcon "Header Icon" required}}{{/FieldLeft}}
+                             {{#FieldLeft footerIcon "Footer Icon" required}}{{/FieldLeft}}
 	                         {{{id}}}
 	                     {{/DocumentFormLeft}}                 
 	                

@@ -1,23 +1,24 @@
 <?php
 /*
- * @version .3
+ * @version .4
  * @link https://raw.github.com/virtuecenter/manager/master/available/departments.php
  * @mode upgrade
  *
  * .3 minor fixes
+ * .4 definition and description for count added
  */
 
 namespace Manager;
 
 
 class departments{
-	private $field = false;
+    private $field = false;
     public $collection = 'departments';
     public $title = 'Departments';
     public $titleField = 'title';
     public $singular = 'Department';
-    public $description = '4 departments';
-    public $definition = '.....';
+    public $description = '{{cout}} departments';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main'];
     public $icon = 'browser';

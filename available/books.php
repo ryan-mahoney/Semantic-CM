@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/books.php
  * @mode upgrade
  *
  * .4 do not require price and url
  * .5 title field not set
  * .6 typo
+ * .7 definition and description for count added
  */
 namespace Manager;
 
@@ -16,8 +17,8 @@ class books {
     public $title = 'Books';
     public $singular = 'Book';
     public $titleField = 'title';
-    public $description = '4 books';
-    public $definition = '....';
+    public $description = '{{count}} books';
+    public $definition = 'This is a customized content page module for the purposes of selling or displaying books. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images', 'SEO'];
     public $icon = 'book';

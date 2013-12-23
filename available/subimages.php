@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/subimages.php
  * @mode upgrade
  *
  * .3 bad field label
  * .4 delete feature
  * .5 missing image field
+ * .6 definition and description for count added
  */
 namespace Manager;
 
@@ -16,8 +17,8 @@ class subimages {
 	public $title = 'Subimage';
 	public $titleField = 'title';
 	public $singular = 'Image';
-	public $description = '4 subimages';
-	public $definition = '';
+	public $description = '{{count}} subimages';
+	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
@@ -64,19 +65,27 @@ class subimages {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
 			{{#if image_individual}}
-				<table class="ui table manager segment">
+				<table class="ui table manager segment manager sortable">
+				      <col width="10%">
+	                  <col width="40%">
+	                  <col width="40%">
+	                  <col width="10%">
 					<thead>
-						<tr><th>Image</th></tr>
-						<tr><th>Caption</th></tr>
-						<tr><th class="trash">Delete</th></tr>
+					        <tr>
+							    <th><i class="shuffle basic icon"></i></th>
+						    </tr>
+							<tr><th>Image</th></tr>
+							<tr><th>Caption</th></tr>
+							<tr><th class="trash">Delete</th></tr>
 					</thead>
 					<tbody>
 						{{#each image_individual}}
 							<tr data-id="{{dbURI}}">
+							    <td class="handle"><i class="reorder icon"></i></td>
 								<td>{{#ImageResize}}{{file}}{{/ImageResize}}</td>
 								<td>{{caption}}</td>
+							    <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
-							<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 						{{/each}}
 					</tbody>
 				</table>

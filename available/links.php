@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .4
+ * @version .5
  * @link https://raw.github.com/virtuecenter/manager/master/available/links.php
  * @mode upgrade
  *
  * .4 remove sort
+ * .5 definiton and description for count added
  */
 namespace Manager;
 
@@ -14,8 +15,8 @@ class links {
     public $title = 'Links';
     public $titleField = 'title';
     public $singular = 'Link';
-    public $description = '4 links';
-    public $definition = '...';
+    public $description = '{{count}} links';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images'];
     public $icon = 'url';

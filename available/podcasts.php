@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/podcasts.php
  * @mode upgrade
  *
@@ -8,6 +8,7 @@
  * .5 set categories correctly
  * .6 remove sort
  * .7 typo
+ * .8 definition and description for count added
  */
 namespace Manager;
 
@@ -17,8 +18,8 @@ class podcasts {
     public $title = 'Podcasts';
     public $titleField = 'title';
     public $singular = 'Podcast';
-    public $description = '4 podcasts';
-    public $definition = '....';
+    public $description = '{{count}} podcasts';
+    public $definition = 'Upload MP3 files with descriptions and photos here. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images', 'SEO'];
     public $icon = 'headphones';

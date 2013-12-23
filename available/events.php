@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .5
+ * @version .6
  * @link https://raw.github.com/virtuecenter/manager/master/available/events.php
  * @mode upgrade
  *
  * .3 set categories correctly
  * .4 sort removed
  * .5 spelling errors
+ * .6 definiton and description for count added
  */
 namespace Manager;
 
@@ -16,8 +17,8 @@ class events {
     public $title = 'Events';
     public $titleField = 'title';
     public $singular = 'Event';
-    public $description = '4 events';
-    public $definition = '...';
+    public $description = '{{count}} events';
+    public $definition = 'These content blocks appear on event streams and calendars. They are organized by date and time, typically include an image, short description, and occasionally, a registration option. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images', 'Venue', 'Recurring', 'Registration', 'Advanced', 'SEO'];
     public $icon = 'empty calendar';

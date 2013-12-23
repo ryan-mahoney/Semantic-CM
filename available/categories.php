@@ -7,6 +7,7 @@
  * .3 duplicate field
  * .6 better handling of section
  * .7 sort removed
+ * .8 definition and description for count added
  */
 
 namespace Manager;
@@ -17,8 +18,8 @@ class categories {
     public $title = 'Categories';
     public $titleField = 'title';
     public $singular = 'Category';
-    public $description = '4 categories';
-    public $definition = '.....';
+    public $description = '{{count}} categories';
+    public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'SEO'];
     public $icon = 'checkmark sign';
