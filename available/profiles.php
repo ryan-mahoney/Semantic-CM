@@ -16,7 +16,7 @@ class profiles {
     public $description = '{{count}} profiles';
     public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $tabs = ['Main'];
+    public $tabs = ['Main', 'Images'];
     public $icon = 'text file';
     public $category = 'Content';
     public $after = 'function';
@@ -134,6 +134,23 @@ class profiles {
             'default' => 'f'
         ];
     }
+    
+    function imageField () {
+    return [
+      'name' => 'image',
+      'label' => 'List View',
+      'display' => 'InputFile'
+    ];
+  }
+
+  function imageFeaturedField () {
+    return [
+      'name' => 'image_feature',
+      'label' => 'Featured View',
+      'display' => 'InputFile'
+    ];
+  }
+
 
     public function tablePartial () {
         $partial = <<<'HBS'
@@ -208,7 +225,17 @@ HBS;
 		                	<br />
 		                	{{#FieldLeft pinned}}{{/FieldLeft}}
 		                {{/DocumentFormRight}}
-		            </div>	        
+		            </div>	
+                <div class="ui tab" data-tab="Images">
+                    {{#DocumentFormLeft}}
+                        {{#FieldLeft image "List View"}}{{/FieldLeft}}
+                        {{#FieldLeft image_feature Featured}}{{/FieldLeft}}
+                    {{/DocumentFormLeft}}                 
+                    
+                    {{#DocumentFormRight}}
+                      {{#DocumentButton}}{{/DocumentButton}}
+                    {{/DocumentFormRight}}
+                </div>        
 	            </div>
 	        </form>
 HBS;
