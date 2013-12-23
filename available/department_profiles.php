@@ -1,26 +1,27 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/department_profiles.php
  * @mode upgrade
  */
 namespace Manager;
 
 class department_profiles {
-	private $field = false;
+    private $field = false;
     public $collection = 'department_profiles';
-    public $title = '"Department Profiles"';
+    public $title = 'Profiles';
     public $titleField = 'title';
-    public $singular = '"Department Profile"';
-    public $description = '4 "department profiles"';
+    public $singular = 'Profile';
+    public $description = '4 department profiles';
     public $definition = '...';
     public $acl = ['content', 'admin', 'superadmin'];
     public $icon = 'browser';
     public $category = 'Content';
     public $after = 'function';
-    public $function = 'ManagerSaved';
+    public $function = 'embeddedUpsert';
+    public $embedded = true;
     public $storage = [
-        'collection' => 'department_profiles',
+        'collection' => 'departments',
         'key' => '_id'
     ];
 
@@ -36,7 +37,7 @@ class department_profiles {
 			'display'	=> 'InputText'
 		];
 	}
-	
+
 	function imageField () {
 		return [
 			'name' => 'image',
@@ -47,7 +48,7 @@ class department_profiles {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
+			{{#EmbeddedCollectionHeader department_profiles}}{{/EmbeddedCollectionHeader}}
 			{{#if department_profiles}}
 				<table class="ui table manager segment">
 					<thead>
@@ -62,7 +63,7 @@ class department_profiles {
 					</tbody>
 				</table>
 		      {{else}}
-			   {{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+			   {{#EmbeddedCollectionEmpty Profile}}{{/EmbeddedCollectionEmpty}}
 	       {{/if}}
 HBS;
 		return $partial;
@@ -70,7 +71,7 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-		{{#EmbeddedHeader}}{{/EmbeddedHeader}}
+			{{#EmbeddedHeader}}{{/EmbeddedHeader}}
 
 		        {{#FieldFull title Title}}{{/FieldFull}}
 
@@ -78,7 +79,7 @@ HBS;
 
 			    {{{id}}}
 
-		{{#EmbeddedFooter}}{{/EmbeddedFooter}}
+			{{#EmbeddedFooter}}{{/EmbeddedFooter}}
 HBS;
 		return $partial;
 	}

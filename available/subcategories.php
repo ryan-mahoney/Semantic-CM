@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .5
+ * @version .6	
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcategories.php
  * @mode upgrade
  *

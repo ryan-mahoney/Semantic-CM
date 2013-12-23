@@ -1,8 +1,10 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/departments.php
  * @mode upgrade
+ *
+ * .3 minor fixes
  */
 
 namespace Manager;
@@ -159,8 +161,8 @@ HBS;
 	                    {{#DocumentFormLeft}}
 	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft description Description}}{{/FieldLeft}}
-						    {{#FieldEmbedded profiles Profiles}}{{/FieldEmbedded}}
-	                        {{{id}}}
+						    {{#FieldEmbedded department_profiles department_profiles}}{{/FieldEmbedded}}
+						    {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                
 	                    {{#DocumentFormRight}}
