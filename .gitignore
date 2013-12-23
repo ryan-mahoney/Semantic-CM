@@ -1,2 +1,4 @@
 composer.lock
 vendor
+src/Manager/public/partials/forms
+src/Manager/public/partials/collections
