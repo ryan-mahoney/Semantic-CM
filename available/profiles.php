@@ -32,7 +32,7 @@ class profiles {
 	
 	function fullNameField () {
 		return [
-			'name'		=> 'fullName',
+			'name'		=> 'full_name',
 			'label'		=> 'FullName',
 			'required'	=> true,
 			'display'	=> 'InputText'
@@ -59,7 +59,7 @@ class profiles {
 
 	function homepageField () {
 		return [
-			'display' => 'Ckeditor',
+			'display' => 'InputText',
 			'name' => 'homepage'
 		];
 	}
@@ -171,7 +171,7 @@ HBS;
 	            <div class="bottom-container">
 	            	<div class="ui tab active" data-tab="Main">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft fullname FullName}}{{/FieldLeft}}
+		                    {{#FieldLeft full_name FullName}}{{/FieldLeft}}
 		                    {{#FieldLeft title Title required}}{{/FieldLeft}}
 		                    {{#FieldLeft email Email}}{{/FieldLeft}}
 		                    {{#FieldLeft homepage Homepage}}{{/FieldLeft}}
