@@ -4,5 +4,5 @@ binding:
     login:
         url: '%dataAPI%/Manager/json-form/login'
         args: []
-        partial: 'Manager/forms/login.hbs'
+        partial: 'Manager/login.hbs'
         type: 'Form'
