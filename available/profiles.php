@@ -92,6 +92,14 @@ class profiles {
 			'display'	=> 'InputText'
 		];
 	}
+
+  function descriptionField () {
+    return [
+      'name' => 'description',
+      'label' => 'Summary',
+      'display' => 'Textarea'
+    ];
+  }
 	
 	function statusField () {
 		return [
@@ -214,6 +222,7 @@ HBS;
 		                    {{#FieldLeft email Email}}{{/FieldLeft}}
 		                    {{#FieldLeft homepage Homepage}}{{/FieldLeft}}
 		                    {{#FieldLeft phone Phone}}{{/FieldLeft}}
+                        {{#FieldLeft description Summary}}{{/FieldLeft}}
 		                    {{{id}}}
 		                {{/DocumentFormLeft}}                 
 		                

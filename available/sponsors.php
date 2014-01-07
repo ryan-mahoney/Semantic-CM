@@ -112,7 +112,26 @@ class sponsors {
         ];
     }
 
-    	function categoriesField () {
+    function tagsField () {
+		return [
+			'name' => 'tags',
+			'label' => 'Tags',
+			'required' => false,
+			'transformIn' => function ($data) {
+				if (is_array($data)) {
+					return $data;
+				}
+				return $this->field->csvToArray($data);
+			},
+			'display' => 'InputToTags',
+			'multiple' => true,
+			'options' => function () {
+				return $this->db->distinct('blogs', 'tags');
+			}
+		];
+	}
+
+    function categoriesField () {
 		return array(
 			'name'		=> 'categories',
 			'label'		=> 'Category',
@@ -206,6 +225,7 @@ HBS;
 		                	<div class="ui clearing divider"></div>
 		                	{{#FieldLeft featured}}{{/FieldLeft}}
 		                	{{#FieldFull categories Categories}}{{/FieldFull}}
+		                	{{#FieldFull tags Tags}}{{/FieldFull}}
 		                {{/DocumentFormRight}}
 		            </div>
 
