@@ -4,6 +4,7 @@
  * @link https://raw.github.com/virtuecenter/manager/master/available/menus.php
  * @mode upgrade
  * .6 definiton and description for count added
+ * .7 name attributes
  */
 namespace Manager;
 
@@ -126,7 +127,7 @@ HBS;
                         {{#FieldLeft label Title required}}{{/FieldLeft}}
                         {{#FieldLeft url URL required}}{{/FieldLeft}}
                         {{#FieldLeft file Image}}{{/FieldLeft}}
-                        {{#FieldEmbedded field="link" manager="menu_links"}}{{/FieldEmbedded}}
+                        {{#FieldEmbedded field="link" manager="menu_links"}}
                         {{{id}}}
                     {{/DocumentFormLeft}}                 
                     

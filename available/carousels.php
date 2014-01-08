@@ -10,6 +10,7 @@
  * .6 sort removed
  * .7 trash smaller
  * .8 definiton and description for count added 
+ * .9 name attributes
  */
 namespace Manager;
 

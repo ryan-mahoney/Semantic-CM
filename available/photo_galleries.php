@@ -8,6 +8,7 @@
  * .6 remove sort
  * .7 typo
  * .8 definition and description for count added
+ * .9 name attributes
  */
 namespace Manager;
 

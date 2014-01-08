@@ -8,6 +8,7 @@
  * .4 delete feature
  * .5 missing image field
  * .6 definition and description for count added
+ * .7 name attributes
  */
 namespace Manager;
 

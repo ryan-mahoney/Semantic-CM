@@ -8,6 +8,7 @@
  * .4 small delete button
  * .5 change label
  * .6 definition and description for count added
+ * .7 name attributes
  */
 namespace Manager;
 
@@ -79,7 +80,7 @@ class menu_links {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Sub Menus"}}{{/EmbeddedCollectionHeader}}
+			{{#EmbeddedCollectionHeader label="Sub Menus"}}
 			{{#if link}}
 				<table class="ui table manager segment sortable">
 				      <col width="10%">
@@ -106,7 +107,7 @@ class menu_links {
 					</tbody>
 				</table>
 			{{else}}
-				{{#EmbeddedCollectionEmpty singular="submenu"}}{{/EmbeddedCollectionEmpty}}
+				{{#EmbeddedCollectionEmpty singular="submenu"}}
 			{{/if}}
 HBS;
 		return $partial;
@@ -114,12 +115,12 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-		    {{#EmbeddedHeader}}{{/EmbeddedHeader}}
+		    {{#EmbeddedHeader}}
 	        {{#FieldFull title Title}}{{/FieldFull}}
 		    {{#FieldFull url URL}}{{/FieldFull}}
 		    {{#FieldFull target Target}}{{/FieldFull}}
 		    {{{id}}}
-			{{#EmbeddedFooter}}{{/EmbeddedFooter}}
+			{{#EmbeddedFooter}}
 		
 HBS;
 		return $partial;

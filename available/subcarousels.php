@@ -13,6 +13,7 @@
  * .9 mark as embedded
  * 1.0 delete feature 
  * 1.1 definition and description for count added
+ * 1.2 name attributes
  */
 namespace Manager;
 
