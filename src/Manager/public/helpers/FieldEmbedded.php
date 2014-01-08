@@ -1,17 +1,17 @@
 <?php
 return function ($template, $context, $args, $source) {
-	$args = str_getcsv(trim($args), ' ');
-	$field = array_shift($args);
+	//usage: {{FieldEmbedded field="parent-field-name" required="true" manager="name-of-manager-to-embed" label="what to display"}}
+	$args = $template->htmlArgsToArray($args);
+	$field = $args['field'];
 	$required = false;
-	if (in_array('required', $args)) {
+	if (isset($args['required']) && $args['required'] == true) {
 		$required = true;
-		$args = array_diff($args, array('required'));
 	}
-	$manager = array_shift($args);
+	$manager = $args['manager'];
 	$markup = $context->get($field);
 	$label = false;
-	if (count($args) > 0) {
-		$label = array_shift($args);
+	if (isset($args['label'])) {
+		$label = $args['label'];
 	}
 	if (empty($markup)) {
 		return '<div class="field embedded" data-field="' . $field . '" data-manager="' . $manager . '"><div class="ui message">' . $label . ' can be added after save.</div></div>';

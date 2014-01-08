@@ -1,7 +1,8 @@
 <?php
 return function ($template, $context, $args, $source) {
-	$args = str_getcsv(trim($args), ' ');
-	$label = array_shift($args);
+	//usage: {{#EmbeddedCollectionHeader label="Some Label"}}
+	$args = $template->htmlArgsToArray($args);
+	$label = $args['label'];
 	echo '
 		<a class="item">', $label, '</a>
 		<div class="item right">
