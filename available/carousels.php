@@ -134,7 +134,7 @@ HBS;
 	                {{#DocumentFormLeft}}
 	                    {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                    {{#FieldLeft description Description required}}{{/FieldLeft}}
-	                    {{#FieldEmbedded carousel_individual subcarousels Frames}}{{/FieldEmbedded}}
+	                    {{#FieldEmbedded field="carousel_individual" manager="subcarousels" Frames}}
 	                    {{{id}}}
 	                {{/DocumentFormLeft}}                 
 	                

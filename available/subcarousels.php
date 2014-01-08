@@ -81,12 +81,14 @@ class subcarousels {
 	
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
+			{{#EmbeddedCollectionHeader label="Images"}}
 			{{#if carousel_individual}}
 				<table class="ui table manager segment">
 					<thead>
-						<tr><th>Caption</th></tr>
-						<tr><th class="trash">Delete</th>
+						<tr>
+						    <th>Caption</th>
+						    <th class="trash">Delete</th>
+						</tr>
 					</thead>
 					<tbody>
 						{{#each carousel_individual}}
@@ -98,7 +100,7 @@ class subcarousels {
 					</tbody>
 				</table>
 			{{else}}
-				{{#EmbeddedCollectionEmpty carousel_individual}}{{/EmbeddedCollectionEmpty}}
+				{{#EmbeddedCollectionEmpty singular="carousel_individual"}}
 			{{/if}}
 HBS;
 		return $partial;
@@ -106,18 +108,12 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedHeader}}{{/EmbeddedHeader}}
-			    
-			    {{#FieldFull file Image}}{{/FieldFull}}
-
-			    {{#FieldFull url URL}}{{/FieldFull}}
-
-			    {{#FieldFull target Target}}{{/FieldFull}}
-
-			    {{#FieldFull caption Caption}}{{/FieldFull}}
-
-			    {{{id}}}
-
+			{{#EmbeddedHeader}}{{/EmbeddedHeader}}			    
+		    {{#FieldFull file Image}}{{/FieldFull}}
+		    {{#FieldFull url URL}}{{/FieldFull}}
+		    {{#FieldFull target Target}}{{/FieldFull}}
+		    {{#FieldFull caption Caption}}{{/FieldFull}}
+		    {{{id}}}
 			{{#EmbeddedFooter}}{{/EmbeddedFooter}}    
 HBS;
 		return $partial;

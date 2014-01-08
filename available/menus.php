@@ -126,7 +126,7 @@ HBS;
                         {{#FieldLeft label Title required}}{{/FieldLeft}}
                         {{#FieldLeft url URL required}}{{/FieldLeft}}
                         {{#FieldLeft file Image}}{{/FieldLeft}}
-                        {{#FieldEmbedded link menu_links}}{{/FieldEmbedded}}
+                        {{#FieldEmbedded field="link" manager="menu_links"}}{{/FieldEmbedded}}
                         {{{id}}}
                     {{/DocumentFormLeft}}                 
                     

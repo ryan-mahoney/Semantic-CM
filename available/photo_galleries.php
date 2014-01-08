@@ -262,8 +262,7 @@ HBS;
 	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft description Summary}}{{/FieldLeft}}
 	                        {{#FieldLeft image "Featured Image"}}{{/FieldLeft}}
-	                        {{#FieldEmbedded image_individual subimages Images}}{{/FieldEmbedded}}
-	                        {{{id}}}
+	                        {{#FieldEmbedded field="image_individual" manager="subimages" Images}}
 	                    {{/DocumentFormLeft}}                 
 	                
 	                    {{#DocumentFormRight}}

@@ -63,7 +63,7 @@ class subimages {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader Images}}{{/EmbeddedCollectionHeader}}
+			{{#EmbeddedCollectionHeader label="Images"}}
 			{{#if image_individual}}
 				<table class="ui table manager segment manager sortable">
 				      <col width="10%">
@@ -90,7 +90,7 @@ class subimages {
 					</tbody>
 				</table>
 			{{else}}
-				{{#EmbeddedCollectionEmpty image}}{{/EmbeddedCollectionEmpty}}
+				{{#EmbeddedCollectionEmpty singular="image"}}
 			{{/if}}
 HBS;
 		return $partial;
@@ -98,14 +98,10 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedHeader}}{{/EmbeddedHeader}}
-			    
-			    {{#FieldFull file Image}}{{/FieldFull}}
-
-			    {{#FieldFull caption Caption}}{{/FieldFull}}
-
-			    {{{id}}}
-
+			{{#EmbeddedHeader}}{{/EmbeddedHeader}}			    
+		    {{#FieldFull file Image}}{{/FieldFull}}
+		    {{#FieldFull caption Caption}}{{/FieldFull}}
+		    {{{id}}}
 			{{#EmbeddedFooter}}{{/EmbeddedFooter}}    
 HBS;
 		return $partial;

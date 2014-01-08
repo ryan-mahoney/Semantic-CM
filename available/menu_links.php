@@ -79,7 +79,7 @@ class menu_links {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader "Sub Menus"}}{{/EmbeddedCollectionHeader}}
+			{{#EmbeddedCollectionHeader label="Sub Menus"}}{{/EmbeddedCollectionHeader}}
 			{{#if link}}
 				<table class="ui table manager segment sortable">
 				      <col width="10%">
@@ -106,7 +106,7 @@ class menu_links {
 					</tbody>
 				</table>
 			{{else}}
-				{{#EmbeddedCollectionEmpty submenu}}{{/EmbeddedCollectionEmpty}}
+				{{#EmbeddedCollectionEmpty singular="submenu"}}{{/EmbeddedCollectionEmpty}}
 			{{/if}}
 HBS;
 		return $partial;
@@ -115,15 +115,10 @@ HBS;
 	public function formPartial () {
 		$partial = <<<'HBS'
 		    {{#EmbeddedHeader}}{{/EmbeddedHeader}}
-
-		        {{#FieldFull title Title}}{{/FieldFull}}
-
-			    {{#FieldFull url URL}}{{/FieldFull}}
-
-			    {{#FieldFull target Target}}{{/FieldFull}}
-
-			    {{{id}}}
-
+	        {{#FieldFull title Title}}{{/FieldFull}}
+		    {{#FieldFull url URL}}{{/FieldFull}}
+		    {{#FieldFull target Target}}{{/FieldFull}}
+		    {{{id}}}
 			{{#EmbeddedFooter}}{{/EmbeddedFooter}}
 		
 HBS;
