@@ -1,7 +1,8 @@
 <?php
 return function ($template, $context, $args, $source) {
-	$args = str_getcsv(trim($args), ' ');
-	$singular = array_shift($args);
+	//usage: {{#EmbeddedCollectionEmpty singular="Category"}}
+	$args = $template->htmlArgsToArray($args);
+	$singular = $args['singular'];
 	ob_start();
 	echo '
 		<div class="ui message">
