@@ -74,10 +74,10 @@ class subimages {
 					<thead>
 					        <tr>
 							    <th><i class="shuffle basic icon"></i></th>
-						    </tr>
-							<tr><th>Image</th></tr>
-							<tr><th>Caption</th></tr>
-							<tr><th class="trash">Delete</th></tr>
+								<th>Image</th>
+								<th>Caption</th>
+								<th class="trash">Delete</th>
+								</tr>
 					</thead>
 					<tbody>
 						{{#each image_individual}}

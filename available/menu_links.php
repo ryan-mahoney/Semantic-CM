@@ -100,7 +100,7 @@ class menu_links {
 							<tr data-id="{{dbURI}}">
 								<td class="handle"><i class="reorder icon"></i></td>
 								<td>{{title}}</td>
-								<th>{{url}}</td
+								<td>{{url}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}

@@ -335,6 +335,16 @@ class events {
         ];
     }
 
+    public function events_registrationsField() {
+		return [
+			'name' => 'events_registrations',
+			'label' => 'Registration Options',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_registrations'
+		];
+	}
+
 /*
 	function payment_optionsField () {
 		return [
