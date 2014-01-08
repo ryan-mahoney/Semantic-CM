@@ -16,7 +16,7 @@ class profiles {
     public $description = '{{count}} profiles';
     public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $tabs = ['Main'];
+    public $tabs = ['Main', 'Images'];
     public $icon = 'text file';
     public $category = 'Content';
     public $after = 'function';
@@ -29,10 +29,29 @@ class profiles {
     public function __construct ($field=false) {
         $this->field = $field;
     }
-	
+
+	function first_nameField() {
+    return [
+      'name'    => 'first_name',
+      'placeholder' => 'First Name',
+      'display' => 'InputText',
+      'required'  => true
+    ];
+  }
+  
+  function last_nameField() {
+    return [
+      'name'    => 'last_name',
+      'placeholder' => 'Last Name',
+      'label'   => 'Last Name',
+      'display' => 'InputText',
+      'required'  => true
+    ];
+  }
+
 	function fullNameField () {
 		return [
-			'name'		=> 'fullName',
+			'name'		=> 'full_name',
 			'label'		=> 'FullName',
 			'required'	=> true,
 			'display'	=> 'InputText'
@@ -59,7 +78,7 @@ class profiles {
 
 	function homepageField () {
 		return [
-			'display' => 'Ckeditor',
+			'display' => 'InputText',
 			'name' => 'homepage'
 		];
 	}
@@ -73,6 +92,14 @@ class profiles {
 			'display'	=> 'InputText'
 		];
 	}
+
+  function descriptionField () {
+    return [
+      'name' => 'description',
+      'label' => 'Summary',
+      'display' => 'Textarea'
+    ];
+  }
 	
 	function statusField () {
 		return [
@@ -115,6 +142,23 @@ class profiles {
             'default' => 'f'
         ];
     }
+    
+    function imageField () {
+    return [
+      'name' => 'image',
+      'label' => 'List View',
+      'display' => 'InputFile'
+    ];
+  }
+
+  function imageFeaturedField () {
+    return [
+      'name' => 'image_feature',
+      'label' => 'Featured View',
+      'display' => 'InputFile'
+    ];
+  }
+
 
     public function tablePartial () {
         $partial = <<<'HBS'
@@ -171,11 +215,14 @@ HBS;
 	            <div class="bottom-container">
 	            	<div class="ui tab active" data-tab="Main">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft fullname FullName}}{{/FieldLeft}}
-		                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+                        {{#FieldLeft first_name "First Name"}}{{/FieldLeft}}
+                        {{#FieldLeft last_name "Last Name"}}{{/FieldLeft}}
+		                    {{#FieldLeft full_name FullName}}{{/FieldLeft}}
+		                    {{#FieldLeft title Title}}{{/FieldLeft}}
 		                    {{#FieldLeft email Email}}{{/FieldLeft}}
 		                    {{#FieldLeft homepage Homepage}}{{/FieldLeft}}
 		                    {{#FieldLeft phone Phone}}{{/FieldLeft}}
+                        {{#FieldLeft description Summary}}{{/FieldLeft}}
 		                    {{{id}}}
 		                {{/DocumentFormLeft}}                 
 		                
@@ -187,7 +234,17 @@ HBS;
 		                	<br />
 		                	{{#FieldLeft pinned}}{{/FieldLeft}}
 		                {{/DocumentFormRight}}
-		            </div>	        
+		            </div>	
+                <div class="ui tab" data-tab="Images">
+                    {{#DocumentFormLeft}}
+                        {{#FieldLeft image "List View"}}{{/FieldLeft}}
+                        {{#FieldLeft image_feature Featured}}{{/FieldLeft}}
+                    {{/DocumentFormLeft}}                 
+                    
+                    {{#DocumentFormRight}}
+                      {{#DocumentButton}}{{/DocumentButton}}
+                    {{/DocumentFormRight}}
+                </div>        
 	            </div>
 	        </form>
 HBS;

@@ -72,6 +72,15 @@ class programs {
 		];
 	}
 
+	function locationField () {
+		return [
+			'name' => 'location',
+			'label' => 'Address',
+			'required' => false,
+			'display' => 'Textarea'
+		];
+	}
+
 	
 	function imageField () {
 		return [
@@ -241,6 +250,7 @@ HBS;
 		                    {{#FieldLeft title Title required}}{{/FieldLeft}}
 		                    {{#FieldLeft body Body}}{{/FieldLeft}}
 		                    {{#FieldLeft description Summary}}{{/FieldLeft}}
+		                    {{#FieldLeft location Address}}{{/FieldLeft}}
 		                    {{{id}}}
 		                {{/DocumentFormLeft}}                 
 		                
