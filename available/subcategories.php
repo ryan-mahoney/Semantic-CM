@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/subcategories.php
  * @mode upgrade
  *
@@ -9,6 +9,7 @@
  * .5 delete feature
  * .6 fix html
  * .7 definition and description for count added
+ * .8 named attributes
  */
 namespace Manager;
 
@@ -55,12 +56,14 @@ class subcategories {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader Subcategories}}{{/EmbeddedCollectionHeader}}
+			{{#EmbeddedCollectionHeader label="Subcategories"}}
 			{{#if subcategory}}
 				<table class="ui table manager segment">
 					<thead>
-						<tr><th>Title</th></tr>
-						<tr><th class="trash">Delete</th></tr>
+						<tr>
+							<th>Title</th>
+							<th class="trash">Delete</th>
+						</tr>
 					</thead>
 					<tbody>
 						{{#each subcategory}}
@@ -72,7 +75,7 @@ class subcategories {
 					</tbody>
 				</table>
 		    {{else}}
-			    {{#EmbeddedCollectionEmpty subcategory}}{{/EmbeddedCollectionEmpty}}
+			    {{#EmbeddedCollectionEmpty singular="Subcategory"}}
 	        {{/if}}
 HBS;
 		return $partial;
@@ -80,15 +83,11 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedHeader}}{{/EmbeddedHeader}}
-
-		        {{#FieldFull title Title}}{{/FieldFull}}
-
-			    {{#FieldFull image Image}}{{/FieldFull}}
-
-			    {{{id}}}
-
-			{{#EmbeddedFooter}}{{/EmbeddedFooter}}
+			{{#EmbeddedHeader}}
+	        {{#FieldFull title Title}}{{/FieldFull}}
+		    {{#FieldFull image Image}}{{/FieldFull}}
+		    {{{id}}}
+			{{#EmbeddedFooter}}
 HBS;
 		return $partial;
 	}

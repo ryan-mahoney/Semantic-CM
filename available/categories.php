@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version .9
  * @link https://raw.github.com/virtuecenter/manager/master/available/categories.php
  * @mode upgrade
  *
@@ -8,6 +8,7 @@
  * .6 better handling of section
  * .7 sort removed
  * .8 definition and description for count added
+ * .9 name attributes
  */
 
 namespace Manager;
@@ -144,7 +145,6 @@ class categories {
                             <col width="20%">
 		                    <thead>
 		                        <tr>
-		                            
 		                            <th>Title</th>
 		                            <th>Section</th>
 		                            <th class="trash">Delete</th>
@@ -189,7 +189,7 @@ HBS;
 	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
 	                        {{#FieldLeft section Section required}}{{/FieldLeft}}
 						    {{#FieldLeft image Image}}{{/FieldLeft}}
-						    {{#FieldEmbedded subcategory subcategories}}{{/FieldEmbedded}}
+						    {{#FieldEmbedded field="subcategory" manager="subcategories"}}
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                
