@@ -1,10 +1,11 @@
 <?php
 /*
- * @version .2
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/events_discounts.php
  * @mode upgrade
  *
  * .2 minor changes
+ * .3 put code in table, instead of title
  */
 namespace Manager;
 
@@ -96,7 +97,7 @@ class events_discounts {
 					<tbody>
 						{{#each discount_code}}
 							<tr data-id="{{dbURI}}">
-								<td>{{title}}</td>
+								<td>{{code}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}
