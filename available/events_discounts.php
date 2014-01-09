@@ -1,9 +1,11 @@
 <?php
 /*
- * @version .1
+ * @version .3
  * @link https://raw.github.com/virtuecenter/manager/master/available/events_discounts.php
  * @mode upgrade
  *
+ * .2 minor changes
+ * .3 put code in table, instead of title
  */
 namespace Manager;
 
@@ -84,7 +86,7 @@ class events_discounts {
 	public function tablePartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Discount Codes"}}
-			{{#if events_discounts}}
+			{{#if discount_code}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr>
@@ -93,7 +95,7 @@ class events_discounts {
 						</tr>
 					</thead>
 					<tbody>
-						{{#each events_discounts}}
+						{{#each discount_code}}
 							<tr data-id="{{dbURI}}">
 								<td>{{code}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
@@ -102,7 +104,7 @@ class events_discounts {
 					</tbody>
 				</table>
 		    {{else}}
-			    {{#EmbeddedCollectionEmpty singular="Discount Codes"}}
+			    {{#EmbeddedCollectionEmpty singular="Discount Code"}}
 	        {{/if}}
 HBS;
 		return $partial;
