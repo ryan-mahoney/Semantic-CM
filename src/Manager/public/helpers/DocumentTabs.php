@@ -1,22 +1,21 @@
 <?php
 return function ($template, $context, $args, $source) {
-	ob_start();
+	$buffer = '';
 	$metadata = $context->get('metadata');
-	echo '
+	$buffer .= '
 		<div class="ui top attached tabular menu container">';
 
     if (count($metadata['tabs']) == 0) {
-        echo '<a class="active item bg-image align-left" data-tab="Main">Main</a>';
+        $buffer .= '<a class="active item bg-image align-left" data-tab="Main">Main</a>';
     }
     $active = 'active align-left ';
     foreach ($metadata['tabs'] as $tab) {
-    	echo '<a class="', $active, 'item" data-tab="', $tab, '">', $tab, '</a>';
+    	$buffer .= '<a class="' . $active . 'item" data-tab="' . $tab . '">' . $tab . '</a>';
         $active = '';
     }
                
-    echo '
+    $buffer .= '
         </div>';
 
-	$buffer = ob_get_clean();
 	return $buffer;
 };

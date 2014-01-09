@@ -15,16 +15,12 @@ return function ($template, $context, $args, $source) {
 		$labeled = ' labeled ';
 	}
 
-	ob_start();
-	echo '
-		<div class="field" data-field="', $field, '">',
-			($label !== false ? '<label>' . $label . '</label>' : ''),
-            '<div class="ui left ', $labeled, ' input">',
-                $markup,
-                ($required !== false ? '<div class="ui corner label"><i class="icon asterisk"></i></div>' : ''), 
+	return '
+		<div class="field" data-field="' . $field . '">' .
+			($label !== false ? '<label>' . $label . '</label>' : '') .
+            '<div class="ui left ' . $labeled . ' input">' .
+                $markup .
+                ($required !== false ? '<div class="ui corner label"><i class="icon asterisk"></i></div>' : '') . 
             '</div>
         </div>';
-
-	$buffer = ob_get_clean();
-	return $buffer;
 };

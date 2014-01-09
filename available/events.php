@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version .8
  * @link https://raw.github.com/virtuecenter/manager/master/available/events.php
  * @mode upgrade
  *
@@ -9,6 +9,7 @@
  * .5 spelling errors
  * .6 definiton and description for count added
  * .7 more embedded docs
+ * .8 missing "Field" suffix on discount code method name
  */
 namespace Manager;
 
@@ -370,7 +371,7 @@ class events {
 		];
 	}
 
-	public function events_discounts() {
+	public function events_discountsField() {
 		return [
 			'name' => 'discount_code',
 			'label' => 'Discount Codes',
@@ -1118,7 +1119,6 @@ class events {
                             <col width="10%">
 		                    <thead>
 		                        <tr>
-		                            
 		                            <th>Title</th>
 		                            <th>Date</th>
 		                            <th>Status</th>
