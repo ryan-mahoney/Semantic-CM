@@ -73,6 +73,7 @@ class events_exceptions {
 					<tbody>
 						{{#each exception_date}}
 							<tr data-id="{{dbURI}}">
+							    <td>{{date}}</td>
 								<td>{{notice}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>

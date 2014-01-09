@@ -96,6 +96,9 @@ class events_discounts {
 						{{#each discount_code}}
 							<tr data-id="{{dbURI}}">
 								<td>{{code}}</td>
+								<td>{{type}}</td>
+								<td>{{expiration_date}}</td>
+								<td>{{value}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}

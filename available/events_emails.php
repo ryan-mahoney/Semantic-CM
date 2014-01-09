@@ -147,7 +147,9 @@ class events_emails {
 					<tbody>
 						{{#each email_sub}}
 							<tr data-id="{{dbURI}}">
+							    <td>{{title}}</td>
 								<td>{{email_subject}}</td>
+								<td>{{type}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}

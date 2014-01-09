@@ -71,7 +71,9 @@ class events_sponsors {
 					<tbody>
 						{{#each sponsor_sub}}
 							<tr data-id="{{dbURI}}">
+							    <td>{{image}}</td>
 								<td>{{name}}</td>
+								<td>{{url}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}

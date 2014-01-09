@@ -141,6 +141,8 @@ class events_recurrences {
 						{{#each recurrence_rules}}
 							<tr data-id="{{dbURI}}">
 								<td>{{which}}</td>
+								<td>{{day_of_week_type}}</td>
+								<td>{{month}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}

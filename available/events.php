@@ -361,6 +361,16 @@ class events {
 		];
 	}
 
+	public function events_imagesField() {
+		return [
+			'name' => 'image_sub',
+			'label' => 'Venue Images',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_images'
+		];
+	}
+
     public function events_registrationsField() {
 		return [
 			'name' => 'registration_options',
@@ -381,7 +391,7 @@ class events {
 		];
 	}
 
-	public function events_recurrences() {
+	public function events_recurrencesField() {
 		return [
 			'name' => 'recurrence_rules',
 			'label' => 'Recurrence Rules',
@@ -391,7 +401,7 @@ class events {
 		];
 	}
 
-	public function events_exceptions() {
+	public function events_exceptionsField() {
 		return [
 			'name' => 'exception_date',
 			'label' => 'Exception Date',
@@ -401,7 +411,7 @@ class events {
 		];
 	}
 
-	public function events_plus() {
+	public function events_plusField() {
 		return [
 			'name' => 'plus_date',
 			'label' => 'Included Dates',
@@ -411,7 +421,7 @@ class events {
 		];
 	}
 
-	public function events_highlights() {
+	public function events_highlightsField() {
 		return [
 			'name' => 'highlight_images',
 			'label' => 'Highlight Images',
@@ -421,7 +431,7 @@ class events {
 		];
 	}
 
-	public function events_links() {
+	public function events_linksField() {
 		return [
 			'name' => 'link_sub',
 			'label' => 'Link / Menu',
@@ -431,7 +441,7 @@ class events {
 		];
 	}
 
-	public function events_peoples() {
+	public function events_peoplesField() {
 		return [
 			'name' => 'people_sub',
 			'label' => 'People',
@@ -441,7 +451,7 @@ class events {
 		];
 	}
 
-	public function events_sponsors() {
+	public function events_sponsorsField() {
 		return [
 			'name' => 'sponsor_sub',
 			'label' => 'Sponsor',
@@ -451,7 +461,7 @@ class events {
 		];
 	}
 
-	public function events_emails() {
+	public function events_emailsField() {
 		return [
 			'name' => 'email_sub',
 			'label' => 'Email',
@@ -1211,6 +1221,7 @@ HBS;
 		                    {{#FieldLeft contact_info Contact Information}}{{/FieldLeft}}
 		                    {{#FieldLeft url URL}}{{/FieldLeft}}
 		                    {{#FieldLeft map_url Map URL}}{{/FieldLeft}}
+		                    {{#FieldEmbedded field="image_sub" manager="events_images"}}
 
 		                {{/DocumentFormLeft}}                 
 		                
@@ -1222,7 +1233,7 @@ HBS;
 		                {{#DocumentFormLeft}}
 		                    {{#FieldEmbedded field="recurrence_rules" manager="events_recurrences"}}
 		                    {{#FieldEmbedded field="exception_date" manager="events_exceptions"}}
-		                     {{#FieldEmbedded field="plus_date" manager="events_plus"}}
+		                    {{#FieldEmbedded field="plus_date" manager="events_plus"}}
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
