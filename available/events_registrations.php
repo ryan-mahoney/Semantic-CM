@@ -12,7 +12,7 @@ class events_registrations {
 	public $collection = 'events';
 	public $title = 'Registrations Options';
 	public $titleField = 'title';
-	public $singular = 'events_registration';
+	public $singular = 'Registration Options';
 	public $description = '{{count}} registrations';
 	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
@@ -111,7 +111,7 @@ class events_registrations {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Registration"}}
+			{{#EmbeddedCollectionHeader label="Registration Options"}}
 			{{#if events_registrations}}
 				<table class="ui table manager segment">
 					<thead>

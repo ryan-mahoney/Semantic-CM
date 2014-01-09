@@ -355,6 +355,26 @@ class events {
 		];
 	}
 
+	public function events_recurrences() {
+		return [
+			'name' => 'events_recurrences',
+			'label' => 'Recurrence Rules',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_recurrences'
+		];
+	}
+
+	public function events_exceptions() {
+		return [
+			'name' => 'events_exceptions',
+			'label' => 'Exception Date',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_exceptions'
+		];
+	}
+
 /*
 	function payment_optionsField () {
 		return [
@@ -1132,6 +1152,16 @@ HBS;
 		                    {{#FieldLeft map_url Map URL}}{{/FieldLeft}}
 
 		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="Recurring">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldEmbedded field="events_recurrences" manager="events_recurrences"}}
+		                    {{#FieldEmbedded field="events_exceptions" manager="events_exceptions"}}
+		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
 			                {{#DocumentButton}}{{/DocumentButton}}
