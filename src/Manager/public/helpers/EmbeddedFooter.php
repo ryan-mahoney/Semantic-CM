@@ -1,8 +1,7 @@
 <?php
 return function ($template, $context, $args, $source) {
 	$metadata = $context->get('metadata');
-	ob_start();
-	echo '
+	return '
 					</div>
 				</div>
 			</div>
@@ -11,7 +10,4 @@ return function ($template, $context, $args, $source) {
 				<button class="ui positive right labeled icon button">Save<i class="checkmark icon"></i></button>
 			</div>
 		</form>';
-
-	$buffer = ob_get_clean();
-	return $buffer;
 };

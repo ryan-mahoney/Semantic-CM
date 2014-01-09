@@ -6,10 +6,9 @@ return function ($template, $context, $args, $source) {
     if (!empty($modifiedDate)) {
         $modifiedMarkup = '<abbr class="time" data-livestamp="' . $modifiedDate . '"></abbr>';
     }
-    ob_start();
-    echo '
+    return '
         <div class="ui teal medium buttons submit">
-            <span><i class="time icon"></i> ', $modifiedMarkup, '</span>
+            <span><i class="time icon"></i> ' . $modifiedMarkup . '</span>
             <div class="ui button manager submit">Save</div><div class="ui teal dropdown icon button">
                 <i class="dropdown icon"></i>
                 <div class="menu">
@@ -19,7 +18,4 @@ return function ($template, $context, $args, $source) {
                 </div>
             </div>
         </div>';
-
-	$buffer = ob_get_clean();
-	return $buffer;
 };

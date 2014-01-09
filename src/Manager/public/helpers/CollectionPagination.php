@@ -1,6 +1,6 @@
 <?php
 return function ($template, $context, $args, $source) {
-	ob_start();
+	$buffer = '';
 	$pagination = $context->get('pagination');
 	//if ($pagination['pageCount'] == 1) {
 	//	return '';
@@ -16,10 +16,10 @@ return function ($template, $context, $args, $source) {
     	$endPage = $pagination['pageCount'];
 	}
 
-	echo '
+	$buffer .= '
 		<div class="ui borderless pagination menu small container">';
 	if ($startPage > 1) {
-		echo '
+		$buffer .= '
 			<a class="item">
 				<i class="icon left arrow"></i>
 			</a>';
@@ -30,18 +30,17 @@ return function ($template, $context, $args, $source) {
 		if ($i == $pagination['page']) {
 			$active = ' active';
 		}
-		echo '
-			<a class="item', $active, '">', $i, '</a>';
+		$buffer .= '
+			<a class="item' . $active . '">' . $i . '</a>';
 	}
 	if ($endPage < $pagination['pageCount']) {
-		echo '
+		$buffer .= '
 			<a class="item">
 				<i class="icon right arrow"></i>
 			</a>';
 	}
-	echo '
+	$buffer .= '
 		</div>';
 
-	$buffer = ob_get_clean();
 	return $buffer;
 };

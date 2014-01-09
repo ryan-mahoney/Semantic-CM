@@ -1039,7 +1039,6 @@ class events {
                             <col width="10%">
 		                    <thead>
 		                        <tr>
-		                            
 		                            <th>Title</th>
 		                            <th>Date</th>
 		                            <th>Status</th>
