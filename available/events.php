@@ -347,7 +347,7 @@ class events {
 
 	public function events_discounts() {
 		return [
-			'name' => 'events_discounts',
+			'name' => 'discount_code',
 			'label' => 'Discount Codes',
 			'required' => false,
 			'display'	=>	'Manager',
@@ -1140,7 +1140,7 @@ HBS;
 		            <div class="ui tab" data-tab="Registration">
 		                {{#DocumentFormLeft}}
 		                    {{#FieldEmbedded field="events_registrations" manager="events_registrations"}}
-		                    {{#FieldEmbedded field="events_discounts" manager="events_discounts"}}
+		                    {{#FieldEmbedded field="discount_code" manager="events_discounts"}}
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
