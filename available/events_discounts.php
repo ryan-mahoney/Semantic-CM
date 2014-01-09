@@ -1,9 +1,10 @@
 <?php
 /*
- * @version .1
+ * @version .2
  * @link https://raw.github.com/virtuecenter/manager/master/available/events_discounts.php
  * @mode upgrade
  *
+ * .2 minor changes
  */
 namespace Manager;
 

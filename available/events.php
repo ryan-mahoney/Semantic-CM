@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .6
+ * @version .7
  * @link https://raw.github.com/virtuecenter/manager/master/available/events.php
  * @mode upgrade
  *
@@ -8,6 +8,7 @@
  * .4 sort removed
  * .5 spelling errors
  * .6 definiton and description for count added
+ * .7 more embedded docs
  */
 namespace Manager;
 
