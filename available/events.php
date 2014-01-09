@@ -345,6 +345,16 @@ class events {
 		];
 	}
 
+	public function events_discounts() {
+		return [
+			'name' => 'events_discounts',
+			'label' => 'Discount Codes',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_discounts'
+		];
+	}
+
 /*
 	function payment_optionsField () {
 		return [
@@ -1122,6 +1132,16 @@ HBS;
 		                    {{#FieldLeft map_url Map URL}}{{/FieldLeft}}
 
 		                {{/DocumentFormLeft}}                 
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="Registration">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldEmbedded field="events_registrations" manager="events_registrations"}}
+		                    {{#FieldEmbedded field="events_discounts" manager="events_discounts"}}
+		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
 			                {{#DocumentButton}}{{/DocumentButton}}
