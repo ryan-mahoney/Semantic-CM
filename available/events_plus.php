@@ -1,26 +1,26 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_discounts.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/events_plus.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_discounts {
+class events_plus {
 	private $field = false;
 	public $collection = 'events';
-	public $title = 'Discount Codes';
+	public $title = 'Included Dates';
 	public $titleField = 'title';
-	public $singular = 'Discount Code';
-	public $description = '{{count}} discounts';
+	public $singular = 'Included Date';
+	public $description = '{{count}} dates';
 	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
 	public $after = 'function';
 	public $function = 'embeddedUpsert';
-	public $notice = 'Discount Saved';
+	public $notice = 'Date Saved';
 	public $embedded = true;
 	public $storage = [
 		'collection' => 'events',
@@ -31,32 +31,9 @@ class events_discounts {
 		$this->field = $field;
 	}
 
-	function codeField () {
+	function dateField() {
 		return [
-			'name'		=> 'code',
-			'label'		=> 'Code',
-			'required'	=> true,
-			'display'	=> 'InputText'
-		];
-	}
-
-	function typeField () {
-		return [
-			'name'		=> 'type',
-			'required'	=> true,
-			'options'	=> array(
-				'published'	=> 'Percent',
-				'draft'		=> 'Amount'
-			),
-			'display'	=> 'Select',
-			'nullable'	=> false,
-			'default'	=> 'Amount'
-		];
-	}
-
-	function expirationDateField() {
-		return [
-			'name'			=> 'expiration_date',
+			'name'			=> 'date',
 			'required'		=> true,
 			'display'		=> 'InputDatePicker',
 			'transformIn'	=> function ($data) {
@@ -71,20 +48,18 @@ class events_discounts {
 		];
 	}
 
-	function valueField () {
+	function noticeField () {
 		return [
-			'name'		=> 'value',
-			'label'		=> 'Value (Percentage/Amount)',
-			'required'	=> true,
+			'name' => 'notice',
+			'label' => 'Notice',
 			'display'	=> 'InputText'
 		];
 	}
 
-
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Discount Codes"}}
-			{{#if discount_code}}
+			{{#EmbeddedCollectionHeader label="Included Dates"}}
+			{{#if plus_date}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr>
@@ -93,16 +68,16 @@ class events_discounts {
 						</tr>
 					</thead>
 					<tbody>
-						{{#each discount_code}}
+						{{#each plus_date}}
 							<tr data-id="{{dbURI}}">
-								<td>{{code}}</td>
+								<td>{{notice}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}
 					</tbody>
 				</table>
 		    {{else}}
-			    {{#EmbeddedCollectionEmpty singular="Discount Code"}}
+			    {{#EmbeddedCollectionEmpty singular="Included Date"}}
 	        {{/if}}
 HBS;
 		return $partial;
@@ -111,10 +86,8 @@ HBS;
 	public function formPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedHeader}}
-	        {{#FieldFull code Code}}{{/FieldFull}}
-		    {{#FieldFull type}}{{/FieldFull}}
-		    {{#FieldFull expiration_date}}{{/FieldFull}}
-		    {{#FieldFull value "Value (Percentage/Amount)"}}{{/FieldFull}}
+	        {{#FieldFull date Date}}{{/FieldFull}}
+		    {{#FieldFull notice Notice}}{{/FieldFull}}
 		    {{{id}}}
 			{{#EmbeddedFooter}}
 HBS;

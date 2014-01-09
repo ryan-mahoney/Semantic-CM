@@ -112,7 +112,7 @@ class events_registrations {
 	public function tablePartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Registration Options"}}
-			{{#if events_registrations}}
+			{{#if registration_options}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr>
@@ -121,7 +121,7 @@ class events_registrations {
 						</tr>
 					</thead>
 					<tbody>
-						{{#each events_registrations}}
+						{{#each registration_options}}
 							<tr data-id="{{dbURI}}">
 								<td>{{title}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>

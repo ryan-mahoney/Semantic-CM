@@ -21,7 +21,7 @@ class events {
     public $description = '{{count}} events';
     public $definition = 'These content blocks appear on event streams and calendars. They are organized by date and time, typically include an image, short description, and occasionally, a registration option. ';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $tabs = ['Main', 'Images', 'Venue', 'Recurring', 'Registration', 'Advanced', 'SEO'];
+    public $tabs = ['Main', 'Views', 'Venue', 'Recurring', 'Registration', 'Advanced', 'Images', 'SEO'];
     public $icon = 'empty calendar';
     public $category = 'Content';
     public $after = 'function';
@@ -336,9 +336,33 @@ class events {
         ];
     }
 
+    function header_imageField () {
+		return [
+			'name' => 'header_image',
+			'label' => 'Header Image',
+			'display' => 'InputFile'
+		];
+	}
+	
+	function footer_imageField () {
+		return [
+			'name' => 'footer_image',
+			'label' => 'Footer Image',
+			'display' => 'InputFile'
+		];
+	}
+	
+	function ticket_imageField () {
+		return [
+			'name' => 'ticket_image',
+			'label' => 'Ticket Background Image ',
+			'display' => 'InputFile'
+		];
+	}
+
     public function events_registrationsField() {
 		return [
-			'name' => 'events_registrations',
+			'name' => 'registration_options',
 			'label' => 'Registration Options',
 			'required' => false,
 			'display'	=>	'Manager',
@@ -358,7 +382,7 @@ class events {
 
 	public function events_recurrences() {
 		return [
-			'name' => 'events_recurrences',
+			'name' => 'recurrence_rules',
 			'label' => 'Recurrence Rules',
 			'required' => false,
 			'display'	=>	'Manager',
@@ -368,11 +392,71 @@ class events {
 
 	public function events_exceptions() {
 		return [
-			'name' => 'events_exceptions',
+			'name' => 'exception_date',
 			'label' => 'Exception Date',
 			'required' => false,
 			'display'	=>	'Manager',
 			'manager'	=> 'events_exceptions'
+		];
+	}
+
+	public function events_plus() {
+		return [
+			'name' => 'plus_date',
+			'label' => 'Included Dates',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_plus'
+		];
+	}
+
+	public function events_highlights() {
+		return [
+			'name' => 'highlight_images',
+			'label' => 'Highlight Images',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_highlights'
+		];
+	}
+
+	public function events_links() {
+		return [
+			'name' => 'link_sub',
+			'label' => 'Link / Menu',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_links'
+		];
+	}
+
+	public function events_peoples() {
+		return [
+			'name' => 'people_sub',
+			'label' => 'People',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_peoples'
+		];
+	}
+
+	public function events_sponsors() {
+		return [
+			'name' => 'sponsor_sub',
+			'label' => 'Sponsor',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_sponsors'
+		];
+	}
+
+	public function events_emails() {
+		return [
+			'name' => 'email_sub',
+			'label' => 'Email',
+			'required' => false,
+			'display'	=>	'Manager',
+			'manager'	=> 'events_emails'
 		];
 	}
 
@@ -759,30 +843,6 @@ class events {
 			'display' => VCPF\Field::inputFile()
 		];
 	}
-	
-	function header_imageField () {
-		return [
-			'name' => 'header_image',
-			'label' => 'Header Image',
-			'display' => VCPF\Field::inputFile()
-		];
-	}
-	
-	function footer_imageField () {
-		return [
-			'name' => 'footer_image',
-			'label' => 'Footer Image',
-			'display' => VCPF\Field::inputFile()
-		];
-	}
-	
-	function ticket_imageField () {
-		return [
-			'name' => 'ticket_image',
-			'label' => 'Ticket Background Image ',
-			'display' => VCPF\Field::inputFile()
-		];
-	}
 
 	function featuredImageField () {
 		return [
@@ -1130,7 +1190,7 @@ HBS;
 		                    {{#FieldFull tags Tags}}{{/FieldFull}}
 	                    {{/DocumentFormRight}}
 	                </div>
-	                <div class="ui tab" data-tab="Images">
+	                <div class="ui tab" data-tab="Views">
 		                {{#DocumentFormLeft}}
 		                    {{#FieldLeft image "List View"}}{{/FieldLeft}}
 		                    {{#FieldLeft image_feature Featured}}{{/FieldLeft}}
@@ -1160,8 +1220,9 @@ HBS;
 		            </div>
 		            <div class="ui tab" data-tab="Recurring">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldEmbedded field="events_recurrences" manager="events_recurrences"}}
-		                    {{#FieldEmbedded field="events_exceptions" manager="events_exceptions"}}
+		                    {{#FieldEmbedded field="recurrence_rules" manager="events_recurrences"}}
+		                    {{#FieldEmbedded field="exception_date" manager="events_exceptions"}}
+		                     {{#FieldEmbedded field="plus_date" manager="events_plus"}}
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
@@ -1170,8 +1231,32 @@ HBS;
 		            </div>
 		            <div class="ui tab" data-tab="Registration">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldEmbedded field="events_registrations" manager="events_registrations"}}
+		                    {{#FieldEmbedded field="registration_options" manager="events_registrations"}}
 		                    {{#FieldEmbedded field="discount_code" manager="events_discounts"}}
+		                {{/DocumentFormLeft}}
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="Advanced">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldEmbedded field="link_sub" manager="events_links"}}
+		                    {{#FieldEmbedded field="people_sub" manager="events_peoples"}}
+		                    {{#FieldEmbedded field="sponsor_sub" manager="events_sponsors"}}
+		                     {{#FieldEmbedded field="email_sub" manager="events_emails"}}
+		                {{/DocumentFormLeft}}
+		                
+		                {{#DocumentFormRight}}
+			                {{#DocumentButton}}{{/DocumentButton}}
+		                {{/DocumentFormRight}}
+		            </div>
+		            <div class="ui tab" data-tab="Images">
+		                {{#DocumentFormLeft}}
+		                    {{#FieldLeft header_image "Header Image"}}{{/FieldLeft}}
+		                    {{#FieldLeft footer_image "Footer Image"}}{{/FieldLeft}}
+		              		{{#FieldLeft ticket_image "Ticket Image"}}{{/FieldLeft}}
+		              		{{#FieldEmbedded field="highlight_images" manager="events_highlights"}}
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}

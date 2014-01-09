@@ -1,19 +1,19 @@
 <?php
 /*
- * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_discounts.php
+ * @version .1
+ * @link https://raw.github.com/virtuecenter/manager/master/available/events_exceptions.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_discounts {
+class events_exceptions {
 	private $field = false;
 	public $collection = 'events';
-	public $title = 'Discount Codes';
+	public $title = 'Exception Dates';
 	public $titleField = 'title';
-	public $singular = 'Discount Code';
-	public $description = '{{count}} discounts';
+	public $singular = 'Exception Date';
+	public $description = '{{count}} exceptions';
 	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
@@ -31,32 +31,10 @@ class events_discounts {
 		$this->field = $field;
 	}
 
-	function codeField () {
+	
+	function dateField() {
 		return [
-			'name'		=> 'code',
-			'label'		=> 'Code',
-			'required'	=> true,
-			'display'	=> 'InputText'
-		];
-	}
-
-	function typeField () {
-		return [
-			'name'		=> 'type',
-			'required'	=> true,
-			'options'	=> array(
-				'published'	=> 'Percent',
-				'draft'		=> 'Amount'
-			),
-			'display'	=> 'Select',
-			'nullable'	=> false,
-			'default'	=> 'Amount'
-		];
-	}
-
-	function expirationDateField() {
-		return [
-			'name'			=> 'expiration_date',
+			'name'			=> 'date',
 			'required'		=> true,
 			'display'		=> 'InputDatePicker',
 			'transformIn'	=> function ($data) {
@@ -71,10 +49,10 @@ class events_discounts {
 		];
 	}
 
-	function valueField () {
+	function noticeField () {
 		return [
-			'name'		=> 'value',
-			'label'		=> 'Value (Percentage/Amount)',
+			'name'		=> 'notice',
+			'label'		=> 'Notice',
 			'required'	=> true,
 			'display'	=> 'InputText'
 		];
@@ -83,8 +61,8 @@ class events_discounts {
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Discount Codes"}}
-			{{#if discount_code}}
+			{{#EmbeddedCollectionHeader label="Exceptions Dates"}}
+			{{#if exception_date}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr>
@@ -93,16 +71,16 @@ class events_discounts {
 						</tr>
 					</thead>
 					<tbody>
-						{{#each discount_code}}
+						{{#each exception_date}}
 							<tr data-id="{{dbURI}}">
-								<td>{{code}}</td>
+								<td>{{notice}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}
 					</tbody>
 				</table>
 		    {{else}}
-			    {{#EmbeddedCollectionEmpty singular="Discount Code"}}
+			    {{#EmbeddedCollectionEmpty singular="Exception Date"}}
 	        {{/if}}
 HBS;
 		return $partial;
@@ -111,10 +89,8 @@ HBS;
 	public function formPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedHeader}}
-	        {{#FieldFull code Code}}{{/FieldFull}}
-		    {{#FieldFull type}}{{/FieldFull}}
-		    {{#FieldFull expiration_date}}{{/FieldFull}}
-		    {{#FieldFull value "Value (Percentage/Amount)"}}{{/FieldFull}}
+	        {{#FieldFull date}}{{/FieldFull}}
+		    {{#FieldFull notice Notice}}{{/FieldFull}}
 		    {{{id}}}
 			{{#EmbeddedFooter}}
 HBS;
