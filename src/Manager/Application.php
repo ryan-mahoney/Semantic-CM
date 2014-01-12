@@ -34,7 +34,6 @@ class Application {
         $this->formRoute->json('', 'managers', 'Manager\\', 'manager', '/Manager');
 
         $this->slim->get('/Manager', function () {
-            $this->authenticate();
             $this->separation->app('bundles/Manager/app/dashboard')->layout('Manager/dashboard')->template()->write($this->response->body);
         });
 
@@ -51,7 +50,6 @@ class Application {
             if (isset($_GET['embedded'])) {
                 $layout = 'Manager/forms/embedded';
             }
-            $this->authenticate();
             $this->manager->add($manager, $layout, $this->response->body);
         });
 
@@ -60,7 +58,6 @@ class Application {
             if (isset($_GET['embedded'])) {
                 $layout = 'Manager/forms/embedded';
             }
-            $this->authenticate();
             $this->manager->edit($manager, $layout, $id);
         });
 
@@ -84,15 +81,14 @@ class Application {
         });
 
         $this->slim->get('/Manager/login', function () {
-            if ($this->authentication->valid('Manager') !== false) {
-                header('Location: /Manager');
-            }
+            //if ($this->authentication->valid('Manager') !== false) {
+            //    header('Location: /Manager');
+            //}
             $this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write($this->response->body);
         });
 
         $this->slim->get('/Manager/logout', function () {
-            $this->authentication->logout('Manager');
-            $this->authenticate();
+            $this->authentication->logout();
         });
 
         $this->slim->get('/Manager/api/managers', function () {
@@ -134,7 +130,6 @@ class Application {
         });
 
         $this->slim->get('/Manager/api/search', function () {
-            $this->authenticate();
             if (!isset($_GET['q']) || empty($_GET['q']) || !is_string($_GET['q'])) {
                 echo json_encode([]);
                 exit;
@@ -203,7 +198,6 @@ class Application {
         });
 
         $this->slim->post('/Manager/upload/:manager/:field', function ($manager, $field) {
-            $this->authenticate();
             if (!isset($_FILES)) {
                 return;
             }
@@ -291,14 +285,6 @@ class Application {
         });
     }
 
-    private function authenticate () {
-        if ($this->authentication->valid('Manager') === false) {
-            header('Location: /Manager/login');
-            exit;
-        }
-        return true;
-    }
-
     public function build ($bundleRoot) {
         $managersRoot = $this->root . '/../managers';
         $managersCacheFile = $managersRoot . '/cache.json';
@@ -322,6 +308,12 @@ class Application {
                 continue;
             }
             $managerInstance = new $managerClassName();
+            $groups = ['manager', 'manager-' . $managerInstance->category, 'manager-specific-' . $manager];
+            $regexes = [
+                '/^\/Manager$/',
+                '/^\/Manager\/list\/' . $manager . '$/',
+                '/^\/Manager\/edit\/' . $manager . '\/' . $managerInstance->collection . '\:[a-z0-1]*$/'
+            ];
             $record = [
                 'manager' => $manager,
                 'title' => $managerInstance->title,
@@ -329,7 +321,7 @@ class Application {
                 'titleField' => (property_exists($managerInstance, 'titleField') ? $managerInstance->titleField : ''),
                 'description' => $managerInstance->description,
                 'definition' => $managerInstance->definition,
-                'acl' => $managerInstance->acl,
+                'acl' => $groups,
                 'icon' => $managerInstance->icon,
                 'category' => $managerInstance->category,
                 'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0),
@@ -344,8 +336,41 @@ class Application {
             if (method_exists($managerInstance, 'tablePartial')) {
                 file_put_contents($this->root . '/partials/Manager/collections/' . $manager . '.hbs', $managerInstance->tablePartial());
             }
+            foreach ($groups as $group) {
+                if (!isset($auth[$group])) {
+                    $auth[$group] = [
+                        'regexes' => [], 'login' => '/Manager/login', 'denied' => '/Manager/noaccess'
+                    ];
+                }
+                foreach ($regexes as $regex) {
+                    $auth[$group]['regexes'][] = $regex;
+                }
+            }
         }
+        $this->authenticationBuild($auth);
         file_put_contents($managersCacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));
+    }
+
+    private function authenticationBuild ($authorizations) {
+        $yamlPath = $this->root . '/../acl/manager.yml';
+        $buffer = 'groups:' . "\n";
+        foreach ($authorizations as $group => $auth) {
+            $buffer .= '    ' . $group . ':' . "\n";
+            $buffer .= '        regexes:' . "\n";
+            sort($auth['regexes']);
+            $auth['regexes'] = array_unique($auth['regexes']);
+            foreach ($auth['regexes'] as $regex) {
+                $buffer .= '            - ' . "'" . $regex . "'" . "\n";
+            }
+            $buffer .= '        redirectLogin: ' . "'" . $auth['login'] . "'\n";
+            $buffer .= '        redirectDenied: ' . "'" . $auth['denied'] . "'\n";
+        }
+        $folder = $this->root . '/../acl';
+        if (!file_exists($folder)) {
+            mkdir($folder);
+        }
+        file_put_contents($yamlPath, $buffer);
+        echo 'Good: Access control built.', "\n";
     }
 
     public function upgrade ($bundleRoot) {
