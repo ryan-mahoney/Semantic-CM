@@ -240,12 +240,11 @@ class Application {
             echo $formJson;
         });
 
-        $slugify = $this->slugify;
-        $this->slim->post('/Manager/upload/:manager/:field', function ($manager, $field) use ($slugify) {
+        $this->slim->post('/Manager/upload/:manager/:field', function ($manager, $field) {
             if (!isset($_FILES)) {
                 return;
             }
-            $cleanName = $slugify->slugify(pathinfo($_FILES[$field]['name'])['filename']);
+            $cleanName = $this->slugify->slugify(pathinfo($_FILES[$field]['name'])['filename']);
             $path = '/storage/' . date('Y-m-d-H');
             $storage = $this->upload->storage($path);
             $upload = $this->upload->file($field, $storage);
