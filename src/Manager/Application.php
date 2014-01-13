@@ -34,7 +34,21 @@ class Application {
         $this->formRoute->json('', 'managers', 'Manager\\', 'manager', '/Manager');
 
         $this->slim->get('/Manager', function () {
-            $this->separation->app('bundles/Manager/app/dashboard')->layout('Manager/dashboard')->template()->write($this->response->body);
+            $category = '';
+            if (isset($_GET['content'])) {
+                $category = 'Content';
+            }
+            if (isset($_GET['reports'])) {
+                $category = 'Reports';
+            }
+            if (isset($_GET['people'])) {
+                $category = 'People';
+            }
+            $this->separation->app('bundles/Manager/app/dashboard')
+                ->layout('Manager/dashboard')
+                ->url('managers', '%dataAPI%/Manager/api/managers?userId=' . $_SESSION['user']['_id'] . '&category=' . $category)
+                ->template()
+                ->write($this->response->body);
         });
 
         $this->slim->get('/Manager/header', function () {
@@ -81,21 +95,33 @@ class Application {
         });
 
         $this->slim->get('/Manager/login', function () {
-            //if ($this->authentication->valid('Manager') !== false) {
-            //    header('Location: /Manager');
-            //}
+            if (isset($_SESSION['user']['groups']) && is_array($_SESSION['user']['groups']) && !empty($_SESSION['user']['groups'])) {
+                $matched = false;
+                foreach ($_SESSION['user']['groups'] as $group) {
+                    if (preg_match('/^manager/', $group) > 0) {
+                        $matched = true;
+                        break;
+                    }
+                }
+                if ($matched === true) {
+                    header('Location: /Manager');
+                }
+            }
             $this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write($this->response->body);
         });
 
         $this->slim->get('/Manager/logout', function () {
             $this->authentication->logout();
+            header('Location: /Manager');
+            exit;
         });
 
         $this->slim->get('/Manager/api/managers', function () {
-            $userId = false;
-            if (isset($_GET['userId'])) {
-                $userId = $_GET['userId'];
+            if (!isset($_GET['userId'])) {
+                echo json_encode(['managers' => []], JSON_PRETTY_PRINT);
+                exit;
             }
+            $this->authentication->login ('email', '', 'email', ['_id' => $this->db->id($_GET['userId'])]);
             $managersCacheFile = $this->root . '/../managers/cache.json';
             $countsTemp = $this->db->collection('collection_stats')->find();
             $counts = [];
@@ -112,6 +138,11 @@ class Application {
                 if ($manager['embedded'] == 1) {
                     continue;
                 }
+                if ($_GET['category'] != '') {
+                    if ($manager['category'] != $_GET['category']) {
+                        continue;
+                    }
+                }
                 if (isset($manager['collection']) && isset($counts[$manager['collection']])) {
                     $manager['count'] = $counts[$manager['collection']]['count'];
                     if (isset ($counts[$manager['collection']]['modified_date'])) {
@@ -120,13 +151,25 @@ class Application {
                 } else {
                     $manager['count'] = 0;
                 }
+                //access control
+                if (!isset($_SESSION['user']) || !isset($_SESSION['user']['groups']) || empty($_SESSION['user']['groups'])) {
+                    continue;
+                }
+                $groups = ['manager', 'manager-' . $manager['category'], 'manager-specific-' . $manager['manager']];
+                $matched = false;
+                foreach ($groups as $group) {
+                    if (in_array($group, $_SESSION['user']['groups'])) {
+                        $matched = true;
+                        break;
+                    }
+                }
+                if ($matched === false) {
+                    continue;
+                }
                 $managersOut[] = $manager;
             }
-            if ($userId===false) {
-                $this->response->body = json_encode(['managers' => $managersOut]);
-            }
-            //get user's acl for manager
-            //filter out managers he user does not have access to
+            echo json_encode(['managers' => $managersOut], JSON_PRETTY_PRINT);
+            exit;
         });
 
         $this->slim->get('/Manager/api/search', function () {

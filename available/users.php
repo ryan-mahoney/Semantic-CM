@@ -33,25 +33,22 @@ class users {
     function prefixField () {
         return [
             'name'        => 'prefix',
-            'label'       => 'prefix',
             'required'    => false,
             'display' => 'InputText'
         ];
     }
 
-      function first_nameField () {
-            return [
-                  'name'        => 'first_name',
-                  'label'       => '"First Name"',
-                  'required'    => true,
-                  'display' => 'InputText'
-            ];
-      }
+    function first_nameField () {
+        return [
+            'name'        => 'first_name',
+            'required'    => true,
+            'display' => 'InputText'
+        ];
+    }
 
     public function middle_nameField () {
         return [
             'name'    => 'middle_name',
-            'label'   => '"Middle Name"',
             'required'  => false,
             'display' => 'InputText'
         ];
@@ -59,17 +56,15 @@ class users {
 
     public function last_nameField () {
         return [
-          'name'    => 'last_name',
-          'label'   => '"Last Name"',
-          'required'  => true,
-          'display' => 'InputText'
+            'name'    => 'last_name',
+            'required'  => true,
+            'display' => 'InputText'
         ];
     }
 
     public function suffixField () {
         return [
             'name'    => 'suffix',
-            'label'   => 'suffix',
             'required'  => false,
             'display' => 'InputText'
         ];
@@ -93,30 +88,36 @@ class users {
         ];
     }
 
-      function homepageField () {
-            return [
-                  'display' => 'InputText',
-                  'name' => 'homepage'
-            ];
-      }
+    function homepageField () {
+        return [
+            'display' => 'InputText',
+            'name' => 'homepage'
+        ];
+    }
 
     public function titleField () {
         return [
             'name'    => 'title',
-            'label'   => 'Title',
             'required'  => false,
             'display' => 'InputText'
         ];
     }
 
-    public function categoriesField () {
+    public function password2Field () {
+        return [
+            'name'    => 'password2',
+            'required'  => false,
+            'display' => 'InputPassword'
+        ];
+    }
+
+    public function organizationField () {
         return [
             'name'    => 'organization',
             'label'   => 'Organization',
             'required'  => false,
             'options' => function () {
-                return $this->db->fetchAllGrouped(
-                    $this->db->collection('organization')->find(['section' => 'Books'])->sort(['title' => 1]), '_id', 'title');
+                return $this->db->fetchAllGrouped($this->db->collection('organization')->find()->sort(['title' => 1]), '_id', 'title');
             },
             'display' => 'InputToTags',
             'controlled' => true,
@@ -212,7 +213,7 @@ class users {
             'name'      => 'groups',
             'required'  => false,
             'options'   => function () {
-                return $this->db->fetchAllGrouped($this->db->collection('groups')->find()->sort(['title' => 1]), '_id', 'title');
+                return $this->db->fetchAllGrouped($this->db->collection('groups')->find()->sort(['title' => 1]), 'title', 'title');
             },
             'display'   => 'InputToTags',
             'controlled' => true,
@@ -226,39 +227,37 @@ class users {
                 {{#CollectionHeader}}
             </div>
 
-           <div class="bottom-container">
-              {{#if users}}
+            <div class="bottom-container">
+                {{#if users}}
                     {{#CollectionPagination}}
                     {{#CollectionButtons}}
                 
                     <table class="ui large table segment manager">
-                         <thead>
-                               <tr>
-                                  <th>First Name</th>
-                                  <th>Category</th>
-                                  <th>Status</th>
-                                  <th class="trash">Delete</th>
-                               </tr>
-                         </thead>
-                         <tbody>
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th class="trash">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {{#each users}}
-                                 <tr data-id="{{dbURI}}">
-                                     <td>{{first_name}}</td>
-                                     <td>{{category}}</td>
-                                     <td>{{status}}</td>
+                                <tr data-id="{{dbURI}}">
+                                    <td>{{first_name}}</td>
+                                    <td>{{last_name}}</td>
                                     <td>
-                                       <div class="manager trash ui icon button">
-                                           <i class="trash icon"></i>
-                                       </div>
+                                        <div class="manager trash ui icon button">
+                                            <i class="trash icon"></i>
+                                        </div>
                                     </td>
-                                 </tr>
+                                </tr>
                             {{/each}}
                          </tbody>
                     </table>
-                     {{#CollectionPagination}}
+                    {{#CollectionPagination}}
                 {{else}}
-                     {{#CollectionEmpty}}
-              {{/if}}
+                    {{#CollectionEmpty}}
+                {{/if}}
            </div>
 HBS;
         return $partial;
@@ -275,30 +274,30 @@ HBS;
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
                         {{#DocumentFormLeft}}
-                            {{#FieldLeft prefix Prefix}}{{/FieldLeft}}
-                            {{#FieldLeft first_name "First Name"}}{{/FieldLeft}}
-                            {{#FieldLeft middle_name "Middle Name"}}{{/FieldLeft}}
-                            {{#FieldLeft last_name "Last Name"}}{{/FieldLeft}}
-                            {{#FieldLeft suffix Suffix}}{{/FieldLeft}}
-                            {{#FieldLeft email Email}}{{/FieldLeft}}
-                            {{#FieldLeft phone Phone}}{{/FieldLeft}}
-                            {{#FieldLeft homepage Homepage}}{{/FieldLeft}}
-                            {{#FieldLeft organization Organization}}{{/FieldLeft}}
-                            {{#FieldLeft image Image}}{{/FieldLeft}}
+                            {{#FieldLeft prefix Prefix}}
+                            {{#FieldLeft first_name "First Name"}}
+                            {{#FieldLeft middle_name "Middle Name"}}
+                            {{#FieldLeft last_name "Last Name"}}
+                            {{#FieldLeft suffix Suffix}}
+                            {{#FieldLeft email Email}}
+                            {{#FieldLeft phone Phone}}
+                            {{#FieldLeft homepage Homepage}}
+                            {{#FieldLeft organization Organization}}
+                            {{#FieldLeft image Image}}
                             {{{id}}}
                         {{/DocumentFormLeft}}                 
                         
                         {{#DocumentFormRight}}
                             {{#DocumentButton}}
-                            GROUPS...
-                            {{#FieldFull groups}}{{/FieldFull}}
-                            {{#FieldFull classification_tags}}{{/FieldFull}}
+                            {{#FieldFull password2 Password}}
+                            {{#FieldFull groups}}
+                            {{#FieldFull classification_tags}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldLeft point_person}}{{/FieldLeft}}
+                            {{#FieldLeft point_person}}
                             <br />
-                            {{#FieldLeft unsuscribe}}{{/FieldLeft}}
-                            {{#FieldLeft permanent_bounce}}{{/FieldLeft}}
-                            {{#FieldLeft email_complaint}}{{/FieldLeft}}
+                            {{#FieldLeft unsuscribe}}
+                            {{#FieldLeft permanent_bounce}}
+                            {{#FieldLeft email_complaint}}
                         {{/DocumentFormRight}}
                     </div>          
                 </div>

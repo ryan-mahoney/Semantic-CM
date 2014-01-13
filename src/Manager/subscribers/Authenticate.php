@@ -10,8 +10,8 @@ return function ($context, $post, $authentication) {
 	if ($document === false || empty($document)) {
 		throw new \Exception('Document not found in post');
 	}
-	if (!isset($document['zone'])) {
-		$post->errorFieldSet($context['formMarker'], 'Missing zone value.');
+	if (!isset($document['route'])) {
+		$post->errorFieldSet($context['formMarker'], 'Missing url.');
 		return;
 	}
 	$try = $authentication->login($document['email'], $document['password']);
@@ -19,7 +19,7 @@ return function ($context, $post, $authentication) {
 		$post->errorFieldSet($context['formMarker'], 'Credentials do not match. Please check your email or password and try again.');
 		return;	
 	}
-	if (!$authentication->permission($document['zone'])) {
+	if (!$authentication->checkRoute($document['route'], false)) {
 		$post->errorFieldSet($context['formMarker'], 'You do not have access to the area.');
 		return;
 	}

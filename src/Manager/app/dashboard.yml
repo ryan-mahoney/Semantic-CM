@@ -1,9 +1,9 @@
 js:
 
 binding:
-    header:
-        url: '%dataAPI%/Manager/header'
-        type: 'html'
     managers:
         url: '%dataAPI%/Manager/api/managers'
         partial: 'Manager/manager-items.hbs'
+    header:
+        url: '%dataAPI%/Manager/header'
+        type: 'html'
