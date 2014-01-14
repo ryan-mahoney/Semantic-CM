@@ -1169,64 +1169,62 @@ HBS;
         $partial = <<<'HBS'
         	{{#Form}}{{/Form}}
 	            <div class="top-container">
-	                {{#DocumentHeader}}{{/DocumentHeader}}
-	                {{#DocumentTabs}}{{/DocumentTabs}}
+	                {{#DocumentHeader}}
+	                {{#DocumentTabs}}
 	            </div>
 
 	            <div class="bottom-container">
 	                <div class="ui tab active" data-tab="Main">
 	                    {{#DocumentFormLeft}}
-	                        {{#FieldLeft title Title required}}{{/FieldLeft}}
-	                        {{#FieldLeft body Body}}{{/FieldLeft}}
-	                        {{#FieldLeft description Summary}}{{/FieldLeft}}
-	                        {{#FieldLeft time Time Description}}{{/FieldLeft}}
-	                        {{#FieldLeft cost Cost Description}}{{/FieldLeft}}
+	                        {{#FieldLeft title Title required}}
+	                        {{#FieldLeft body Body}}
+	                        {{#FieldLeft description Summary}}
+	                        {{#FieldLeft time Time Description}}
+	                        {{#FieldLeft cost Cost Description}}
 	                        {{{id}}}
 	                    {{/DocumentFormLeft}}                 
 	                
 	                    {{#DocumentFormRight}}
-	                	    {{#DocumentButton}}{{/DocumentButton}}
-		                    {{#FieldFull status}}{{/FieldFull}}
+	                	    {{#DocumentButton}}
+		                    {{#FieldFull status}}
 		                    <br />
-		                    {{#FieldFull display_date}}{{/FieldFull}}
+		                    {{#FieldFull display_date}}
 		                    <div class="ui clearing divider"></div>
-		                    {{#FieldLeft featured}}{{/FieldLeft}}
+		                    {{#FieldLeft featured}}
 		                    <br />
-		                    {{#FieldLeft pinned}}{{/FieldLeft}}
+		                    {{#FieldLeft pinned}}
 		                    <br />
-		                    {{#FieldLeft comments}}{{/FieldLeft}}
+		                    {{#FieldLeft comments}}
 		                    <div class="ui clearing divider"></div>
-		                    {{#FieldFull categories Categories}}{{/FieldFull}}
-		                    {{#FieldFull tags Tags}}{{/FieldFull}}
+		                    {{#FieldFull categories Categories}}
+		                    {{#FieldFull tags Tags}}
 	                    {{/DocumentFormRight}}
 	                </div>
 	                <div class="ui tab" data-tab="Views">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft image "List View"}}{{/FieldLeft}}
-		                    {{#FieldLeft image_feature Featured}}{{/FieldLeft}}
-		                    {{#FieldLeft image_sub}}{{/FieldLeft}}
-		                    {{#FieldLeft highlight_images}}{{/FieldLeft}}
+		                    {{#FieldLeft image "List View"}}
+		                    {{#FieldLeft image_feature Featured}}
+		                    {{#FieldLeft image_sub}}
+		                    {{#FieldLeft highlight_images}}
 
 		                {{/DocumentFormLeft}}                 
 		                
 		                {{#DocumentFormRight}}
-			                {{#DocumentButton}}{{/DocumentButton}}
+			                {{#DocumentButton}}
 		                {{/DocumentFormRight}}
 		            </div>
 		              <div class="ui tab" data-tab="Venue">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft venue Venue}}{{/FieldLeft}}
-		                    {{#FieldLeft venue_description Description}}{{/FieldLeft}}
-		                    {{#FieldLeft location Address}}{{/FieldLeft}}
-		                    {{#FieldLeft contact_info Contact Information}}{{/FieldLeft}}
-		                    {{#FieldLeft url URL}}{{/FieldLeft}}
-		                    {{#FieldLeft map_url Map URL}}{{/FieldLeft}}
-		                    {{#FieldEmbedded field="image_sub" manager="events_images"}}
-
+		                    {{#FieldLeft venue Venue}}
+		                    {{#FieldLeft venue_description Description}}
+		                    {{#FieldLeft location Address}}
+		                    {{#FieldLeft contact_info Contact Information}}
+		                    {{#FieldLeft url URL}}
+		                    {{#FieldLeft map_url Map URL}}
 		                {{/DocumentFormLeft}}                 
 		                
 		                {{#DocumentFormRight}}
-			                {{#DocumentButton}}{{/DocumentButton}}
+			                {{#DocumentButton}}
 		                {{/DocumentFormRight}}
 		            </div>
 		            <div class="ui tab" data-tab="Recurring">
@@ -1237,7 +1235,7 @@ HBS;
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
-			                {{#DocumentButton}}{{/DocumentButton}}
+			                {{#DocumentButton}}
 		                {{/DocumentFormRight}}
 		            </div>
 		            <div class="ui tab" data-tab="Registration">
@@ -1247,7 +1245,7 @@ HBS;
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
-			                {{#DocumentButton}}{{/DocumentButton}}
+			                {{#DocumentButton}}
 		                {{/DocumentFormRight}}
 		            </div>
 		            <div class="ui tab" data-tab="Advanced">
@@ -1259,30 +1257,30 @@ HBS;
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
-			                {{#DocumentButton}}{{/DocumentButton}}
+			                {{#DocumentButton}}
 		                {{/DocumentFormRight}}
 		            </div>
 		            <div class="ui tab" data-tab="Images">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft header_image "Header Image"}}{{/FieldLeft}}
-		                    {{#FieldLeft footer_image "Footer Image"}}{{/FieldLeft}}
-		              		{{#FieldLeft ticket_image "Ticket Image"}}{{/FieldLeft}}
+		                    {{#FieldLeft header_image "Header Image"}}
+		                    {{#FieldLeft footer_image "Footer Image"}}
+		              		{{#FieldLeft ticket_image "Ticket Image"}}
 		              		{{#FieldEmbedded field="highlight_images" manager="events_highlights"}}
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
-			                {{#DocumentButton}}{{/DocumentButton}}
+			                {{#DocumentButton}}
 		                {{/DocumentFormRight}}
 		            </div>
 	                <div class="ui tab" data-tab="SEO">
 		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-		                    {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-		              		{{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
+		                    {{#FieldLeft code_name Slug}}
+		                    {{#FieldLeft metadata_description Description}}
+		              		{{#FieldLeft metadata_keywords Keywords}}
 		                {{/DocumentFormLeft}}
 		                
 		                {{#DocumentFormRight}}
-			                {{#DocumentButton}}{{/DocumentButton}}
+			                {{#DocumentButton}}
 		                {{/DocumentFormRight}}
 		            </div>
 	            </div>
