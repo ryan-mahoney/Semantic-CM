@@ -71,7 +71,7 @@ class events_images {
 					<tbody>
 						{{#each image_sub}}
 							<tr data-id="{{dbURI}}">
-							    <td>{{image}}</td>
+							    <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
 								<td>{{heading}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
