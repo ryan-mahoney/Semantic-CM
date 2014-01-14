@@ -1,12 +1,13 @@
 <?php
 /*
- * @version .8
+ * @version .9
  * @link https://raw.github.com/virtuecenter/manager/master/available/jobs.php
  * @mode upgrade
  *
  * .6 add categories to list
  * .7 typo
  * .8 definition and description for count added
+ * .9 correct title
  */
 namespace Manager;
 
@@ -14,7 +15,7 @@ class jobs {
 	private $field = false;
     public $collection = 'jobs';
     public $title = 'Jobs';
-    public $titleField = 'title';
+    public $titleField = 'job_title';
     public $singular = 'Job';
     public $description = '{{count}} jobs';
     public $definition = 'Coming Soon';
