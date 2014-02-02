@@ -1,14 +1,14 @@
 {
-    "name": "virtuecenter/manager",
+    "name": "opine/semantic-cm",
     "type": "library",
-    "description": "Content Managment and More",
+    "description": "Semantic-CM, the Opine-PHP and Semantic-UI based Management System",
     "keywords": ["cms"],
     "license": "MIT",
     "authors": [
         {
             "name": "Ryan Mahoney",
             "email": "ryan@virtuecenter.com",
-            "homepage": "http://www.virtuecenter.com",
+            "homepage": "http://opine-php.org",
             "role": "Developer"
         }
     ],
@@ -16,6 +16,6 @@
     	"php": ">=5.4.0"
     },
     "autoload": {
-        "psr-0": {"Manager": "src/"}
+        "psr-4": {"Opine\\": "src/"}
     }
 }

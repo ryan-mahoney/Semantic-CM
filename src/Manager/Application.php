@@ -1,5 +1,5 @@
 <?php
-namespace Manager;
+namespace Opine\Manager;
 
 class Application {
     private $slim;

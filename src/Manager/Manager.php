@@ -1,5 +1,5 @@
 <?php
-namespace Manager;
+namespace Opine\Manager;
 
 class Manager {
 	private $separation;
