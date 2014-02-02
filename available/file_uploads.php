@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .9
- * @link https://raw.github.com/virtuecenter/manager/master/available/file_uploads.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/file_uploads.php
  * @mode upgrade
  *
  * .5 add title
@@ -13,7 +13,7 @@
 namespace Manager;
 
 class file_uploads {
-	private $field = false;
+    private $field = false;
     public $collection = 'file_uploads';
     public $title = 'File Uploads';
     public $titleField = 'title';
@@ -41,15 +41,15 @@ class file_uploads {
         ];
     }
     
-	function imageField () {
-		return [
-			'name' => 'image',
-			'label' => 'File Upload',
-			'display' => 'InputFile'
-		];
-	}
+    function imageField () {
+        return [
+            'name' => 'image',
+            'label' => 'File Upload',
+            'display' => 'InputFile'
+        ];
+    }
 
-	public function tablePartial () {
+    public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{#CollectionHeader}}{{/CollectionHeader}}
@@ -99,28 +99,28 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-        	{{#Form}}{{/Form}}
-	            <div class="top-container">
-	                {{#DocumentHeader}}{{/DocumentHeader}}
-	                {{#DocumentTabs}}{{/DocumentTabs}}
-	            </div>
+            {{#Form}}{{/Form}}
+                <div class="top-container">
+                    {{#DocumentHeader}}{{/DocumentHeader}}
+                    {{#DocumentTabs}}{{/DocumentTabs}}
+                </div>
 
-	            <div class="bottom-container">
-	                <div class="ui tab active" data-tab="Main">
-	                    {{#DocumentFormLeft}}
+                <div class="bottom-container">
+                    <div class="ui tab active" data-tab="Main">
+                        {{#DocumentFormLeft}}
                             {{#FieldLeft title Title required}}{{/FieldLeft}}
-	                        {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
                             {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
-	                        {{{id}}}
-	                    {{/DocumentFormLeft}}                 
-	                
-	                    {{#DocumentFormRight}}
-		                    {{#DocumentButton}}{{/DocumentButton}}
-	                    {{/DocumentFormRight}}
-	                </div>
-	            </div>
-	        </form>
+                            {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
+                            {{{id}}}
+                        {{/DocumentFormLeft}}                 
+                    
+                        {{#DocumentFormRight}}
+                            {{#DocumentButton}}{{/DocumentButton}}
+                        {{/DocumentFormRight}}
+                    </div>
+                </div>
+            </form>
 HBS;
         return $partial;
     }
-}	
+}    

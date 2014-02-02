@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .8
- * @link https://raw.github.com/virtuecenter/manager/master/available/social_links.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/social_links.php
  * @mode upgrade
  *
  * .4 lacks title field
@@ -13,7 +13,7 @@
 namespace Manager;
 
 class social_links {
-	private $field = false;
+    private $field = false;
     public $collection = 'social_links';
     public $title = 'Social Links';
     public $titleField = 'url';
@@ -30,33 +30,33 @@ class social_links {
         'collection' => 'social_links',
         'key' => '_id'
     ];
-	
-	function typeField () {
-		return [
-		'name' => 'type',
-		'label' => 'Type',
-		'required' => false,
-		'options' => [
-			'facebook'		=>"Facebook",
-			'twitter'		=>"Twitter",
-			'googleplus'	=>"Google +",
-			'linkedin'		=>"LinkedIn",
-			'flickr'		=>"Flickr",
-			'youtube'		=>"YouTube",
-		],
-				'display' => 'Select',
-				'nullable' => true
-		];
-	}	
-	
-	function urlField () {
-		return array(
-			'name' => 'url',
-			'label' => 'URL',
-			'required' => false,
-			'display'	=> 'InputText'			
-		);
-	}
+    
+    function typeField () {
+        return [
+        'name' => 'type',
+        'label' => 'Type',
+        'required' => false,
+        'options' => [
+            'facebook'        =>"Facebook",
+            'twitter'        =>"Twitter",
+            'googleplus'    =>"Google +",
+            'linkedin'        =>"LinkedIn",
+            'flickr'        =>"Flickr",
+            'youtube'        =>"YouTube",
+        ],
+                'display' => 'Select',
+                'nullable' => true
+        ];
+    }    
+    
+    function urlField () {
+        return array(
+            'name' => 'url',
+            'label' => 'URL',
+            'required' => false,
+            'display'    => 'InputText'            
+        );
+    }
 
 
     function headerField () {
@@ -75,7 +75,7 @@ class social_links {
         ];
     }
 
-	public function tablePartial () {
+    public function tablePartial () {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{#CollectionHeader}}{{/CollectionHeader}}
@@ -126,27 +126,27 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-        	{{#Form}}{{/Form}}
-	            <div class="top-container">
-	                {{#DocumentHeader}}{{/DocumentHeader}}
-	                {{#DocumentTabs}}{{/DocumentTabs}}
-	            </div>
-	            <div class="bottom-container">
-	                 <div class="ui tab active" data-tab="Main">
-	                     {{#DocumentFormLeft}}
-	                         {{#FieldLeft type Type required}}{{/FieldLeft}}
-	                         {{#FieldLeft url URL required}}{{/FieldLeft}}
+            {{#Form}}{{/Form}}
+                <div class="top-container">
+                    {{#DocumentHeader}}{{/DocumentHeader}}
+                    {{#DocumentTabs}}{{/DocumentTabs}}
+                </div>
+                <div class="bottom-container">
+                     <div class="ui tab active" data-tab="Main">
+                         {{#DocumentFormLeft}}
+                             {{#FieldLeft type Type required}}{{/FieldLeft}}
+                             {{#FieldLeft url URL required}}{{/FieldLeft}}
                              {{#FieldLeft headerIcon "Header Icon" required}}{{/FieldLeft}}
                              {{#FieldLeft footerIcon "Footer Icon" required}}{{/FieldLeft}}
-	                         {{{id}}}
-	                     {{/DocumentFormLeft}}                 
-	                
-	                     {{#DocumentFormRight}}
-	                	    {{#DocumentButton}}{{/DocumentButton}}
-	                     {{/DocumentFormRight}}
-	                 </div>
-	            </div>
-	        </form>
+                             {{{id}}}
+                         {{/DocumentFormLeft}}                 
+                    
+                         {{#DocumentFormRight}}
+                            {{#DocumentButton}}{{/DocumentButton}}
+                         {{/DocumentFormRight}}
+                     </div>
+                </div>
+            </form>
 HBS;
         return $partial;
     }

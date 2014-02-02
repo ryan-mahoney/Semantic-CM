@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .6
- * @link https://raw.github.com/virtuecenter/manager/master/available/menus.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/menus.php
  * @mode upgrade
  * .6 definiton and description for count added
  * .7 name attributes

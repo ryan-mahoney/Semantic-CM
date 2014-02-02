@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/users.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/users.php
  * @mode upgrade
  * .3 definition and description for count added
  */

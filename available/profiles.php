@@ -1,14 +1,14 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/profiles.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/profiles.php
  * @mode upgrade
  * .3 definition and description for count added
  */
 namespace Manager;
 
 class profiles {
-	private $field = false;
+    private $field = false;
     public $collection = 'profiles';
     public $title = 'Profiles';
     public $titleField = 'title';
@@ -30,7 +30,7 @@ class profiles {
         $this->field = $field;
     }
 
-	function first_nameField() {
+    function first_nameField() {
     return [
       'name'    => 'first_name',
       'placeholder' => 'First Name',
@@ -49,49 +49,49 @@ class profiles {
     ];
   }
 
-	function fullNameField () {
-		return [
-			'name'		=> 'full_name',
-			'label'		=> 'FullName',
-			'required'	=> true,
-			'display'	=> 'InputText'
-		];
-	}
+    function fullNameField () {
+        return [
+            'name'        => 'full_name',
+            'label'        => 'FullName',
+            'required'    => true,
+            'display'    => 'InputText'
+        ];
+    }
 
-	function titleField () {
-		return [
-			'name'		=> 'title',
-			'label'		=> 'Title',
-			'required'	=> true,
-			'display'	=> 'InputText'
-		];
-	}
+    function titleField () {
+        return [
+            'name'        => 'title',
+            'label'        => 'Title',
+            'required'    => true,
+            'display'    => 'InputText'
+        ];
+    }
 
-	function emailField () {
-		return [
-			'name'		=> 'email',
-			'label'		=> 'Email',
-			'required'	=> true,
-			'display'	=> 'InputText'
-		];
-	}
+    function emailField () {
+        return [
+            'name'        => 'email',
+            'label'        => 'Email',
+            'required'    => true,
+            'display'    => 'InputText'
+        ];
+    }
 
-	function homepageField () {
-		return [
-			'display' => 'InputText',
-			'name' => 'homepage'
-		];
-	}
+    function homepageField () {
+        return [
+            'display' => 'InputText',
+            'name' => 'homepage'
+        ];
+    }
 
 
-	function phoneField () {
-		return [
-			'name'		=> 'phone',
-			'label'		=> 'Phone',
-			'required'	=> true,
-			'display'	=> 'InputText'
-		];
-	}
+    function phoneField () {
+        return [
+            'name'        => 'phone',
+            'label'        => 'Phone',
+            'required'    => true,
+            'display'    => 'InputText'
+        ];
+    }
 
   function descriptionField () {
     return [
@@ -100,22 +100,22 @@ class profiles {
       'display' => 'Textarea'
     ];
   }
-	
-	function statusField () {
-		return [
-			'name'		=> 'status',
-			'required'	=> true,
-			'options'	=> array(
-				'published'	=> 'Published',
-				'draft'		=> 'Draft'
-			),
-			'display'	=> 'Select',
-			'nullable'	=> false,
-			'default'	=> 'published'
-		];
-	}
+    
+    function statusField () {
+        return [
+            'name'        => 'status',
+            'required'    => true,
+            'options'    => array(
+                'published'    => 'Published',
+                'draft'        => 'Draft'
+            ),
+            'display'    => 'Select',
+            'nullable'    => false,
+            'default'    => 'published'
+        ];
+    }
 
-	function featuredField () {
+    function featuredField () {
         return [
             'name' => 'featured',
             'label' => 'Feature',
@@ -197,8 +197,8 @@ class profiles {
                     </table>
                      {{#CollectionPagination}}{{/CollectionPagination}}
                 {{else}}
-					 {{#CollectionEmpty}}{{/CollectionEmpty}}
-	          {{/if}}
+                     {{#CollectionEmpty}}{{/CollectionEmpty}}
+              {{/if}}
            </div>
 HBS;
         return $partial;
@@ -206,35 +206,35 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-	        {{#Form}}{{/Form}}
-	            <div class="top-container">
-	                {{#DocumentHeader}}{{/DocumentHeader}}
-	                {{#DocumentTabs}}{{/DocumentTabs}}
-	            </div>
+            {{#Form}}{{/Form}}
+                <div class="top-container">
+                    {{#DocumentHeader}}{{/DocumentHeader}}
+                    {{#DocumentTabs}}{{/DocumentTabs}}
+                </div>
 
-	            <div class="bottom-container">
-	            	<div class="ui tab active" data-tab="Main">
-		                {{#DocumentFormLeft}}
+                <div class="bottom-container">
+                    <div class="ui tab active" data-tab="Main">
+                        {{#DocumentFormLeft}}
                         {{#FieldLeft first_name "First Name"}}{{/FieldLeft}}
                         {{#FieldLeft last_name "Last Name"}}{{/FieldLeft}}
-		                    {{#FieldLeft full_name FullName}}{{/FieldLeft}}
-		                    {{#FieldLeft title Title}}{{/FieldLeft}}
-		                    {{#FieldLeft email Email}}{{/FieldLeft}}
-		                    {{#FieldLeft homepage Homepage}}{{/FieldLeft}}
-		                    {{#FieldLeft phone Phone}}{{/FieldLeft}}
+                            {{#FieldLeft full_name FullName}}{{/FieldLeft}}
+                            {{#FieldLeft title Title}}{{/FieldLeft}}
+                            {{#FieldLeft email Email}}{{/FieldLeft}}
+                            {{#FieldLeft homepage Homepage}}{{/FieldLeft}}
+                            {{#FieldLeft phone Phone}}{{/FieldLeft}}
                         {{#FieldLeft description Summary}}{{/FieldLeft}}
-		                    {{{id}}}
-		                {{/DocumentFormLeft}}                 
-		                
-		                {{#DocumentFormRight}}
-		                	{{#DocumentButton}}{{/DocumentButton}}
-		                	{{#FieldFull status}}{{/FieldFull}}
-		                	<div class="ui clearing divider"></div>
-		                	{{#FieldLeft featured}}{{/FieldLeft}}
-		                	<br />
-		                	{{#FieldLeft pinned}}{{/FieldLeft}}
-		                {{/DocumentFormRight}}
-		            </div>	
+                            {{{id}}}
+                        {{/DocumentFormLeft}}                 
+                        
+                        {{#DocumentFormRight}}
+                            {{#DocumentButton}}{{/DocumentButton}}
+                            {{#FieldFull status}}{{/FieldFull}}
+                            <div class="ui clearing divider"></div>
+                            {{#FieldLeft featured}}{{/FieldLeft}}
+                            <br />
+                            {{#FieldLeft pinned}}{{/FieldLeft}}
+                        {{/DocumentFormRight}}
+                    </div>    
                 <div class="ui tab" data-tab="Images">
                     {{#DocumentFormLeft}}
                         {{#FieldLeft image "List View"}}{{/FieldLeft}}
@@ -245,9 +245,9 @@ HBS;
                       {{#DocumentButton}}{{/DocumentButton}}
                     {{/DocumentFormRight}}
                 </div>        
-	            </div>
-	        </form>
+                </div>
+            </form>
 HBS;
         return $partial;
     }
-}	
+}    

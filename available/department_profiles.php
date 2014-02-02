@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .4
- * @link https://raw.github.com/virtuecenter/manager/master/available/department_profiles.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/department_profiles.php
  * @mode upgrade
  * .3 definiton and description for count adde
  * .4 fixes
@@ -27,62 +27,62 @@ class department_profiles {
         'key' => '_id'
     ];
 
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
+    public function __construct ($field=false) {
+        $this->field = $field;
+    }
 
-	function titleField () {
-		return [
-			'name'		=> 'title',
-			'label'		=> 'Title',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		];
-	}
+    function titleField () {
+        return [
+            'name'        => 'title',
+            'label'        => 'Title',
+            'required'    => false,
+            'display'    => 'InputText'
+        ];
+    }
 
-	function imageField () {
-		return [
-			'name' => 'image',
-			'label' => 'Image',
-			'display' => 'InputFile'
-		];
-	}
+    function imageField () {
+        return [
+            'name' => 'image',
+            'label' => 'Image',
+            'display' => 'InputFile'
+        ];
+    }
 
-	public function tablePartial () {
-		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader department_profiles}}{{/EmbeddedCollectionHeader}}
-			{{#if department_profiles}}
-				<table class="ui table manager segment">
-					<thead>
-						<tr><th>Title</th></tr>
-					</thead>
-					<tbody>
-						{{#each department_profiles}}
-							<tr data-id="{{dbURI}}">
-								<td>{{title}}</td>
-							</tr>
-						{{/each}}
-					</tbody>
-				</table>
-		      {{else}}
-			   {{#EmbeddedCollectionEmpty Profile}}{{/EmbeddedCollectionEmpty}}
-	       {{/if}}
+    public function tablePartial () {
+        $partial = <<<'HBS'
+            {{#EmbeddedCollectionHeader department_profiles}}{{/EmbeddedCollectionHeader}}
+            {{#if department_profiles}}
+                <table class="ui table manager segment">
+                    <thead>
+                        <tr><th>Title</th></tr>
+                    </thead>
+                    <tbody>
+                        {{#each department_profiles}}
+                            <tr data-id="{{dbURI}}">
+                                <td>{{title}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+              {{else}}
+               {{#EmbeddedCollectionEmpty Profile}}{{/EmbeddedCollectionEmpty}}
+           {{/if}}
 HBS;
-		return $partial;
-	}
+        return $partial;
+    }
 
-	public function formPartial () {
-		$partial = <<<'HBS'
-			{{#EmbeddedHeader}}{{/EmbeddedHeader}}
+    public function formPartial () {
+        $partial = <<<'HBS'
+            {{#EmbeddedHeader}}{{/EmbeddedHeader}}
 
-		        {{#FieldFull title Title}}{{/FieldFull}}
+                {{#FieldFull title Title}}{{/FieldFull}}
 
-			    {{#FieldFull image Image}}{{/FieldFull}}
+                {{#FieldFull image Image}}{{/FieldFull}}
 
-			    {{{id}}}
+                {{{id}}}
 
-			{{#EmbeddedFooter}}{{/EmbeddedFooter}}
+            {{#EmbeddedFooter}}{{/EmbeddedFooter}}
 HBS;
-		return $partial;
-	}
+        return $partial;
+    }
 }

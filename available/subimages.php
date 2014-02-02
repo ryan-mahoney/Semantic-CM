@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .6
- * @link https://raw.github.com/virtuecenter/manager/master/available/subimages.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/subimages.php
  * @mode upgrade
  *
  * .3 bad field label
@@ -13,98 +13,98 @@
 namespace Manager;
 
 class subimages {
-	private $field = false;
-	public $collection = 'subimages';
-	public $title = 'Subimage';
-	public $titleField = 'title';
-	public $singular = 'Image';
-	public $description = '{{count}} subimages';
-	public $definition = 'Coming Soon';
-	public $acl = ['content', 'admin', 'superadmin'];
-	public $icon = 'browser';
-	public $category = 'Content';
-	public $after = 'function';
-	public $function = 'embeddedUpsert';
-	public $notice = 'Subimages';
-	public $embedded = true;
-	public $storage = [
-		'collection' => 'photo_galleries',
-		'key' => '_id'
-	];
+    private $field = false;
+    public $collection = 'subimages';
+    public $title = 'Subimage';
+    public $titleField = 'title';
+    public $singular = 'Image';
+    public $description = '{{count}} subimages';
+    public $definition = 'Coming Soon';
+    public $acl = ['content', 'admin', 'superadmin'];
+    public $icon = 'browser';
+    public $category = 'Content';
+    public $after = 'function';
+    public $function = 'embeddedUpsert';
+    public $notice = 'Subimages';
+    public $embedded = true;
+    public $storage = [
+        'collection' => 'photo_galleries',
+        'key' => '_id'
+    ];
 
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
+    public function __construct ($field=false) {
+        $this->field = $field;
+    }
 
-	function captionField () {
-		return [
-			'name'		=> 'caption',
-			'label'		=> 'Caption',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		];
-	}
+    function captionField () {
+        return [
+            'name'        => 'caption',
+            'label'        => 'Caption',
+            'required'    => false,
+            'display'    => 'InputText'
+        ];
+    }
 
-	function titleField () {
-		return [
-			'name'		=> 'copyright',
-			'label'		=> 'Copyright',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		];
-	}
+    function titleField () {
+        return [
+            'name'        => 'copyright',
+            'label'        => 'Copyright',
+            'required'    => false,
+            'display'    => 'InputText'
+        ];
+    }
 
-	function imageField () {
-		return [
-			'name' => 'file',
-			'label' => 'Image',
-			'display' => 'InputFile'
-		];
-	}
+    function imageField () {
+        return [
+            'name' => 'file',
+            'label' => 'Image',
+            'display' => 'InputFile'
+        ];
+    }
 
-	public function tablePartial () {
-		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Images"}}
-			{{#if image_individual}}
-				<table class="ui table manager segment manager sortable">
-				      <col width="10%">
-	                  <col width="40%">
-	                  <col width="40%">
-	                  <col width="10%">
-					<thead>
-					        <tr>
-							    <th><i class="shuffle basic icon"></i></th>
-								<th>Image</th>
-								<th>Caption</th>
-								<th class="trash">Delete</th>
-								</tr>
-					</thead>
-					<tbody>
-						{{#each image_individual}}
-							<tr data-id="{{dbURI}}">
-							    <td class="handle"><i class="reorder icon"></i></td>
-								<td>{{#ImageResize}}{{file}}{{/ImageResize}}</td>
-								<td>{{caption}}</td>
-							    <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
-							</tr>
-						{{/each}}
-					</tbody>
-				</table>
-			{{else}}
-				{{#EmbeddedCollectionEmpty singular="image"}}
-			{{/if}}
+    public function tablePartial () {
+        $partial = <<<'HBS'
+            {{#EmbeddedCollectionHeader label="Images"}}
+            {{#if image_individual}}
+                <table class="ui table manager segment manager sortable">
+                      <col width="10%">
+                      <col width="40%">
+                      <col width="40%">
+                      <col width="10%">
+                    <thead>
+                            <tr>
+                                <th><i class="shuffle basic icon"></i></th>
+                                <th>Image</th>
+                                <th>Caption</th>
+                                <th class="trash">Delete</th>
+                                </tr>
+                    </thead>
+                    <tbody>
+                        {{#each image_individual}}
+                            <tr data-id="{{dbURI}}">
+                                <td class="handle"><i class="reorder icon"></i></td>
+                                <td>{{#ImageResize}}{{file}}{{/ImageResize}}</td>
+                                <td>{{caption}}</td>
+                                <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                {{#EmbeddedCollectionEmpty singular="image"}}
+            {{/if}}
 HBS;
-		return $partial;
-	}
+        return $partial;
+    }
 
-	public function formPartial () {
-		$partial = <<<'HBS'
-			{{#EmbeddedHeader}}{{/EmbeddedHeader}}			    
-		    {{#FieldFull file Image}}{{/FieldFull}}
-		    {{#FieldFull caption Caption}}{{/FieldFull}}
-		    {{{id}}}
-			{{#EmbeddedFooter}}{{/EmbeddedFooter}}    
+    public function formPartial () {
+        $partial = <<<'HBS'
+            {{#EmbeddedHeader}}{{/EmbeddedHeader}}                
+            {{#FieldFull file Image}}{{/FieldFull}}
+            {{#FieldFull caption Caption}}{{/FieldFull}}
+            {{{id}}}
+            {{#EmbeddedFooter}}{{/EmbeddedFooter}}    
 HBS;
-		return $partial;
-	}
+        return $partial;
+    }
 }

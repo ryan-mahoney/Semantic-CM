@@ -1,7 +1,7 @@
 <?php
 /*
  * @version 1.1
- * @link https://raw.github.com/virtuecenter/manager/master/available/subcarousels.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/subcarousels.php
  * @mode upgrade
  *
  * .3 field name isssues
@@ -18,7 +18,7 @@
 namespace Manager;
 
 class subcarousels {
-	private $field = false;
+    private $field = false;
     public $collection = 'carousels';
     public $title = 'SubCarousels';
     public $titleField = 'title';
@@ -38,85 +38,85 @@ class subcarousels {
     ];
 
     function imageField () {
-		return [
-			'name' => 'file',
-			'label' => 'Image',
-			'display' => 'InputFile'
-		];
-	}
+        return [
+            'name' => 'file',
+            'label' => 'Image',
+            'display' => 'InputFile'
+        ];
+    }
 
-	function urlField () {
-		return [
-			'name'		=> 'url',
-			'label'		=> 'URL',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		];
-	}
+    function urlField () {
+        return [
+            'name'        => 'url',
+            'label'        => 'URL',
+            'required'    => false,
+            'display'    => 'InputText'
+        ];
+    }
 
-	function targetField () {
-		return [
-			'name'		=> 'target',
-			'label'		=> 'Redirect',
-			'required'	=> true,
-			'options'	=> [
-				'_self'		=> 'Self',
-				'_blank'	=> 'Blank',
-				'_top'		=> 'Top',
-				'_parent'	=> 'Parent'
-			],
-			'display'	=> 'Select',
-			'nullable'	=> false,
-			'default'	=> 'self'
-		];
-	}
+    function targetField () {
+        return [
+            'name'        => 'target',
+            'label'        => 'Redirect',
+            'required'    => true,
+            'options'    => [
+                '_self'        => 'Self',
+                '_blank'    => 'Blank',
+                '_top'        => 'Top',
+                '_parent'    => 'Parent'
+            ],
+            'display'    => 'Select',
+            'nullable'    => false,
+            'default'    => 'self'
+        ];
+    }
 
-	function captionField () {
-		return [
-			'name'		=> 'caption',
-			'label'		=> 'Caption',
-			'required'	=> false,
-			'display'	=> 'InputText'
-		];
-	}
-	
-	public function tablePartial () {
-		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Images"}}
-			{{#if carousel_individual}}
-				<table class="ui table manager segment">
-					<thead>
-						<tr>
-						    <th>Caption</th>
-						    <th class="trash">Delete</th>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each carousel_individual}}
-							<tr data-id="{{dbURI}}">
-								<td>{{caption}}</td>
-								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
-							</tr>
-						{{/each}}
-					</tbody>
-				</table>
-			{{else}}
-				{{#EmbeddedCollectionEmpty singular="carousel_individual"}}
-			{{/if}}
+    function captionField () {
+        return [
+            'name'        => 'caption',
+            'label'        => 'Caption',
+            'required'    => false,
+            'display'    => 'InputText'
+        ];
+    }
+    
+    public function tablePartial () {
+        $partial = <<<'HBS'
+            {{#EmbeddedCollectionHeader label="Images"}}
+            {{#if carousel_individual}}
+                <table class="ui table manager segment">
+                    <thead>
+                        <tr>
+                            <th>Caption</th>
+                            <th class="trash">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each carousel_individual}}
+                            <tr data-id="{{dbURI}}">
+                                <td>{{caption}}</td>
+                                <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                {{#EmbeddedCollectionEmpty singular="carousel_individual"}}
+            {{/if}}
 HBS;
-		return $partial;
-	}
+        return $partial;
+    }
 
-	public function formPartial () {
-		$partial = <<<'HBS'
-			{{#EmbeddedHeader}}{{/EmbeddedHeader}}			    
-		    {{#FieldFull file Image}}{{/FieldFull}}
-		    {{#FieldFull url URL}}{{/FieldFull}}
-		    {{#FieldFull target Target}}{{/FieldFull}}
-		    {{#FieldFull caption Caption}}{{/FieldFull}}
-		    {{{id}}}
-			{{#EmbeddedFooter}}{{/EmbeddedFooter}}    
+    public function formPartial () {
+        $partial = <<<'HBS'
+            {{#EmbeddedHeader}}{{/EmbeddedHeader}}                
+            {{#FieldFull file Image}}{{/FieldFull}}
+            {{#FieldFull url URL}}{{/FieldFull}}
+            {{#FieldFull target Target}}{{/FieldFull}}
+            {{#FieldFull caption Caption}}{{/FieldFull}}
+            {{{id}}}
+            {{#EmbeddedFooter}}{{/EmbeddedFooter}}    
 HBS;
-		return $partial;
-	}
+        return $partial;
+    }
 }

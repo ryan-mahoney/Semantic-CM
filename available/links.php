@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .5
- * @link https://raw.github.com/virtuecenter/manager/master/available/links.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/links.php
  * @mode upgrade
  *
  * .4 remove sort
@@ -10,7 +10,7 @@
 namespace Manager;
 
 class links {
-	private $field = false;
+    private $field = false;
     public $collection = 'links';
     public $title = 'Links';
     public $titleField = 'title';
@@ -29,91 +29,91 @@ class links {
     ];
 
     public function __construct ($field=false) {
-		$this->field = $field;
-	}
+        $this->field = $field;
+    }
 
     function titleField() {
-		return [
-			'name'		=> 'title',
-			'label'		=> 'Title',
-			'required'	=>	true,
-			'display' => 'InputText'
-		];
-	}
+        return [
+            'name'        => 'title',
+            'label'        => 'Title',
+            'required'    =>    true,
+            'display' => 'InputText'
+        ];
+    }
     function urlField() {
-		return [
-			'name'		=> 'url',
-			'label'		=> 'URL',
-			'required'	=>	true,
-			'display' => 'InputText'
-		];
-	}
+        return [
+            'name'        => 'url',
+            'label'        => 'URL',
+            'required'    =>    true,
+            'display' => 'InputText'
+        ];
+    }
 
-	public function targetField(){
-		return [
-			'name'		=>'target',
-			'label'		=> 'Target',
-			'required'	=> false,
-			'options'	=> array(
-					'_blank'		=>'New Window',
-					'_self'		=>'Self',
-					'_parent'	=>'Parent',
-					'_top'		=>'Top'
-		),
-				'display'	=>'Select',
-				'default'=> 'self'	
-	
-		];
-	}
+    public function targetField(){
+        return [
+            'name'        =>'target',
+            'label'        => 'Target',
+            'required'    => false,
+            'options'    => array(
+                    '_blank'        =>'New Window',
+                    '_self'        =>'Self',
+                    '_parent'    =>'Parent',
+                    '_top'        =>'Top'
+        ),
+                'display'    =>'Select',
+                'default'=> 'self'    
+    
+        ];
+    }
 
-	function descriptionField() {
-		return [
-			'name'		=> 'description',
-			'label'		=> 'Description',
-			'required'	=>	false,
-			'display' => 'Textarea'
-		];
-	}
+    function descriptionField() {
+        return [
+            'name'        => 'description',
+            'label'        => 'Description',
+            'required'    =>    false,
+            'display' => 'Textarea'
+        ];
+    }
 
-	function imageField () {
-		return [
-				'name' => 'image',
-				'label' => 'Image',
-				'display' => 'InputFile',
-				'tooltip' => 'An image that will be displayed when the entry is listed.'
-		];
-	}	
+    function imageField () {
+        return [
+                'name' => 'image',
+                'label' => 'Image',
+                'display' => 'InputFile',
+                'tooltip' => 'An image that will be displayed when the entry is listed.'
+        ];
+    }    
 /*
-	
-	function categoriesField () {
-		return array(
-				'name'		=> 'categories',
-				'label'		=> 'Choose a Category',
-				'required'	=> false,
-				'tooltip'	=> 'Add one or more categories.',
-				'options'	=> function () {
-				return VCPF\Model::db('categories')->
-				find(['section' => 'Links'])->
-				sort(array('title' => 1))->
-				fetchAllGrouped('_id', 'title');
-		},
-		'display'	=> VCPF\Field::selectToPill()
-		);
-	}
-	
-	public function featuredField() {
-		return array(
-			'name' => 'featured',
-			'label' => False,
-			'required' => false,
-				'options' => array(
-					't' => 'Yes',
-					'f' => 'No'
-				),
-				'display' => VCPF\Field::inputRadioButton(),
-				'default' => 'f'
-		);
-	}
+    
+    function categoriesField () {
+        return array(
+                'name'        => 'categories',
+                'label'        => 'Choose a Category',
+                'required'    => false,
+                'tooltip'    => 'Add one or more categories.',
+                'options'    => function () {
+                return VCPF\Model::db('categories')->
+                find(['section' => 'Links'])->
+                sort(array('title' => 1))->
+                fetchAllGrouped('_id', 'title');
+        },
+        'display'    => VCPF\Field::selectToPill()
+        );
+    }
+    
+    public function featuredField() {
+        return array(
+            'name' => 'featured',
+            'label' => False,
+            'required' => false,
+                'options' => array(
+                    't' => 'Yes',
+                    'f' => 'No'
+                ),
+                'display' => VCPF\Field::inputRadioButton(),
+                'default' => 'f'
+        );
+    }
 */
 
  public function tablePartial () {
@@ -124,76 +124,76 @@ class links {
 
             <div class="bottom-container">
                 {{#if links}}
-		                {{#CollectionPagination}}{{/CollectionPagination}}
-		                {{#CollectionButtons}}{{/CollectionButtons}}
-		                
-		                <table class="ui large table segment manager sortable">
-	                            <col width="80%">
-	                            <col width="20%">
-		                    <thead>
-		                        <tr>
-		                            
-		                            <th>Title</th>
-		                            <th class="trash">Delete</th>
-		                        </tr>
-		                    </thead>
-		                    <tbody>
-		                        {{#each links}}
-		                            <tr data-id="{{dbURI}}">
-		                                
-		                                <td>{{title}}</td>
-		                                <td>
-		                                    <div class="manager trash ui icon button">
-		                                         <i class="trash icon"></i>
-		                                     </div>
-		                                 </td>
-		                            </tr>
-		                        {{/each}}
-		                    </tbody>
-		                </table>
+                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        
+                        <table class="ui large table segment manager sortable">
+                                <col width="80%">
+                                <col width="20%">
+                            <thead>
+                                <tr>
+                                    
+                                    <th>Title</th>
+                                    <th class="trash">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each links}}
+                                    <tr data-id="{{dbURI}}">
+                                        
+                                        <td>{{title}}</td>
+                                        <td>
+                                            <div class="manager trash ui icon button">
+                                                 <i class="trash icon"></i>
+                                             </div>
+                                         </td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
 
-		                {{#CollectionPagination}}{{/CollectionPagination}}
-		           {{else}}
-					{{#CollectionEmpty}}{{/CollectionEmpty}}
-				{{/if}}
+                        {{#CollectionPagination}}{{/CollectionPagination}}
+                   {{else}}
+                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                {{/if}}
             </div>
 HBS;
         return $partial;
     }
     public function formPartial () {
-		$partial = <<<'HBS'
-			{{#Form}}{{/Form}}
-				<div class="top-container">
-					{{#DocumentHeader}}{{/DocumentHeader}}
-			        {{#DocumentTabs}}{{/DocumentTabs}}
-			    </div>
-			    <div class="bottom-container">
-			        <div class="ui tab active" data-tab="Main">
-				        {{#DocumentFormLeft}}
-				    	    {{#FieldLeft title Title required}}{{/FieldLeft}}
-	                        {{#FieldLeft url URL}}{{/FieldLeft}}
-	                        {{#FieldLeft target Target}}{{/FieldLeft}}
-	                        {{#FieldLeft description Summary}}{{/FieldLeft}}
-	                        {{{id}}}
-				        {{/DocumentFormLeft}}
-					    {{#DocumentFormRight}}
-						    {{#DocumentButton}}{{/DocumentButton}}
-					    {{/DocumentFormRight}}
-					</div>
-					<div class="ui tab" data-tab="Images">
-	                    {{#DocumentFormLeft}}
-	                        {{#FieldLeft image Image}}{{/FieldLeft}}
-	                    {{/DocumentFormLeft}}                 
-	                
-	                    {{#DocumentFormRight}}
-		                    {{#DocumentButton}}{{/DocumentButton}}
-	                    {{/DocumentFormRight}}
-	                </div>
-			    </div>
-			</form>
+        $partial = <<<'HBS'
+            {{#Form}}{{/Form}}
+                <div class="top-container">
+                    {{#DocumentHeader}}{{/DocumentHeader}}
+                    {{#DocumentTabs}}{{/DocumentTabs}}
+                </div>
+                <div class="bottom-container">
+                    <div class="ui tab active" data-tab="Main">
+                        {{#DocumentFormLeft}}
+                            {{#FieldLeft title Title required}}{{/FieldLeft}}
+                            {{#FieldLeft url URL}}{{/FieldLeft}}
+                            {{#FieldLeft target Target}}{{/FieldLeft}}
+                            {{#FieldLeft description Summary}}{{/FieldLeft}}
+                            {{{id}}}
+                        {{/DocumentFormLeft}}
+                        {{#DocumentFormRight}}
+                            {{#DocumentButton}}{{/DocumentButton}}
+                        {{/DocumentFormRight}}
+                    </div>
+                    <div class="ui tab" data-tab="Images">
+                        {{#DocumentFormLeft}}
+                            {{#FieldLeft image Image}}{{/FieldLeft}}
+                        {{/DocumentFormLeft}}                 
+                    
+                        {{#DocumentFormRight}}
+                            {{#DocumentButton}}{{/DocumentButton}}
+                        {{/DocumentFormRight}}
+                    </div>
+                </div>
+            </form>
 HBS;
-		return $partial;
-	}
+        return $partial;
+    }
 }
 
     

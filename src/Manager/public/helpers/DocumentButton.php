@@ -1,6 +1,6 @@
 <?php
 return function ($template, $context, $args, $source) {
-	$engine = $template->getEngine();
+    $engine = $template->getEngine();
     $modifiedDate = $engine->render('{{modified_date}}', $context);
     $modifiedMarkup = '<abbr class="time" title="">Not yet saved</abbr>';
     if (!empty($modifiedDate)) {

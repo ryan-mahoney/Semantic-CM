@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .8
- * @link https://raw.github.com/virtuecenter/manager/master/available/publications.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/publications.php
  * @mode upgrade
  *
  * .6 add categories to list
@@ -12,7 +12,7 @@
 namespace Manager;
 
 class publications {
-	private $field = false;
+    private $field = false;
     public $collection = 'publications';
     public $title = 'Publications';
     public $titleField = 'title';
@@ -33,15 +33,15 @@ class publications {
     public function __construct ($field=false) {
         $this->field = $field;
     }
-	
-	function titleField () {
-		return [
-			'name'		=> 'title',
-			'label'		=> 'Title',
-			'required'	=> true,
-			'display'	=> 'InputText'
-		];
-	}
+    
+    function titleField () {
+        return [
+            'name'        => 'title',
+            'label'        => 'Title',
+            'required'    => true,
+            'display'    => 'InputText'
+        ];
+    }
 
     function descriptionField () {
         return [
@@ -67,7 +67,7 @@ class publications {
         ];
     }
 
-	
+    
     function dateField() {
         return [
             'name'          => 'display_date',
@@ -191,8 +191,8 @@ class publications {
                     </table>
                     {{#CollectionPagination}}{{/CollectionPagination}}
                 {{else}}
-					 {{#CollectionEmpty}}{{/CollectionEmpty}}
-	          {{/if}}
+                     {{#CollectionEmpty}}{{/CollectionEmpty}}
+              {{/if}}
            </div>
 HBS;
         return $partial;
@@ -200,31 +200,31 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-	        {{#Form}}{{/Form}}
-	            <div class="top-container">
-	                {{#DocumentHeader}}{{/DocumentHeader}}
-	                {{#DocumentTabs}}{{/DocumentTabs}}
-	            </div>
+            {{#Form}}{{/Form}}
+                <div class="top-container">
+                    {{#DocumentHeader}}{{/DocumentHeader}}
+                    {{#DocumentTabs}}{{/DocumentTabs}}
+                </div>
 
-	            <div class="bottom-container">
-	            	<div class="ui tab active" data-tab="Main">
-		                {{#DocumentFormLeft}}
-		                    {{#FieldLeft title Title required}}{{/FieldLeft}}
+                <div class="bottom-container">
+                    <div class="ui tab active" data-tab="Main">
+                        {{#DocumentFormLeft}}
+                            {{#FieldLeft title Title required}}{{/FieldLeft}}
                             {{#FieldLeft description Summary}}{{/FieldLeft}}
                             {{#FieldLeft file "File Upload" required}}{{/FieldLeft}}
-		                    {{{id}}}
-		                {{/DocumentFormLeft}}                 
-		                
-		                {{#DocumentFormRight}}
-		                	{{#DocumentButton}}{{/DocumentButton}}
+                            {{{id}}}
+                        {{/DocumentFormLeft}}                 
+                        
+                        {{#DocumentFormRight}}
+                            {{#DocumentButton}}{{/DocumentButton}}
                             {{#FieldFull status}}{{/FieldFull}}
                             <br />
                             {{#FieldFull display_date}}{{/FieldFull}}
                             <div class="ui clearing divider"></div>
                             {{#FieldFull categories Categories}}{{/FieldFull}}
                             {{#FieldFull tags Tags}}{{/FieldFull}}
-		                {{/DocumentFormRight}}
-		            </div>
+                        {{/DocumentFormRight}}
+                    </div>
                      <div class="ui tab" data-tab="Images">
                         {{#DocumentFormLeft}}
                             {{#FieldLeft image "List View"}}{{/FieldLeft}}
@@ -245,9 +245,9 @@ HBS;
                             {{#DocumentButton}}{{/DocumentButton}}
                         {{/DocumentFormRight}}
                     </div>  
-	            </div>
-	        </form>
+                </div>
+            </form>
 HBS;
         return $partial;
     }
-}	
+}    
