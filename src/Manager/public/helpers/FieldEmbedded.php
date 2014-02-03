@@ -1,7 +1,7 @@
 <?php
 return function ($template, $context, $args, $source) {
     //usage: {{FieldEmbedded field="parent-field-name" required="true" manager="name-of-manager-to-embed" label="what to display"}}
-    $args = $template->htmlArgsToArray($args);
+    $args = $template->parseTagAttributes($args);
     $field = $args['field'];
     $required = false;
     if (isset($args['required']) && $args['required'] == true) {

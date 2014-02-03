@@ -1,7 +1,7 @@
 <?php
 return function ($template, $context, $args, $source) {
     //usage: {{#EmbeddedCollectionEmpty singular="Category"}}
-    $args = $template->htmlArgsToArray($args);
+    $args = $template->parseTagAttributes($args);
     $singular = '';
     if (isset($args['singular'])) {
         $singular = $args['singular'];
