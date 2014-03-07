@@ -16,7 +16,7 @@ class users {
     public $description = '{{count}} people';
     public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $tabs = ['Main'];
+    public $tabs = ['Edit Profile', 'Records'];
     public $icon = 'text file';
     public $category = 'People';
     public $after = 'function';
@@ -220,6 +220,16 @@ class users {
             'multiple' => true
         );
     }
+
+    public function users_addressField() {
+        return [
+            'name' => 'address_sub',
+            'label' => 'Address',
+            'required' => false,
+            'display'   =>  'Manager',
+            'manager'   => 'users_address'
+        ];
+    }
     
     public function tablePartial () {
         $partial = <<<'HBS'
@@ -272,7 +282,7 @@ HBS;
                 </div>
 
                 <div class="bottom-container">
-                    <div class="ui tab active" data-tab="Main">
+                    <div class="ui tab active" data-tab="Edit Profile">
                         {{#DocumentFormLeft}}
                             {{#FieldLeft prefix Prefix}}
                             {{#FieldLeft first_name "First Name"}}
