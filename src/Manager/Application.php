@@ -25,7 +25,7 @@
 namespace Opine\Manager;
 
 class Application {
-    private $slim;
+    private $route;
     private $authentication;
     private $separation;
     private $response;
@@ -38,7 +38,7 @@ class Application {
     private $slugify;
 
     public function __construct ($container, $root, $bundleRoot) {
-        $this->slim = $container->slim;
+        $this->route = $container->route;
         $this->authentication = $container->authentication;
         $this->separation = $container->separation;
         $this->response = $container->response;
@@ -56,7 +56,7 @@ class Application {
         $this->formRoute->app($this->root, '', 'managers', 'Manager\\', 'manager', '/Manager');
         $this->formRoute->json('', 'managers', 'Manager\\', 'manager', '/Manager');
 
-        $this->slim->get('/Manager', function () {
+        $this->route->get('/Manager', function () {
             $category = '';
             if (isset($_GET['content'])) {
                 $category = 'Content';
@@ -74,7 +74,7 @@ class Application {
                 ->write($this->response->body);
         });
 
-        $this->slim->get('/Manager/header', function () {
+        $this->route->get('/Manager/header', function () {
             $this->separation->
                 app('bundles/Manager/app/header')->
                 layout('Manager/header')->
@@ -82,23 +82,27 @@ class Application {
                 write($this->response->body);
         });
 
-        $this->slim->get('/Manager/add(/:name)', function ($manager) {
+        $callback = function ($manager) {
             $layout = 'Manager/forms/any';
             if (isset($_GET['embedded'])) {
                 $layout = 'Manager/forms/embedded';
             }
             $this->manager->add($manager, $layout, $this->response->body);
-        });
+        };
+        $this->route->get('/Manager/add', $callback);
+        $this->route->get('/Manager/add/{name}', $callback);
 
-        $this->slim->get('/Manager/edit(/:name(/:id))', function ($manager, $id) {
+        $callback = function ($manager, $id) {
             $layout = 'Manager/forms/any';
             if (isset($_GET['embedded'])) {
                 $layout = 'Manager/forms/embedded';
             }
             $this->manager->edit($manager, $layout, $id);
-        });
+        };
+        $this->route->get('/Manager/edit/{name}', $callback);
+        $this->route->get('/Manager/edit/{name}/{id}', $callback);
 
-        $this->slim->get('/Manager/list(/:name)', function ($manager) {
+        $this->route->get('/Manager/list/{name}', function ($manager) {
             $layout = 'Manager/collections/any';
             $url = false;
             if (isset($_GET['embedded']) && isset($_GET['dbURI'])) {
@@ -117,7 +121,7 @@ class Application {
             $this->manager->table($manager, $layout, $this->response->body, $url);
         });
 
-        $this->slim->get('/Manager/login', function () {
+        $this->route->get('/Manager/login', function () {
             if (isset($_SESSION['user']['groups']) && is_array($_SESSION['user']['groups']) && !empty($_SESSION['user']['groups'])) {
                 $matched = false;
                 foreach ($_SESSION['user']['groups'] as $group) {
@@ -133,13 +137,13 @@ class Application {
             $this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write($this->response->body);
         });
 
-        $this->slim->get('/Manager/logout', function () {
+        $this->route->get('/Manager/logout', function () {
             $this->authentication->logout();
             header('Location: /Manager');
             exit;
         });
 
-        $this->slim->get('/Manager/api/managers', function () {
+        $this->route->get('/Manager/api/managers', function () {
             if (!isset($_GET['userId'])) {
                 echo json_encode(['managers' => []], JSON_PRETTY_PRINT);
                 exit;
@@ -195,7 +199,7 @@ class Application {
             exit;
         });
 
-        $this->slim->get('/Manager/api/search', function () {
+        $this->route->get('/Manager/api/search', function () {
             if (!isset($_GET['q']) || empty($_GET['q']) || !is_string($_GET['q'])) {
                 echo json_encode([]);
                 exit;
@@ -219,42 +223,42 @@ class Application {
             echo json_encode($out);
         });
 
-        $this->slim->get('/Manager/data/:path+', function ($path) {
+        $callback = function ($managerName, $method, $limit=50, $page=1, $sort='{}') {
             $manager = false;
-            $name = $path[0];
-            $path = implode('/', $path);
             $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
             foreach ($managers['managers'] as $managersData) {
-                if ($managersData['manager'] == $name) {
+                if ($managersData['manager'] == $managerName) {
                     $manager = $managersData;
                     break;
                 }
             }
-            $collectionJson = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/json-data/' . $path);
+            $collectionJson = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/json-data/' . $managerName . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
             if ($manager !== false) {
                 $collectionJson = json_decode($collectionJson, true);
                 $collectionJson['metadata'] = array_merge($collectionJson['metadata'], $manager);
                 $collectionJson = json_encode($collectionJson);
             }
             echo $collectionJson;
-        });
+        };
+        $this->route->get('/Manager/data/{manager}{method}', $callback);
+        $this->route->get('/Manager/data/{manager}/{method}/{limit}', $callback);
+        $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}', $callback);
+        $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}/{sort}', $callback);
 
-        $this->slim->get('/Manager/form/:path+', function ($path) {
+        $this->route->get('/Manager/form/{manager}', function ($managerName) {
             $manager = false;
-            $name = $path[0];
-            $path = implode('/', $path);
             $id = '';
             if (isset($_GET['id'])) {
                 $id = '/' . $_GET['id'];
             }
             $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
             foreach ($managers['managers'] as $managersData) {
-                if ($managersData['manager'] == $name) {
+                if ($managersData['manager'] == $managerName) {
                     $manager = $managersData;
                     break;
                 }
             }
-            $formJson = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Manager/json-manager/' . $path . $id);
+            $formJson = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Manager/json-manager/' . $managerName . $id);
             if ($manager !== false) {
                 $formJson = json_decode($formJson, true);
                 $formJson['metadata'] = $manager;
@@ -263,7 +267,7 @@ class Application {
             echo $formJson;
         });
 
-        $this->slim->post('/Manager/upload/:manager/:field', function ($manager, $field) {
+        $callback = function ($manager, $field) {
             if (!isset($_FILES)) {
                 return;
             }
@@ -295,9 +299,11 @@ class Application {
             }
             echo json_encode($data, JSON_PRETTY_PRINT);
             exit;
-        });
+        };
+        $this->route->post('/Manager/upload/{manager}', $callback);
+        $this->route->post('/Manager/upload/{manager}/{field}', $callback);
 
-        $this->slim->post('/Manager/sort/:manager', function ($manager) {
+        $this->route->post('/Manager/sort/{manager}', function ($manager) {
             if (!isset($_POST['sorted']) || !is_array($_POST['sorted']) || count($_POST['sorted']) == 0) {
                 echo json_encode(['success' => true]);
                 exit;
