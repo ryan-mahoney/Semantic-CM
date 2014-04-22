@@ -4,3 +4,4 @@ binding:
     managers:
         url: '%dataAPI%/Manager/api/managers'
         partial: 'Manager/omnisearch-items.hbs'
+        type: 'json'

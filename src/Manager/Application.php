@@ -36,6 +36,7 @@ class Application {
     private $manager;
     private $upload;
     private $slugify;
+    private $person;
 
     public function __construct ($container, $root, $bundleRoot) {
         $this->route = $container->route;
@@ -50,6 +51,7 @@ class Application {
         $this->upload = $container->uploadwrapper;
         $this->db = $container->db;
         $this->slugify = $container->slugify;
+        $this->person = $container->person;
     }
 
     public function app () {
@@ -69,9 +71,8 @@ class Application {
             }
             $this->separation->app('bundles/Manager/app/dashboard')
                 ->layout('Manager/dashboard')
-                ->url('managers', '%dataAPI%/Manager/api/managers?userId=' . $_SESSION['user']['_id'] . '&category=' . $category)
                 ->template()
-                ->write($this->response->body);
+                ->write();
         });
 
         $this->route->get('/Manager/header', function () {
@@ -79,7 +80,7 @@ class Application {
                 app('bundles/Manager/app/header')->
                 layout('Manager/header')->
                 template()->
-                write($this->response->body);
+                write();
         });
 
         $callback = function ($manager) {
@@ -87,7 +88,7 @@ class Application {
             if (isset($_GET['embedded'])) {
                 $layout = 'Manager/forms/embedded';
             }
-            $this->manager->add($manager, $layout, $this->response->body);
+            $this->manager->add($manager, $layout);
         };
         $this->route->get('/Manager/add', $callback);
         $this->route->get('/Manager/add/{name}', $callback);
@@ -118,7 +119,7 @@ class Application {
             } elseif (isset($_GET['naked'])) {
                 $layout = 'Manager/collections/naked';
             }
-            $this->manager->table($manager, $layout, $this->response->body, $url);
+            $this->manager->table($manager, $layout, $url);
         });
 
         $this->route->get('/Manager/login', function () {
@@ -134,21 +135,16 @@ class Application {
                     header('Location: /Manager');
                 }
             }
-            $this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write($this->response->body);
+            $this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
         });
 
         $this->route->get('/Manager/logout', function () {
             $this->authentication->logout();
             header('Location: /Manager');
-            exit;
+            return;
         });
 
         $this->route->get('/Manager/api/managers', function () {
-            if (!isset($_GET['userId'])) {
-                echo json_encode(['managers' => []], JSON_PRETTY_PRINT);
-                exit;
-            }
-            $this->authentication->login ('email', '', 'email', ['_id' => $this->db->id($_GET['userId'])]);
             $managersCacheFile = $this->root . '/../managers/cache.json';
             $countsTemp = $this->db->collection('collection_stats')->find();
             $counts = [];
@@ -156,7 +152,7 @@ class Application {
                 $counts[$count['collection']] = $count;
             }
             if (!file_exists($managersCacheFile)) {
-                $this->response->body = json_encode(['managers' => []]);
+                echo json_encode(['managers' => []]);
                 return; 
             }
             $managers = json_decode(file_get_contents($managersCacheFile), true);
@@ -165,7 +161,7 @@ class Application {
                 if ($manager['embedded'] == 1) {
                     continue;
                 }
-                if ($_GET['category'] != '') {
+                if (!empty($_GET['category'])) {
                     if ($manager['category'] != $_GET['category']) {
                         continue;
                     }
@@ -196,19 +192,19 @@ class Application {
                 $managersOut[] = $manager;
             }
             echo json_encode(['managers' => $managersOut], JSON_PRETTY_PRINT);
-            exit;
+            return;
         });
 
         $this->route->get('/Manager/api/search', function () {
             if (!isset($_GET['q']) || empty($_GET['q']) || !is_string($_GET['q'])) {
                 echo json_encode([]);
-                exit;
+                return;
             }
             $out = [];
             $matches = $this->search->search('*' . trim(urldecode($_GET['q'])) . '*');
             if (!isset($matches['hits']) || empty($matches['hits']) || !isset($matches['hits']['hits']) || empty($matches['hits']['hits']) || !is_array($matches['hits']['hits'])) {
                 echo json_encode([]);
-                exit;
+                return;
             }
             foreach ($matches['hits']['hits'] as $hit) {
                 if (!isset($hit['_source']['url_manager']) || empty($hit['_source']['url_manager'])) {
@@ -232,7 +228,7 @@ class Application {
                     break;
                 }
             }
-            $collectionJson = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/json-data/' . $managerName . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
+            $collectionJson = $this->route->run('GET', '/json-data/' . $managerName . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
             if ($manager !== false) {
                 $collectionJson = json_decode($collectionJson, true);
                 $collectionJson['metadata'] = array_merge($collectionJson['metadata'], $manager);
@@ -258,7 +254,7 @@ class Application {
                     break;
                 }
             }
-            $formJson = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Manager/json-manager/' . $managerName . $id);
+            $formJson = trim($this->route->run('GET', '/Manager/json-manager/' . $managerName . $id));
             if ($manager !== false) {
                 $formJson = json_decode($formJson, true);
                 $formJson['metadata'] = $manager;
@@ -295,10 +291,9 @@ class Application {
                 $result = $upload->upload();
             } catch (\Exception $e) {
                 var_dump($upload->getErrors());
-                exit;
+                return;
             }
             echo json_encode($data, JSON_PRETTY_PRINT);
-            exit;
         };
         $this->route->post('/Manager/upload/{manager}', $callback);
         $this->route->post('/Manager/upload/{manager}/{field}', $callback);
@@ -306,7 +301,7 @@ class Application {
         $this->route->post('/Manager/sort/{manager}', function ($manager) {
             if (!isset($_POST['sorted']) || !is_array($_POST['sorted']) || count($_POST['sorted']) == 0) {
                 echo json_encode(['success' => true]);
-                exit;
+                return;
             }
             $sample = $_POST['sorted'][0];
             $depth = substr_count($sample, ':');
@@ -324,7 +319,7 @@ class Application {
                     $offset++;
                 }
                 echo json_encode(['success' => true]);
-                exit;
+                return;
             } else {
                 $parts = explode(':', $sample);
                 $dbURI = $parts[0] . ':' . $parts[1];
@@ -344,7 +339,7 @@ class Application {
                     $document[$embedded] = $newDocument;
                     $this->db->documentStage($dbURI, $document)->upsert();
                     echo json_encode(['success' => true]);
-                    exit;
+                    return;
                 } elseif ($depth == 5) {
                     $embedded = $parts[($depth - 3)];
                     $embeddedId = $parts[($depth - 2)];
