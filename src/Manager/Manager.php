@@ -34,7 +34,7 @@ class Manager {
         $this->root = $root;
     }
 
-    public function add ($manager, $layout='Manager/forms/any', &$buffer) {
+    public function add ($manager, $layout='Manager/forms/any') {
         $url = '%dataAPI%/Manager/form/' . $manager;
         $partial = 'Manager/forms/' . $manager . '.hbs';
         $this->separation->
@@ -43,23 +43,24 @@ class Manager {
             partial('form', $partial)->
             url('form', $url)->
             template()->
-            write($buffer);
+            write();
     }
 
-    public function edit ($manager, $layout='Manager/app/forms/any', $id, &$buffer=false) {
+    public function edit ($manager, $layout='Manager/app/forms/any', $id) {
         $url = '%dataAPI%/Manager/form/' . $manager;
         $partial = 'Manager/forms/' . $manager . '.hbs';
         $this->separation->
             app('bundles/Manager/app/forms/any')->
+            debug()->
             layout($layout)->
             partial('form', $partial)->
             url('form', $url)->
             args('form', ['id' => $id])->
             template()->
-            write($buffer);
+            write();
     }
 
-    public function table ($manager, $layout='Manager/collections/any', &$buffer, $url=false) {
+    public function table ($manager, $layout='Manager/collections/any', $url=false) {
         $managersCacheFile = $this->root . '/../managers/cache.json';
         $managers = json_decode(file_get_contents($managersCacheFile), true);
         foreach ($managers['managers'] as $managerCache) {
@@ -81,6 +82,6 @@ class Manager {
             partial('table', $partial)->
             url('table', $url)->
             template()->
-            write($buffer);
+            write();
     }
 }

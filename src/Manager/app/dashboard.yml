@@ -4,6 +4,7 @@ binding:
     managers:
         url: '%dataAPI%/Manager/api/managers'
         partial: 'Manager/manager-items.hbs'
+        type: 'json'
     header:
         url: '%dataAPI%/Manager/header'
         type: 'html'
