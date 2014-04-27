@@ -24,8 +24,7 @@ var ManagerSaved = function (form, data) {
 
     var mode = $('body').attr('date-savemode');
     var manager = $('.manager form').attr('data-manager');
-    var dbURI = $('input [name="' + manager + '[id]"]');
-    console.log(dbURI);
+    var dbURI = $('input[name="' + manager + '\\[id\\]"]').val();
     if (mode == 'another') {
         window.location = '/Manager/add/' + manager;
         return;
@@ -36,9 +35,6 @@ var ManagerSaved = function (form, data) {
         var embeddedDbURI = dbURI + ':' + $(this).attr('data-field'); 
         var embeddedManager = $(this).attr('data-manager');
         var embeddedContainer = this;
-//        console.log(embeddedDbURI);
-//        console.log(embeddedManager);
-//        console.log(embeddedContainer);
         $.ajax({
             type: "GET",
             url: '/Manager/list/' + embeddedManager + '?embedded&dbURI=' + embeddedDbURI,
