@@ -24,7 +24,7 @@
  */
 namespace Opine\Manager;
 
-class Application {
+class Route {
     private $route;
     private $authentication;
     private $separation;
@@ -54,7 +54,7 @@ class Application {
         $this->person = $container->person;
     }
 
-    public function app () {
+    public function paths () {
         $this->formRoute->app($this->root, '', 'managers', 'Manager\\', 'manager', '/Manager');
         $this->formRoute->json('', 'managers', 'Manager\\', 'manager', '/Manager');
 
