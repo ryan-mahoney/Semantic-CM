@@ -26,11 +26,10 @@ namespace Opine\Manager;
 
 class Manager {
     private $separation;
-    private $response;
+    private $root;
 
-    public function __construct ($separation, $response, $root) {
+    public function __construct ($separation, $root) {
         $this->separation = $separation;
-        $this->response = $response;
         $this->root = $root;
     }
 
