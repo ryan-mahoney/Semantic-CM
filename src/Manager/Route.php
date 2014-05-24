@@ -30,7 +30,7 @@ class Route {
     private $separation;
     private $response;
     private $root;
-    private $bundleRoot;
+    private $bundleRoute;
     private $formRoute;
     private $search;
     private $manager;
@@ -38,13 +38,13 @@ class Route {
     private $slugify;
     private $person;
 
-    public function __construct ($container, $root, $bundleRoot) {
+    public function __construct ($container, $root) {
         $this->route = $container->route;
         $this->authentication = $container->authentication;
         $this->separation = $container->separation;
         $this->response = $container->response;
         $this->root = $root;
-        $this->bundleRoot = $bundleRoot;
+        $this->bundleRoute = $container->bundleRoute;
         $this->search = $container->search;
         $this->formRoute = $container->formRoute;
         $this->manager = $container->manager;
@@ -353,64 +353,81 @@ class Route {
     }
 
     public function build ($bundleRoot) {
-        $managersRoot = $this->root . '/../managers';
-        $managersCacheFile = $managersRoot . '/cache.json';
-        $managers = [];
-        if (!file_exists($managersRoot)) {
-            mkdir($managersRoot);
-            file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
-            return;
+        $bundles = $this->bundleRoute->bundles(true, true);
+        $namespacesByPath = [
+            '/../managers' => 'Manager'
+        ];
+        $searchPaths = [
+            '/../managers'
+        ];
+        foreach ($bundles as $bundle) {
+            $searchPath = '/../bundles/' . $bundle . '/managers';
+            $namespacesByPath[$searchPath] = $bundle . '\Manager';
+            $searchPaths[] = $searchPath;
         }
-        $dirFiles = glob($managersRoot . '/*.php');
-        if (!is_array($dirFiles) || empty($dirFiles)) {
-            file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
-            return;
-        }
-        foreach ($dirFiles as $managerClassFile) {
-            $manager = basename($managerClassFile, '.php');
-            require_once ($managerClassFile);
-            $managerClassName = 'Manager\\' . $manager;
-            if (!class_exists($managerClassName, false)) {
-                echo 'Problem: Manager build: ', $managerClassName, ': missing "Manager" namespace or type in class delcaration.', "\n\n";
+        foreach ($searchPaths as $searchPath) {
+            $managersRoot = $this->root . $searchPath;
+            if (!file_exists($managersRoot)) {
                 continue;
             }
-            $managerInstance = new $managerClassName();
-            $groups = ['manager', 'manager-' . $managerInstance->category, 'manager-specific-' . $manager];
-            $regexes = [
-                '/^\/Manager$/',
-                '/^\/Manager\/list\/' . $manager . '$/',
-                '/^\/Manager\/edit\/' . $manager . '\/' . $managerInstance->collection . '\:[a-z0-1]*$/'
-            ];
-            $record = [
-                'manager' => $manager,
-                'title' => $managerInstance->title,
-                'singular' => $managerInstance->singular,
-                'titleField' => (property_exists($managerInstance, 'titleField') ? $managerInstance->titleField : ''),
-                'description' => $managerInstance->description,
-                'definition' => $managerInstance->definition,
-                'acl' => $groups,
-                'icon' => $managerInstance->icon,
-                'category' => $managerInstance->category,
-                'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0),
-                'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : []),
-                'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":1}'),
-                'collection' => $managerInstance->collection
-            ];
-            $managers[] = $record;
-            if (method_exists($managerInstance, 'formPartial')) {
-                file_put_contents($this->root . '/partials/Manager/forms/' . $manager . '.hbs', $managerInstance->formPartial());
+            $managersCacheFile = $managersRoot . '/cache.json';
+            $managers = [];
+            if (!file_exists($managersRoot)) {
+                mkdir($managersRoot);
+                file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
+                return;
             }
-            if (method_exists($managerInstance, 'tablePartial')) {
-                file_put_contents($this->root . '/partials/Manager/collections/' . $manager . '.hbs', $managerInstance->tablePartial());
+            $dirFiles = glob($managersRoot . '/*.php');
+            if (!is_array($dirFiles) || empty($dirFiles)) {
+                file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
+                return;
             }
-            foreach ($groups as $group) {
-                if (!isset($auth[$group])) {
-                    $auth[$group] = [
-                        'regexes' => [], 'login' => '/Manager/login', 'denied' => '/Manager/noaccess'
-                    ];
+            foreach ($dirFiles as $managerClassFile) {
+                $manager = basename($managerClassFile, '.php');
+                require_once ($managerClassFile);
+                $managerClassName = $namespacesByPath[$searchPath] . '\\' . $manager;
+                if (!class_exists($managerClassName, false)) {
+                    echo 'Problem: Manager build: ', $managerClassName, ': missing "Manager" namespace or type in class delcaration.', "\n\n";
+                    continue;
                 }
-                foreach ($regexes as $regex) {
-                    $auth[$group]['regexes'][] = $regex;
+                $managerInstance = new $managerClassName();
+                $groups = ['manager', 'manager-' . $managerInstance->category, 'manager-specific-' . $manager];
+                $regexes = [
+                    '/^\/Manager$/',
+                    '/^\/Manager\/list\/' . $manager . '$/',
+                    '/^\/Manager\/edit\/' . $manager . '\/' . $managerInstance->collection . '\:[a-z0-1]*$/'
+                ];
+                $record = [
+                    'manager' => $manager,
+                    'title' => $managerInstance->title,
+                    'singular' => $managerInstance->singular,
+                    'titleField' => (property_exists($managerInstance, 'titleField') ? $managerInstance->titleField : ''),
+                    'description' => $managerInstance->description,
+                    'definition' => $managerInstance->definition,
+                    'acl' => $groups,
+                    'icon' => $managerInstance->icon,
+                    'category' => $managerInstance->category,
+                    'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0),
+                    'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : []),
+                    'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":1}'),
+                    'collection' => $managerInstance->collection
+                ];
+                $managers[] = $record;
+                if (method_exists($managerInstance, 'formPartial')) {
+                    file_put_contents($this->root . '/partials/Manager/forms/' . $manager . '.hbs', $managerInstance->formPartial());
+                }
+                if (method_exists($managerInstance, 'tablePartial')) {
+                    file_put_contents($this->root . '/partials/Manager/collections/' . $manager . '.hbs', $managerInstance->tablePartial());
+                }
+                foreach ($groups as $group) {
+                    if (!isset($auth[$group])) {
+                        $auth[$group] = [
+                            'regexes' => [], 'login' => '/Manager/login', 'denied' => '/Manager/noaccess'
+                        ];
+                    }
+                    foreach ($regexes as $regex) {
+                        $auth[$group]['regexes'][] = $regex;
+                    }
                 }
             }
         }
