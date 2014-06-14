@@ -6,5 +6,5 @@ binding:
         type: 'html'
     form:
         url: '%dataAPI%/Manager/json-manager?'
-        partial: 'Manager/forms/?.hbs'
+        partial: 'Manager/forms-json/?.hbs'
         type: 'Form'

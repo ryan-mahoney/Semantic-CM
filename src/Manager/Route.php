@@ -32,6 +32,7 @@ class Route {
     private $root;
     private $bundleRoute;
     private $formRoute;
+    private $form;
     private $search;
     private $manager;
     private $upload;
@@ -52,6 +53,7 @@ class Route {
         $this->db = $container->db;
         $this->slugify = $container->slugify;
         $this->person = $container->person;
+        $this->form = $container->form;
     }
 
     public function paths () {
@@ -241,11 +243,12 @@ class Route {
         $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}', $callback);
         $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}/{sort}', $callback);
 
-        $this->route->get('/Manager/form/{manager}', function ($managerName) {
+        $this->route->get('/Manager/form-json/{manager}', function ($managerName) {
             $manager = false;
             $id = '';
             if (isset($_GET['id'])) {
-                $id = '/' . $_GET['id'];
+                //$id = '/' . $_GET['id'];
+                $id = $_GET['id'];
             }
             $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
             foreach ($managers['managers'] as $managersData) {
@@ -254,7 +257,9 @@ class Route {
                     break;
                 }
             }
-            $formJson = trim($this->route->run('GET', '/Manager/json-manager/' . $managerName . $id));
+            //$formJson = trim($this->route->run('GET', '/Manager/json-manager/' . $managerName . $id));
+            $formObject = $this->form->factory($managerName, $id, $manager['bundle'], 'managers', 'Manager\\');
+            $formJson = $this->form->json($formObject, $id);
             if ($manager !== false) {
                 $formJson = json_decode($formJson, true);
                 $formJson['metadata'] = $manager;
@@ -360,27 +365,31 @@ class Route {
         $searchPaths = [
             '/../managers'
         ];
+        $bundleByPath = [
+            '/../managers' => null
+        ];
         foreach ($bundles as $bundle) {
             $searchPath = '/../bundles/' . $bundle . '/managers';
             $namespacesByPath[$searchPath] = $bundle . '\Manager';
+            $bundleByPath[$searchPath] = $bundle;
             $searchPaths[] = $searchPath;
+        }
+        $managersRoot = $this->root . $searchPaths[0];
+        $managersCacheFile = $managersRoot . '/cache.json';
+        $managers = [];
+        if (!file_exists($managersRoot)) {
+            mkdir($managersRoot);
+            file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
+            return;
         }
         foreach ($searchPaths as $searchPath) {
             $managersRoot = $this->root . $searchPath;
             if (!file_exists($managersRoot)) {
                 continue;
-            }
-            $managersCacheFile = $managersRoot . '/cache.json';
-            $managers = [];
-            if (!file_exists($managersRoot)) {
-                mkdir($managersRoot);
-                file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
-                return;
-            }
+            }            
             $dirFiles = glob($managersRoot . '/*.php');
             if (!is_array($dirFiles) || empty($dirFiles)) {
-                file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
-                return;
+                continue;
             }
             foreach ($dirFiles as $managerClassFile) {
                 $manager = basename($managerClassFile, '.php');
@@ -395,9 +404,11 @@ class Route {
                 $regexes = [
                     '/^\/Manager$/',
                     '/^\/Manager\/list\/' . $manager . '$/',
-                    '/^\/Manager\/edit\/' . $manager . '\/' . $managerInstance->collection . '\:[a-z0-1]*$/'
+                    '/^\/Manager\/edit\/' . $manager . '\/' . $managerInstance->collection . '\:[a-z0-1]*$/',
+                    '/^\/Manager\/add\/' . $manager . '\/' . $managerInstance->collection . '$/'
                 ];
-                $record = [
+                $linkPrefix = (($bundleByPath[$searchPath] != null) ? $bundleByPath[$searchPath] . '-' : '');
+                $managers[] = [
                     'manager' => $manager,
                     'title' => $managerInstance->title,
                     'singular' => $managerInstance->singular,
@@ -409,15 +420,17 @@ class Route {
                     'category' => $managerInstance->category,
                     'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0),
                     'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : []),
-                    'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":1}'),
-                    'collection' => $managerInstance->collection
+                    'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":-1}'),
+                    'collection' => $managerInstance->collection,
+                    'link' => $linkPrefix . $manager,
+                    'bundle' => $bundleByPath[$searchPath],
+                    'namespace' => $namespacesByPath[$searchPath]
                 ];
-                $managers[] = $record;
                 if (method_exists($managerInstance, 'formPartial')) {
-                    file_put_contents($this->root . '/partials/Manager/forms/' . $manager . '.hbs', $managerInstance->formPartial());
+                    file_put_contents($this->root . '/partials/Manager/forms/' . $linkPrefix . $manager . '.hbs', $managerInstance->formPartial());
                 }
                 if (method_exists($managerInstance, 'tablePartial')) {
-                    file_put_contents($this->root . '/partials/Manager/collections/' . $manager . '.hbs', $managerInstance->tablePartial());
+                    file_put_contents($this->root . '/partials/Manager/collections/' . $linkPrefix . $manager . '.hbs', $managerInstance->tablePartial());
                 }
                 foreach ($groups as $group) {
                     if (!isset($auth[$group])) {
@@ -431,8 +444,8 @@ class Route {
                 }
             }
         }
-        $this->authenticationBuild($auth);
         file_put_contents($managersCacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));
+        $this->authenticationBuild($auth);
     }
 
     private function authenticationBuild ($authorizations) {

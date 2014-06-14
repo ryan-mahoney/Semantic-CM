@@ -28,14 +28,16 @@ class Manager {
     private $separation;
     private $root;
 
-    public function __construct ($separation, $root) {
+    public function __construct ($root, $separation) {
         $this->separation = $separation;
         $this->root = $root;
     }
 
     public function add ($manager, $layout='Manager/forms/any') {
+        $namespace = '';
+        $this->resolvePaths($manager, $namespace);
         $url = '%dataAPI%/Manager/form/' . $manager;
-        $partial = 'Manager/forms/' . $manager . '.hbs';
+        $partial = 'Manager/forms/' . $namespace . $manager . '.hbs';
         $this->separation->
             app('bundles/Manager/app/forms/any')->
             layout($layout)->
@@ -46,11 +48,12 @@ class Manager {
     }
 
     public function edit ($manager, $layout='Manager/app/forms/any', $id) {
-        $url = '%dataAPI%/Manager/form/' . $manager;
-        $partial = 'Manager/forms/' . $manager . '.hbs';
+        $namespace = '';
+        $this->resolvePaths($manager, $namespace);
+        $url = '%dataAPI%/Manager/form-json/' . $manager;
+        $partial = 'Manager/forms/' . $namespace . $manager . '.hbs';
         $this->separation->
             app('bundles/Manager/app/forms/any')->
-            debug()->
             layout($layout)->
             partial('form', $partial)->
             url('form', $url)->
@@ -60,6 +63,8 @@ class Manager {
     }
 
     public function table ($manager, $layout='Manager/collections/any', $url=false) {
+        $namespace = '';
+        $this->resolvePaths($manager, $namespace);        
         $managersCacheFile = $this->root . '/../managers/cache.json';
         $managers = json_decode(file_get_contents($managersCacheFile), true);
         foreach ($managers['managers'] as $managerCache) {
@@ -74,7 +79,7 @@ class Manager {
         if ($url === false) {
             $url = '%dataAPI%/Manager/data/' . $manager . '/manager/50/0/' . $sort;
         }
-        $partial = 'Manager/collections/' . $manager . '.hbs';
+        $partial = 'Manager/collections/' . $namespace . $manager . '.hbs';
         $this->separation->
             app('bundles/Manager/app/collections/any')->
             layout($layout)->
@@ -82,5 +87,12 @@ class Manager {
             url('table', $url)->
             template()->
             write();
+    }
+
+    private function resolvePaths (&$manager, &$namespace) {
+        if (substr_count($manager, '-') == 1) {
+            list($namespace, $manager) = explode('-', $manager);
+            $namespace .= '-';
+        }
     }
 }
