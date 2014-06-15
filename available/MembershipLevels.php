@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .4
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/membership_levels.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/MembershipLevels.php
  * @mode upgrade
  * .4 definition and description for count added
  */
 namespace Manager;
 
-class membership_levels {
+class MembershipLevels {
     private $field = false;
     public $collection = 'membership_levels';
     public $title = 'Membership';

@@ -1,7 +1,7 @@
 <?php
 /*
  * @version 1.1
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/subcarousels.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Subcarousels.php
  * @mode upgrade
  *
  * .3 field name isssues
@@ -17,7 +17,7 @@
  */
 namespace Manager;
 
-class subcarousels {
+class Subcarousels {
     private $field = false;
     public $collection = 'carousels';
     public $title = 'SubCarousels';

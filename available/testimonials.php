@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .7
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/testimonials.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Testimonials.php
  * @mode upgrade
  *
  * .4 use name not title
@@ -11,7 +11,7 @@
  */
 namespace Manager;
 
-class testimonials {
+class Testimonials {
     private $field = false;
     public $collection = 'testimonials';
     public $title = 'Testimonials';

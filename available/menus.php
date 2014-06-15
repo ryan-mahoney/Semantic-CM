@@ -1,14 +1,14 @@
 <?php
 /*
  * @version .6
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/menus.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Menus.php
  * @mode upgrade
  * .6 definiton and description for count added
  * .7 name attributes
  */
 namespace Manager;
 
-class menus {
+class Menus {
     private $field = false;
     public $collection = 'menus';
     public $title = 'Menus';
@@ -26,10 +26,6 @@ class menus {
         'collection' => 'menus',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
 
     function labelField () {
         return [

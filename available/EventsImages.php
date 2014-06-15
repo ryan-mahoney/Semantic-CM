@@ -1,87 +1,82 @@
 <?php
 /*
- * @version .1
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_exceptions.php
+ * @version .4
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsImages.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_exceptions {
+class EventsImages {
 	private $field = false;
 	public $collection = 'events';
-	public $title = 'Exception Dates';
+	public $title = 'Venue Images';
 	public $titleField = 'title';
-	public $singular = 'Exception Date';
-	public $description = '{{count}} exceptions';
+	public $singular = 'Venue Image';
+	public $description = '{{count}} images';
 	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
 	public $after = 'function';
 	public $function = 'embeddedUpsert';
-	public $notice = 'Discount Saved';
+	public $notice = 'Venue Saved';
 	public $embedded = true;
 	public $storage = [
 		'collection' => 'events',
 		'key' => '_id'
 	];
 
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
-
-	
-	function dateField() {
+	function imageField () {
 		return [
-			'name'			=> 'date',
-			'required'		=> true,
-			'display'		=> 'InputDatePicker',
-			'transformIn'	=> function ($data) {
-				return new \MongoDate(strtotime($data));
-			},
-			'transformOut'	=> function ($data) {
-				return date('m/d/Y', $data->sec);
-			},
-			'default'		=> function () {
-				return date('m/d/Y');
-			}
+			'name' => 'image',
+			'label' => 'Image',
+			'display' => 'InputFile'
 		];
 	}
 
-	function noticeField () {
+	function titleField () {
 		return [
-			'name'		=> 'notice',
-			'label'		=> 'Notice',
+			'name'		=> 'heading',
+			'label'		=> 'Heading',
 			'required'	=> true,
 			'display'	=> 'InputText'
+		];
+	}
+
+	function descriptionField () {
+		return [
+			'name' => 'description',
+			'label' => 'Description',
+			'display' => 'Textarea'
 		];
 	}
 
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Exceptions Dates"}}
-			{{#if exception_date}}
+			{{#EmbeddedCollectionHeader label="Venue Images"}}
+			{{#if image_sub}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr>
+							<th>Image</th>
 							<th>Title</th>
 							<th class="trash">Delete</th>
 						</tr>
 					</thead>
 					<tbody>
-						{{#each exception_date}}
+						{{#each image_sub}}
 							<tr data-id="{{dbURI}}">
-							    <td>{{date}}</td>
-								<td>{{notice}}</td>
+							    <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
+								<td>{{heading}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}
 					</tbody>
 				</table>
 		    {{else}}
-			    {{#EmbeddedCollectionEmpty singular="Exception Date"}}
+			    {{#EmbeddedCollectionEmpty singular="Venue Image"}}
 	        {{/if}}
 HBS;
 		return $partial;
@@ -90,10 +85,12 @@ HBS;
 	public function formPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedHeader}}
-	        {{#FieldFull date Date}}{{/FieldFull}}
-		    {{#FieldFull notice Notice}}{{/FieldFull}}
+	        {{#FieldFull image Image}}{{/FieldFull}}
+		    {{#FieldFull heading Heading}}{{/FieldFull}}
+		    {{#FieldFull description Description}}{{/FieldFull}}
 		    {{{id}}}
 			{{#EmbeddedFooter}}
+			<div style="padding-bottom:100px"></div>
 HBS;
 		return $partial;
 	}

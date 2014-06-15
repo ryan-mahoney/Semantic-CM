@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .9
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/categories.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Categories.php
  * @mode upgrade
  *
  * .3 duplicate field
@@ -13,7 +13,7 @@
 
 namespace Manager;
 
-class categories {
+class Categories {
     private $field = false;
     public $collection = 'categories';
     public $title = 'Categories';

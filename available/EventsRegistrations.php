@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .2
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_registrations.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsRegistrations.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_registrations {
+class EventsRegistrations {
 	private $field = false;
 	public $collection = 'events';
 	public $title = 'Registrations Options';
@@ -26,10 +26,6 @@ class events_registrations {
 		'collection' => 'events',
 		'key' => '_id'
 	];
-
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
 
 	function titleField () {
 		return [

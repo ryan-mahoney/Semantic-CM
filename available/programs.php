@@ -1,24 +1,7 @@
 <?php
-/*  Copyright 2011 Ryan Mahoney
- *
- *  This file is part of the Nothing Framework.
- *
- *  Nothing Framework is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  Nothing Framework is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Nothing Framework.  If not, see <http://www.gnu.org/licenses/>.
- */
 /*
  * @version .6
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/programs.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Programs.php
  * @mode upgrade
  *
  * .3 pull tags from correct collection
@@ -29,7 +12,7 @@
 
 namespace Manager;
 
-class programs {
+class Programs {
     private $field = false;
     public $collection = 'programs';
     public $title = 'Programs';

@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .9
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/blogs.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Blogs.php
  * @mode upgrade
  *
  * .6 add categories to list
@@ -11,7 +11,7 @@
  */
 namespace Manager;
 
-class blogs {
+class Blogs {
     private $field = false;
     public $collection = 'blogs';
     public $title = 'Blogs';
@@ -29,10 +29,6 @@ class blogs {
         'collection' => 'blogs',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
     
     function titleField () {
         return [

@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .8
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/podcasts.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Podcasts.php
  * @mode upgrade
  *
  * .4 make audio file non-mandatory
@@ -12,7 +12,7 @@
  */
 namespace Manager;
 
-class podcasts {
+class Podcasts {
     private $field = false;
     public $collection = 'podcasts';
     public $title = 'Podcasts';

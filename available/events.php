@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .9
- * @link https://raw.github.com/virtuecenter/manager/master/available/events.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/Events.php
  * @mode upgrade
  *
  * .3 set categories correctly
@@ -13,7 +13,7 @@
  */
 namespace Manager;
 
-class events {
+class Events {
 	private $field = false;
     public $collection = 'events';
     public $title = 'Events';
@@ -64,7 +64,6 @@ class events {
 			]
 		];
 	}
-
 
 	function titleField () {
 		return [

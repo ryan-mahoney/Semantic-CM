@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/system_messages.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/SystemMessages.php
  * @mode upgrade
  * 
  */
 namespace Manager;
 
-class system_messages {
+class SystemMessages {
 	private $field = false;
     public $collection = 'system_messages';
     public $title = 'System Messages';
@@ -26,18 +26,14 @@ class system_messages {
         'key' => '_id'
     ];
 
-    public function __construct ($field=false) {
-        $this->field = $field;
+	  function nameField() {
+        return [
+            'name'    => 'name',
+            'placeholder' => 'Name',
+            'display' => 'InputText',
+            'required'  => true
+        ];
     }
-
-	function nameField() {
-    return [
-      'name'    => 'name',
-      'placeholder' => 'Name',
-      'display' => 'InputText',
-      'required'  => true
-    ];
-  }
   
   function subjectField() {
     return [

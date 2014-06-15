@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .4
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_discounts.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsDiscounts.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_discounts {
+class EventsDiscounts {
 	private $field = false;
 	public $collection = 'events';
 	public $title = 'Discount Codes';
@@ -26,10 +26,6 @@ class events_discounts {
 		'collection' => 'events',
 		'key' => '_id'
 	];
-
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
 
 	function codeField () {
 		return [

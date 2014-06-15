@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .8
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/subcategories.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Subcategories.php
  * @mode upgrade
  *
  * .3 wrong field referenced
@@ -13,7 +13,7 @@
  */
 namespace Manager;
 
-class subcategories {
+class Subcategories {
     private $field = false;
     public $collection = 'categories';
     public $title = 'Subcategories';
@@ -32,10 +32,6 @@ class subcategories {
         'collection' => 'categories',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
 
     function titleField () {
         return [

@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .7
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/books.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Books.php
  * @mode upgrade
  *
  * .4 do not require price and url
@@ -11,7 +11,7 @@
  */
 namespace Manager;
 
-class books {
+class Books {
     private $field = false;
     public $collection = 'books';
     public $title = 'Books';

@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .8
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/social_links.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/SocialLinks.php
  * @mode upgrade
  *
  * .4 lacks title field
@@ -12,7 +12,7 @@
  */
 namespace Manager;
 
-class social_links {
+class SocialLinks {
     private $field = false;
     public $collection = 'social_links';
     public $title = 'Social Links';

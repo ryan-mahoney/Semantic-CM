@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .4
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/departments.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Departments.php
  * @mode upgrade
  *
  * .3 minor fixes
@@ -10,8 +10,7 @@
 
 namespace Manager;
 
-
-class departments{
+class Departments {
     private $field = false;
     public $collection = 'departments';
     public $title = 'Departments';

@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .8
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/photo_galleries.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/PhotoGalleries.php
  * @mode upgrade
  *
  * .5 remove dead code
@@ -12,7 +12,7 @@
  */
 namespace Manager;
 
-class photo_galleries {
+class PhotoGalleries {
     private $field = false;
     public $collection = 'photo_galleries';
     public $title = 'Photo Galleries';

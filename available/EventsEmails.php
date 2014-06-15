@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .4
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_emails.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsEmails.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_emails {
+class EventsEmails {
 	private $field = false;
 	public $collection = 'events';
 	public $title = 'Emails';
@@ -26,12 +26,6 @@ class events_emails {
 		'collection' => 'events',
 		'key' => '_id'
 	];
-
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
-
-
 
 	function subjectField () {
 		return [

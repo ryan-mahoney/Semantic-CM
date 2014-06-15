@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .5
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/links.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Links.php
  * @mode upgrade
  *
  * .4 remove sort
@@ -9,7 +9,7 @@
  */
 namespace Manager;
 
-class links {
+class Links {
     private $field = false;
     public $collection = 'links';
     public $title = 'Links';
@@ -27,10 +27,6 @@ class links {
         'collection' => 'links',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
 
     function titleField() {
         return [

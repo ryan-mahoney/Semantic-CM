@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .9
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/jobs.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Jobs.php
  * @mode upgrade
  *
  * .6 add categories to list
@@ -11,7 +11,7 @@
  */
 namespace Manager;
 
-class jobs {
+class Jobs {
     private $field = false;
     public $collection = 'jobs';
     public $title = 'Jobs';
@@ -30,11 +30,7 @@ class jobs {
         'key' => '_id'
     ];
 
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
-
-function company_nameField () {
+    function company_nameField () {
         return [
             'name'         => 'company_name',
             'label'     => 'Name of Employer or Recruiting Firm',
@@ -106,7 +102,6 @@ function company_nameField () {
             }
         ];
     }
-    
     
     function addressField () {
         return [
@@ -229,14 +224,14 @@ function company_nameField () {
                 'ID'=>"Idaho",
                 'IL'=>"Illinois",
                 'IN'=>"Indiana",
-                 'IA'=>"Iowa",
-                 'KS'=>"Kansas",
+                'IA'=>"Iowa",
+                'KS'=>"Kansas",
                 'KY'=>"Kentucky",
                 'LA'=>"Louisiana",
                 'ME'=>"Maine",
                 'MH'=>"Marshall Islands",
                 'MD'=>"Maryland",
-                 'MA'=>"Massachusetts",
+                'MA'=>"Massachusetts",
                 'MI'=>"Michigan",
                 'MN'=>"Minnesota",
                 'MS'=>"Mississippi",

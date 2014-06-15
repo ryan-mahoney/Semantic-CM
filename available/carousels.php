@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .8
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/carousels.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Carousels.php
  * @mode upgrade
  *
  *
@@ -14,7 +14,7 @@
  */
 namespace Manager;
 
-class carousels {
+class Carousels {
     private $field = false;
     public $collection = 'carousels';
     public $title = 'Carousel';

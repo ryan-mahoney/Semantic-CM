@@ -1,14 +1,14 @@
 <?php
 /*
  * @version .4
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/department_profiles.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/DepartmentProfiles.php
  * @mode upgrade
  * .3 definiton and description for count adde
  * .4 fixes
  */
 namespace Manager;
 
-class department_profiles {
+class DepartmentProfiles {
     private $field = false;
     public $collection = 'department_profiles';
     public $title = 'Profiles';
@@ -26,10 +26,6 @@ class department_profiles {
         'collection' => 'departments',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
 
     function titleField () {
         return [

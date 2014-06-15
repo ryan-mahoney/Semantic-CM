@@ -1,8 +1,7 @@
 <?php
-
 /*
  * @version .7
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/videos.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Videos.php
  * @mode upgrade
  *
  * .4 pull categories from correct query
@@ -12,7 +11,7 @@
  */
 namespace Manager;
 
-class videos {
+class Videos {
     private $field = false;
     public $collection = 'videos';
     public $title = 'Videos';

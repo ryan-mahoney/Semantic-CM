@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/profiles.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Profiles.php
  * @mode upgrade
  * .3 definition and description for count added
  */
 namespace Manager;
 
-class profiles {
+class Profiles {
     private $field = false;
     public $collection = 'profiles';
     public $title = 'Profiles';
@@ -26,28 +26,24 @@ class profiles {
         'key' => '_id'
     ];
 
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
-
     function first_nameField() {
-    return [
-      'name'    => 'first_name',
-      'placeholder' => 'First Name',
-      'display' => 'InputText',
-      'required'  => true
-    ];
-  }
+        return [
+            'name'    => 'first_name',
+            'placeholder' => 'First Name',
+            'display' => 'InputText',
+            'required'  => true
+        ];
+    }
   
-  function last_nameField() {
-    return [
-      'name'    => 'last_name',
-      'placeholder' => 'Last Name',
-      'label'   => 'Last Name',
-      'display' => 'InputText',
-      'required'  => true
-    ];
-  }
+    function last_nameField() {
+        return [
+            'name'    => 'last_name',
+            'placeholder' => 'Last Name',
+            'label'   => 'Last Name',
+            'display' => 'InputText',
+            'required'  => true
+        ];
+    }
 
     function fullNameField () {
         return [

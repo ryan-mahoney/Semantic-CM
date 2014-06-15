@@ -1,77 +1,62 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_links.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsHighlights.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_links {
+class EventsHighlights {
 	private $field = false;
 	public $collection = 'events';
-	public $title = 'Link/Menu';
+	public $title = 'Highlight Images';
 	public $titleField = 'title';
-	public $singular = 'Link/Menu';
-	public $description = '{{count}} links';
+	public $singular = 'Highlight Image';
+	public $description = '{{count}} highlights';
 	public $definition = 'Coming Soon';
 	public $acl = ['content', 'admin', 'superadmin'];
 	public $icon = 'browser';
 	public $category = 'Content';
 	public $after = 'function';
 	public $function = 'embeddedUpsert';
-	public $notice = 'Link Saved';
+	public $notice = 'Image Saved';
 	public $embedded = true;
 	public $storage = [
 		'collection' => 'events',
 		'key' => '_id'
 	];
 
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
-
-	function urlField () {
+	function imageField () {
 		return [
-			'name'		=> 'url',
-			'label'		=> 'URL',
-			'required'	=> false,
-			'display'	=> 'InputText'
+			'name' => 'image',
+			'label' => 'Image',
+			'display' => 'InputFile'
 		];
 	}
 
 	function titleField () {
 		return [
-			'name'		=> 'title',
-			'label'		=> 'Title',
-			'required'	=> false,
+			'name'		=> 'heading',
+			'label'		=> 'Heading',
+			'required'	=> true,
 			'display'	=> 'InputText'
 		];
 	}
-	
-	function targetField () {
+
+	function descriptionField () {
 		return [
-			'name'		=> 'target',
-			'label'		=> 'Redirect',
-			'required'	=> true,
-			'options'	=> [
-				'_self'		=> 'Self',
-				'_blank'	=> 'Blank',
-				'_top'		=> 'Top',
-				'_parent'	=> 'Parent'
-			],
-			'display'	=> 'Select',
-			'nullable'	=> false,
-			'default'	=> 'self'
+			'name' => 'description',
+			'label' => 'Description',
+			'display' => 'Textarea'
 		];
 	}
-	
 
 
 	public function tablePartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Link / Menu"}}
-			{{#if link_sub}}
+			{{#EmbeddedCollectionHeader label="Highlight Images"}}
+			{{#if highlight_images}}
 				<table class="ui table manager segment">
 					<thead>
 						<tr>
@@ -80,17 +65,17 @@ class events_links {
 						</tr>
 					</thead>
 					<tbody>
-						{{#each link_sub}}
+						{{#each highlight_images}}
 							<tr data-id="{{dbURI}}">
-							    <td>{{url}}</td>
-								<td>{{title}}</td>
+							    <td>{{image}}</td>
+								<td>{{heading}}</td>
 								<td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
 							</tr>
 						{{/each}}
 					</tbody>
 				</table>
 		    {{else}}
-			    {{#EmbeddedCollectionEmpty singular="Link / Menu"}}
+			    {{#EmbeddedCollectionEmpty singular="Highlight Image"}}
 	        {{/if}}
 HBS;
 		return $partial;
@@ -99,9 +84,9 @@ HBS;
 	public function formPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedHeader}}
-	        {{#FieldFull url URL}}{{/FieldFull}}
-		    {{#FieldFull title Title}}{{/FieldFull}}
-		    {{#FieldFull target Redirect}}{{/FieldFull}}
+	        {{#FieldFull image Image}}{{/FieldFull}}
+		    {{#FieldFull heading Heading}}{{/FieldFull}}
+		    {{#FieldFull description Description}}{{/FieldFull}}
 		    {{{id}}}
 			{{#EmbeddedFooter}}
 HBS;

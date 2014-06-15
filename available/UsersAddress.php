@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/users_address.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/UsersAddress.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class users_address {
+class UsersAddress {
 	private $field = false;
 	public $collection = 'users';
 	public $title = 'address';
@@ -26,10 +26,6 @@ class users_address {
 		'collection' => 'users',
 		'key' => '_id'
 	];
-
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
 
 	function typeField () {
 		return [

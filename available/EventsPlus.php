@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_plus.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsPlus.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_plus {
+class EventsPlus {
 	private $field = false;
 	public $collection = 'events';
 	public $title = 'Included Dates';
@@ -26,10 +26,6 @@ class events_plus {
 		'collection' => 'events',
 		'key' => '_id'
 	];
-
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
 
 	function dateField() {
 		return [

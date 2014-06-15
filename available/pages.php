@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .5
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/pages.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Pages.php
  * @mode upgrade
  *
  * .4 remove sort
@@ -9,7 +9,7 @@
  */
 namespace Manager;
 
-class pages {
+class Pages {
     private $field = false;
     public $collection = 'pages';
     public $title = 'Pages';
@@ -27,10 +27,6 @@ class pages {
         'collection' => 'pages',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
     
     function titleField () {
         return [

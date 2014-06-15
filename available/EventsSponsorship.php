@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .3
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_sponsors.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsSponsors.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_sponsors {
+class EventsSponsors {
 	private $field = false;
 	public $collection = 'events';
 	public $title = 'Sponsors';
@@ -26,10 +26,6 @@ class events_sponsors {
 		'collection' => 'events',
 		'key' => '_id'
 	];
-
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
 
 	function titleField () {
 		return [

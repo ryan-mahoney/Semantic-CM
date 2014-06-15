@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .4
- * @link https://raw.github.com/virtuecenter/manager/master/available/events_peoples.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsPeoples.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class events_peoples {
+class EventsPeoples {
 	private $field = false;
 	public $collection = 'events';
 	public $title = 'Peoples';
@@ -26,10 +26,6 @@ class events_peoples {
 		'collection' => 'events',
 		'key' => '_id'
 	];
-
-	public function __construct ($field=false) {
-		$this->field = $field;
-	}
 
 	function first_nameField() {
 	    return [

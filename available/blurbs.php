@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .7
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/blurbs.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Blurbs.php
  * @mode upgrade
  *
  * .5 show tags on list
@@ -10,7 +10,7 @@
  */
 namespace Manager;
 
-class blurbs {
+class Blurbs {
     private $field = false;
     public $collection = 'blurbs';
     public $title = 'Blurbs';
@@ -27,10 +27,6 @@ class blurbs {
         'collection' => 'blurbs',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
     
     function titleField () {
         return [

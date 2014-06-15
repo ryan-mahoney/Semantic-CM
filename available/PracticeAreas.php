@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .5
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/practice_areas.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/PracticeAreas.php
  * @mode upgrade
  *
  * .4 remove sort
@@ -9,7 +9,7 @@
  */
 namespace Manager;
 
-class practice_areas {
+class PracticeAreas {
     private $field = false;
     public $collection = 'practice_areas';
     public $title = 'Practice Areas';
@@ -27,7 +27,6 @@ class practice_areas {
         'collection' => 'practice_areas',
         'key' => '_id'
     ];
-    
 
     function titleField () {
         return [

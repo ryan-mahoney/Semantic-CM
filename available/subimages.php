@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .6
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/subimages.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Subimages.php
  * @mode upgrade
  *
  * .3 bad field label
@@ -12,7 +12,7 @@
  */
 namespace Manager;
 
-class subimages {
+class Subimages {
     private $field = false;
     public $collection = 'subimages';
     public $title = 'Subimage';
@@ -31,10 +31,6 @@ class subimages {
         'collection' => 'photo_galleries',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
 
     function captionField () {
         return [

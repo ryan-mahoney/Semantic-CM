@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .6
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/menu_links.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/MenuLinks.php
  * @mode upgrade
  *
  * .3 trash in list view
@@ -12,7 +12,7 @@
  */
 namespace Manager;
 
-class menu_links {
+class MenuLinks {
     private $field = false;
     public $collection = 'menus_links';
     public $title = 'Menus';
@@ -30,10 +30,6 @@ class menu_links {
         'collection' => 'menus',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
 
     function urlField () {
         return [

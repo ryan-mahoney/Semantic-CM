@@ -1,13 +1,13 @@
 <?php
 /*
  * @version .1
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/resources.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Resources.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class resources {
+class Resources {
     private $field = false;
     public $collection = 'resources';
     public $title = 'Resources';
@@ -25,10 +25,6 @@ class resources {
         'collection' => 'resources',
         'key' => '_id'
     ];
-
-    public function __construct ($field=false) {
-        $this->field = $field;
-    }
 
     function titleField () {
         return [

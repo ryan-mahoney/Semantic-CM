@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .9
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/file_uploads.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/FileUploads.php
  * @mode upgrade
  *
  * .5 add title
@@ -12,7 +12,7 @@
  */
 namespace Manager;
 
-class file_uploads {
+class FileUploads {
     private $field = false;
     public $collection = 'file_uploads';
     public $title = 'File Uploads';
@@ -31,7 +31,6 @@ class file_uploads {
         'key' => '_id'
     ];
 
-    
     function titleField () {
         return [
             'name'      => 'title',

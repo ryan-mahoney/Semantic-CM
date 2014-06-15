@@ -1,7 +1,7 @@
 <?php
 /*
  * @version .6
- * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/sponsors.php
+ * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Sponsors.php
  * @mode upgrade
  *
  * .3 set categories from correct query
@@ -11,7 +11,7 @@
  */
 namespace Manager;
 
-class sponsors {
+class Sponsors {
     private $field = false;
     public $collection = 'sponsors';
     public $title = 'Sponsors';
@@ -29,8 +29,7 @@ class sponsors {
         'collection' => 'sponsors',
         'key' => '_id'
     ];
-    
-    
+
     function titleField() {
         return [
             'name'        => 'title',
