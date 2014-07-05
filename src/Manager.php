@@ -22,15 +22,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Opine\Manager;
+namespace Opine;
 
 class Manager {
     private $separation;
     private $root;
+    private $post;
+    private $authentication;
 
-    public function __construct ($root, $separation) {
+    public function __construct ($root, $separation, $post, $authentication) {
         $this->separation = $separation;
         $this->root = $root;
+        $this->post = $post;
+        $this->authentication = $authentication;
     }
 
     public function add ($manager, $layout='Manager/forms/any') {
@@ -94,5 +98,32 @@ class Manager {
             list($namespace, $manager) = explode('-', $manager);
             $namespace .= '-';
         }
+    }
+
+    public function authenticate ($context) {
+        if (!isset($context['dbURI']) || empty($context['dbURI'])) {
+            throw new \Exception('Context does not contain a dbURI');
+        }
+        if (!isset($context['formMarker'])) {
+            throw new \Exception('Form marker not set in post');
+        }
+        $document = $this->post->{$context['formMarker']};
+        if ($document === false || empty($document)) {
+            throw new \Exception('Document not found in post');
+        }
+        if (!isset($document['route'])) {
+            $this->post->errorFieldSet($context['formMarker'], 'Missing url.');
+            return;
+        }
+        $try = $this->authentication->login($document['email'], $document['password']);
+        if ($try === false) {
+            $this->post->errorFieldSet($context['formMarker'], 'Credentials do not match. Please check your email or password and try again.');
+            return;    
+        }
+        if (!$this->authentication->checkRoute($document['route'], false)) {
+            $this->post->errorFieldSet($context['formMarker'], 'You do not have access to the area.');
+            return;
+        }
+        $this->post->statusSaved();
     }
 }

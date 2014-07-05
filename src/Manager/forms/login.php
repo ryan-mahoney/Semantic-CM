@@ -1,11 +1,7 @@
 <?php
 namespace Manager\Form;
 
-class login {
-    public function __construct ($field) {
-        $this->field = $field;
-    }
-
+class Login {
     public $storage = [
         'collection'    => 'login_attempts',
         'key'            => '_id'

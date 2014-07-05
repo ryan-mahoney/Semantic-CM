@@ -20,6 +20,9 @@
     "autoload": {
         "psr-4": {
             "Opine\\": "src\/"
-        }
+        },
+        "classmap": [
+            "src/Manager/forms"
+        ]
     }
 }

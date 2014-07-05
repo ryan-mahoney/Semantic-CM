@@ -28,7 +28,6 @@ class Route {
     private $route;
     private $authentication;
     private $separation;
-    private $response;
     private $root;
     private $bundleRoute;
     private $formRoute;
@@ -39,325 +38,326 @@ class Route {
     private $slugify;
     private $person;
 
-    public function __construct ($container, $root) {
-        $this->route = $container->route;
-        $this->authentication = $container->authentication;
-        $this->separation = $container->separation;
-        $this->response = $container->response;
+    public function __construct ($root, $route, $form, $formRoute, $authentication, $separation, $bundleRoute, $search, $manager, $uploadwrapper, $db, $slugify) {
         $this->root = $root;
-        $this->bundleRoute = $container->bundleRoute;
-        $this->search = $container->search;
-        $this->formRoute = $container->formRoute;
-        $this->manager = $container->manager;
-        $this->upload = $container->uploadwrapper;
-        $this->db = $container->db;
-        $this->slugify = $container->slugify;
-        $this->person = $container->person;
-        $this->form = $container->form;
+        $this->route = $route;
+        $this->authentication = $authentication;
+        $this->separation = $separation;        
+        $this->bundleRoute = $bundleRoute;
+        $this->search = $search;
+        $this->formRoute = $formRoute;
+        $this->manager = $manager;
+        $this->upload = $uploadwrapper;
+        $this->db = $db;
+        $this->slugify = $slugify;
+        $this->form = $form;
     }
 
     public function paths () {
-        $this->formRoute->app($this->root, '', 'managers', 'Manager\\', 'manager', '/Manager');
-        $this->formRoute->json('', 'managers', 'Manager\\', 'manager', '/Manager');
-
-        $this->route->get('/Manager', function () {
-            $category = '';
-            if (isset($_GET['content'])) {
-                $category = 'Content';
-            }
-            if (isset($_GET['reports'])) {
-                $category = 'Reports';
-            }
-            if (isset($_GET['people'])) {
-                $category = 'People';
-            }
-            $this->separation->app('bundles/Manager/app/dashboard')
-                ->layout('Manager/dashboard')
-                ->template()
-                ->write();
-        });
-
-        $this->route->get('/Manager/header', function () {
-            $this->separation->
-                app('bundles/Manager/app/header')->
-                layout('Manager/header')->
-                template()->
-                write();
-        });
-
-        $callback = function ($manager) {
-            $layout = 'Manager/forms/any';
-            if (isset($_GET['embedded'])) {
-                $layout = 'Manager/forms/embedded';
-            }
-            $this->manager->add($manager, $layout);
-        };
-        $this->route->get('/Manager/add', $callback);
-        $this->route->get('/Manager/add/{name}', $callback);
-
-        $callback = function ($manager, $id) {
-            $layout = 'Manager/forms/any';
-            if (isset($_GET['embedded'])) {
-                $layout = 'Manager/forms/embedded';
-            }
-            $this->manager->edit($manager, $layout, $id);
-        };
-        $this->route->get('/Manager/edit/{name}', $callback);
-        $this->route->get('/Manager/edit/{name}/{id}', $callback);
-
-        $this->route->get('/Manager/list/{name}', function ($manager) {
-            $layout = 'Manager/collections/any';
-            $url = false;
-            if (isset($_GET['embedded']) && isset($_GET['dbURI'])) {
-                $parts = explode(':', $_GET['dbURI']);
-                $collection = $parts[0];
-                if ((count($parts) % 2) == 0) {
-                    array_pop($parts);
-                }
-                $layout = 'Manager/collections/embedded';
-                $url = '%dataAPI%/json-data/' . $collection . '/byEmbeddedField-' . implode(':', $parts);
-            } elseif (isset($_GET['naked']) && isset($_GET['embedded']) && $_GET['embedded'] == 1) {
-                $layout = 'Manager/collections/embedded';
-            } elseif (isset($_GET['naked'])) {
-                $layout = 'Manager/collections/naked';
-            }
-            $this->manager->table($manager, $layout, $url);
-        });
-
-        $this->route->get('/Manager/login', function () {
-            if (isset($_SESSION['user']['groups']) && is_array($_SESSION['user']['groups']) && !empty($_SESSION['user']['groups'])) {
-                $matched = false;
-                foreach ($_SESSION['user']['groups'] as $group) {
-                    if (preg_match('/^manager/', $group) > 0) {
-                        $matched = true;
-                        break;
-                    }
-                }
-                if ($matched === true) {
-                    header('Location: /Manager');
-                }
-            }
-            $this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
-        });
-
-        $this->route->get('/Manager/logout', function () {
-            $this->authentication->logout();
-            header('Location: /Manager');
-            return;
-        });
-
-        $this->route->get('/Manager/api/managers', function () {
-            $managersCacheFile = $this->root . '/../managers/cache.json';
-            $countsTemp = $this->db->collection('collection_stats')->find();
-            $counts = [];
-            foreach ($countsTemp as $count) {
-                $counts[$count['collection']] = $count;
-            }
-            if (!file_exists($managersCacheFile)) {
-                echo json_encode(['managers' => []]);
-                return; 
-            }
-            $managers = json_decode(file_get_contents($managersCacheFile), true);
-            $managersOut = [];
-            foreach ($managers['managers'] as $manager) {
-                if ($manager['embedded'] == 1) {
-                    continue;
-                }
-                if (!empty($_GET['category'])) {
-                    if ($manager['category'] != $_GET['category']) {
-                        continue;
-                    }
-                }
-                if (isset($manager['collection']) && isset($counts[$manager['collection']])) {
-                    $manager['count'] = $counts[$manager['collection']]['count'];
-                    if (isset ($counts[$manager['collection']]['modified_date'])) {
-                        $manager['modified_date'] = $counts[$manager['collection']]['modified_date'];
-                    }
-                } else {
-                    $manager['count'] = 0;
-                }
-                //access control
-                if (!isset($_SESSION['user']) || !isset($_SESSION['user']['groups']) || empty($_SESSION['user']['groups'])) {
-                    continue;
-                }
-                $groups = ['manager', 'manager-' . $manager['category'], 'manager-specific-' . $manager['manager']];
-                $matched = false;
-                foreach ($groups as $group) {
-                    if (in_array($group, $_SESSION['user']['groups'])) {
-                        $matched = true;
-                        break;
-                    }
-                }
-                if ($matched === false) {
-                    continue;
-                }
-                $managersOut[] = $manager;
-            }
-            echo json_encode(['managers' => $managersOut], JSON_PRETTY_PRINT);
-            return;
-        });
-
-        $this->route->get('/Manager/api/search', function () {
-            if (!isset($_GET['q']) || empty($_GET['q']) || !is_string($_GET['q'])) {
-                echo json_encode([]);
-                return;
-            }
-            $out = [];
-            $matches = $this->search->search('*' . trim(urldecode($_GET['q'])) . '*');
-            if (!isset($matches['hits']) || empty($matches['hits']) || !isset($matches['hits']['hits']) || empty($matches['hits']['hits']) || !is_array($matches['hits']['hits'])) {
-                echo json_encode([]);
-                return;
-            }
-            foreach ($matches['hits']['hits'] as $hit) {
-                if (!isset($hit['_source']['url_manager']) || empty($hit['_source']['url_manager'])) {
-                    continue;
-                }
-                $out[] = [
-                    'id' => $hit['_source']['url_manager'],
-                    'type' => ucwords(str_replace('_', ' ', $hit['_type'])),
-                    'value' => $hit['_source']['title']
-                ];
-            }
-            echo json_encode($out);
-        });
-
-        $callback = function ($managerName, $method, $limit=50, $page=1, $sort='{}') {
-            $manager = false;
-            $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
-            foreach ($managers['managers'] as $managersData) {
-                if ($managersData['manager'] == $managerName) {
-                    $manager = $managersData;
-                    break;
-                }
-            }
-            $collectionJson = $this->route->run('GET', '/json-data/' . $managerName . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
-            if ($manager !== false) {
-                $collectionJson = json_decode($collectionJson, true);
-                $collectionJson['metadata'] = array_merge($collectionJson['metadata'], $manager);
-                $collectionJson = json_encode($collectionJson);
-            }
-            echo $collectionJson;
-        };
-        $this->route->get('/Manager/data/{manager}{method}', $callback);
-        $this->route->get('/Manager/data/{manager}/{method}/{limit}', $callback);
-        $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}', $callback);
-        $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}/{sort}', $callback);
-
-        $this->route->get('/Manager/form-json/{manager}', function ($managerName) {
-            $manager = false;
-            $id = '';
-            if (isset($_GET['id'])) {
-                //$id = '/' . $_GET['id'];
-                $id = $_GET['id'];
-            }
-            $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
-            foreach ($managers['managers'] as $managersData) {
-                if ($managersData['manager'] == $managerName) {
-                    $manager = $managersData;
-                    break;
-                }
-            }
-            //$formJson = trim($this->route->run('GET', '/Manager/json-manager/' . $managerName . $id));
-            $formObject = $this->form->factory($managerName, $id, $manager['bundle'], 'managers', 'Manager\\');
-            $formJson = $this->form->json($formObject, $id);
-            if ($manager !== false) {
-                $formJson = json_decode($formJson, true);
-                $formJson['metadata'] = $manager;
-                $formJson = json_encode($formJson);
-            }
-            echo $formJson;
-        });
-
-        $callback = function ($manager, $field) {
-            if (!isset($_FILES)) {
-                return;
-            }
-            $cleanName = $this->slugify->slugify(pathinfo($_FILES[$field]['name'])['filename']);
-            $path = '/storage/' . date('Y-m-d-H');
-            $storage = $this->upload->storage($path);
-            $upload = $this->upload->file($field, $storage);
-            $upload->setName($cleanName);
-            if ($manager == 'redactor') {
-                $data = [
-                    'filelink'   => $path . '/' . $upload->getNameWithExtension()
-                ];
-            } else {
-                $data = [
-                    'name' => $upload->getNameWithExtension(),
-                    'type' => $upload->getMimetype(),
-                    'size' => $upload->getSize(),
-                    'md5'  => $upload->getMd5(),
-                    'width' => $upload->getDimensions()['width'],
-                    'height' => $upload->getDimensions()['height'],
-                    'url'   => 'http://' . $_SERVER['HTTP_HOST'] . $path . '/' . $upload->getNameWithExtension()
-                ];
-            }
-            try {
-                $result = $upload->upload();
-            } catch (\Exception $e) {
-                var_dump($upload->getErrors());
-                return;
-            }
-            echo json_encode($data, JSON_PRETTY_PRINT);
-        };
-        $this->route->post('/Manager/upload/{manager}', $callback);
-        $this->route->post('/Manager/upload/{manager}/{field}', $callback);
-
-        $this->route->post('/Manager/sort/{manager}', function ($manager) {
-            if (!isset($_POST['sorted']) || !is_array($_POST['sorted']) || count($_POST['sorted']) == 0) {
-                echo json_encode(['success' => true]);
-                return;
-            }
-            $sample = $_POST['sorted'][0];
-            $depth = substr_count($sample, ':');
-            if ($depth == 1) {
-                $offset = 1;
-                foreach ($_POST['sorted'] as $dbURI) {
-                    $parts = explode(':', $dbURI);
-                    $this->db->collection($parts[0])->update([
-                            '_id' => $this->db->id($parts[1])
-                        ], [
-                            '$set' => [
-                                'sort_key' => $offset
-                            ]
-                        ]);
-                    $offset++;
-                }
-                echo json_encode(['success' => true]);
-                return;
-            } else {
-                $parts = explode(':', $sample);
-                $dbURI = $parts[0] . ':' . $parts[1];
-                $documentInstance = $this->db->documentStage($dbURI);
-                $document = $documentInstance->current();
-                if ($depth == 3) {
-                    $embedded = $parts[($depth - 1)];
-                    $newDocument = [];
-                    foreach ($_POST['sorted'] as $dbURIEmbedded) {
-                        foreach ($document[$embedded] as $embeddedDocument) {
-                            if ($dbURIEmbedded == $embeddedDocument['dbURI']) {
-                                $newDocument[] = $embeddedDocument;
-                                continue;
-                            }
-                        }
-                    }
-                    $document[$embedded] = $newDocument;
-                    $this->db->documentStage($dbURI, $document)->upsert();
-                    echo json_encode(['success' => true]);
-                    return;
-                } elseif ($depth == 5) {
-                    $embedded = $parts[($depth - 3)];
-                    $embeddedId = $parts[($depth - 2)];
-                    $embedded = $parts[($depth - 1)];
-                    echo 'Five';
-                } else {
-                    echo 'Wow!  That is a deep sort!';
-                }
-            }
-        });
+        $this->route->get('/Manager', 'managerRoute@dashboard');
+        $this->route->get('/Manager/header', 'managerRoute@header');
+        $this->route->get('/Manager/add', 'managerRoute@add');
+        $this->route->get('/Manager/add/{name}', 'managerRoute@add');
+        $this->route->get('/Manager/edit/{name}', 'managerRoute@edit');
+        $this->route->get('/Manager/edit/{name}/{id}', 'managerRoute@edit');
+        $this->route->get('/Manager/list/{name}', 'managerRoute@listing');
+        $this->route->get('/Manager/login', 'managerRoute@login');
+        $this->route->get('/Manager/logout', 'managerRoute@logout');
+        $this->route->get('/Manager/api/managers', 'managerRoute@apiManagers');
+        $this->route->get('/Manager/api/search', 'managerRoute@apiSearch');
+        $this->route->get('/Manager/data/{manager}', 'managerRoute@collection');
+        $this->route->get('/Manager/data/{manager}/{method}/{limit}', 'managerRoute@collection');
+        $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}', 'managerRoute@collection');
+        $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}/{sort}', 'managerRoute@collection');
+        $this->route->get('/Manager/form-json/{manager}', 'managerRoute@form');
+        $this->route->post('/Manager/upload/{manager}', 'managerRoute@upload');
+        $this->route->post('/Manager/upload/{manager}/{field}', 'managerRoute@upload');
+        $this->route->post('/Manager/sort/{manager}', 'managerRoute@sort');
     }
 
-    public function build ($bundleRoot) {
+    public function dashboard () {
+        $category = '';
+        if (isset($_GET['content'])) {
+            $category = 'Content';
+        }
+        if (isset($_GET['reports'])) {
+            $category = 'Reports';
+        }
+        if (isset($_GET['people'])) {
+            $category = 'People';
+        }
+        $this->separation->app('bundles/Manager/app/dashboard')
+            ->layout('Manager/dashboard.html')
+            ->template()
+            ->write();
+    }
+
+    public function header () {
+        $this->separation->
+            app('bundles/Manager/app/header')->
+            layout('Manager/header')->
+            template()->
+            write();
+    }
+
+    public function add ($manager) {
+        $layout = 'Manager/forms/any';
+        if (isset($_GET['embedded'])) {
+            $layout = 'Manager/forms/embedded';
+        }
+        $this->manager->add($manager, $layout);        
+    }
+
+    public function edit ($manager, $id) {
+        $layout = 'Manager/forms/any';
+        if (isset($_GET['embedded'])) {
+            $layout = 'Manager/forms/embedded';
+        }
+        $this->manager->edit($manager, $layout, $id);
+    }
+
+    public function listing ($manager) {
+        $layout = 'Manager/collections/any';
+        $url = false;
+        if (isset($_GET['embedded']) && isset($_GET['dbURI'])) {
+            $parts = explode(':', $_GET['dbURI']);
+            $collection = $parts[0];
+            if ((count($parts) % 2) == 0) {
+                array_pop($parts);
+            }
+            $layout = 'Manager/collections/embedded';
+            $url = '%dataAPI%/json-data/' . $collection . '/byEmbeddedField-' . implode(':', $parts);
+        } elseif (isset($_GET['naked']) && isset($_GET['embedded']) && $_GET['embedded'] == 1) {
+            $layout = 'Manager/collections/embedded';
+        } elseif (isset($_GET['naked'])) {
+            $layout = 'Manager/collections/naked';
+        }
+        $this->manager->table($manager, $layout, $url);
+    }
+
+    public function login () {
+        if (isset($_SESSION['user']['groups']) && is_array($_SESSION['user']['groups']) && !empty($_SESSION['user']['groups'])) {
+            $matched = false;
+            foreach ($_SESSION['user']['groups'] as $group) {
+                if (preg_match('/^manager/', $group) > 0) {
+                    $matched = true;
+                    break;
+                }
+            }
+            if ($matched === true) {
+                header('Location: /Manager');
+            }
+        }
+        $this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
+    }
+
+    public function logout () {
+        $this->authentication->logout();
+        header('Location: /Manager');
+        return;        
+    }
+
+    public function apiManagers () {
+        $managersCacheFile = $this->root . '/../managers/cache.json';
+        $countsTemp = $this->db->collection('collection_stats')->find();
+        $counts = [];
+        foreach ($countsTemp as $count) {
+            $counts[$count['collection']] = $count;
+        }
+        if (!file_exists($managersCacheFile)) {
+            echo json_encode(['managers' => []]);
+            return; 
+        }
+        $managers = json_decode(file_get_contents($managersCacheFile), true);
+        $managersOut = [];
+        foreach ($managers['managers'] as $manager) {
+            if ($manager['embedded'] == 1) {
+                continue;
+            }
+            if (!empty($_GET['category'])) {
+                if ($manager['category'] != $_GET['category']) {
+                    continue;
+                }
+            }
+            if (isset($manager['collection']) && isset($counts[$manager['collection']])) {
+                $manager['count'] = $counts[$manager['collection']]['count'];
+                if (isset ($counts[$manager['collection']]['modified_date'])) {
+                    $manager['modified_date'] = $counts[$manager['collection']]['modified_date'];
+                }
+            } else {
+                $manager['count'] = 0;
+            }
+            //access control
+            if (!isset($_SESSION['user']) || !isset($_SESSION['user']['groups']) || empty($_SESSION['user']['groups'])) {
+                continue;
+            }
+            $groups = ['manager', 'manager-' . $manager['category'], 'manager-specific-' . $manager['manager']];
+            $matched = false;
+            foreach ($groups as $group) {
+                if (in_array($group, $_SESSION['user']['groups'])) {
+                    $matched = true;
+                    break;
+                }
+            }
+            if ($matched === false) {
+                continue;
+            }
+            $managersOut[] = $manager;
+        }
+        echo json_encode(['managers' => $managersOut], JSON_PRETTY_PRINT);
+    }
+
+    public function apiSearch () {
+        if (!isset($_GET['q']) || empty($_GET['q']) || !is_string($_GET['q'])) {
+            echo json_encode([]);
+            return;
+        }
+        $out = [];
+        $matches = $this->search->search('*' . trim(urldecode($_GET['q'])) . '*');
+        if (!isset($matches['hits']) || empty($matches['hits']) || !isset($matches['hits']['hits']) || empty($matches['hits']['hits']) || !is_array($matches['hits']['hits'])) {
+            echo json_encode([]);
+            return;
+        }
+        foreach ($matches['hits']['hits'] as $hit) {
+            if (!isset($hit['_source']['url_manager']) || empty($hit['_source']['url_manager'])) {
+                continue;
+            }
+            $out[] = [
+                'id' => $hit['_source']['url_manager'],
+                'type' => ucwords(str_replace('_', ' ', $hit['_type'])),
+                'value' => $hit['_source']['title']
+            ];
+        }
+        echo json_encode($out);
+    }
+
+    public function collection ($managerName, $method, $limit=50, $page=1, $sort='{}') {
+        $manager = false;
+        $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
+        foreach ($managers['managers'] as $managersData) {
+            if ($managersData['manager'] == $managerName) {
+                $manager = $managersData;
+                break;
+            }
+        }
+        $collectionJson = $this->route->run('GET', '/json-data/' . $managerName . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
+        if ($manager !== false) {
+            $collectionJson = json_decode($collectionJson, true);
+            $collectionJson['metadata'] = array_merge($collectionJson['metadata'], $manager);
+            $collectionJson = json_encode($collectionJson);
+        }
+        echo $collectionJson;        
+    }
+
+    public function form ($managerName) {
+        $manager = false;
+        $id = '';
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+        }
+        $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
+        foreach ($managers['managers'] as $managersData) {
+            if ($managersData['manager'] == $managerName) {
+                $manager = $managersData;
+                break;
+            }
+        }
+        $formObject = $this->form->factory($managerName, $id, $manager['bundle'], 'managers', 'Manager\\');
+        $formJson = $this->form->json($formObject, $id);
+        if ($manager !== false) {
+            $formJson = json_decode($formJson, true);
+            $formJson['metadata'] = $manager;
+            $formJson = json_encode($formJson);
+        }
+        echo $formJson;        
+    }
+
+    public function upload ($manager, $field) {
+        if (!isset($_FILES)) {
+            return;
+        }
+        $cleanName = $this->slugify->slugify(pathinfo($_FILES[$field]['name'])['filename']);
+        $path = '/storage/' . date('Y-m-d-H');
+        $storage = $this->upload->storage($path);
+        $upload = $this->upload->file($field, $storage);
+        $upload->setName($cleanName);
+        if ($manager == 'redactor') {
+            $data = [
+                'filelink'   => $path . '/' . $upload->getNameWithExtension()
+            ];
+        } else {
+            $data = [
+                'name' => $upload->getNameWithExtension(),
+                'type' => $upload->getMimetype(),
+                'size' => $upload->getSize(),
+                'md5'  => $upload->getMd5(),
+                'width' => $upload->getDimensions()['width'],
+                'height' => $upload->getDimensions()['height'],
+                'url'   => 'http://' . $_SERVER['HTTP_HOST'] . $path . '/' . $upload->getNameWithExtension()
+            ];
+        }
+        try {
+            $result = $upload->upload();
+        } catch (\Exception $e) {
+            var_dump($upload->getErrors());
+            return;
+        }
+        echo json_encode($data, JSON_PRETTY_PRINT);        
+    }
+
+    public function sort ($manager) {
+        if (!isset($_POST['sorted']) || !is_array($_POST['sorted']) || count($_POST['sorted']) == 0) {
+            echo json_encode(['success' => true]);
+            return;
+        }
+        $sample = $_POST['sorted'][0];
+        $depth = substr_count($sample, ':');
+        if ($depth == 1) {
+            $offset = 1;
+            foreach ($_POST['sorted'] as $dbURI) {
+                $parts = explode(':', $dbURI);
+                $this->db->collection($parts[0])->update([
+                        '_id' => $this->db->id($parts[1])
+                    ], [
+                        '$set' => [
+                            'sort_key' => $offset
+                        ]
+                    ]);
+                $offset++;
+            }
+            echo json_encode(['success' => true]);
+            return;
+        } else {
+            $parts = explode(':', $sample);
+            $dbURI = $parts[0] . ':' . $parts[1];
+            $documentInstance = $this->db->documentStage($dbURI);
+            $document = $documentInstance->current();
+            if ($depth == 3) {
+                $embedded = $parts[($depth - 1)];
+                $newDocument = [];
+                foreach ($_POST['sorted'] as $dbURIEmbedded) {
+                    foreach ($document[$embedded] as $embeddedDocument) {
+                        if ($dbURIEmbedded == $embeddedDocument['dbURI']) {
+                            $newDocument[] = $embeddedDocument;
+                            continue;
+                        }
+                    }
+                }
+                $document[$embedded] = $newDocument;
+                $this->db->documentStage($dbURI, $document)->upsert();
+                echo json_encode(['success' => true]);
+                return;
+            } elseif ($depth == 5) {
+                $embedded = $parts[($depth - 3)];
+                $embeddedId = $parts[($depth - 2)];
+                $embedded = $parts[($depth - 1)];
+            } else {
+                echo 'Wow!  That is a deep sort!';
+            }
+        }
+    }
+
+    public function build () {
         $bundles = $this->bundleRoute->bundles(true, true);
         $namespacesByPath = [
             '/../managers' => 'Manager'
@@ -393,10 +393,10 @@ class Route {
             }
             foreach ($dirFiles as $managerClassFile) {
                 $manager = basename($managerClassFile, '.php');
-                require_once ($managerClassFile);
-                $managerClassName = $namespacesByPath[$searchPath] . '\\' . $manager;
+                $managerClassName = '\\' . $namespacesByPath[$searchPath] . '\\' . $manager;
+                echo $managerClassName, "\n";
                 if (!class_exists($managerClassName, false)) {
-                    echo 'Problem: Manager build: ', $managerClassName, ': missing "Manager" namespace or type in class delcaration.', "\n\n";
+                    echo 'Problem: Manager build: ', $managerClassName, ': not autoloaded.', "\n\n";
                     continue;
                 }
                 $managerInstance = new $managerClassName();
@@ -470,7 +470,7 @@ class Route {
         echo 'Good: Access control built.', "\n";
     }
 
-    public function upgrade ($bundleRoot) {
+    public function upgrade () {
         $manifest = (array)json_decode(file_get_contents('https://raw.github.com/Opine-Org/Semantic-CM/master/available/manifest.json'), true);
         $upgraded = 0;
         foreach (glob($this->root . '/../managers/*.php') as $filename) {
@@ -515,5 +515,9 @@ class Route {
             }
         }
         echo 'Upgraded ', $upgraded, ' managers.', "\n";
+    }
+
+    public function location () {
+        return __DIR__;
     }
 }

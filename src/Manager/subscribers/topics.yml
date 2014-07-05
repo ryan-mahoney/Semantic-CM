@@ -1,11 +1,3 @@
 topics:
-    Manager-form-login-save: 
-        Authenticate: ['post', 'authentication']
-    Manager-manager-save:
-        PostToManager: ['post', 'db', 'collection', 'search']
-    Manager-manager-delete:
-        DeleteFromManager: ['post', 'db', 'collection', 'search']
-    CollectionStats:
-        CollectionStats: ['collection']
-    Manager-manager-users-save:
-        PasswordAdminUpdate: ['post', 'db', 'collection', 'authentication']
+    Manager__Form__Login-save: 
+        - manager@authenticate

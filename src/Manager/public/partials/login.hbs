@@ -1,4 +1,4 @@
-<form class="ui form segment" data-xhr="true" method="post" action="/Manager/form/login" style="width: 50%; display: inline-block; margin: auto; text-align: left">
+<form class="ui form segment" data-xhr="true" method="post" action="/Manager/form/Login" style="width: 50%; display: inline-block; margin: auto; text-align: left">
     <div class="ui teal ribbon label" style="margin-bottom: 20px">Manger Login</div>
     <div class="ui warning message">
         <i class="close icon"></i>
@@ -27,7 +27,8 @@
             </div>
         </div>
     </div>
-    <input type="hidden" name="login[route]" value="/Manager" />
+    <input type="hidden" name="Manager__Form__Login[route]" value="/Manager" />
     {{{id}}}
+    {{{form-token}}}
     <input type="submit" class="fluid ui blue submit button" value="Login" style="margin-top: 20px; margin-left: 2%; width: 96%" />
 </form>

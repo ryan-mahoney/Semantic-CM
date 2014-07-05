@@ -1,0 +1,9 @@
+#        Authenticate: ['post', 'authentication']
+#    CollectionStats:
+#        CollectionStats: ['collection']
+#    Manager__Form__Users-save:
+#        PasswordAdminUpdate: ['post', 'db', 'collection', 'authentication']
+#    Manager-manager-save:
+#        PostToManager: ['post', 'db', 'collection', 'search']
+#    Manager-manager-delete:
+#        DeleteFromManager: ['post', 'db', 'collection', 'search']
