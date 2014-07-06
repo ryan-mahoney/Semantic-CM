@@ -394,18 +394,17 @@ class Route {
             foreach ($dirFiles as $managerClassFile) {
                 $manager = basename($managerClassFile, '.php');
                 $managerClassName = '\\' . $namespacesByPath[$searchPath] . '\\' . $manager;
-                echo $managerClassName, "\n";
-                if (!class_exists($managerClassName, false)) {
+                if (!class_exists($managerClassName)) {
                     echo 'Problem: Manager build: ', $managerClassName, ': not autoloaded.', "\n\n";
                     continue;
                 }
                 $managerInstance = new $managerClassName();
                 $groups = ['manager', 'manager-' . $managerInstance->category, 'manager-specific-' . $manager];
-                $regexes = [
-                    '/^\/Manager$/',
-                    '/^\/Manager\/list\/' . $manager . '$/',
-                    '/^\/Manager\/edit\/' . $manager . '\/' . $managerInstance->collection . '\:[a-z0-1]*$/',
-                    '/^\/Manager\/add\/' . $manager . '\/' . $managerInstance->collection . '$/'
+                $routes = [
+                    '/Manager',
+                    '/Manager/list/' . $manager,
+                    '/Manager/edit/' . $manager . '/' . $managerInstance->collection . ':{id}',
+                    '/Manager/add/' . $manager . '/' . $managerInstance->collection
                 ];
                 $linkPrefix = (($bundleByPath[$searchPath] != null) ? $bundleByPath[$searchPath] . '-' : '');
                 $managers[] = [
@@ -435,11 +434,11 @@ class Route {
                 foreach ($groups as $group) {
                     if (!isset($auth[$group])) {
                         $auth[$group] = [
-                            'regexes' => [], 'login' => '/Manager/login', 'denied' => '/Manager/noaccess'
+                            'routes' => [], 'login' => '/Manager/login', 'denied' => '/Manager/noaccess'
                         ];
                     }
-                    foreach ($regexes as $regex) {
-                        $auth[$group]['regexes'][] = $regex;
+                    foreach ($routes as $route) {
+                        $auth[$group]['routes'][] = $route;
                     }
                 }
             }
@@ -453,11 +452,11 @@ class Route {
         $buffer = 'groups:' . "\n";
         foreach ($authorizations as $group => $auth) {
             $buffer .= '    ' . $group . ':' . "\n";
-            $buffer .= '        regexes:' . "\n";
-            sort($auth['regexes']);
-            $auth['regexes'] = array_unique($auth['regexes']);
-            foreach ($auth['regexes'] as $regex) {
-                $buffer .= '            - ' . "'" . $regex . "'" . "\n";
+            $buffer .= '        routes:' . "\n";
+            sort($auth['routes']);
+            $auth['routes'] = array_unique($auth['routes']);
+            foreach ($auth['routes'] as $route) {
+                $buffer .= '            - ' . "'" . $route . "'" . "\n";
             }
             $buffer .= '        redirectLogin: ' . "'" . $auth['login'] . "'\n";
             $buffer .= '        redirectDenied: ' . "'" . $auth['denied'] . "'\n";
