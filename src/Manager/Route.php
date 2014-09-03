@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 namespace Opine\Manager;
+use Exception;
 
 class Route {
     private $route;
@@ -37,8 +38,9 @@ class Route {
     private $upload;
     private $slugify;
     private $person;
+    private $redirect;
 
-    public function __construct ($root, $route, $form, $formRoute, $authentication, $separation, $bundleRoute, $search, $manager, $uploadwrapper, $db, $slugify) {
+    public function __construct ($root, $route, $form, $formRoute, $authentication, $separation, $bundleRoute, $search, $manager, $uploadwrapper, $db, $slugify, $redirect) {
         $this->root = $root;
         $this->route = $route;
         $this->authentication = $authentication;
@@ -51,28 +53,84 @@ class Route {
         $this->db = $db;
         $this->slugify = $slugify;
         $this->form = $form;
+        $this->redirect = $redirect;
     }
 
     public function paths () {
-        $this->route->get('/Manager', 'managerRoute@dashboard');
-        $this->route->get('/Manager/header', 'managerRoute@header');
-        $this->route->get('/Manager/add', 'managerRoute@add');
-        $this->route->get('/Manager/add/{name}', 'managerRoute@add');
-        $this->route->get('/Manager/edit/{name}', 'managerRoute@edit');
-        $this->route->get('/Manager/edit/{name}/{id}', 'managerRoute@edit');
-        $this->route->get('/Manager/list/{name}', 'managerRoute@listing');
-        $this->route->get('/Manager/login', 'managerRoute@login');
-        $this->route->get('/Manager/logout', 'managerRoute@logout');
-        $this->route->get('/Manager/api/managers', 'managerRoute@apiManagers');
-        $this->route->get('/Manager/api/search', 'managerRoute@apiSearch');
-        $this->route->get('/Manager/data/{manager}', 'managerRoute@collection');
-        $this->route->get('/Manager/data/{manager}/{method}/{limit}', 'managerRoute@collection');
-        $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}', 'managerRoute@collection');
-        $this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}/{sort}', 'managerRoute@collection');
-        $this->route->get('/Manager/form-json/{manager}', 'managerRoute@form');
-        $this->route->post('/Manager/upload/{manager}', 'managerRoute@upload');
-        $this->route->post('/Manager/upload/{manager}/{field}', 'managerRoute@upload');
-        $this->route->post('/Manager/sort/{manager}', 'managerRoute@sort');
+        //$this->route->get('/Manager', 'managerRoute@dashboard');
+        //$this->route->get('/Manager/header', 'managerRoute@header');
+        //$this->route->get('/Manager/add/{name}', 'managerRoute@add');
+        //$this->route->get('/Manager/edit/{name}/{id}', 'managerRoute@edit');
+        //$this->route->get('/Manager/list/{name}', 'managerRoute@listing');
+        //$this->route->get('/Manager/login', 'managerRoute@login');
+        //$this->route->get('/Manager/logout', 'managerRoute@logout');
+        //$this->route->get('/Manager/api/managers', 'managerRoute@apiManagers');
+        //$this->route->get('/Manager/api/search', 'managerRoute@apiSearch');
+        //$this->route->get('/Manager/data/{manager}', 'managerRoute@collection');
+        //$this->route->get('/Manager/data/{manager}/{method}/{limit}', 'managerRoute@collection');
+        //$this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}', 'managerRoute@collection');
+        //$this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}/{sort}', 'managerRoute@collection');
+        //$this->route->get('/Manager/form-json/{manager}', 'managerRoute@form');
+        //$this->route->post('/Manager/upload/{manager}/{field}', 'managerRoute@upload');
+        //$this->route->post('/Manager/sort/{manager}', 'managerRoute@sort');
+        //$this->route->post('/Manager/upsert/{name}', 'managerRoute@upsert');
+
+
+        $this->route->get('managerRoute@authFilter', '/Manager', [
+            '/document/{manager}' => 'managerRoute@add',
+            '/document/{manager}/{dbURI}' => 'managerRoute@edit',
+            '/collection/{manager}' => 'managerRoute@listing',
+            '' => 'managerRoute@dashboard',
+            '/header' => 'managerRoute@header',
+        ]);
+
+        $this->route->get('/Manager', [
+            '/login' => 'managerRoute@login',
+            '/logout' => 'managerRoute@logout'
+        ]);
+
+        $this->route->get('/Manager/api', [     
+            '/managers' => 'managerRoute@apiManagers',
+            '/search' => 'managerRoute@apiSearch',
+            '/collection/{manager}' => 'managerRoute@collection',
+            '/collection/{manager}/{method}'  => 'managerRoute@collection',
+            '/collection/{manager}/{method}/{limit}'  => 'managerRoute@collection',
+            '/collection/{manager}/{method}/{limit}/{page}'  => 'managerRoute@collection',
+            '/collection/{manager}/{method}/{limit}/{page}/{sort}'  => 'managerRoute@collection',
+            '/document/{manager}' => 'managerRoute@form'
+        ]);
+
+        $this->route->post('managerRoute@authFilter', '/Manager/api', [
+            '/upload/{manager}/{field}' => 'managerRoute@upload',
+            '/sort/{manager}' => 'managerRoute@sort',
+            '/upsert/{manager}' => 'managerRoute@upsert'
+        ]);
+    }
+
+    public function authFilter () {
+        if (!isset($_SERVER['REQUEST_URI'])) {
+            return false;
+        }
+        $parts = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+        $manager = false;
+        if (isset($parts[2])) {
+            $manager = $parts[2];
+        }
+
+        //check if logged in
+        if ($this->authentication->check() === false) {
+            return $this->redirect->to('/Manager/login');
+        } else {
+            if ($manager == false) {
+                //check any manager zone
+                return true;
+            }
+        }
+
+        //check if access to this manager
+        
+
+        return false;
     }
 
     public function dashboard () {
@@ -158,17 +216,12 @@ class Route {
     }
 
     public function apiManagers () {
-        $managersCacheFile = $this->root . '/../managers/cache.json';
         $countsTemp = $this->db->collection('collection_stats')->find();
         $counts = [];
         foreach ($countsTemp as $count) {
             $counts[$count['collection']] = $count;
         }
-        if (!file_exists($managersCacheFile)) {
-            echo json_encode(['managers' => []]);
-            return; 
-        }
-        $managers = json_decode(file_get_contents($managersCacheFile), true);
+        $managers = $this->manager->cacheRead();
         $managersOut = [];
         foreach ($managers['managers'] as $manager) {
             if ($manager['embedded'] == 1) {
@@ -233,7 +286,7 @@ class Route {
 
     public function collection ($managerName, $method, $limit=50, $page=1, $sort='{}') {
         $manager = false;
-        $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
+        $managers = $this->manager->cacheRead();
         foreach ($managers['managers'] as $managersData) {
             if ($managersData['manager'] == $managerName) {
                 $manager = $managersData;
@@ -249,27 +302,47 @@ class Route {
         echo $collectionJson;        
     }
 
-    public function form ($managerName) {
+    public function upsert ($linkName) {
         $manager = false;
-        $id = '';
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        }
-        $managers = (array)json_decode(file_get_contents($this->root . '/../managers/cache.json'), true);
-        foreach ($managers['managers'] as $managersData) {
-            if ($managersData['manager'] == $managerName) {
-                $manager = $managersData;
+        $managers = $this->manager->cacheRead();
+        foreach ($managers['managers'] as $metadata) {
+            if ($metadata['link'] == $linkName) {
+                $manager = '\\' . $metadata['namespace'] . '\\' . $metadata['manager'];
                 break;
             }
         }
-        $formObject = $this->form->factory($managerName, $id, $manager['bundle'], 'managers', 'Manager\\');
-        $formJson = $this->form->json($formObject, $id);
+        if ($manager == false) {
+            throw new ManagerNotFoundException('Can not find manager with link: ' . $linkName);
+        }
+        $formObject = $this->form->factory(new $manager);
+        $formObject->topicSaved = 'ManagerSaved';
+        $formObject->topicSave = 'ManagerSave';
+        $formObject->topicDeleted = 'ManagerDeleted';
+        $formObject->topicDelete = 'ManagerDelete';
+        echo $this->form->upsert($formObject);
+    }
+
+    public function form ($linkName) {
+        $manager = false;
+        $id = false;
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+        }
+        $managers = $this->manager->cacheRead();
+        foreach ($managers['managers'] as $metadata) {
+            if ($metadata['link'] == $linkName) {
+                $manager = '\\' . $metadata['namespace'] . '\\' . $metadata['manager'];
+                break;
+            }
+        }
+        $formObject = $this->form->factory(new $manager, $id);
+        $formJson = $this->form->json($formObject);
         if ($manager !== false) {
             $formJson = json_decode($formJson, true);
-            $formJson['metadata'] = $manager;
+            $formJson['metadata'] = $metadata;
             $formJson = json_encode($formJson);
         }
-        echo $formJson;        
+        echo $formJson;
     }
 
     public function upload ($manager, $field) {
@@ -375,12 +448,10 @@ class Route {
             $searchPaths[] = $searchPath;
         }
         $managersRoot = $this->root . $searchPaths[0];
-        $managersCacheFile = $managersRoot . '/cache.json';
         $managers = [];
-        if (!file_exists($managersRoot)) {
-            mkdir($managersRoot);
-            file_put_contents($managersCacheFile, json_encode(['managers' => $managers]));
-            return;
+        if (!file_exists($this->manager->cacheFile)) {
+            @mkdir($managersRoot);
+            $this->manager->cacheWrite(['managers' => $managers]);
         }
         foreach ($searchPaths as $searchPath) {
             $managersRoot = $this->root . $searchPath;
@@ -443,8 +514,8 @@ class Route {
                 }
             }
         }
-        file_put_contents($managersCacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));
-        $this->authenticationBuild($auth);
+        $this->manager->cacheWrite($managers);
+        //$this->authenticationBuild($auth);
     }
 
     private function authenticationBuild ($authorizations) {
@@ -466,7 +537,7 @@ class Route {
             mkdir($folder);
         }
         file_put_contents($yamlPath, $buffer);
-        echo 'Good: Access control built.', "\n";
+        echo 'Good: Manager access control built.', "\n";
     }
 
     public function upgrade () {
@@ -520,3 +591,5 @@ class Route {
         return __DIR__;
     }
 }
+
+class ManagerNotFoundException extends Exception {}

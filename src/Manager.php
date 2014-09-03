@@ -29,19 +29,33 @@ class Manager {
     private $root;
     private $post;
     private $authentication;
+    private $db;
+    private $collection;
+    public $cacheFile;
 
-    public function __construct ($root, $separation, $post, $authentication) {
+    public function __construct ($root, $separation, $post, $authentication, $db, $collection) {
         $this->separation = $separation;
         $this->root = $root;
         $this->post = $post;
         $this->authentication = $authentication;
+        $this->db = $db;
+        $this->collection = $collection;
+        $this->cacheFile = $this->root . '/../cache/managers.json';
+    }
+
+    public function cacheWrite (Array $managers) {
+        file_put_contents($this->cacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));
+    }
+
+    public function cacheRead () {
+        return json_decode(file_get_contents($this->cacheFile), true);
     }
 
     public function add ($manager, $layout='Manager/forms/any') {
         $namespace = '';
-        $this->resolvePaths($manager, $namespace);
-        $url = '%dataAPI%/Manager/form/' . $manager;
-        $partial = 'Manager/forms/' . $namespace . $manager . '.hbs';
+        $this->resolvePaths($manager, $bundle);
+        $url = '%dataAPI%/Manager/form-json/' . $manager;
+        $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
         $this->separation->
             app('bundles/Manager/app/forms/any')->
             layout($layout)->
@@ -53,9 +67,9 @@ class Manager {
 
     public function edit ($manager, $layout='Manager/app/forms/any', $id) {
         $namespace = '';
-        $this->resolvePaths($manager, $namespace);
-        $url = '%dataAPI%/Manager/form-json/' . $manager;
-        $partial = 'Manager/forms/' . $namespace . $manager . '.hbs';
+        $this->resolvePaths($manager, $bundle);
+        $url = '%dataAPI%/Manager/form-json/' . $bundle . $manager;
+        $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
         $this->separation->
             app('bundles/Manager/app/forms/any')->
             layout($layout)->
@@ -69,8 +83,7 @@ class Manager {
     public function table ($manager, $layout='Manager/collections/any', $url=false) {
         $namespace = '';
         $this->resolvePaths($manager, $namespace);        
-        $managersCacheFile = $this->root . '/../managers/cache.json';
-        $managers = json_decode(file_get_contents($managersCacheFile), true);
+        $managers = $this->cacheRead();
         foreach ($managers['managers'] as $managerCache) {
             if ($managerCache['manager'] == $manager) {
                 break;
@@ -91,6 +104,33 @@ class Manager {
             url('table', $url)->
             template()->
             write();
+    }
+
+    public function post ($context) {
+        if (!isset($context['dbURI']) || empty($context['dbURI'])) {
+            throw new \Exception('Context does not contain a dbURI');
+        }
+        if (!isset($context['formMarker'])) {
+            throw new \Exception('Form marker not set in post');
+        }
+        $document = $this->post->{$context['formMarker']};
+        if ($document === false || empty($document)) {
+            throw new \Exception('Document not found in post');
+        }
+        $documentInstance = $this->db->documentStage($context['dbURI'], $document);
+        $documentInstance->upsert();
+        $this->post->statusSaved();
+        $document = $documentInstance->current();
+        $id = $documentInstance->id();
+        $collectionName = $documentInstance->collection();
+        $collectionClass = '\Collection\\' . $this->collection->toCamelCase($collectionName);
+        $collectionInstance = $this->collection->factory(new $collectionClass());
+        if ($collectionInstance === false) {
+            return;
+        }
+        $collectionInstance->index($id, $document);
+        $collectionInstance->views('upsert', $id, $document);
+        $collectionInstance->statsUpdate($context['dbURI']);
     }
 
     private function resolvePaths (&$manager, &$namespace) {

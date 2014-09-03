@@ -12,7 +12,6 @@
 namespace Manager;
 
 class Books {
-    private $field = false;
     public $collection = 'books';
     public $title = 'Books';
     public $singular = 'Book';
@@ -254,6 +253,7 @@ HBS;
                             {{#FieldLeft link URL}}{{/FieldLeft}}
                             {{#FieldLeft price Price}}{{/FieldLeft}}
                             {{{id}}}
+                            {{{form-token}}}
                         {{/DocumentFormLeft}}                 
                         
                         {{#DocumentFormRight}}

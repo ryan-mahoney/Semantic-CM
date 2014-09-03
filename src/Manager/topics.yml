@@ -1,0 +1,5 @@
+topics:
+    Manager__Form__Login-save: 
+        - manager@authenticate
+    ManagerSave:
+        - manager@post
