@@ -587,7 +587,7 @@ class Route {
         echo 'Upgraded ', $upgraded, ' managers.', "\n";
     }
 
-    public function location () {
+    public static function location () {
         return __DIR__;
     }
 }
