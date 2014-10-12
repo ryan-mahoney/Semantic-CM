@@ -1,6 +1,6 @@
 <?php
 /**
- * Opine\Mangager\Manager
+ * Opine\Mangager\Service
  *
  * Copyright (c)2013, 2014 Ryan Mahoney, https://github.com/Opine-Org <ryan@virtuecenter.com>
  *
@@ -22,88 +22,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Opine;
+namespace Opine\Manager;
 
-class Manager {
-    private $separation;
-    private $root;
+class Service {
     private $post;
     private $authentication;
     private $db;
     private $collection;
-    public $cacheFile;
 
-    public function __construct ($root, $separation, $post, $authentication, $db, $collection) {
-        $this->separation = $separation;
-        $this->root = $root;
+    public function __construct ($post, $db, $collection, $authentication) {
         $this->post = $post;
         $this->authentication = $authentication;
         $this->db = $db;
         $this->collection = $collection;
-        $this->cacheFile = $this->root . '/../cache/managers.json';
-    }
-
-    public function cacheWrite (Array $managers) {
-        file_put_contents($this->cacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));
-    }
-
-    public function cacheRead () {
-        return json_decode(file_get_contents($this->cacheFile), true);
-    }
-
-    public function add ($manager, $layout='Manager/forms/any') {
-        $namespace = '';
-        $this->resolvePaths($manager, $bundle);
-        $url = '%dataAPI%/Manager/form-json/' . $manager;
-        $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
-        $this->separation->
-            app('bundles/Manager/app/forms/any')->
-            layout($layout)->
-            partial('form', $partial)->
-            url('form', $url)->
-            template()->
-            write();
-    }
-
-    public function edit ($manager, $layout='Manager/app/forms/any', $id) {
-        $namespace = '';
-        $this->resolvePaths($manager, $bundle);
-        $url = '%dataAPI%/Manager/form-json/' . $bundle . $manager;
-        $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
-        $this->separation->
-            app('bundles/Manager/app/forms/any')->
-            layout($layout)->
-            partial('form', $partial)->
-            url('form', $url)->
-            args('form', ['id' => $id])->
-            template()->
-            write();
-    }
-
-    public function table ($manager, $layout='Manager/collections/any', $url=false) {
-        $namespace = '';
-        $this->resolvePaths($manager, $namespace);        
-        $managers = $this->cacheRead();
-        foreach ($managers['managers'] as $managerCache) {
-            if ($managerCache['manager'] == $manager) {
-                break;
-            }
-        }
-        $sort = '{"created_date":-1}';
-        if (isset($managerCache['sort'])) {
-            $sort = $managerCache['sort'];
-        }
-        if ($url === false) {
-            $url = '%dataAPI%/Manager/data/' . $manager . '/manager/50/0/' . $sort;
-        }
-        $partial = 'Manager/collections/' . $namespace . $manager . '.hbs';
-        $this->separation->
-            app('bundles/Manager/app/collections/any')->
-            layout($layout)->
-            partial('table', $partial)->
-            url('table', $url)->
-            template()->
-            write();
     }
 
     public function post ($context) {

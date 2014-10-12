@@ -1,7 +1,8 @@
 <?php
 namespace Opine;
+use PHPUnit_Framework_TestCase;
 
-class Semantic-CMTest extends \PHPUnit_Framework_TestCase {
+class SemanticCMTest extends PHPUnit_Framework_TestCase {
     private $db;
 
     public function setup () {

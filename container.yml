@@ -1,3 +1,6 @@
+imports:
+    - 'src/Manager/container.yml'
+
 services:
     cache:
         class:     'Opine\Cache'
