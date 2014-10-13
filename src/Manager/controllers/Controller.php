@@ -4,7 +4,7 @@ namespace Opine\Manager;
 class Controller {
 	private $model;
 	private $view;
-	private $service;
+	private $manager;
 	private $authentication;
 	private $form;
 	private $search;
@@ -15,7 +15,7 @@ class Controller {
 	public function __construct ($model, $view, $service, $authentication, $form, $search, $upload, $slugify, $redirect) {
 		$this->model = $model;
 		$this->view = $view;
-		$this->service = $service;
+		$this->manager = $service;
 		$this->authentication = $authentication;
         $this->form = $form;
         $this->search = $search;
@@ -25,6 +25,7 @@ class Controller {
 	}
 
 	public function authFilter () {
+        return true;
         if (!isset($_SERVER['REQUEST_URI'])) {
             return false;
         }
@@ -76,7 +77,7 @@ class Controller {
                 array_pop($parts);
             }
             $layout = 'Manager/collections/embedded';
-            $url = '%dataAPI%/json-data/' . $collection . '/byEmbeddedField-' . implode(':', $parts);
+            $url = '/json-data/' . $collection . '/byEmbeddedField-' . implode(':', $parts);
         } elseif (isset($_GET['naked']) && isset($_GET['embedded']) && $_GET['embedded'] == 1) {
             $layout = 'Manager/collections/embedded';
         } elseif (isset($_GET['naked'])) {
@@ -93,7 +94,7 @@ class Controller {
 
     public function apiManagers () {
         $counts = $this->model->collectionCounts();
-        $managers = $this->manager->cacheRead();
+        $managers = $this->model->cacheRead();
         $managersOut = [];
         foreach ($managers['managers'] as $manager) {
             if ($manager['embedded'] == 1) {
@@ -158,7 +159,7 @@ class Controller {
 
     public function collection ($managerName, $method, $limit=50, $page=1, $sort='{}') {
         $manager = false;
-        $managers = $this->manager->cacheRead();
+        $managers = $this->model->cacheRead();
         foreach ($managers['managers'] as $managersData) {
             if ($managersData['manager'] == $managerName) {
                 $manager = $managersData;
@@ -176,7 +177,7 @@ class Controller {
 
     public function upsert ($linkName) {
         $manager = false;
-        $managers = $this->manager->cacheRead();
+        $managers = $this->model->cacheRead();
         foreach ($managers['managers'] as $metadata) {
             if ($metadata['link'] == $linkName) {
                 $manager = '\\' . $metadata['namespace'] . '\\' . $metadata['manager'];
@@ -200,7 +201,7 @@ class Controller {
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         }
-        $managers = $this->manager->cacheRead();
+        $managers = $this->model->cacheRead();
         foreach ($managers['managers'] as $metadata) {
             if ($metadata['link'] == $linkName) {
                 $manager = '\\' . $metadata['namespace'] . '\\' . $metadata['manager'];
@@ -300,5 +301,13 @@ class Controller {
                 echo 'Wow!  That is a deep sort!';
             }
         }
+    }
+
+    public function header () {
+        $this->view->header();
+    }
+
+    public function dashboard () {
+        $this->view->dashboard();
     }
 }

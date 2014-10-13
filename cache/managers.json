@@ -1,0 +1,983 @@
+{
+    "managers": [
+        {
+            "manager": "Blogs",
+            "title": "Blogs",
+            "singular": "Blog",
+            "titleField": "title",
+            "description": "{{count}} blogs",
+            "definition": "Regularly updated content can be added through blog posts. Entries are displayed in a list view where the most recent appears first. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Blogs"
+            ],
+            "icon": "text file",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images",
+                "External Article",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "blogs",
+            "link": "Blogs",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Blurbs",
+            "title": "Blurbs",
+            "singular": "Blurb",
+            "titleField": "title",
+            "description": "{{count}} blurbs",
+            "definition": "Blurbs are small blocks of content that don't fit the conventions of a whole web page. Many appear on multiple pages in the same format. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Blurbs"
+            ],
+            "icon": "basic content",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "blurbs",
+            "link": "Blurbs",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Books",
+            "title": "Books",
+            "singular": "Book",
+            "titleField": "title",
+            "description": "{{count}} books",
+            "definition": "This is a customized content page module for the purposes of selling or displaying books. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Books"
+            ],
+            "icon": "book",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "books",
+            "link": "Books",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Carousels",
+            "title": "Carousel",
+            "singular": "Carousel",
+            "titleField": "title",
+            "description": "{{count}} carousels",
+            "definition": "A carousel is a rotating photo module that most typically appears on a homepage.",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Carousels"
+            ],
+            "icon": "sign in",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "carousels",
+            "link": "Carousels",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Categories",
+            "title": "Categories",
+            "singular": "Category",
+            "titleField": "title",
+            "description": "{{count}} categories",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Categories"
+            ],
+            "icon": "checkmark sign",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "categories",
+            "link": "Categories",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "DepartmentProfiles",
+            "title": "Profiles",
+            "singular": "Profile",
+            "titleField": "title",
+            "description": "{{count}} profiles",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-DepartmentProfiles"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "department_profiles",
+            "link": "DepartmentProfiles",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Departments",
+            "title": "Departments",
+            "singular": "Department",
+            "titleField": "title",
+            "description": "{{cout}} departments",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Departments"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "departments",
+            "link": "Departments",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Events",
+            "title": "Events",
+            "singular": "Event",
+            "titleField": "title",
+            "description": "{{count}} events",
+            "definition": "These content blocks appear on event streams and calendars. They are organized by date and time, typically include an image, short description, and occasionally, a registration option. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Events"
+            ],
+            "icon": "empty calendar",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Views",
+                "Venue",
+                "Recurring",
+                "Registration",
+                "Advanced",
+                "Images",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "Events",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsDiscounts",
+            "title": "Discount Codes",
+            "singular": "Discount Code",
+            "titleField": "title",
+            "description": "{{count}} discounts",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsDiscounts"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsDiscounts",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsEmails",
+            "title": "Emails",
+            "singular": "Email",
+            "titleField": "title",
+            "description": "{{count}} emails",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsEmails"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsEmails",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsExceptions",
+            "title": "Exception Dates",
+            "singular": "Exception Date",
+            "titleField": "title",
+            "description": "{{count}} exceptions",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsExceptions"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsExceptions",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsHighlights",
+            "title": "Highlight Images",
+            "singular": "Highlight Image",
+            "titleField": "title",
+            "description": "{{count}} highlights",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsHighlights"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsHighlights",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsImages",
+            "title": "Venue Images",
+            "singular": "Venue Image",
+            "titleField": "title",
+            "description": "{{count}} images",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsImages"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsImages",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsLinks",
+            "title": "Link\/Menu",
+            "singular": "Link\/Menu",
+            "titleField": "title",
+            "description": "{{count}} links",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsLinks"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsLinks",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsPeoples",
+            "title": "Peoples",
+            "singular": "People",
+            "titleField": "title",
+            "description": "{{count}} people",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsPeoples"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsPeoples",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsPlus",
+            "title": "Included Dates",
+            "singular": "Included Date",
+            "titleField": "title",
+            "description": "{{count}} dates",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsPlus"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsPlus",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsRecurrences",
+            "title": "Recurrence Rules",
+            "singular": "Recurrence Rule",
+            "titleField": "title",
+            "description": "{{count}} recurrence",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsRecurrences"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsRecurrences",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "EventsRegistrations",
+            "title": "Registrations Options",
+            "singular": "Registration Options",
+            "titleField": "title",
+            "description": "{{count}} registrations",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-EventsRegistrations"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "events",
+            "link": "EventsRegistrations",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "FileUploads",
+            "title": "File Uploads",
+            "singular": "File Upload",
+            "titleField": "title",
+            "description": "{{count}} file uploads",
+            "definition": "Files that visitors can download from your site, such as high resolution images, PDF's, and white papers, can be uploaded here. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-FileUploads"
+            ],
+            "icon": "cloud upload",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "file_uploads",
+            "link": "FileUploads",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Jobs",
+            "title": "Jobs",
+            "singular": "Job",
+            "titleField": "job_title",
+            "description": "{{count}} jobs",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Jobs"
+            ],
+            "icon": "text file",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Contact Information",
+                "Display Settings",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "jobs",
+            "link": "Jobs",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Links",
+            "title": "Links",
+            "singular": "Link",
+            "titleField": "title",
+            "description": "{{count}} links",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Links"
+            ],
+            "icon": "url",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "links",
+            "link": "Links",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "MembershipLevels",
+            "title": "Membership",
+            "singular": "Membership Level",
+            "titleField": "title",
+            "description": "{{count}} membership levels",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-MembershipLevels"
+            ],
+            "icon": "trophy",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "membership_levels",
+            "link": "MembershipLevels",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "MenuLinks",
+            "title": "Menus",
+            "singular": "Menu",
+            "titleField": "title",
+            "description": "{{count}} menulinks",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-MenuLinks"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "menus_links",
+            "link": "MenuLinks",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Menus",
+            "title": "Menus",
+            "singular": "Menu",
+            "titleField": "label",
+            "description": "{{count}} menu items",
+            "definition": "Menus determine how a site is organized. Use them as a road map to lay out your content. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Menus"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [],
+            "sort": "{\"sort_key\":1, \"created_date\":-1}",
+            "collection": "menus",
+            "link": "Menus",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Pages",
+            "title": "Pages",
+            "singular": "Page",
+            "titleField": "title",
+            "description": "{{count}} pages",
+            "definition": "Individual content pages can be created and linked to your site through menus. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Pages"
+            ],
+            "icon": "copy",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "pages",
+            "link": "Pages",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "PhotoGalleries",
+            "title": "Photo Galleries",
+            "singular": "Photo Gallery",
+            "titleField": "title",
+            "description": "{{count}} photo galleries",
+            "definition": "Upload and arrange photo galleries with captions. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-PhotoGalleries"
+            ],
+            "icon": "photo",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Flickr",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "photo_galleries",
+            "link": "PhotoGalleries",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Podcasts",
+            "title": "Podcasts",
+            "singular": "Podcast",
+            "titleField": "title",
+            "description": "{{count}} podcasts",
+            "definition": "Upload MP3 files with descriptions and photos here. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Podcasts"
+            ],
+            "icon": "headphones",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "podcasts",
+            "link": "Podcasts",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "PracticeAreas",
+            "title": "Practice Areas",
+            "singular": "Practice Area",
+            "titleField": "title",
+            "description": "{{count}} practice areas",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-PracticeAreas"
+            ],
+            "icon": "legal",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "practice_areas",
+            "link": "PracticeAreas",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Profiles",
+            "title": "Profiles",
+            "singular": "Profile",
+            "titleField": "title",
+            "description": "{{count}} profiles",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Profiles"
+            ],
+            "icon": "text file",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "profiles",
+            "link": "Profiles",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Programs",
+            "title": "Programs",
+            "singular": "Program",
+            "titleField": "title",
+            "description": "{{count}} programs",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Programs"
+            ],
+            "icon": "grid layout",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "programs",
+            "link": "Programs",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Publications",
+            "title": "Publications",
+            "singular": "Publication",
+            "titleField": "title",
+            "description": "{{count}} publications",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Publications"
+            ],
+            "icon": "text file",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "publications",
+            "link": "Publications",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Resources",
+            "title": "Resources",
+            "singular": "Resource",
+            "titleField": "title",
+            "description": "{{count}} resources",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Resources"
+            ],
+            "icon": "text file",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "resources",
+            "link": "Resources",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "SocialLinks",
+            "title": "Social Links",
+            "singular": "Social Link",
+            "titleField": "url",
+            "description": "{{count}} social links",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-SocialLinks"
+            ],
+            "icon": "url",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "social_links",
+            "link": "SocialLinks",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Sponsors",
+            "title": "Sponsors",
+            "singular": "Sponsor",
+            "titleField": "title",
+            "description": "{{count}} sponsors",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Sponsors"
+            ],
+            "icon": "us dollar",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "sponsors",
+            "link": "Sponsors",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Subcarousels",
+            "title": "SubCarousels",
+            "singular": "SubCarousel",
+            "titleField": "title",
+            "description": "{{count}} subcarousels",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Subcarousels"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "carousels",
+            "link": "Subcarousels",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Subcategories",
+            "title": "Subcategories",
+            "singular": "Subcategory",
+            "titleField": "title",
+            "description": "{{count}} subcategories",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Subcategories"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "categories",
+            "link": "Subcategories",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Subimages",
+            "title": "Subimage",
+            "singular": "Image",
+            "titleField": "title",
+            "description": "{{count}} subimages",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Subimages"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "subimages",
+            "link": "Subimages",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "SystemMessages",
+            "title": "System Messages",
+            "singular": "Message",
+            "titleField": "name",
+            "description": "{{count}} messages",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-SystemMessages"
+            ],
+            "icon": "text file",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Content"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "system_messages",
+            "link": "SystemMessages",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Testimonials",
+            "title": "Testimonials",
+            "singular": "Testimonial",
+            "titleField": "name",
+            "description": "{{count}} testimonials",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Testimonials"
+            ],
+            "icon": "chat",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "Images"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "testimonials",
+            "link": "Testimonials",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "UsersAddress",
+            "title": "address",
+            "singular": "Address",
+            "titleField": "title",
+            "description": "{{count}} address",
+            "definition": "Coming Soon",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-UsersAddress"
+            ],
+            "icon": "browser",
+            "category": "Content",
+            "embedded": 1,
+            "tabs": [],
+            "sort": "{\"created_date\":-1}",
+            "collection": "users",
+            "link": "UsersAddress",
+            "bundle": null,
+            "namespace": "Manager"
+        },
+        {
+            "manager": "Videos",
+            "title": "Videos",
+            "singular": "Video",
+            "titleField": "title",
+            "description": "{{count}} videos",
+            "definition": "Upload Youtube links for video galleries here. ",
+            "acl": [
+                "manager",
+                "manager-Content",
+                "manager-specific-Videos"
+            ],
+            "icon": "facetime video",
+            "category": "Content",
+            "embedded": 0,
+            "tabs": [
+                "Main",
+                "SEO"
+            ],
+            "sort": "{\"created_date\":-1}",
+            "collection": "videos",
+            "link": "Videos",
+            "bundle": null,
+            "namespace": "Manager"
+        }
+    ]
+}

@@ -6,7 +6,7 @@ class Model {
 	private $manager;
 	private $bundleRoute;
 	private $db;
-	public $cacheFile;
+	private $cacheFile;
 
 	public function __construct ($root, $manager, $db, $bundleRoute) {
 		$this->root = $root;
@@ -34,7 +34,7 @@ class Model {
 	}
 
 	public function build () {
-        $bundles = $this->bundleRoute->bundles(true, true);
+        $bundles = $this->bundleRoute->bundles(true);
         $namespacesByPath = [
             '/../managers' => 'Manager'
         ];
@@ -48,13 +48,13 @@ class Model {
             $searchPath = '/../bundles/' . $bundle . '/managers';
             $namespacesByPath[$searchPath] = $bundle . '\Manager';
             $bundleByPath[$searchPath] = $bundle;
-            $searchPaths[] = $searchPath;
+            $searcprivate[] = $searchPath;
         }
-        $managersRoot = $this->root . $searchPaths[0];
+        $manageprivate = $this->root . $searchPaths[0];
         $managers = [];
-        if (!file_exists($this->manager->cacheFile)) {
+        if (!file_exists($this->cacheFile)) {
             @mkdir($managersRoot);
-            $this->manager->cacheWrite(['managers' => $managers]);
+            $this->cacheWrite(['managers' => $managers]);
         }
         foreach ($searchPaths as $searchPath) {
             $managersRoot = $this->root . $searchPath;
@@ -117,30 +117,7 @@ class Model {
                 }
             }
         }
-        $this->manager->cacheWrite($managers);
-        //$this->authenticationBuild($auth);
-    }
-
-    private function authenticationBuild ($authorizations) {
-        $yamlPath = $this->root . '/../acl/manager.yml';
-        $buffer = 'groups:' . "\n";
-        foreach ($authorizations as $group => $auth) {
-            $buffer .= '    ' . $group . ':' . "\n";
-            $buffer .= '        routes:' . "\n";
-            sort($auth['routes']);
-            $auth['routes'] = array_unique($auth['routes']);
-            foreach ($auth['routes'] as $route) {
-                $buffer .= '            - ' . "'" . $route . "'" . "\n";
-            }
-            $buffer .= '        redirectLogin: ' . "'" . $auth['login'] . "'\n";
-            $buffer .= '        redirectDenied: ' . "'" . $auth['denied'] . "'\n";
-        }
-        $folder = $this->root . '/../acl';
-        if (!file_exists($folder)) {
-            mkdir($folder);
-        }
-        file_put_contents($yamlPath, $buffer);
-        echo 'Good: Manager access control built.', "\n";
+        $this->cacheWrite($managers);
     }
 
     public function upgrade () {

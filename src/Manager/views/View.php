@@ -41,7 +41,7 @@ class View {
     public function edit ($manager, $layout='Manager/app/forms/any', $id) {
         $namespace = '';
         $this->resolvePaths($manager, $bundle);
-        $url = '%dataAPI%/Manager/form-json/' . $bundle . $manager;
+        $url = '/Manager/form-json/' . $bundle . $manager;
         $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
         $this->separation->
             app('bundles/Manager/app/forms/any')->
@@ -75,6 +75,31 @@ class View {
             layout($layout)->
             partial('table', $partial)->
             url('table', $url)->
+            template()->
+            write();
+    }
+
+    public function dashboard () {
+        $category = '';
+        if (isset($_GET['content'])) {
+            $category = 'Content';
+        }
+        if (isset($_GET['reports'])) {
+            $category = 'Reports';
+        }
+        if (isset($_GET['people'])) {
+            $category = 'People';
+        }
+        $this->separation->app('bundles/Manager/app/dashboard')
+            ->layout('Manager/dashboard.html')
+            ->template()
+            ->write();
+    }
+ 
+    public function header () {
+        $this->separation->
+            app('bundles/Manager/app/header')->
+            layout('Manager/header')->
             template()->
             write();
     }

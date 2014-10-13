@@ -2,7 +2,7 @@ js:
 
 binding:
     blurbs:
-        url: '%dataAPI%/json-form/blurbs'
+        url: '/api/form/Blurbs'
         args: []
         partial: 'forms/blurbs.hbs'
         type: 'Form'

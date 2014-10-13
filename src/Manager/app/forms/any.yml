@@ -2,9 +2,9 @@ js:
 
 binding:
     header:
-        url: '%dataAPI%/Manager/header'
+        url: '/Manager/header'
         type: 'html'
     form:
-        url: '%dataAPI%/Manager/json-manager?'
+        url: '/Manager/json-manager?'
         partial: 'Manager/forms-json/?.hbs'
         type: 'Form'

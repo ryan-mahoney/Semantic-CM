@@ -2,6 +2,6 @@ js:
 
 binding:
     managers:
-        url: '%dataAPI%/Manager/api/managers'
+        url: '/Manager/api/managers'
         partial: 'Manager/omnisearch-items.hbs'
         type: 'json'

@@ -2,7 +2,7 @@ js:
 
 binding:
     login:
-        url: '%dataAPI%/Manager/json-form/Login'
+        url: '`/Manager/json/form/Login'
         args: []
         partial: 'Manager/login.hbs'
         type: 'Form'

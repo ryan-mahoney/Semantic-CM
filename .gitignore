@@ -2,3 +2,8 @@ composer.lock
 vendor
 src/Manager/public/partials/forms
 src/Manager/public/partials/collections
+public/css
+public/helpers
+public/js
+public/layouts
+public/partials

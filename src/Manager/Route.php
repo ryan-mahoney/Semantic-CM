@@ -28,33 +28,11 @@ use Exception;
 class Route {
     private $route;
 
-    public function __construct ($route, $slugify, $redirect) {
+    public function __construct ($route) {
         $this->route = $route;
-        $this->slugify = $slugify;
-        $this->form = $form;
-        $this->redirect = $redirect;
     }
 
     public function paths () {
-        //$this->route->get('/Manager', 'managerRoute@dashboard');
-        //$this->route->get('/Manager/header', 'managerRoute@header');
-        //$this->route->get('/Manager/add/{name}', 'managerRoute@add');
-        //$this->route->get('/Manager/edit/{name}/{id}', 'managerRoute@edit');
-        //$this->route->get('/Manager/list/{name}', 'managerRoute@listing');
-        //$this->route->get('/Manager/login', 'managerRoute@login');
-        //$this->route->get('/Manager/logout', 'managerRoute@logout');
-        //$this->route->get('/Manager/api/managers', 'managerRoute@apiManagers');
-        //$this->route->get('/Manager/api/search', 'managerRoute@apiSearch');
-        //$this->route->get('/Manager/data/{manager}', 'managerRoute@collection');
-        //$this->route->get('/Manager/data/{manager}/{method}/{limit}', 'managerRoute@collection');
-        //$this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}', 'managerRoute@collection');
-        //$this->route->get('/Manager/data/{manager}/{method}/{limit}/{page}/{sort}', 'managerRoute@collection');
-        //$this->route->get('/Manager/form-json/{manager}', 'managerRoute@form');
-        //$this->route->post('/Manager/upload/{manager}/{field}', 'managerRoute@upload');
-        //$this->route->post('/Manager/sort/{manager}', 'managerRoute@sort');
-        //$this->route->post('/Manager/upsert/{name}', 'managerRoute@upsert');
-
-
         $this->route->get('managerController@authFilter', '/Manager', [
             '/document/{manager}' => 'managerController@add',
             '/document/{manager}/{dbURI}' => 'managerController@edit',

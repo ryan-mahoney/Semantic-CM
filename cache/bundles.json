@@ -1,0 +1,10 @@
+{
+    "Manager": {
+        "namespace": "Opine\\Manager",
+        "name": "Manager",
+        "route": "\\Opine\\Manager\\Route",
+        "routeService": "Manager",
+        "location": "\/var\/www\/opine\/semantic-cm\/src\/Manager",
+        "root": "\/var\/www\/opine\/semantic-cm\/src\/Manager\/public"
+    }
+}
