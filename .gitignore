@@ -1,3 +1,4 @@
+bundles/Manager
 composer.lock
 vendor
 src/Manager/public/partials/forms
