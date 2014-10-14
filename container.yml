@@ -9,7 +9,7 @@ services:
         class:     'Symfony\Component\Yaml\Yaml'
     containerCache:
         class:     'Opine\Container\Cache'
-        arguments: ['%root%', '@container', '@bundleRoute', '@cache']
+        arguments: ['%root%', '@container', '@bundleRoute']
     build:
         class:     'Opine\Build'
         arguments: ['%root%', '@pubSubBuild', '@collectionModel', '@helperRoute', '@formRoute', '@configRoute', '@bundleRoute', '@fieldRoute', '@filter', '@cache', '@search', '@authentication', '@route', '@containerCache']

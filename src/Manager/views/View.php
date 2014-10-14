@@ -21,7 +21,7 @@ class View {
                 header('Location: /Manager');
             }
         }
-        $this->separation->app('bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
+        $this->separation->app('../bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
     }
 
     public function add ($manager, $layout='Manager/forms/any') {
@@ -44,7 +44,7 @@ class View {
         $url = '/Manager/form-json/' . $bundle . $manager;
         $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
         $this->separation->
-            app('bundles/Manager/app/forms/any')->
+            app('../bundles/Manager/app/forms/any')->
             layout($layout)->
             partial('form', $partial)->
             url('form', $url)->
@@ -71,7 +71,7 @@ class View {
         }
         $partial = 'Manager/collections/' . $namespace . $manager . '.hbs';
         $this->separation->
-            app('bundles/Manager/app/collections/any')->
+            app('../bundles/Manager/app/collections/any')->
             layout($layout)->
             partial('table', $partial)->
             url('table', $url)->
@@ -90,7 +90,7 @@ class View {
         if (isset($_GET['people'])) {
             $category = 'People';
         }
-        $this->separation->app('bundles/Manager/app/dashboard')
+        $this->separation->app('../bundles/Manager/app/dashboard')
             ->layout('Manager/dashboard.html')
             ->template()
             ->write();
@@ -98,7 +98,7 @@ class View {
  
     public function header () {
         $this->separation->
-            app('bundles/Manager/app/header')->
+            app('../bundles/Manager/app/header')->
             layout('Manager/header')->
             template()->
             write();

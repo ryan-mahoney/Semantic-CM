@@ -24,6 +24,10 @@ class Controller {
         $this->redirect = $redirect;
 	}
 
+    public function login () {
+        $this->view->login();
+    }
+
 	public function authFilter () {
         return true;
         if (!isset($_SERVER['REQUEST_URI'])) {
