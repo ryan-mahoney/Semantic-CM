@@ -13,7 +13,6 @@
 namespace Manager;
 
 class Subimages {
-    private $field = false;
     public $collection = 'subimages';
     public $title = 'Subimage';
     public $titleField = 'title';

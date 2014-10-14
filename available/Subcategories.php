@@ -14,7 +14,6 @@
 namespace Manager;
 
 class Subcategories {
-    private $field = false;
     public $collection = 'categories';
     public $title = 'Subcategories';
     public $titleField = 'title';

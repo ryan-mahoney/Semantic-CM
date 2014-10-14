@@ -8,7 +8,6 @@
 namespace Manager;
 
 class Resources {
-    private $field = false;
     public $collection = 'resources';
     public $title = 'Resources';
     public $titleField = 'title';

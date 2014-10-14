@@ -12,7 +12,6 @@
 namespace Manager;
 
 class Videos {
-    private $field = false;
     public $collection = 'videos';
     public $title = 'Videos';
     public $titleField = 'title';

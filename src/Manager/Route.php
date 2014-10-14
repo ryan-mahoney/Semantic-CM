@@ -34,8 +34,8 @@ class Route {
 
     public function paths () {
         $this->route->get('managerController@authFilter', '/Manager', [
-            '/form/{manager}' => 'managerController@add',
-            '/form/{manager}/{dbURI}' => 'managerController@edit',
+            '/item/{manager}' => 'managerController@add',
+            '/item/{manager}/{dbURI}' => 'managerController@edit',
             '/index/{manager}' => 'managerController@index',
             '' => 'managerController@dashboard',
             '/header' => 'managerController@header',
@@ -54,7 +54,7 @@ class Route {
             '/index/{manager}/{method}/{limit}'  => 'managerController@apiCollection',
             '/index/{manager}/{method}/{limit}/{page}'  => 'managerController@apiCollection',
             '/index/{manager}/{method}/{limit}/{page}/{sort}'  => 'managerController@apiCollection',
-            '/document/{manager}' => 'managerController@form'
+            '/document/{manager}' => 'managerController@apiForm'
         ]);
 
         $this->route->post('managerController@authFilter', '/Manager/api', [

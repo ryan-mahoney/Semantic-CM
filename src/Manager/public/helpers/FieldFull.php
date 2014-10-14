@@ -1,17 +1,15 @@
 <?php
-return function ($template, $context, $args, $source) {
-    $args = str_getcsv(trim($args), ' ');
-    $field = array_shift($args);
+return function ($args, $named) {
+    $markup = $args[0];
     $required = false;
-    if (in_array('required', $args)) {
+    if (in_array('required', $named)) {
         $required = true;
         $args = array_diff($args, array('required'));
     }
-    $markup = $context->get($field);
     $label = false;
     $labeled = '';
-    if (count($args) > 0) {
-        $label = array_shift($args);
+    if (in_array('label', $named)) {
+        $label = $named['label'];
         $labeled = ' labeled ';
     }
 

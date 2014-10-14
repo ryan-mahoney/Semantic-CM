@@ -1,7 +1,7 @@
 <?php
-return function ($template, $context, $args, $source) {
+return function ($args, $named) {
     $buffer = '';
-    $metadata = $context->get('metadata');
+    $metadata = $named['metadata'];
     $buffer .= '
         <div class="ui top attached tabular menu container">';
 
@@ -13,7 +13,6 @@ return function ($template, $context, $args, $source) {
         $buffer .= '<a class="' . $active . 'item" data-tab="' . $tab . '">' . $tab . '</a>';
         $active = '';
     }
-               
     $buffer .= '
         </div>';
 

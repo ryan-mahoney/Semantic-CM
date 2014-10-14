@@ -1,10 +1,9 @@
 <?php
-return function ($template, $context, $args, $source) {
+return function ($args, $named) {
     //usage: {{#EmbeddedCollectionEmpty singular="Category"}}
-    $args = $template->parseTagAttributes($args);
     $singular = '';
-    if (isset($args['singular'])) {
-        $singular = $args['singular'];
+    if (isset($named['singular'])) {
+        $singular = $named['singular'];
     }
     return '<div class="ui message">
             <div class="content">

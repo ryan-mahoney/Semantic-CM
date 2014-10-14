@@ -1,17 +1,16 @@
 <?php
-return function ($template, $context, $args, $source) {
+return function ($args, $named) {
     //usage: {{FieldEmbedded field="parent-field-name" required="true" manager="name-of-manager-to-embed" label="what to display"}}
-    $args = $template->parseTagAttributes($args);
-    $field = $args['field'];
+    $field = $named['field'];
     $required = false;
-    if (isset($args['required']) && $args['required'] == true) {
+    if (isset($named['required']) && $named['required'] == true) {
         $required = true;
     }
-    $manager = $args['manager'];
+    $manager = $named['manager'];
     $markup = $context->get($field);
     $label = false;
-    if (isset($args['label'])) {
-        $label = $args['label'];
+    if (isset($named['label'])) {
+        $label = $named['label'];
     }
     if (empty($markup)) {
         return '<div class="field embedded" data-field="' . $field . '" data-manager="' . $manager . '"><div class="ui message">' . $label . ' can be added after save.</div></div>';

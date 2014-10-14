@@ -10,7 +10,6 @@
 namespace Manager;
 
 class PracticeAreas {
-    private $field = false;
     public $collection = 'practice_areas';
     public $title = 'Practice Areas';
     public $titleField = 'title';

@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsDiscounts {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Discount Codes';
 	public $titleField = 'title';

@@ -36,7 +36,7 @@ class Model {
 	public function build () {
         $bundles = $this->bundleRoute->bundles();
         $namespacesByPath = [
-            '/../managers' => 'Manager'
+            '/../managers' => ''
         ];
         $searchPaths = [
             '/../managers'
@@ -66,19 +66,13 @@ class Model {
             }
             foreach ($dirFiles as $managerClassFile) {
                 $manager = basename($managerClassFile, '.php');
-                $managerClassName = '\\' . $namespacesByPath[$searchPath] . '\\' . $manager;
+                $managerClassName = (($namespacesByPath[$searchPath] != '') ? $namespacesByPath[$searchPath] . '\\' : '') . '\Manager\\' . $manager;
                 if (!class_exists($managerClassName)) {
                     echo 'Problem: Manager build: ', $managerClassName, ': not autoloaded.', "\n\n";
                     continue;
                 }
                 $managerInstance = new $managerClassName();
                 $groups = ['manager', 'manager-' . $managerInstance->category, 'manager-specific-' . $manager];
-                $routes = [
-                    '/Manager',
-                    '/Manager/collection/' . $manager,
-                    '/Manager/document/' . $manager . '/' . $managerInstance->collection . ':{id}',
-                    '/Manager/document/' . $manager . '/' . $managerInstance->collection
-                ];
                 $linkPrefix = (($bundleByPath[$searchPath] != null) ? $bundleByPath[$searchPath] . '-' : '');
                 $managers[] = [
                     'manager' => $manager,
@@ -96,7 +90,8 @@ class Model {
                     'collection' => $managerInstance->collection,
                     'link' => $linkPrefix . $manager,
                     'bundle' => $bundleByPath[$searchPath],
-                    'namespace' => $namespacesByPath[$searchPath]
+                    'namespace' => $namespacesByPath[$searchPath],
+                    'class' => (($namespacesByPath[$searchPath] != '') ? $namespacesByPath[$searchPath] . '\\' : '') . 'Manager\\' . $manager
                 ];
                 if (method_exists($managerInstance, 'formPartial')) {
                     $dst = $this->root . '/partials/Manager/forms/' . $linkPrefix . $manager . '.hbs';

@@ -123,8 +123,9 @@ class Controller {
                 $manager['count'] = 0;
             }
             //access control
+/*
             if (!isset($_SESSION['user']) || !isset($_SESSION['user']['groups']) || empty($_SESSION['user']['groups'])) {
-//                continue;
+                continue;
             }
             $groups = ['manager', 'manager-' . $manager['category'], 'manager-specific-' . $manager['manager']];
             $matched = false;
@@ -135,8 +136,9 @@ class Controller {
                 }
             }
             if ($matched === false) {
-//                continue;
+                continue;
             }
+*/
             $managersOut[] = $manager;
         }
         echo json_encode(['managers' => $managersOut], JSON_PRETTY_PRINT);
@@ -223,27 +225,34 @@ class Controller {
         echo $this->form->upsert($formObject);
     }
 
-    public function form ($linkName) {
+    public function apiForm ($linkName) {
         $manager = false;
         $id = false;
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         }
         $managers = $this->model->cacheRead();
-        foreach ($managers['managers'] as $metadata) {
-            if ($metadata['link'] == $linkName) {
-                $manager = '\\' . $metadata['namespace'] . '\\' . $metadata['manager'];
-                break;
+        $manager = $this->managerGetByLink($linkName);
+        if ($manager === false) {
+            throw new Exception('can not get manager by link: ' . $linkName);
+        }
+        $class = $manager['class'];
+        $formObject = $this->form->factory(new $class, $id);
+        $formJson = $this->form->json($formObject);
+        $formJson = json_decode($formJson, true);
+        $formJson['metadata'] = $manager;
+        $formJson = json_encode($formJson);
+        echo $formJson;
+    }
+
+    private function managerGetByLink ($linkName) {
+        $managers = $this->model->cacheRead();
+        foreach ($managers['managers'] as $manager) {
+            if ($manager['link'] == $linkName) {
+                return $manager;
             }
         }
-        $formObject = $this->form->factory(new $manager, $id);
-        $formJson = $this->form->json($formObject);
-        if ($manager !== false) {
-            $formJson = json_decode($formJson, true);
-            $formJson['metadata'] = $metadata;
-            $formJson = json_encode($formJson);
-        }
-        echo $formJson;
+        return false;
     }
 
     public function upload ($manager, $field) {

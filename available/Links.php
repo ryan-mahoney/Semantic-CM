@@ -10,7 +10,6 @@
 namespace Manager;
 
 class Links {
-    private $field = false;
     public $collection = 'links';
     public $title = 'Links';
     public $titleField = 'title';

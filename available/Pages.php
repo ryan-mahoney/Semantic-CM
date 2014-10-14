@@ -10,7 +10,6 @@
 namespace Manager;
 
 class Pages {
-    private $field = false;
     public $collection = 'pages';
     public $title = 'Pages';
     public $titleField = 'title';

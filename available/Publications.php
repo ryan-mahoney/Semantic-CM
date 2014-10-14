@@ -12,7 +12,6 @@
 namespace Manager;
 
 class Publications {
-    private $field = false;
     public $collection = 'publications';
     public $title = 'Publications';
     public $titleField = 'title';

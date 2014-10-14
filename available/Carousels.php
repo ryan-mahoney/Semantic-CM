@@ -15,7 +15,6 @@
 namespace Manager;
 
 class Carousels {
-    private $field = false;
     public $collection = 'carousels';
     public $title = 'Carousel';
     public $titleField = 'title';

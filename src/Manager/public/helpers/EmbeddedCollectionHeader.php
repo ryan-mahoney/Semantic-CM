@@ -1,10 +1,8 @@
 <?php
-return function ($template, $context, $args, $source) {
+return function ($args, $named) {
     //usage: {{#EmbeddedCollectionHeader label="Some Label"}}
-    $args = $template->parseTagAttributes($args);
-    $label = $args['label'];
     return '
-        <a class="item">' . $label . '</a>
+        <a class="item">' . $named['label'] . '</a>
         <div class="item right">
             <div class="ui button manager add">Add</div>
         </div>';

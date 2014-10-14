@@ -12,7 +12,6 @@
 namespace Manager;
 
 class Jobs {
-    private $field = false;
     public $collection = 'jobs';
     public $title = 'Jobs';
     public $titleField = 'job_title';

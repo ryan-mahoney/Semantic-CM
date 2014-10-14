@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsRecurrences {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Recurrence Rules';
 	public $titleField = 'title';

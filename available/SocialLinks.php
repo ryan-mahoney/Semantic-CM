@@ -13,7 +13,6 @@
 namespace Manager;
 
 class SocialLinks {
-    private $field = false;
     public $collection = 'social_links';
     public $title = 'Social Links';
     public $titleField = 'url';

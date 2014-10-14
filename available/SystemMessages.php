@@ -8,7 +8,6 @@
 namespace Manager;
 
 class SystemMessages {
-	private $field = false;
     public $collection = 'system_messages';
     public $title = 'System Messages';
     public $titleField = 'name';

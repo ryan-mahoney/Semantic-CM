@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsLinks {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Link/Menu';
 	public $titleField = 'title';

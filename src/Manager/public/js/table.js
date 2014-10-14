@@ -17,7 +17,7 @@ $(document).ready(function () {
             var embedded = embeddedCheck(this);
             if (embedded != 1) {
                 var pathname = window.location.pathname;
-                window.location = pathname.replace(/\/list\//, '/edit/') + '/' + id;
+                window.location = pathname.replace(/\/index\//, '/item/') + '/' + id;
             } else {
                 embeddedModal(this, 'edit', id);
             }
@@ -107,7 +107,7 @@ $(document).ready(function () {
         var embedded = embeddedCheck(this);
             if (embedded != 1) {
                 var pathname = window.location.pathname;
-                window.location = pathname.replace(/\/list\//, '/add/');
+                window.location = pathname.replace(/\/index\//, '/item/');
             } else {
                 embeddedModal(this, 'add', false);
             }
@@ -218,7 +218,7 @@ var embeddedUpsert = function (form, submittedData, response) {
     });
     $.ajax({
         type: "GET",
-        url: '/Manager/list/' + manager + '?embedded&dbURI=' + dbURI,
+        url: '/Manager/index/' + manager + '?embedded&dbURI=' + dbURI,
         success: function (response) {
             $(parent.document).find('.field.embedded[data-manager="' + manager + '"]').html(response);
             $(parent.document).find('body').removeClass('dimmed');

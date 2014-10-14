@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsSponsors {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Sponsors';
 	public $titleField = 'title';

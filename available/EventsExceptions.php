@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsExceptions {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Exception Dates';
 	public $titleField = 'title';

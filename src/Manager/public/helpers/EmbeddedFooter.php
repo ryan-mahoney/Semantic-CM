@@ -1,6 +1,5 @@
 <?php
-return function ($template, $context, $args, $source) {
-    $metadata = $context->get('metadata');
+return function ($args, $named) {
     return '
                     </div>
                 </div>

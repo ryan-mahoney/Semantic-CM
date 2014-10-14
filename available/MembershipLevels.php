@@ -8,7 +8,6 @@
 namespace Manager;
 
 class MembershipLevels {
-    private $field = false;
     public $collection = 'membership_levels';
     public $title = 'Membership';
     public $titleField = 'title';

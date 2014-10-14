@@ -13,7 +13,6 @@
 namespace Manager;
 
 class Podcasts {
-    private $field = false;
     public $collection = 'podcasts';
     public $title = 'Podcasts';
     public $titleField = 'title';

@@ -18,7 +18,6 @@
 namespace Manager;
 
 class Subcarousels {
-    private $field = false;
     public $collection = 'carousels';
     public $title = 'SubCarousels';
     public $titleField = 'title';

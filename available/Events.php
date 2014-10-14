@@ -14,7 +14,6 @@
 namespace Manager;
 
 class Events {
-	private $field = false;
     public $collection = 'events';
     public $title = 'Events';
     public $titleField = 'title';

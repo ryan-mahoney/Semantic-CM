@@ -13,7 +13,6 @@
 namespace Manager;
 
 class PhotoGalleries {
-    private $field = false;
     public $collection = 'photo_galleries';
     public $title = 'Photo Galleries';
     public $titleField = 'title';

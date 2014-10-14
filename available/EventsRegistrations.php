@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsRegistrations {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Registrations Options';
 	public $titleField = 'title';

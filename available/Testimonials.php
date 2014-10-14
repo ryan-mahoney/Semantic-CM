@@ -12,7 +12,6 @@
 namespace Manager;
 
 class Testimonials {
-    private $field = false;
     public $collection = 'testimonials';
     public $title = 'Testimonials';
     public $titleField = 'name';

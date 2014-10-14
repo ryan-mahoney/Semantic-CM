@@ -32,7 +32,7 @@ class View {
         $url = '%dataAPI%/Manager/form-json/' . $manager;
         $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
         $this->separation->
-            app('bundles/Manager/app/forms/any')->
+            app('../bundles/Manager/app/forms/any')->
             layout($layout)->
             partial('form', $partial)->
             url('form', $url)->
@@ -40,10 +40,9 @@ class View {
             write();
     }
 
-    public function edit ($manager, $layout='Manager/app/forms/any', $id) {
-        $namespace = '';
-        $url = '/Manager/form-json/' . $bundle . $manager;
-        $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
+    public function edit ($linkName, $layout='Manager/app/forms/any', $id) {
+        $url = '/Manager/api/document/' . $linkName;
+        $partial = 'Manager/forms/' . $linkName . '.hbs';
         $this->separation->
             app('../bundles/Manager/app/forms/any')->
             layout($layout)->
@@ -54,8 +53,11 @@ class View {
             write();
     }
 
+    private function collectionGet () {
+
+    }
+
     public function index ($manager, $layout='Manager/collections/any', $url=false) {
-        $namespace = '';
         $managers = $this->model->cacheRead();
         foreach ($managers['managers'] as $managerCache) {
             if ($managerCache['manager'] == $manager) {
@@ -69,7 +71,7 @@ class View {
         if ($url === false) {
             $url = '/Manager/api/index/' . $manager . '/manager/50/0/' . $sort;
         }
-        $partial = 'Manager/indexes/' . $namespace . $manager . '.hbs';
+        $partial = 'Manager/indexes/' . $manager . '.hbs';
         $this->separation->
             app('../bundles/Manager/app/collections/any')->
             layout($layout)->

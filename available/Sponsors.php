@@ -12,7 +12,6 @@
 namespace Manager;
 
 class Sponsors {
-    private $field = false;
     public $collection = 'sponsors';
     public $title = 'Sponsors';
     public $titleField = 'title';

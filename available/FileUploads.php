@@ -13,7 +13,6 @@
 namespace Manager;
 
 class FileUploads {
-    private $field = false;
     public $collection = 'file_uploads';
     public $title = 'File Uploads';
     public $titleField = 'title';

@@ -1,10 +1,8 @@
 <?php
-return function ($template, $context, $args, $source) {
-    $engine = $template->getEngine();
-    $modifiedDate = $engine->render('{{modified_date}}', $context);
+return function ($args, $named) {
     $modifiedMarkup = '<abbr class="time" title="">Not yet saved</abbr>';
-    if (!empty($modifiedDate)) {
-        $modifiedMarkup = '<abbr class="time" data-livestamp="' . $modifiedDate . '"></abbr>';
+    if (!empty($named['modified'])) {
+        $modifiedMarkup = '<abbr class="time" data-livestamp="' . $named['modified'] . '"></abbr>';
     }
     return '
         <div class="ui teal medium buttons submit">

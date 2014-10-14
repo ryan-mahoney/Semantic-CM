@@ -13,7 +13,6 @@
 namespace Manager;
 
 class Programs {
-    private $field = false;
     public $collection = 'programs';
     public $title = 'Programs';
     public $titleField = 'title';

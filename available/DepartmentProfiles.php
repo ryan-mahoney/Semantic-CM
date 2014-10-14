@@ -9,7 +9,6 @@
 namespace Manager;
 
 class DepartmentProfiles {
-    private $field = false;
     public $collection = 'department_profiles';
     public $title = 'Profiles';
     public $titleField = 'title';

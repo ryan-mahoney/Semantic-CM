@@ -11,7 +11,6 @@
 namespace Manager;
 
 class Departments {
-    private $field = false;
     public $collection = 'departments';
     public $title = 'Departments';
     public $titleField = 'title';

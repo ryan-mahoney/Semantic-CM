@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsEmails {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Emails';
 	public $titleField = 'title';

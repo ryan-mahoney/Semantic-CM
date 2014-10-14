@@ -1,6 +1,6 @@
 <?php
-return function ($template, $context, $args, $source) {
-    $metadata = $context->get('metadata');
+return function ($args, $named) {
+    $metadata = $named['metadata'];
     return '
         <div class="ui huge breadcrumb container">
             <a class="section" href="/Manager"><h2>Dashboard</h2></a>

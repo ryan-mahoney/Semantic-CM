@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsHighlights {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Highlight Images';
 	public $titleField = 'title';

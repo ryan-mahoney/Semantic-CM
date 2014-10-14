@@ -11,7 +11,6 @@
 namespace Manager;
 
 class Blurbs {
-    private $field = false;
     public $collection = 'blurbs';
     public $title = 'Blurbs';
     public $titleField = 'title';

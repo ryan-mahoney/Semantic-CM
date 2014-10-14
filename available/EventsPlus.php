@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsPlus {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Included Dates';
 	public $titleField = 'title';

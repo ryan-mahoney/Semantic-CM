@@ -13,7 +13,6 @@
 namespace Manager;
 
 class MenuLinks {
-    private $field = false;
     public $collection = 'menus_links';
     public $title = 'Menus';
     public $titleField = 'title';

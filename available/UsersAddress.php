@@ -8,7 +8,6 @@
 namespace Manager;
 
 class UsersAddress {
-	private $field = false;
 	public $collection = 'users';
 	public $title = 'address';
 	public $titleField = 'title';

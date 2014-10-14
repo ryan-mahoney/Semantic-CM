@@ -13,7 +13,6 @@
 namespace Manager;
 
 class Blogs {
-    private $field = false;
     public $collection = 'Collection\Blogs';
     public $title = 'Blogs';
     public $titleField = 'title';
@@ -320,71 +319,73 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{Form spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{DocumentHeader metadata=metadata}}}
+                    {{{DocumentTabs}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft body Body}}{{/FieldLeft}}
-                            {{#FieldLeft description Summary}}{{/FieldLeft}}
+                        {{{DocumentFormLeft}}}
+                            {{{FieldLeft title label="Title" required="true"}}}
+                            {{{FieldLeft body label="Body"}}}
+                            {{{FieldLeft description label="Summary"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                        {{{DocumentFormLeftClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{DocumentFormRight}}}
+                            {{{DocumentButton modified=modified_date}}}
+                            {{{FieldFull status}}}
                             <br />
-                            {{#FieldFull display_date}}{{/FieldFull}}
+                            {{{FieldFull display_date}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldLeft featured}}{{/FieldLeft}}
+                            {{{FieldLeft featured}}}
                             <br />
-                            {{#FieldLeft pinned}}{{/FieldLeft}}
+                            {{{FieldLeft pinned}}}
                             <br />
-                            {{#FieldLeft comments}}{{/FieldLeft}}
+                            {{{FieldLeft comments}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldFull categories Categories}}{{/FieldFull}}
-                            {{#FieldFull authors Authors}}{{/FieldFull}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                            {{{FieldFull categories label="Categories"}}}
+                            {{{FieldFull authors label="Authors"}}}
+                            {{{FieldFull tags label="Tags"}}}
+                        {{{DocumentFormRightClose}}}
                     </div>
 
-                     <div class="ui tab" data-tab="Images">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft image "List View"}}{{/FieldLeft}}
-                            {{#FieldLeft image_feature Featured}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}                 
+                    <div class="ui tab" data-tab="Images">
+                        {{{DocumentFormLeft}}}
+                            {{{FieldLeft image label="List View"}}}
+                            {{{FieldLeft image_feature label="Featured"}}}
+                        {{{DocumentFormLeftClose}}}                
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{DocumentFormRight}}}
+                            {{{DocumentButton modified=modified_date}}}
+                        {{{DocumentFormRightClose}}}
                     </div>
+
                     <div class="ui tab" data-tab="External Article">
-                         {{#DocumentFormLeft}}
-                            {{#FieldLeft author Author}}{{/FieldLeft}}
-                            {{#FieldLeft publication_name Publication}}{{/FieldLeft}}
-                              {{#FieldLeft link URL}}{{/FieldLeft}}
-                              {{#FieldLeft date_published Date Published}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                         {{{DocumentFormLeft}}}
+                            {{{FieldLeft author label="Author"}}}
+                            {{{FieldLeft publication_name label="Publication"}}}
+                              {{{FieldLeft link label="URL"}}}
+                              {{{FieldLeft date_published label="Date Published"}}}
+                        {{{DocumentFormLeftClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{DocumentFormRight}}}
+                            {{{DocumentButton modified=modified_date}}}
+                        {{{DocumentFormRightClose}}}
                     </div>
+                    
                     <div class="ui tab" data-tab="SEO">
-                         {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                              {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                        {{{DocumentFormLeft}}}
+                            {{{FieldLeft code_name Slug}}}
+                            {{{FieldLeft metadata_description Description}}}
+                              {{{FieldLeft metadata_keywords Keywords}}}
+                        {{{DocumentFormLeftClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{DocumentFormRight}}}
+                            {{{DocumentButton modified=modified_date}}}
+                        {{{DocumentFormRightClose}}}
                     </div>            
                 </div>
             </form>

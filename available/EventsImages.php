@@ -8,7 +8,6 @@
 namespace Manager;
 
 class EventsImages {
-	private $field = false;
 	public $collection = 'events';
 	public $title = 'Venue Images';
 	public $titleField = 'title';

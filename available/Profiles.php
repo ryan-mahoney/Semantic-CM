@@ -8,7 +8,6 @@
 namespace Manager;
 
 class Profiles {
-    private $field = false;
     public $collection = 'profiles';
     public $title = 'Profiles';
     public $titleField = 'title';
