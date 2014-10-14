@@ -8,12 +8,13 @@
  * .7 typo
  * .8 make description use count variable
  * .9 definition added
+ * 1 accurate handlebars
  */
 namespace Manager;
 
 class Blogs {
     private $field = false;
-    public $collection = 'blogs';
+    public $collection = 'Collection\Blogs';
     public $title = 'Blogs';
     public $titleField = 'title';
     public $singular = 'Blog';
@@ -266,16 +267,16 @@ class Blogs {
         ];
     }
 
-    public function tablePartial () {
+    public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{CollectionHeader metadata=metadata pagination=pagination}}}
             </div>
 
            <div class="bottom-container">
               {{#if blogs}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
+                    {{{CollectionPagination pagination=pagination}}}
+                    {{{CollectionButtons metadata=metadata}}}
                 
                     <table class="ui large table segment manager sortable">
                         <col width="45%">
@@ -297,10 +298,10 @@ class Blogs {
                             {{#each blogs}}
                                 <tr data-id="{{dbURI}}">
                                     <td>{{title}}</td>
-                                    <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                    <td>{{#CategoriesCSV}}{{categories}}{{/CategoriesCSV}}</td>
-                                    <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
-                                    <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
+                                    <td>{{{Capitalize status}}}</td>
+                                    <td>{{{CategoriesCSV categories}}}</td>
+                                    <td>{{{BooleanReadable featured}}}</td>
+                                    <td>{{{BooleanReadable pinned}}}</td>
                                     <td>
                                        <div class="manager trash ui icon button"><i class="trash icon"></i></div>
                                     </td>
@@ -308,9 +309,9 @@ class Blogs {
                             {{/each}}
                          </tbody>
                     </table>
-                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{{CollectionPagination pagination=pagination}}}
                 {{else}}
-                     {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{CollectionEmpty metadata=metadata}}}
               {{/if}}
            </div>
 HBS;

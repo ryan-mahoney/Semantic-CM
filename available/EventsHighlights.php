@@ -53,7 +53,7 @@ class EventsHighlights {
 	}
 
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Highlight Images"}}
 			{{#if highlight_images}}

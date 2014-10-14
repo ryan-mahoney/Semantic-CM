@@ -7,10 +7,10 @@ services:
         arguments: ['@route']
     managerController:
         class:     'Opine\Manager\Controller'
-        arguments: ['@managerModel', '@managerView', '@manager', '@authentication', '@form', '@search', '@uploadwrapper', '@slugify', '@redirect']
+        arguments: ['@managerModel', '@managerView', '@manager', '@authentication', '@form', '@search', '@uploadwrapper', '@slugify', '@route', '@redirect', '@collectionModel']
     managerModel:
         class:     'Opine\Manager\Model'
         arguments: ['%root%', '@manager', '@db', '@bundleRoute']
     managerView:
         class:     'Opine\Manager\View'
-        arguments: ['@separation']
+        arguments: ['@managerModel', '@separation']

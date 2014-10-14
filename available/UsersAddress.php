@@ -165,7 +165,7 @@ class UsersAddress {
     }
 
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Address"}}
 			{{#if address_sub}}

@@ -80,7 +80,7 @@ class Subcarousels {
         ];
     }
     
-    public function tablePartial () {
+    public function indexPartial () {
         $partial = <<<'HBS'
             {{#EmbeddedCollectionHeader label="Images"}}
             {{#if carousel_individual}}

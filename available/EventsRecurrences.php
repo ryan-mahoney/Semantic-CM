@@ -123,7 +123,7 @@ class EventsRecurrences {
 			];
 	}
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Recurrence Rules"}}
 			{{#if recurrence_rules}}

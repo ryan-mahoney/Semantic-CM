@@ -54,7 +54,7 @@ class EventsExceptions {
 	}
 
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Exceptions Dates"}}
 			{{#if exception_date}}

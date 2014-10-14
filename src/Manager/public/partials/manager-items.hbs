@@ -6,11 +6,11 @@
       	</a>
       	<h3 class="ui header center aligned" style="margin: 10px">{{title}}</h3>
       	<div class="ui basic center aligned segment" style="margin-top: 0; margin-bottom: 10px">
-	      	<a href="/Manager/list/{{link}}"><i class="icon {{icon}} circular inverted category-{{category}}" style="font-size: 55px; margin: 0"></i></a>
-	      	<p>{{#ManagerDescription}}</p>
+	      	<a href="/Manager/index/{{link}}"><i class="icon {{icon}} circular inverted category-{{category}}" style="font-size: 55px; margin: 0"></i></a>
+	      	<p>{{{ManagerDescription . }}}</p>
 	    </div>
 	    <div class="ui buttons">
-			<a href="/Manager/add/{{link}}" class="ui button">Add</a><a href="/Manager/list/{{link}}" class="ui button">List</a>
+			<a href="/Manager/form/{{link}}" class="ui button">Add</a><a href="/Manager/index/{{link}}" class="ui button">List</a>
 		</div>
   	</div>
 {{/each}}

@@ -1,7 +1,7 @@
 <?php
-return function ($template, $context, $args, $source) {
+return function ($args, $named) {
     $buffer = '';
-    $pagination = $context->get('pagination');
+    $pagination = $named['pagination'];
     //if ($pagination['pageCount'] == 1) {
     //    return '';
     //}

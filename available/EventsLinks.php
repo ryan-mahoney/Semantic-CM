@@ -64,7 +64,7 @@ class EventsLinks {
 	
 
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Link / Menu"}}
 			{{#if link_sub}}

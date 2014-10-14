@@ -44,7 +44,7 @@ class DepartmentProfiles {
         ];
     }
 
-    public function tablePartial () {
+    public function indexPartial () {
         $partial = <<<'HBS'
             {{#EmbeddedCollectionHeader department_profiles}}{{/EmbeddedCollectionHeader}}
             {{#if department_profiles}}

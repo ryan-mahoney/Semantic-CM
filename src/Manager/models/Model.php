@@ -34,7 +34,7 @@ class Model {
 	}
 
 	public function build () {
-        $bundles = $this->bundleRoute->bundles(true);
+        $bundles = $this->bundleRoute->bundles();
         $namespacesByPath = [
             '/../managers' => 'Manager'
         ];
@@ -45,10 +45,9 @@ class Model {
             '/../managers' => null
         ];
         foreach ($bundles as $bundle) {
-            $searchPath = '/../bundles/' . $bundle . '/managers';
-            $namespacesByPath[$searchPath] = $bundle . '\Manager';
-            $bundleByPath[$searchPath] = $bundle;
-            $searcprivate[] = $searchPath;
+            $searchPath = '/../bundles/' . $bundle['name'] . '/managers';
+            $namespacesByPath[$searchPath] = $bundle['name'] . '\Manager';
+            $bundleByPath[$searchPath] = $bundle['name'];
         }
         $manageprivate = $this->root . $searchPaths[0];
         $managers = [];
@@ -76,9 +75,9 @@ class Model {
                 $groups = ['manager', 'manager-' . $managerInstance->category, 'manager-specific-' . $manager];
                 $routes = [
                     '/Manager',
-                    '/Manager/list/' . $manager,
-                    '/Manager/edit/' . $manager . '/' . $managerInstance->collection . ':{id}',
-                    '/Manager/add/' . $manager . '/' . $managerInstance->collection
+                    '/Manager/collection/' . $manager,
+                    '/Manager/document/' . $manager . '/' . $managerInstance->collection . ':{id}',
+                    '/Manager/document/' . $manager . '/' . $managerInstance->collection
                 ];
                 $linkPrefix = (($bundleByPath[$searchPath] != null) ? $bundleByPath[$searchPath] . '-' : '');
                 $managers[] = [
@@ -100,20 +99,18 @@ class Model {
                     'namespace' => $namespacesByPath[$searchPath]
                 ];
                 if (method_exists($managerInstance, 'formPartial')) {
-                    file_put_contents($this->root . '/partials/Manager/forms/' . $linkPrefix . $manager . '.hbs', $managerInstance->formPartial());
-                }
-                if (method_exists($managerInstance, 'tablePartial')) {
-                    file_put_contents($this->root . '/partials/Manager/collections/' . $linkPrefix . $manager . '.hbs', $managerInstance->tablePartial());
-                }
-                foreach ($groups as $group) {
-                    if (!isset($auth[$group])) {
-                        $auth[$group] = [
-                            'routes' => [], 'login' => '/Manager/login', 'denied' => '/Manager/noaccess'
-                        ];
+                    $dst = $this->root . '/partials/Manager/forms/' . $linkPrefix . $manager . '.hbs';
+                    if (!file_exists(dirname($dst))) {
+                        @mkdir(dirname($dst), 0777, true);
                     }
-                    foreach ($routes as $route) {
-                        $auth[$group]['routes'][] = $route;
+                    file_put_contents($dst, $managerInstance->formPartial());
+                }
+                if (method_exists($managerInstance, 'indexPartial')) {
+                    $dst = $this->root . '/partials/Manager/indexes/' . $linkPrefix . $manager . '.hbs';
+                    if (!file_exists(dirname($dst))) {
+                        @mkdir(dirname($dst), 0777, true);
                     }
+                    file_put_contents($dst, $managerInstance->indexPartial());
                 }
             }
         }

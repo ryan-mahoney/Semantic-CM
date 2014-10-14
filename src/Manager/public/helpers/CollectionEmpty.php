@@ -1,6 +1,6 @@
 <?php
-return function ($template, $context, $args, $source) {
-    $metadata = $context->get('metadata');
+return function ($args, $named) {
+    $metadata = $named['metadata'];
     return '
         <div class="ui icon yellow message">
             <i class="ui icon ' . $metadata['icon'] . '" style="vertical-align: top"></i>

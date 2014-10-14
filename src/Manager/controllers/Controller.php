@@ -1,5 +1,6 @@
 <?php
 namespace Opine\Manager;
+use Exception;
 
 class Controller {
 	private $model;
@@ -11,8 +12,10 @@ class Controller {
 	private $upload;
     private $slugify;
     private $redirect;
+    private $collectionModel;
+    private $route;
 
-	public function __construct ($model, $view, $service, $authentication, $form, $search, $upload, $slugify, $redirect) {
+	public function __construct ($model, $view, $service, $authentication, $form, $search, $upload, $slugify, $route, $redirect, $collectionModel) {
 		$this->model = $model;
 		$this->view = $view;
 		$this->manager = $service;
@@ -21,7 +24,9 @@ class Controller {
         $this->search = $search;
         $this->upload = $upload;
         $this->slugify = $slugify;
+        $this->route = $route;
         $this->redirect = $redirect;
+        $this->collectionModel = $collectionModel;
 	}
 
     public function login () {
@@ -119,7 +124,7 @@ class Controller {
             }
             //access control
             if (!isset($_SESSION['user']) || !isset($_SESSION['user']['groups']) || empty($_SESSION['user']['groups'])) {
-                continue;
+//                continue;
             }
             $groups = ['manager', 'manager-' . $manager['category'], 'manager-specific-' . $manager['manager']];
             $matched = false;
@@ -130,7 +135,7 @@ class Controller {
                 }
             }
             if ($matched === false) {
-                continue;
+//                continue;
             }
             $managersOut[] = $manager;
         }
@@ -161,7 +166,7 @@ class Controller {
         echo json_encode($out);
     }
 
-    public function collection ($managerName, $method, $limit=50, $page=1, $sort='{}') {
+    public function apiCollection ($managerName, $method, $limit=50, $page=1, $sort='{}') {
         $manager = false;
         $managers = $this->model->cacheRead();
         foreach ($managers['managers'] as $managersData) {
@@ -170,7 +175,26 @@ class Controller {
                 break;
             }
         }
-        $collectionJson = $this->route->run('GET', '/json-data/' . $managerName . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
+        if ($manager === false) {
+            throw new Exception('Manager not found: ' . $managerName);
+        }
+        $collection = false;
+        $collectionName = $manager['collection'];
+        $collections = $this->collectionModel->cacheRead();
+        foreach ($collections as $collectionsData) {
+            if ($collectionName == $collectionsData['class']) {
+                $collection  = $collectionsData;
+            }
+        }
+        if ($collection === false) {
+            throw new Exception('Collection not found: ' . $collectionName);
+        }
+        $collectionPath = '';
+        if ($collection['namespace'] != '') {
+            $collectionPath .= '/' . $collection['namespace']; 
+        }
+        $collectionPath .= '/api/collection/' . $collection['name'];
+        $collectionJson = $this->route->run('GET', $collectionPath . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
         if ($manager !== false) {
             $collectionJson = json_decode($collectionJson, true);
             $collectionJson['metadata'] = array_merge($collectionJson['metadata'], $manager);

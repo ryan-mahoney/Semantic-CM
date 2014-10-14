@@ -107,7 +107,7 @@ class EventsRegistrations {
 	        ];
 	}
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Registration Options"}}
 			{{#if registration_options}}

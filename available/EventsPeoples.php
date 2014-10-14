@@ -80,7 +80,7 @@ class EventsPeoples {
 		];
 	}
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Peoples"}}
 			{{#if people_sub}}

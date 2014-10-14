@@ -1,8 +1,7 @@
 <?php
-return function ($template, $context, $args, $source) {
-    $buffer = '';
-    $metadata = $context->get('metadata');
-    $pagination = $context->get('pagination');
+return function ($args, $named) {
+    $metadata = $named['metadata'];
+    $pagination = $named['pagination'];
     $stop = $pagination['page'] * $pagination['limit'];
     if ($pagination['total'] < $stop) {
         $stop = $pagination['total'];

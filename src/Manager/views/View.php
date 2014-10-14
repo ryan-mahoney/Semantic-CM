@@ -3,9 +3,11 @@ namespace Opine\Manager;
 
 class View {
 	private $separation;
+    private $model;
 
-	public function __construct ($separation) {
-		$this->separation = $separation;
+	public function __construct ($model, $separation) {
+		$this->model = $model;
+        $this->separation = $separation;
 	}
 
 	public function login () {
@@ -40,7 +42,6 @@ class View {
 
     public function edit ($manager, $layout='Manager/app/forms/any', $id) {
         $namespace = '';
-        $this->resolvePaths($manager, $bundle);
         $url = '/Manager/form-json/' . $bundle . $manager;
         $partial = 'Manager/forms/' . $bundle . $manager . '.hbs';
         $this->separation->
@@ -55,8 +56,7 @@ class View {
 
     public function index ($manager, $layout='Manager/collections/any', $url=false) {
         $namespace = '';
-        $this->resolvePaths($manager, $namespace);        
-        $managers = $this->cacheRead();
+        $managers = $this->model->cacheRead();
         foreach ($managers['managers'] as $managerCache) {
             if ($managerCache['manager'] == $manager) {
                 break;
@@ -67,9 +67,9 @@ class View {
             $sort = $managerCache['sort'];
         }
         if ($url === false) {
-            $url = '%dataAPI%/Manager/data/' . $manager . '/manager/50/0/' . $sort;
+            $url = '/Manager/api/index/' . $manager . '/manager/50/0/' . $sort;
         }
-        $partial = 'Manager/collections/' . $namespace . $manager . '.hbs';
+        $partial = 'Manager/indexes/' . $namespace . $manager . '.hbs';
         $this->separation->
             app('../bundles/Manager/app/collections/any')->
             layout($layout)->

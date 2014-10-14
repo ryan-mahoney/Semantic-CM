@@ -58,7 +58,7 @@ class Subimages {
         ];
     }
 
-    public function tablePartial () {
+    public function indexPartial () {
         $partial = <<<'HBS'
             {{#EmbeddedCollectionHeader label="Images"}}
             {{#if image_individual}}

@@ -53,7 +53,7 @@ class EventsImages {
 	}
 
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Venue Images"}}
 			{{#if image_sub}}

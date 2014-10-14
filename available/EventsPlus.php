@@ -52,7 +52,7 @@ class EventsPlus {
 		];
 	}
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Included Dates"}}
 			{{#if plus_date}}

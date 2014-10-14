@@ -74,7 +74,7 @@ class MenuLinks {
         ];
     }
 
-    public function tablePartial () {
+    public function indexPartial () {
         $partial = <<<'HBS'
             {{#EmbeddedCollectionHeader label="Sub Menus"}}
             {{#if link}}

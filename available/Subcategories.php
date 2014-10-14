@@ -50,7 +50,7 @@ class Subcategories {
         ];
     }
 
-    public function tablePartial () {
+    public function indexPartial () {
         $partial = <<<'HBS'
             {{#EmbeddedCollectionHeader label="Subcategories"}}
             {{#if subcategory}}

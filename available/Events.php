@@ -1186,7 +1186,7 @@ class Events {
 		};
 	}
 	*/
-	public function tablePartial () {
+	public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{#CollectionHeader}}{{/CollectionHeader}}

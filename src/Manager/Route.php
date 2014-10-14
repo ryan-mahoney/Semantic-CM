@@ -34,9 +34,9 @@ class Route {
 
     public function paths () {
         $this->route->get('managerController@authFilter', '/Manager', [
-            '/document/{manager}' => 'managerController@add',
-            '/document/{manager}/{dbURI}' => 'managerController@edit',
-            '/collection/{manager}' => 'managerController@index',
+            '/form/{manager}' => 'managerController@add',
+            '/form/{manager}/{dbURI}' => 'managerController@edit',
+            '/index/{manager}' => 'managerController@index',
             '' => 'managerController@dashboard',
             '/header' => 'managerController@header',
         ]);
@@ -49,11 +49,11 @@ class Route {
         $this->route->get('/Manager/api', [     
             '/managers' => 'managerController@apiManagers',
             '/search' => 'managerController@apiSearch',
-            '/collection/{manager}' => 'managerController@collection',
-            '/collection/{manager}/{method}'  => 'managerController@collection',
-            '/collection/{manager}/{method}/{limit}'  => 'managerController@collection',
-            '/collection/{manager}/{method}/{limit}/{page}'  => 'managerController@collection',
-            '/collection/{manager}/{method}/{limit}/{page}/{sort}'  => 'managerController@collection',
+            '/index/{manager}' => 'managerController@apiCollection',
+            '/index/{manager}/{method}'  => 'managerController@apiCollection',
+            '/index/{manager}/{method}/{limit}'  => 'managerController@apiCollection',
+            '/index/{manager}/{method}/{limit}/{page}'  => 'managerController@apiCollection',
+            '/index/{manager}/{method}/{limit}/{page}/{sort}'  => 'managerController@apiCollection',
             '/document/{manager}' => 'managerController@form'
         ]);
 
@@ -68,5 +68,3 @@ class Route {
         return __DIR__;
     }
 }
-
-class ManagerNotFoundException extends Exception {}

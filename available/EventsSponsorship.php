@@ -53,7 +53,7 @@ class EventsSponsors {
 		];
 	}
 
-	public function tablePartial () {
+	public function indexPartial () {
 		$partial = <<<'HBS'
 			{{#EmbeddedCollectionHeader label="Sponsors"}}
 			{{#if sponsor_sub}}

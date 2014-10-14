@@ -1,5 +1,5 @@
 <?php
-return function ($template, $context, $args, $source) {
-    $engine = $template->getEngine();
-    return $engine->render($context->get('description'), $context);
+return function ($args, $named) {
+    $manager = $args[0];
+    return str_replace('{{count}}', $manager['count'], $manager['description']);
 };
