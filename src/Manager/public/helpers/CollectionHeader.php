@@ -1,5 +1,6 @@
 <?php
 return function ($args, $named) {
+    $buffer = '';
     $metadata = $named['metadata'];
     $pagination = $named['pagination'];
     $stop = $pagination['page'] * $pagination['limit'];

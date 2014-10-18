@@ -322,7 +322,7 @@ HBS;
             {{{Form spare=id_spare metadata=metadata}}}
                 <div class="top-container">
                     {{{DocumentHeader metadata=metadata}}}
-                    {{{DocumentTabs}}}
+                    {{{DocumentTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
@@ -332,6 +332,7 @@ HBS;
                             {{{FieldLeft body label="Body"}}}
                             {{{FieldLeft description label="Summary"}}}
                             {{{id}}}
+                            {{{form-token}}}
                         {{{DocumentFormLeftClose}}}
                         
                         {{{DocumentFormRight}}}

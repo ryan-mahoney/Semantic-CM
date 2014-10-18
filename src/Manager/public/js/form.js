@@ -32,12 +32,12 @@ var ManagerSaved = function (form, data) {
 
     //loop over embedded documents, update
     $(form).find('.field.embedded').each(function () {
-        var embeddedDbURI = dbURI + ':' + $(this).attr('data-field'); 
+        var embeddedDbURI = embeddedDbURI + ':' + $(this).attr('data-field'); 
         var embeddedManager = $(this).attr('data-manager');
         var embeddedContainer = this;
         $.ajax({
             type: "GET",
-            url: '/Manager/list/' + embeddedManager + '?embedded&dbURI=' + embeddedDbURI,
+            url: '/Manager/index/' + embeddedManager + '?embedded&dbURI=' + embeddedDbURI,
             success: function (response) {
                 $(embeddedContainer).html(response);
             },
@@ -146,12 +146,12 @@ var formSubmitInitialize = function () {
 };
 
 var titleInitialize = function () {
-    var formDom = $('form');
-    var titleField = $(formDom).attr('data-titlefield');
+    var $formDom = $('form');
+    var titleField = $formDom.attr('data-titlefield');
     if (titleField == '' || typeof(titleField) == 'undefined') {
         return;
     }
-    var manager = $(formDom).attr('data-manager');
+    var manager = $formDom.attr('data-manager');
     var titleFieldName = manager + '[' + titleField + ']';
     var slugFieldName = manager + '[code_name]';
     var crumbDom = $('.top-container .breadcrumb a:last-child > h2');
@@ -186,7 +186,7 @@ var confirmedDeleteInitialize = function () {
                 type: "DELETE",
                 url: url,
                 success: function (response) {
-                    window.location = '/Manager/list/' + manager;
+                    window.location = '/Manager/index/' + manager;
                 }
             });
         }

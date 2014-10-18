@@ -12,9 +12,12 @@ return function ($args, $named) {
         $label = $named['label'];
         $labeled = ' labeled ';
     }
+    if (!isset($named['field'])) {
+        $named['field'] = '';
+    }
 
     return '
-        <div class="field" data-field="' . $field . '">' .
+        <div class="field" data-field="' . $named['field'] . '">' .
             ($label !== false ? '<label>' . $label . '</label>' : '') .
             '<div class="ui left ' . $labeled . ' input">' .
                 $markup .

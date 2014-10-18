@@ -1,16 +1,19 @@
 services:
     manager:
         class:     'Opine\Manager\Service'
-        arguments: ['@post', '@db', '@collection', '@authentication']
+        arguments: ['@post', '@db', '@collection', '@collectionModel', '@authentication']
     managerRoute:
         class:     'Opine\Manager\Route'
         arguments: ['@route']
     managerController:
         class:     'Opine\Manager\Controller'
-        arguments: ['@managerModel', '@managerView', '@manager', '@authentication', '@form', '@search', '@uploadwrapper', '@slugify', '@route', '@redirect', '@collectionModel']
+        arguments: ['@managerModel', '@managerView', '@manager', '@authentication', '@form', '@search', '@uploadwrapper', '@slugify', '@route', '@redirect']
+    managerApiController:
+        class:     'Opine\Manager\ApiController'
+        arguments: ['@managerModel', '@form', '@search', '@uploadwrapper', '@slugify', '@route']
     managerModel:
         class:     'Opine\Manager\Model'
-        arguments: ['%root%', '@manager', '@db', '@bundleRoute']
+        arguments: ['%root%', '@manager', '@db', '@bundleRoute', '@collectionModel']
     managerView:
         class:     'Opine\Manager\View'
         arguments: ['@managerModel', '@separation']

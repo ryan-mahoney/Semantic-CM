@@ -29,15 +29,31 @@ class Service {
     private $authentication;
     private $db;
     private $collection;
+    private $collectionModel;
 
-    public function __construct ($post, $db, $collection, $authentication) {
+    public function __construct ($post, $db, $collection, $collectionModel, $authentication) {
         $this->post = $post;
         $this->authentication = $authentication;
         $this->db = $db;
         $this->collection = $collection;
+        $this->collectionModel = $collectionModel;
+    }
+
+    public function collectionGetByCollection ($collectionName) {
+        $collections = $this->collectionModel->cacheRead();
+        foreach ($collections as $collectionsData) {
+            if ($collectionName == $collectionsData['collection']) {
+                return $collectionsData;
+            }
+        }
+        if ($collection === false) {
+            throw new Exception('Collection not found: ' . $class);
+        }
+        return $collection;
     }
 
     public function post ($context) {
+        $linkName = $context['formObject']->manager['link'];
         if (!isset($context['dbURI']) || empty($context['dbURI'])) {
             throw new \Exception('Context does not contain a dbURI');
         }
@@ -54,21 +70,16 @@ class Service {
         $document = $documentInstance->current();
         $id = $documentInstance->id();
         $collectionName = $documentInstance->collection();
-        $collectionClass = '\Collection\\' . $this->collection->toCamelCase($collectionName);
+        $collection = $this->CollectionGetByCollection($collectionName);
+        $collectionClass = $collection['class'];
         $collectionInstance = $this->collection->factory(new $collectionClass());
         if ($collectionInstance === false) {
             return;
         }
-        $collectionInstance->index($id, $document);
+        $managerUrl = '/Manager/item/' . $linkName . '/' . $context['dbURI'];
+        $collectionInstance->index($id, $document, $managerUrl);
         $collectionInstance->views('upsert', $id, $document);
         $collectionInstance->statsUpdate($context['dbURI']);
-    }
-
-    private function resolvePaths (&$manager, &$namespace) {
-        if (substr_count($manager, '-') == 1) {
-            list($namespace, $manager) = explode('-', $manager);
-            $namespace .= '-';
-        }
     }
 
     public function authenticate ($context) {

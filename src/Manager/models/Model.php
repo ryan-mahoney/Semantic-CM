@@ -1,4 +1,27 @@
 <?php
+/**
+ * Opine\Mangager\Model
+ *
+ * Copyright (c)2013, 2014 Ryan Mahoney, https://github.com/Opine-Org <ryan@virtuecenter.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 namespace Opine\Manager;
 
 class Model {
@@ -7,12 +30,14 @@ class Model {
 	private $bundleRoute;
 	private $db;
 	private $cacheFile;
+    private $collectionModel;
 
-	public function __construct ($root, $manager, $db, $bundleRoute) {
+	public function __construct ($root, $manager, $db, $bundleRoute, $collectionModel) {
 		$this->root = $root;
 		$this->manager = $manager;
 		$this->bundleRoute = $bundleRoute;
 		$this->db = $db;
+        $this->collectionModel = $collectionModel;
 		$this->cacheFile = $this->root . '/../cache/managers.json';
 	}
 
@@ -22,6 +47,42 @@ class Model {
 
     public function cacheRead () {
         return json_decode(file_get_contents($this->cacheFile), true);
+    }
+
+    public function managerGetByLink ($linkName) {
+        $managers = $this->cacheRead();
+        foreach ($managers['managers'] as $manager) {
+            if ($manager['link'] == $linkName) {
+                return $manager;
+            }
+        }
+        throw new Exception('can not get manager by link: ' . $linkName);
+    }
+
+    public function collectionGetByCollection ($collectionName) {
+        $collections = $this->collectionModel->cacheRead();
+        foreach ($collections as $collectionsData) {
+            if ($collectionName == $collectionsData['collection']) {
+                return $collectionsData;
+            }
+        }
+        if ($collection === false) {
+            throw new Exception('Collection not found: ' . $class);
+        }
+        return $collection;
+    }
+
+    public function collectionGetByClass ($class) {
+        $collections = $this->collectionModel->cacheRead();
+        foreach ($collections as $collectionsData) {
+            if ($class == $collectionsData['class']) {
+                return $collectionsData;
+            }
+        }
+        if ($collection === false) {
+            throw new Exception('Collection not found: ' . $class);
+        }
+        return $collection;
     }
 
 	public function collectionCounts () {

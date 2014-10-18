@@ -7,7 +7,7 @@ return function ($args, $named) {
             <i class="right arrow icon divider"></i>
             <a class="section" href="/Manager?' . $metadata['category'] . '"><h2>' . $metadata['category'] . '</h2></a>
             <i class="right arrow icon divider"></i>
-            <a class="section" href="/Manager/list/' . $metadata['manager'] . '"><h2>' . $metadata['title'] . '</h2></a>
+            <a class="section" href="/Manager/index/' . $metadata['link'] . '"><h2>' . $metadata['title'] . '</h2></a>
             <i class="right arrow icon divider"></i>
             <a class="active section"><h2>' . $metadata['singular'] . '</h2></a>
         </div>

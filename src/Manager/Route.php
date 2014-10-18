@@ -33,34 +33,43 @@ class Route {
     }
 
     public function paths () {
-        $this->route->get('managerController@authFilter', '/Manager', [
-            '/item/{manager}' => 'managerController@add',
-            '/item/{manager}/{dbURI}' => 'managerController@edit',
-            '/index/{manager}' => 'managerController@index',
-            '' => 'managerController@dashboard',
-            '/header' => 'managerController@header',
+        $this->route->get('managerController@authFilter', 
+            '/Manager', [
+                ''                                                  => 'managerController@dashboard',
+                '/header'                                           => 'managerController@header',
+                '/item/{manager}'                                   => 'managerController@add',
+                '/item/{manager}/{dbURI}'                           => 'managerController@edit',
+                '/index/{manager}'                                  => 'managerController@index'
         ]);
 
-        $this->route->get('/Manager', [
-            '/login' => 'managerController@login',
-            '/logout' => 'managerController@logout'
+        $this->route->get(
+            '/Manager', [
+                '/login'                                            => 'managerController@login',
+                '/logout'                                           => 'managerController@logout'
         ]);
 
-        $this->route->get('/Manager/api', [     
-            '/managers' => 'managerController@apiManagers',
-            '/search' => 'managerController@apiSearch',
-            '/index/{manager}' => 'managerController@apiCollection',
-            '/index/{manager}/{method}'  => 'managerController@apiCollection',
-            '/index/{manager}/{method}/{limit}'  => 'managerController@apiCollection',
-            '/index/{manager}/{method}/{limit}/{page}'  => 'managerController@apiCollection',
-            '/index/{manager}/{method}/{limit}/{page}/{sort}'  => 'managerController@apiCollection',
-            '/document/{manager}' => 'managerController@apiForm'
+        $this->route->get(
+            '/Manager/api', [     
+                '/managers'                                         => 'managerApiController@managers',
+                '/search'                                           => 'managerApiController@search',
+                '/index/{manager}'                                  => 'managerApiController@collection',
+                '/index/{manager}/{method}'                         => 'managerApiController@collection',
+                '/index/{manager}/{method}/{limit}'                 => 'managerApiController@collection',
+                '/index/{manager}/{method}/{limit}/{page}'          => 'managerApiController@collection',
+                '/index/{manager}/{method}/{limit}/{page}/{sort}'   => 'managerApiController@collection',
+                '/document/{manager}'                               => 'managerApiController@form'
         ]);
 
-        $this->route->post('managerController@authFilter', '/Manager/api', [
-            '/upload/{manager}/{field}' => 'managerController@upload',
-            '/sort/{manager}' => 'managerController@sort',
-            '/upsert/{manager}' => 'managerController@upsert'
+        $this->route->post('managerController@authFilter', 
+            '/Manager/api', [
+                '/upload/{manager}/{field}'                         => 'managerApiController@upload',
+                '/sort/{manager}'                                   => 'managerApiController@sort',
+                '/upsert/{manager}'                                 => 'managerApiController@upsert'
+        ]);
+
+        $this->route->delete('managerController@authFilter',
+            '/Manager/api', [
+                '/item/{manager}/{dbURI}'                           => 'managerApiController@delete',
         ]);
     }
 
