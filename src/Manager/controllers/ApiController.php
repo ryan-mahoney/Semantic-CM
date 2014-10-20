@@ -63,23 +63,11 @@ class ApiController {
             } else {
                 $manager['count'] = 0;
             }
-            //access control
-/*
-            if (!isset($_SESSION['user']) || !isset($_SESSION['user']['groups']) || empty($_SESSION['user']['groups'])) {
+            
+            if (!$this->model->authManagerCheck($manager)) {
                 continue;
             }
-            $groups = ['manager', 'manager-' . $manager['category'], 'manager-specific-' . $manager['manager']];
-            $matched = false;
-            foreach ($groups as $group) {
-                if (in_array($group, $_SESSION['user']['groups'])) {
-                    $matched = true;
-                    break;
-                }
-            }
-            if ($matched === false) {
-                continue;
-            }
-*/
+
             $managersOut[] = $manager;
         }
         echo json_encode(['managers' => $managersOut], JSON_PRETTY_PRINT);

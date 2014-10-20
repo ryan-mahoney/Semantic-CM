@@ -89,21 +89,12 @@ class View {
             write();
     }
 
-    public function dashboard () {
-        $category = '';
-        if (isset($_GET['content'])) {
-            $category = 'Content';
-        }
-        if (isset($_GET['reports'])) {
-            $category = 'Reports';
-        }
-        if (isset($_GET['people'])) {
-            $category = 'People';
-        }
-        $this->separation->app('../bundles/Manager/app/dashboard')
-            ->layout('Manager/dashboard.html')
-            ->template()
-            ->write();
+    public function dashboard ($section) {
+        $this->separation->app('../bundles/Manager/app/dashboard')->
+            layout('Manager/dashboard.html')->
+            url('managers', '/Manager/api/managers?category=' . $section)->
+            template()->
+            write();
     }
  
     public function header () {

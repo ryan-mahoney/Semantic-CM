@@ -123,7 +123,7 @@ class Controller {
         $this->view->header();
     }
 
-    public function dashboard () {
-        $this->view->dashboard();
+    public function dashboard ($section='') {
+        $this->view->dashboard($section);
     }
 }

@@ -156,7 +156,7 @@ class Model {
         }
 
         //dashboard
-        if ($uri == '/Manager' || substr_count($uri, '/Manager/api') == 1) {
+        if ($uri == '/Manager' || substr_count($uri, '/Manager/section') == 1 || substr_count($uri, '/Manager/api') == 1) {
             if ($this->personService->inGroupLike('/^manager/i')) {
                 return true;
             }
@@ -165,12 +165,12 @@ class Model {
 
         //index
         if (substr_count($uri, '/Manager/index/') == 1) {
-            return $this->personService->permission($this->authGroupsForManager(array_pop($parts)));
+            return $this->authGroupsForManager($parts[2]);
         }
     
         //item
         if (substr_count($uri, '/Manager/item/') == 1) {
-            return $this->personService->permission($this->authGroupsForManager($parts[2]));
+            return $this->authGroupsForManager($parts[2]);
         }
 
         return false;
@@ -178,11 +178,15 @@ class Model {
 
     private function authGroupsForManager ($linkName) {
         $metadata = $this->managerGetByLink($linkName);
-        return [
+        return $this->authManagerCheck($metadata);
+    }
+
+    public function authManagerCheck (&$metadata) {
+        return $this->personService->permission([
             'manager',
             'manager-category-' . $metadata['category'],
-            'manager-' . $metadata['category'] . '-' . $linkName
-        ];    
+            'manager-' . $metadata['category'] . '-' . $metadata['link']
+        ]);
     }
 
     public function authenticate ($context) {

@@ -36,6 +36,7 @@ class Route {
         $this->route->get('managerController@authFilter', 
             '/Manager', [
                 ''                                                  => 'managerController@dashboard',
+                '/section/{section}'                                => 'managerController@dashboard',
                 '/header'                                           => 'managerController@header',
                 '/item/{manager}'                                   => 'managerController@add',
                 '/item/{manager}/{dbURI}'                           => 'managerController@edit',
