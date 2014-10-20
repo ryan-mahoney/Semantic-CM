@@ -37,17 +37,15 @@ class Controller {
     private $redirect;
     private $route;
 
-    public function __construct ($model, $view, $service, $authentication, $form, $search, $upload, $slugify, $route, $redirect) {
+    public function __construct ($model, $view, $service, $form, $search, $upload, $slugify, $route) {
         $this->model = $model;
         $this->view = $view;
         $this->manager = $service;
-        $this->authentication = $authentication;
         $this->form = $form;
         $this->search = $search;
         $this->upload = $upload;
         $this->slugify = $slugify;
         $this->route = $route;
-        $this->redirect = $redirect;
     }
 
     public function login () {
@@ -55,30 +53,17 @@ class Controller {
     }
 
     public function authFilter () {
-        return true;
         if (!isset($_SERVER['REQUEST_URI'])) {
             return false;
         }
-        $parts = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-        $manager = false;
-        if (isset($parts[2])) {
-            $manager = $parts[2];
+        $uri = $_SERVER['REQUEST_URI'];
+        if (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '') {
+            $uri = str_replace('?' . $_SERVER['QUERY_STRING'], '', $uri);    
         }
-
-        //check if logged in
-        if ($this->authentication->check() === false) {
-            return $this->redirect->to('/Manager/login');
-        } else {
-            if ($manager == false) {
-                //check any manager zone
-                return true;
-            }
+        if ($this->model->loggedIn() === false || $this->model->authCheckPath($uri) === false) {
+            return $this->route->redirect()->to('/Manager/login');
         }
-
-        //check if access to this manager
-        
-
-        return false;
+        return true;
     }
 
     public function add ($manager) {
@@ -130,9 +115,8 @@ class Controller {
     }
 
     public function logout () {
-        $this->authentication->logout();
-        header('Location: /Manager');
-        return;        
+        $this->model->logout();
+        header('Location: /Manager/login');
     }
 
     public function header () {

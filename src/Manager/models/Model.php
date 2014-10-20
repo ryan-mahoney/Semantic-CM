@@ -35,7 +35,7 @@ class Model {
     private $collectionService;
     private $postService;
 
-	public function __construct ($root, $manager, $db, $bundleRoute, $collectionService, $collectionModel, $postService) {
+	public function __construct ($root, $manager, $db, $bundleRoute, $collectionService, $collectionModel, $postService, $personService) {
 		$this->root = $root;
 		$this->manager = $manager;
 		$this->bundleRoute = $bundleRoute;
@@ -44,6 +44,7 @@ class Model {
         $this->collectionModel = $collectionModel;
 		$this->cacheFile = $this->root . '/../cache/managers.json';
         $this->postService = $postService;
+        $this->personService = $personService;
 	}
 
     public function cacheWrite (Array $managers) {
@@ -138,6 +139,52 @@ class Model {
         $collectionInstance->statsUpdate($context['dbURI']);
     }
 
+    public function loggedIn () {
+        return $this->personService->sessionCheck();
+    }
+
+    public function logout () {
+        $this->personService->logout();
+    }
+
+    public function authCheckPath ($uri) {
+        $parts = explode('/', trim($uri, '/'));
+
+        //login & logout
+        if ($uri == '/Manager/login' || $uri == '/Manager/logout') {
+            return true;
+        }
+
+        //dashboard
+        if ($uri == '/Manager' || substr_count($uri, '/Manager/api') == 1) {
+            if ($this->personService->inGroupLike('/^manager/i')) {
+                return true;
+            }
+            return false;
+        }
+
+        //index
+        if (substr_count($uri, '/Manager/index/') == 1) {
+            return $this->personService->permission($this->authGroupsForManager(array_pop($parts)));
+        }
+    
+        //item
+        if (substr_count($uri, '/Manager/item/') == 1) {
+            return $this->personService->permission($this->authGroupsForManager($parts[2]));
+        }
+
+        return false;
+    }
+
+    private function authGroupsForManager ($linkName) {
+        $metadata = $this->managerGetByLink($linkName);
+        return [
+            'manager',
+            'manager-category-' . $metadata['category'],
+            'manager-' . $metadata['category'] . '-' . $linkName
+        ];    
+    }
+
     public function authenticate ($context) {
         if (!isset($context['dbURI']) || empty($context['dbURI'])) {
             throw new Exception('Context does not contain a dbURI');
@@ -153,14 +200,10 @@ class Model {
             $this->postService->errorFieldSet($context['formMarker'], 'Missing url.');
             return;
         }
-        $try = $this->authentication->login($document['email'], $document['password']);
+        $try = $this->personService->login($document['email'], $document['password']);
         if ($try === false) {
             $this->postService->errorFieldSet($context['formMarker'], 'Credentials do not match. Please check your email or password and try again.');
             return;    
-        }
-        if (!$this->authentication->checkRoute($document['route'], false)) {
-            $this->postService->errorFieldSet($context['formMarker'], 'You do not have access to the area.');
-            return;
         }
         $this->postService->statusSaved();
     }

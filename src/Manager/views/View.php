@@ -41,18 +41,6 @@ class View {
     }
 
 	public function login () {
-        if (isset($_SESSION['user']['groups']) && is_array($_SESSION['user']['groups']) && !empty($_SESSION['user']['groups'])) {
-            $matched = false;
-            foreach ($_SESSION['user']['groups'] as $group) {
-                if (preg_match('/^manager/', $group) > 0) {
-                    $matched = true;
-                    break;
-                }
-            }
-            if ($matched === true) {
-                header('Location: /Manager');
-            }
-        }
         $this->separation->app('../bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
     }
 

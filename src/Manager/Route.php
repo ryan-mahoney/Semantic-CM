@@ -48,7 +48,7 @@ class Route {
                 '/logout'                                           => 'managerController@logout'
         ]);
 
-        $this->route->get(
+        $this->route->get('managerController@authFilter',
             '/Manager/api', [     
                 '/managers'                                         => 'managerApiController@managers',
                 '/search'                                           => 'managerApiController@search',
