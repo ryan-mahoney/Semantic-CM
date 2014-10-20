@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 namespace Opine\Manager;
+use Exception;
 
 class Model {
 	private $root;
@@ -31,14 +32,18 @@ class Model {
 	private $db;
 	private $cacheFile;
     private $collectionModel;
+    private $collectionService;
+    private $postService;
 
-	public function __construct ($root, $manager, $db, $bundleRoute, $collectionModel) {
+	public function __construct ($root, $manager, $db, $bundleRoute, $collectionService, $collectionModel, $postService) {
 		$this->root = $root;
 		$this->manager = $manager;
 		$this->bundleRoute = $bundleRoute;
 		$this->db = $db;
+        $this->collectionService = $collectionService;
         $this->collectionModel = $collectionModel;
 		$this->cacheFile = $this->root . '/../cache/managers.json';
+        $this->postService = $postService;
 	}
 
     public function cacheWrite (Array $managers) {
@@ -61,13 +66,14 @@ class Model {
 
     public function collectionGetByCollection ($collectionName) {
         $collections = $this->collectionModel->cacheRead();
+        $collection = false;
         foreach ($collections as $collectionsData) {
             if ($collectionName == $collectionsData['collection']) {
                 return $collectionsData;
             }
         }
         if ($collection === false) {
-            throw new Exception('Collection not found: ' . $class);
+            throw new Exception('Collection not found: ' . $collectionName);
         }
         return $collection;
     }
@@ -93,6 +99,71 @@ class Model {
         }
         return $counts;
 	}
+
+    public function delete ($dbURI) {
+        $result = $this->db->documentStage($dbURI)->remove();
+        if (isset($result['ok']) && $result['ok'] == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public function post ($context) {
+        $linkName = $context['formObject']->manager['link'];
+        if (!isset($context['dbURI']) || empty($context['dbURI'])) {
+            throw new Exception('Context does not contain a dbURI');
+        }
+        if (!isset($context['formMarker'])) {
+            throw new Exception('Form marker not set in post');
+        }
+        $document = $this->postService->{$context['formMarker']};
+        if ($document === false || empty($document)) {
+            throw new Exception('Document not found in post');
+        }
+        $documentInstance = $this->db->documentStage($context['dbURI'], $document);
+        $documentInstance->upsert();
+        $this->postService->statusSaved();
+        $document = $documentInstance->current();
+        $id = $documentInstance->id();
+        $collectionName = $documentInstance->collection();
+        $collection = $this->collectionGetByCollection($collectionName);
+        $collectionClass = $collection['class'];
+        $collectionInstance = $this->collectionService->factory(new $collectionClass());
+        if ($collectionInstance === false) {
+            return;
+        }
+        $managerUrl = '/Manager/item/' . $linkName . '/' . $context['dbURI'];
+        $collectionInstance->index($id, $document, $managerUrl);
+        $collectionInstance->views('upsert', $id, $document);
+        $collectionInstance->statsUpdate($context['dbURI']);
+    }
+
+    public function authenticate ($context) {
+        if (!isset($context['dbURI']) || empty($context['dbURI'])) {
+            throw new Exception('Context does not contain a dbURI');
+        }
+        if (!isset($context['formMarker'])) {
+            throw new Exception('Form marker not set in post');
+        }
+        $document = $this->postService->{$context['formMarker']};
+        if ($document === false || empty($document)) {
+            throw new Exception('Document not found in post');
+        }
+        if (!isset($document['route'])) {
+            $this->postService->errorFieldSet($context['formMarker'], 'Missing url.');
+            return;
+        }
+        $try = $this->authentication->login($document['email'], $document['password']);
+        if ($try === false) {
+            $this->postService->errorFieldSet($context['formMarker'], 'Credentials do not match. Please check your email or password and try again.');
+            return;    
+        }
+        if (!$this->authentication->checkRoute($document['route'], false)) {
+            $this->postService->errorFieldSet($context['formMarker'], 'You do not have access to the area.');
+            return;
+        }
+        $this->postService->statusSaved();
+    }
 
 	public function build () {
         $bundles = $this->bundleRoute->bundles();
@@ -218,5 +289,53 @@ class Model {
             }
         }
         echo 'Upgraded ', $upgraded, ' managers.', "\n";
+    }
+
+    public function sort ($post) {
+        $sample = $post['sorted'][0];
+        $depth = substr_count($sample, ':');
+        if ($depth == 1) {
+            $offset = 1;
+            foreach ($post['sorted'] as $dbURI) {
+                $parts = explode(':', $dbURI);
+                $this->db->collection($parts[0])->update([
+                        '_id' => $this->db->id($parts[1])
+                    ], [
+                        '$set' => [
+                            'sort_key' => $offset
+                        ]
+                    ]);
+                $offset++;
+            }
+            echo json_encode(['success' => true]);
+            return;
+        } else {
+            $parts = explode(':', $sample);
+            $dbURI = $parts[0] . ':' . $parts[1];
+            $documentInstance = $this->db->documentStage($dbURI);
+            $document = $documentInstance->current();
+            if ($depth == 3) {
+                $embedded = $parts[($depth - 1)];
+                $newDocument = [];
+                foreach ($post['sorted'] as $dbURIEmbedded) {
+                    foreach ($document[$embedded] as $embeddedDocument) {
+                        if ($dbURIEmbedded == $embeddedDocument['dbURI']) {
+                            $newDocument[] = $embeddedDocument;
+                            continue;
+                        }
+                    }
+                }
+                $document[$embedded] = $newDocument;
+                $this->db->documentStage($dbURI, $document)->upsert();
+                echo json_encode(['success' => true]);
+                return;
+            } elseif ($depth == 5) {
+                $embedded = $parts[($depth - 3)];
+                $embeddedId = $parts[($depth - 2)];
+                $embedded = $parts[($depth - 1)];
+            } else {
+                echo 'Wow!  That is a deep sort!';
+            }
+        }
     }
 }

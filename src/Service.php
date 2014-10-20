@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 namespace Opine\Manager;
+use Exception;
 
 class Service {
     private $post;
@@ -39,73 +40,5 @@ class Service {
         $this->collectionModel = $collectionModel;
     }
 
-    public function collectionGetByCollection ($collectionName) {
-        $collections = $this->collectionModel->cacheRead();
-        foreach ($collections as $collectionsData) {
-            if ($collectionName == $collectionsData['collection']) {
-                return $collectionsData;
-            }
-        }
-        if ($collection === false) {
-            throw new Exception('Collection not found: ' . $class);
-        }
-        return $collection;
-    }
 
-    public function post ($context) {
-        $linkName = $context['formObject']->manager['link'];
-        if (!isset($context['dbURI']) || empty($context['dbURI'])) {
-            throw new \Exception('Context does not contain a dbURI');
-        }
-        if (!isset($context['formMarker'])) {
-            throw new \Exception('Form marker not set in post');
-        }
-        $document = $this->post->{$context['formMarker']};
-        if ($document === false || empty($document)) {
-            throw new \Exception('Document not found in post');
-        }
-        $documentInstance = $this->db->documentStage($context['dbURI'], $document);
-        $documentInstance->upsert();
-        $this->post->statusSaved();
-        $document = $documentInstance->current();
-        $id = $documentInstance->id();
-        $collectionName = $documentInstance->collection();
-        $collection = $this->CollectionGetByCollection($collectionName);
-        $collectionClass = $collection['class'];
-        $collectionInstance = $this->collection->factory(new $collectionClass());
-        if ($collectionInstance === false) {
-            return;
-        }
-        $managerUrl = '/Manager/item/' . $linkName . '/' . $context['dbURI'];
-        $collectionInstance->index($id, $document, $managerUrl);
-        $collectionInstance->views('upsert', $id, $document);
-        $collectionInstance->statsUpdate($context['dbURI']);
-    }
-
-    public function authenticate ($context) {
-        if (!isset($context['dbURI']) || empty($context['dbURI'])) {
-            throw new \Exception('Context does not contain a dbURI');
-        }
-        if (!isset($context['formMarker'])) {
-            throw new \Exception('Form marker not set in post');
-        }
-        $document = $this->post->{$context['formMarker']};
-        if ($document === false || empty($document)) {
-            throw new \Exception('Document not found in post');
-        }
-        if (!isset($document['route'])) {
-            $this->post->errorFieldSet($context['formMarker'], 'Missing url.');
-            return;
-        }
-        $try = $this->authentication->login($document['email'], $document['password']);
-        if ($try === false) {
-            $this->post->errorFieldSet($context['formMarker'], 'Credentials do not match. Please check your email or password and try again.');
-            return;    
-        }
-        if (!$this->authentication->checkRoute($document['route'], false)) {
-            $this->post->errorFieldSet($context['formMarker'], 'You do not have access to the area.');
-            return;
-        }
-        $this->post->statusSaved();
-    }
 }

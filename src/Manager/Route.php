@@ -63,13 +63,13 @@ class Route {
         $this->route->post('managerController@authFilter', 
             '/Manager/api', [
                 '/upload/{manager}/{field}'                         => 'managerApiController@upload',
-                '/sort/{manager}'                                   => 'managerApiController@sort',
+                '/sort'                                             => 'managerApiController@sort',
                 '/upsert/{manager}'                                 => 'managerApiController@upsert'
         ]);
 
         $this->route->delete('managerController@authFilter',
             '/Manager/api', [
-                '/item/{manager}/{dbURI}'                           => 'managerApiController@delete',
+                '/{dbURI}'                                          => 'managerApiController@delete'
         ]);
     }
 

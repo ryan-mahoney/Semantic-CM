@@ -1,13 +1,13 @@
 <?php
 return function ($args, $named) {
-    //usage: {{FieldEmbedded field="parent-field-name" required="true" manager="name-of-manager-to-embed" label="what to display"}}
-    $field = $named['field'];
+    //usage: {{FieldEmbedded name="parent-field-name" required="true" manager="name-of-manager-to-embed" label="what to display"}}
+    $field = $named['name'];
     $required = false;
     if (isset($named['required']) && $named['required'] == true) {
         $required = true;
     }
     $manager = $named['manager'];
-    $markup = $context->get($field);
+    $markup = $args[0][$named['name']];
     $label = false;
     if (isset($named['label'])) {
         $label = $named['label'];

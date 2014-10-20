@@ -14,7 +14,7 @@
 namespace Manager;
 
 class Subcategories {
-    public $collection = 'categories';
+    public $collection = 'Collection\Categories';
     public $title = 'Subcategories';
     public $titleField = 'title';
     public $singular = 'Subcategory';
@@ -34,28 +34,32 @@ class Subcategories {
 
     function titleField () {
         return [
-            'name'        => 'title',
-            'label'        => 'Title',
-            'required'    => false,
-            'display'    => 'InputText'
+            'name'          => 'title',
+            'label'         => 'Title',
+            'required'      => false,
+            'display'       => 'InputText'
         ];
     }
 
     function imageField () {
         return [
-            'name' => 'image',
-            'label' => 'Image',
-            'display' => 'InputFile'
+            'name'          => 'image',
+            'label'         => 'Image',
+            'display'       => 'InputFile'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
-            {{#EmbeddedCollectionHeader label="Subcategories"}}
+            {{{EmbeddedCollectionHeader label="Subcategories"}}}
             {{#if subcategory}}
-                <table class="ui table manager segment">
+                <table class="ui table manager segment sortable">
+                    <col width="10%">
+                    <col width="80%">
+                    <col width="10%">    
                     <thead>
                         <tr>
+                            <th><i class="shuffle basic icon"></i></th>
                             <th>Title</th>
                             <th class="trash">Delete</th>
                         </tr>
@@ -63,6 +67,7 @@ class Subcategories {
                     <tbody>
                         {{#each subcategory}}
                             <tr data-id="{{dbURI}}">
+                                <td class="handle"><i class="reorder icon"></i></td>
                                 <td>{{title}}</td>
                                 <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
                             </tr>
@@ -70,7 +75,7 @@ class Subcategories {
                     </tbody>
                 </table>
             {{else}}
-                {{#EmbeddedCollectionEmpty singular="Subcategory"}}
+                {{{EmbeddedCollectionEmpty singular="Subcategory"}}}
             {{/if}}
 HBS;
         return $partial;
@@ -78,13 +83,13 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#EmbeddedHeader}}
-            {{#FieldFull title Title}}{{/FieldFull}}
-            {{#FieldFull image Image}}{{/FieldFull}}
-            {{{id}}}
-            {{#EmbeddedFooter}}
+            {{{EmbeddedHeader metadata=metadata}}}
+                {{{Field . name="title" label="Title" required="true"}}}
+                {{{Field . name="image" label="Image"}}}
+                {{{id}}}
+                {{{form-token}}}
+            {{{EmbeddedFooter}}}
 HBS;
         return $partial;
     }
 }
-

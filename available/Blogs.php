@@ -11,6 +11,7 @@
  * 1 accurate handlebars
  */
 namespace Manager;
+use MongoDate;
 
 class Blogs {
     public $collection = 'Collection\Blogs';
@@ -32,112 +33,112 @@ class Blogs {
     
     function titleField () {
         return [
-            'name'        => 'title',
-            'label'        => 'Title',
-            'required'    => true,
-            'display'    => 'InputText'
+            'name'          => 'title',
+            'label'         => 'Title',
+            'required'      => true,
+            'display'       => 'InputText'
         ];
     }
 
     function bodyField () {
         return [
-            'display' => 'Ckeditor',
-            'name' => 'body'
+            'display'       => 'Ckeditor',
+            'name'          => 'body'
         ];
     }
 
     function descriptionField () {
         return [
-            'name' => 'description',
-            'label' => 'Summary',
-            'display' => 'Textarea'
+            'name'          => 'description',
+            'label'         => 'Summary',
+            'display'       => 'Textarea'
         ];
     }
 
     function imageField () {
         return [
-            'name' => 'image',
-            'label' => 'List View',
-            'display' => 'InputFile'
+            'name'          => 'image',
+            'label'         => 'List View',
+            'display'       => 'InputFile'
         ];
     }
 
     function imageFeaturedField () {
         return [
-            'name' => 'image_feature',
-            'label' => 'Featured View',
-            'display' => 'InputFile'
+            'name'          => 'image_feature',
+            'label'         => 'Featured View',
+            'display'       => 'InputFile'
         ];
     }
 
     function statusField () {
         return [
-            'name'        => 'status',
-            'required'    => true,
-            'options'    => array(
+            'name'          => 'status',
+            'required'      => true,
+            'options'       => [
                 'published'    => 'Published',
                 'draft'        => 'Draft'
-            ),
-            'display'    => 'Select',
-            'nullable'    => false,
-            'default'    => 'published'
+            ],
+            'display'       => 'Select',
+            'nullable'      => false,
+            'default'       => 'published'
         ];
     }
 
     function featuredField () {
         return [
-            'name' => 'featured',
-            'label' => 'Feature',
-            'required' => false,
-            'options' => array(
+            'name'          => 'featured',
+            'label'         => 'Feature',
+            'required'      => false,
+            'options'       => [
                 't' => 'Yes',
                 'f' => 'No'
-            ),
-            'display' => 'InputSlider',
-            'default' => 'f'
+            ],
+            'display'       => 'InputSlider',
+            'default'       => 'f'
         ];
     }
 
     function authorField () {
         return [
-            'name'        => 'author',
-            'label'        => 'Author',
-            'required'    => false,
-            'display'    => 'InputText'
+            'name'          => 'author',
+            'label'         => 'Author',
+            'required'      => false,
+            'display'       => 'InputText'
         ];
     }
 
     function publication_nameField () {
         return [
-            'name'        => 'publication_name',
-            'label'        => 'Publication',
-            'required'    => false,
-            'display'    => 'InputText'
+            'name'          => 'publication_name',
+            'label'         => 'Publication',
+            'required'      => false,
+            'display'       => 'InputText'
         ];
     }
     
     function linkField () {
         return [
-            'name'        => 'link',
-            'label'        => 'URL',
-            'required'    => false,
-            'display'    => 'InputText'
+            'name'          => 'link',
+            'label'         => 'URL',
+            'required'      => false,
+            'display'       => 'InputText'
         ];
     }
     
     function date_publishedField() {
         return [
-            'name'            => 'date_published',
-            'label'            => 'Date Published',
-            'required'        => false,
-            'display'        => 'InputDatePicker',
-            'transformIn'    => function ($data) {
-                return new \MongoDate(strtotime($data));
+            'name'          => 'date_published',
+            'label'         => 'Date Published',
+            'required'      => false,
+            'display'       => 'InputDatePicker',
+            'transformIn'   => function ($data) {
+                return new MongoDate(strtotime($data));
             },
-            'transformOut'    => function ($data) {
+            'transformOut'  => function ($data) {
                 return date('m/d/Y', $data->sec);
             },
-            'default'        => function () {
+            'default'       => function () {
                 return date('m/d/Y');
             }
         ];
@@ -145,44 +146,44 @@ class Blogs {
 
     function commentsField () {
         return [
-            'name' => 'comments',
-            'label' => 'Comments',
-            'required' => false,
-            'options' => array(
+            'name'          => 'comments',
+            'label'         => 'Comments',
+            'required'      => false,
+            'options'       => [
                 't' => 'Yes',
                 'f' => 'No'
-            ),
-            'display' => 'InputSlider',
-            'default' => 'f'
+            ],
+            'display'       => 'InputSlider',
+            'default'       => 'f'
         ];
     }
 
     function pinnedField () {
         return [
-            'name' => 'pinned',
-            'label' => 'Pin',
-            'required' => false,
-            'options' => array(
+            'name'          => 'pinned',
+            'label'         => 'Pin',
+            'required'      => false,
+            'options'       => [
                 't' => 'Yes',
                 'f' => 'No'
-            ),
-            'display' => 'InputSlider',
-            'default' => 'f'
+            ],
+            'display'       => 'InputSlider',
+            'default'       => 'f'
         ];
     }
 
     function dateField() {
         return [
-            'name'            => 'display_date',
-            'required'        => true,
-            'display'        => 'InputDatePicker',
-            'transformIn'    => function ($data) {
-                return new \MongoDate(strtotime($data));
+            'name'          => 'display_date',
+            'required'      => true,
+            'display'       => 'InputDatePicker',
+            'transformIn'   => function ($data) {
+                return new MongoDate(strtotime($data));
             },
-            'transformOut'    => function ($data) {
+            'transformOut'  => function ($data) {
                 return date('m/d/Y', $data->sec);
             },
-            'default'        => function () {
+            'default'       => function () {
                 return date('m/d/Y');
             }
         ];
@@ -190,36 +191,36 @@ class Blogs {
 
      function code_nameField () {
         return [
-            'name' => 'code_name',
-            'display'    => 'InputText'
+            'name'          => 'code_name',
+            'display'       => 'InputText'
         ];
     }
 
     function tagsField () {
         return [
-            'name' => 'tags',
-            'label' => 'Tags',
-            'required' => false,
-            'transformIn' => function ($data) {
+            'name'          => 'tags',
+            'label'         => 'Tags',
+            'required'      => false,
+            'transformIn'   => function ($data) {
                 if (is_array($data)) {
                     return $data;
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
-            'multiple' => true,
-            'options' => function () {
+            'display'       => 'InputToTags',
+            'multiple'      => true,
+            'options'       => function () {
                 return $this->db->distinct('blogs', 'tags');
             }
         ];
     }
 
     function categoriesField () {
-        return array(
-            'name'        => 'categories',
-            'label'        => 'Category',
-            'required'    => false,
-            'options'    => function () {
+        return [
+            'name'          => 'categories',
+            'label'         => 'Category',
+            'required'      => false,
+            'options'       => function () {
                 return $this->db->fetchAllGrouped(
                     $this->db->collection('categories')->
                         find(['section' => 'Blog'])->
@@ -227,18 +228,18 @@ class Blogs {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
-            'controlled' => true,
-            'multiple' => true
-        );
+            'display'       => 'InputToTags',
+            'controlled'    => true,
+            'multiple'      => true
+        ];
     }
 
     function authorsField () {
-        return array(
-            'name'        => 'authors',
-            'label'        => 'Authors',
-            'required'    => false,
-            'options'    => function () {
+        return [
+            'name'          => 'authors',
+            'label'         => 'Authors',
+            'required'      => false,
+            'options'       => function () {
                 return $this->db->fetchAllGrouped(
                     $this->db->collection('profiles')->
                         find()->
@@ -246,23 +247,23 @@ class Blogs {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
-            'controlled' => true,
-            'multiple' => true
-        );
+            'display'       => 'InputToTags',
+            'controlled'    => true,
+            'multiple'      => true
+        ];
     }
 
     function metakeywordsField () {
         return [
-            'name' => 'metadata_keywords',
-            'display'    => 'InputText'
+            'name'          => 'metadata_keywords',
+            'display'       => 'InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
-            'name' => 'metadata_description',
-            'display'    => 'InputText'
+            'name'          => 'metadata_description',
+            'display'       => 'InputText'
         ];
     }
 
@@ -328,37 +329,37 @@ HBS;
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
                         {{{DocumentFormLeft}}}
-                            {{{FieldLeft title label="Title" required="true"}}}
-                            {{{FieldLeft body label="Body"}}}
-                            {{{FieldLeft description label="Summary"}}}
+                            {{{Field . name="title" class="left" label="Title" required="true"}}}
+                            {{{Field . name="body" class="left" label="Body"}}}
+                            {{{Field . name="description" class="left" label="Summary"}}}
                             {{{id}}}
                             {{{form-token}}}
                         {{{DocumentFormLeftClose}}}
                         
                         {{{DocumentFormRight}}}
                             {{{DocumentButton modified=modified_date}}}
-                            {{{FieldFull status}}}
+                            {{{Field . name="status" class="fluid"}}}
                             <br />
-                            {{{FieldFull display_date}}}
+                            {{{Field . name="display_date" class="fluid"}}}
                             <div class="ui clearing divider"></div>
-                            {{{FieldLeft featured}}}
+                            {{{Field . name="featured" class="left"}}}
                             <br />
-                            {{{FieldLeft pinned}}}
+                            {{{Field . name="pinned" class="left"}}}
                             <br />
-                            {{{FieldLeft comments}}}
+                            {{{Field . name="comments" class="left"}}}
                             <div class="ui clearing divider"></div>
-                            {{{FieldFull categories label="Categories"}}}
-                            {{{FieldFull authors label="Authors"}}}
-                            {{{FieldFull tags label="Tags"}}}
+                            {{{Field . name="categories" class="fluid" label="Categories"}}}
+                            {{{Field . name="authors" class="fluid" label="Authors"}}}
+                            {{{Field . name="tags" class="fluid" label="Tags"}}}
                         {{{DocumentFormRightClose}}}
                     </div>
 
                     <div class="ui tab" data-tab="Images">
                         {{{DocumentFormLeft}}}
-                            {{{FieldLeft image label="List View"}}}
-                            {{{FieldLeft image_feature label="Featured"}}}
-                        {{{DocumentFormLeftClose}}}                
-                        
+                            {{{Field . name="image" class="left" label="List View"}}}
+                            {{{Field . name="image_feature" class="left" label="Featured"}}}
+                        {{{DocumentFormLeftClose}}}
+
                         {{{DocumentFormRight}}}
                             {{{DocumentButton modified=modified_date}}}
                         {{{DocumentFormRightClose}}}
@@ -366,12 +367,12 @@ HBS;
 
                     <div class="ui tab" data-tab="External Article">
                          {{{DocumentFormLeft}}}
-                            {{{FieldLeft author label="Author"}}}
-                            {{{FieldLeft publication_name label="Publication"}}}
-                              {{{FieldLeft link label="URL"}}}
-                              {{{FieldLeft date_published label="Date Published"}}}
+                            {{{Field . name="author" class="left" label="Author"}}}
+                            {{{Field . name="publication_name" class="left" label="Publication"}}}
+                            {{{Field . name="link" class="left" label="URL"}}}
+                            {{{Field . name="date_published" class="left" label="Date Published"}}}
                         {{{DocumentFormLeftClose}}}
-                        
+
                         {{{DocumentFormRight}}}
                             {{{DocumentButton modified=modified_date}}}
                         {{{DocumentFormRightClose}}}
@@ -379,18 +380,18 @@ HBS;
                     
                     <div class="ui tab" data-tab="SEO">
                         {{{DocumentFormLeft}}}
-                            {{{FieldLeft code_name Slug}}}
-                            {{{FieldLeft metadata_description Description}}}
-                              {{{FieldLeft metadata_keywords Keywords}}}
+                            {{{Field . name="code_name" class="left" label="Slug"}}}
+                            {{{Field . name="metadata_description" class="left" label="Description"}}}
+                            {{{Field . name="metadata_keywords" class="left" label="Keywords"}}}
                         {{{DocumentFormLeftClose}}}
                         
                         {{{DocumentFormRight}}}
                             {{{DocumentButton modified=modified_date}}}
                         {{{DocumentFormRightClose}}}
-                    </div>            
+                    </div>
                 </div>
             </form>
 HBS;
         return $partial;
     }
-}    
+}

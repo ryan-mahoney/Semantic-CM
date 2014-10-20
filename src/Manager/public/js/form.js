@@ -16,7 +16,7 @@ var ManagerSaved = function (form, data) {
     $('.form-notice').sidebar({overlay: true}).sidebar('show');
     setTimeout(function () {
         $('.form-notice').sidebar({overlay: true}).sidebar('hide');
-    }, 2500);
+    }, 1500);
     $('abbr.time').each(function () {
         var now = new Date();
         $(this).attr('data-livestamp', now.toISOString());
@@ -24,15 +24,16 @@ var ManagerSaved = function (form, data) {
 
     var mode = $('body').attr('date-savemode');
     var manager = $('.manager form').attr('data-manager');
-    var dbURI = $('input[name="' + manager + '\\[id\\]"]').val();
+    var managerClass = $('.manager form').attr('data-class');
+    var dbURI = $('input[name="' + managerClass + '\\[id\\]"]').val();
     if (mode == 'another') {
-        window.location = '/Manager/add/' + manager;
+        window.location = '/Manager/item/' + manager;
         return;
     }
 
     //loop over embedded documents, update
     $(form).find('.field.embedded').each(function () {
-        var embeddedDbURI = embeddedDbURI + ':' + $(this).attr('data-field'); 
+        var embeddedDbURI = dbURI + ':' + $(this).attr('data-field'); 
         var embeddedManager = $(this).attr('data-manager');
         var embeddedContainer = this;
         $.ajax({
@@ -151,9 +152,9 @@ var titleInitialize = function () {
     if (titleField == '' || typeof(titleField) == 'undefined') {
         return;
     }
-    var manager = $formDom.attr('data-manager');
-    var titleFieldName = manager + '[' + titleField + ']';
-    var slugFieldName = manager + '[code_name]';
+    var managerClass = $formDom.attr('data-class');
+    var titleFieldName = managerClass + '[' + titleField + ']';
+    var slugFieldName = managerClass + '[code_name]';
     var crumbDom = $('.top-container .breadcrumb a:last-child > h2');
     var titleDom = $('input[name="' + titleFieldName + '"]');
     var slugDom = $('input[name="' + slugFieldName + '"]');

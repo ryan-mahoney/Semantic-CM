@@ -179,62 +179,23 @@ class ApiController {
         }
         try {
             $result = $upload->upload();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             var_dump($upload->getErrors());
             return;
         }
         echo json_encode($data, JSON_PRETTY_PRINT);        
     }
 
-    public function sort ($manager) {
+    public function sort () {
         if (!isset($_POST['sorted']) || !is_array($_POST['sorted']) || count($_POST['sorted']) == 0) {
             echo json_encode(['success' => true]);
             return;
         }
-        $sample = $_POST['sorted'][0];
-        $depth = substr_count($sample, ':');
-        if ($depth == 1) {
-            $offset = 1;
-            foreach ($_POST['sorted'] as $dbURI) {
-                $parts = explode(':', $dbURI);
-                $this->db->collection($parts[0])->update([
-                        '_id' => $this->db->id($parts[1])
-                    ], [
-                        '$set' => [
-                            'sort_key' => $offset
-                        ]
-                    ]);
-                $offset++;
-            }
-            echo json_encode(['success' => true]);
-            return;
-        } else {
-            $parts = explode(':', $sample);
-            $dbURI = $parts[0] . ':' . $parts[1];
-            $documentInstance = $this->db->documentStage($dbURI);
-            $document = $documentInstance->current();
-            if ($depth == 3) {
-                $embedded = $parts[($depth - 1)];
-                $newDocument = [];
-                foreach ($_POST['sorted'] as $dbURIEmbedded) {
-                    foreach ($document[$embedded] as $embeddedDocument) {
-                        if ($dbURIEmbedded == $embeddedDocument['dbURI']) {
-                            $newDocument[] = $embeddedDocument;
-                            continue;
-                        }
-                    }
-                }
-                $document[$embedded] = $newDocument;
-                $this->db->documentStage($dbURI, $document)->upsert();
-                echo json_encode(['success' => true]);
-                return;
-            } elseif ($depth == 5) {
-                $embedded = $parts[($depth - 3)];
-                $embeddedId = $parts[($depth - 2)];
-                $embedded = $parts[($depth - 1)];
-            } else {
-                echo 'Wow!  That is a deep sort!';
-            }
-        }
+        $this->model->sort($_POST);
+    }
+
+    public function delete ($dbURI) {
+        $result = $this->model->delete($dbURI);
+        echo json_encode(['success' => $result]);
     }
 }

@@ -38,44 +38,44 @@ class Subcarousels {
 
     function imageField () {
         return [
-            'name' => 'file',
-            'label' => 'Image',
-            'display' => 'InputFile'
+            'name'          => 'file',
+            'label'         => 'Image',
+            'display'       => 'InputFile'
         ];
     }
 
     function urlField () {
         return [
-            'name'        => 'url',
-            'label'        => 'URL',
-            'required'    => false,
-            'display'    => 'InputText'
+            'name'          => 'url',
+            'label'         => 'URL',
+            'required'      => false,
+            'display'       => 'InputText'
         ];
     }
 
     function targetField () {
         return [
-            'name'        => 'target',
-            'label'        => 'Redirect',
-            'required'    => true,
-            'options'    => [
-                '_self'        => 'Self',
-                '_blank'    => 'Blank',
-                '_top'        => 'Top',
-                '_parent'    => 'Parent'
+            'name'          => 'target',
+            'label'         => 'Redirect',
+            'required'      => true,
+            'options'       => [
+                '_self'         => 'Self',
+                '_blank'        => 'Blank',
+                '_top'          => 'Top',
+                '_parent'       => 'Parent'
             ],
-            'display'    => 'Select',
-            'nullable'    => false,
-            'default'    => 'self'
+            'display'       => 'Select',
+            'nullable'      => false,
+            'default'       => 'self'
         ];
     }
 
     function captionField () {
         return [
-            'name'        => 'caption',
-            'label'        => 'Caption',
-            'required'    => false,
-            'display'    => 'InputText'
+            'name'          => 'caption',
+            'label'         => 'Caption',
+            'required'      => false,
+            'display'       => 'InputText'
         ];
     }
     

@@ -108,12 +108,24 @@ class Controller {
                 array_pop($parts);
             }
             $layout = 'Manager/collections/embedded';
-            $url = (($collectionData['namespace'] != '') ? '/' . $collectionData['namespace'] : '') . '/collection/api/' . $collectionData['name'] . '/byEmbeddedField-' . implode(':', $parts);
+            $url = (($collectionData['namespace'] != '') ? '/' . $collectionData['namespace'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . implode(':', $parts);
         } elseif (isset($_GET['naked']) && isset($_GET['embedded']) && $_GET['embedded'] == 1) {
             $layout = 'Manager/collections/embedded';
         } elseif (isset($_GET['naked'])) {
             $layout = 'Manager/collections/naked';
         }
+        $this->view->index($linkName, $layout, $url);
+    }
+
+    public function indexEmbedded ($linkName, $field, $dbURI) {
+        $parts = explode(':', $dbURI);
+        $collection = $parts[0];
+        $collectionData = $this->model->collectionGetByCollection($collection);
+        if ((count($parts) % 2) == 0) {
+            array_pop($parts);
+        }
+        $layout = 'Manager/collections/embedded';
+        $url = (($collectionData['namespace'] != '') ? '/' . $collectionData['namespace'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . $dbURI . ':' . $field;
         $this->view->index($linkName, $layout, $url);
     }
 

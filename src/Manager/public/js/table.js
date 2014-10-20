@@ -67,16 +67,16 @@ $(document).ready(function () {
             var pathname = '';
             var dbURI = $(this).attr('data-id');
             var manager = $(this).attr('data-manager');
-            var url = '/Manager/manager/' + manager + '/' + dbURI;
+            var url = '/Manager/api/' + dbURI;
             var embedded = $(this).attr('data-embedded');
             $.ajax({
                 type: "DELETE",
                 url: url,
                 success: function (response) {
                     if (embedded == 1) {
-                        url = '/Manager/list/' + manager + '?embedded&dbURI=' + dbURI;
+                        url = '/Manager/index/' + manager + '?embedded&dbURI=' + dbURI;
                     } else {
-                        url = '/Manager/list/' + manager + '?naked';
+                        url = '/Manager/index/' + manager + '?naked';
                     }
                     $.ajax({
                         type: "GET",
@@ -118,7 +118,6 @@ $(document).ready(function () {
 var dragInitialize = function () {
     $('.field.embedded table.sortable, table.sortable').each(function () {
         var uniqid = 'sortable-' + Math.random().toString(36).substr(2, 7);
-        var manager = $(this).parents('form').attr('data-manager');
         if (typeof($(this).attr('data-id')) != 'undefined') {
             return;
         }
@@ -138,7 +137,7 @@ var dragInitialize = function () {
             data.sorted = sorted;
             $.ajax({
                 type: "POST",
-                url: '/Manager/sort/' + manager,
+                url: '/Manager/api/sort',
                 data: data,
                 success: function (response) {},
                 error: function () {
@@ -163,9 +162,9 @@ var embeddedModal = function (DOMnode, mode, dbURI) {
     var id = '';
     var idFieldEmbedded = '';
     if (mode == 'add') {
-        url = '/Manager/' + mode + '/' + manager;
+        url = '/Manager/item/' + manager;
     } else {
-        url = '/Manager/' + mode + '/' + manager + '/' + dbURI;
+        url = '/Manager/item/' + manager + '/' + dbURI;
         idEmbedded = dbURI;
     }
     var uniqid = Math.random().toString(36).substr(2, 7);
