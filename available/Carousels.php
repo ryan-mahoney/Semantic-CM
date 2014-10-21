@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .8
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Carousels.php
  * @mode upgrade
  *
@@ -15,7 +15,7 @@
 namespace Manager;
 
 class Carousels {
-    public $collection = 'carousels';
+    public $collection = 'Collection\Carousels';
     public $title = 'Carousel';
     public $titleField = 'title';
     public $singular = 'Carousel';
@@ -26,18 +26,13 @@ class Carousels {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $notice = 'Carousel Saved';
-    public $storage = [
-        'collection' => 'carousels',
-        'key' => '_id'
-    ];
 
     function titleField () {    
         return [
             'name' => 'title',
             'label' => 'Title',
             'required' => true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
     
@@ -45,7 +40,7 @@ class Carousels {
         return [
             'name' => 'description',
             'label' => 'Description',
-            'display' => 'Textarea'
+            'display' => 'Field\Textarea'
         ];
     }
         
@@ -60,7 +55,7 @@ class Carousels {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('carousels', 'tags');
@@ -70,24 +65,23 @@ class Carousels {
 
     public function carousel_individualField() {
         return [
-            'name'        => 'carousel_individual',
-            'label'        => 'carousels',
-            'required'    => false,
-            'display'    => 'Manager',
-            'manager'    => 'subcarousels'
+            'name'          => 'carousel_individual',
+            'required'      => false,
+            'display'       => 'Field\Manager',
+            'manager'       => 'Subcarousels'
         ];
     }
     
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if carousels}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                     
                     <table class="ui large table segment manager sortable">
                             <col width="60%">
@@ -104,18 +98,17 @@ class Carousels {
                         <tbody>
                             {{#each carousels}}
                                 <tr data-id="{{dbURI}}">
-                                   
                                     <td>{{title}}</td>
-                                    <td>{{#ArrayToCSV}}{{tags}}{{/ArrayToCSV}}</td>
+                                    <td>{{{ArrayToCSV tags}}}</td>
                                     <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
                                 </tr>
                             {{/each}}
                         </tbody>
                     </table>
 
-                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -124,24 +117,25 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
-                    {{#DocumentFormLeft}}
-                        {{#FieldLeft title Title required}}{{/FieldLeft}}
-                        {{#FieldLeft description Description required}}{{/FieldLeft}}
-                        {{#FieldEmbedded field="carousel_individual" manager="subcarousels" Frames}}
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                        {{{ManagerField . class="left" name="description" label="Description" required="true"}}}
+                        {{{ManagerFieldEmbedded . name="carousel_individual" manager="Subcarousels" label="Frames"}}}
                         {{{id}}}
-                    {{/DocumentFormLeft}}                 
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}                 
                     
-                    {{#DocumentFormRight}}
-                        {{#DocumentButton}}{{/DocumentButton}}
-                        {{#FieldFull tags Tags}}{{/FieldFull}}
-                    {{/DocumentFormRight}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                    {{{ManagerFormSideColumnClose}}}
                 </div>
             </form>
 HBS;

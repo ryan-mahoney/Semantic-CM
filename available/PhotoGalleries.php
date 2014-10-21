@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .8
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/PhotoGalleries.php
  * @mode upgrade
  *
@@ -13,29 +13,25 @@
 namespace Manager;
 
 class PhotoGalleries {
-    public $collection = 'photo_galleries';
+    public $collection = 'Collection\PhotoGalleries';
     public $title = 'Photo Galleries';
     public $titleField = 'title';
     public $singular = 'Photo Gallery';
     public $description = '{{count}} photo galleries';
     public $definition = 'Upload and arrange photo galleries with captions. ';
     public $acl = ['content', 'admin', 'superadmin'];
-    public $tabs = ['Main', 'Flickr', 'SEO'];
+    public $tabs = ['Main', 'SEO'];
     public $icon = 'photo';
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'photo_galleries',
-        'key' => '_id'
-    ];
 
     function titleField () {    
         return [
             'name' => 'title',
             'label' => 'Title',
             'required' => true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
 
@@ -43,7 +39,7 @@ class PhotoGalleries {
         return [
             'name' => 'description',
             'label' => 'Summary',
-            'display' => 'Textarea'
+            'display' => 'Field\Textarea'
         ];
     }
 
@@ -51,7 +47,7 @@ class PhotoGalleries {
         return [
             'name' => 'image',
             'label' => 'Featured Image',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -63,7 +59,7 @@ class PhotoGalleries {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -73,7 +69,7 @@ class PhotoGalleries {
         return [
             'name'            => 'display_date',
             'required'        => true,
-            'display'        => 'InputDatePicker',
+            'display'        => 'Field\InputDatePicker',
             'transformIn'    => function ($data) {
                 return new \MongoDate(strtotime($data));
             },
@@ -95,17 +91,16 @@ class PhotoGalleries {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-     function flickerField () {
+     function external_linkField () {
         return [
-            'name' => 'flicker',
-            'label'=> 'URL',
+            'name' => 'external_link',
             'required'=> false,
-            'display'=>'InputText'
+            'display'=>'Field\InputText'
         ];
     }    
 
@@ -118,7 +113,7 @@ class PhotoGalleries {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -126,21 +121,21 @@ class PhotoGalleries {
     function code_nameField () {
         return [
             'name' => 'code_name',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metakeywordsField () {
         return [
             'name' => 'metadata_keywords',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name' => 'metadata_description',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
@@ -157,7 +152,7 @@ class PhotoGalleries {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
+            'display'    => 'Field\InputToTags',
             'controlled' => true,
             'multiple' => true
         ];
@@ -174,7 +169,7 @@ class PhotoGalleries {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('photo_galleries', 'tags');
@@ -187,32 +182,31 @@ class PhotoGalleries {
             'name'        => 'image_individual',
             'label'        => 'Images',
             'required'    => false,
-            'display'    => 'Manager',
-            'manager'    => 'subimages'
+            'display'    => 'Field\Manager',
+            'manager'    => 'Subimages'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if photo_galleries}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                     
                     <table class="ui large table segment manager sortable">
-                            <col width="20%">
-                            <col width="40%">
-                            <col width="10%">
-                            <col width="10%">
-                            <col width="10%">
-                            <col width="10%">
+                        <col width="20%">
+                        <col width="40%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
                         <thead>
-                            <tr>
-                                
+                            <tr>       
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Status</th>
@@ -223,13 +217,12 @@ class PhotoGalleries {
                         </thead>
                         <tbody>
                             {{#each photo_galleries}}
-                                <tr data-id="{{dbURI}}">
-                                    
-                                    <td>{{#ImageResize}}{{image}}{{/ImageResize}}</td>
+                                <tr data-id="{{dbURI}}">    
+                                    <td>{{{ImageResize image}}}</td>
                                     <td>{{title}}</td>
-                                    <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                    <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
-                                    <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
+                                    <td>{{{Capitalize status}}}</td>
+                                    <td>{{{BooleanReadable featured}}}</td>
+                                    <td>{{{BooleanReadable pinned}}}</td>
                                     <td>
                                         <div class="manager trash ui icon button">
                                              <i class="trash icon"></i>
@@ -239,9 +232,9 @@ class PhotoGalleries {
                             {{/each}}
                         </tbody>
                     </table>
-                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -250,55 +243,49 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft description Summary}}{{/FieldLeft}}
-                            {{#FieldLeft image "Featured Image"}}{{/FieldLeft}}
-                            {{#FieldEmbedded field="image_individual" manager="subimages" Images}}
-                        {{/DocumentFormLeft}}                 
-                    
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="description" label="Summary"}}}
+                            {{{ManagerField . class="left" name="image" label="Featured Image"}}}
+                            {{{ManagerField . class="left" name="external_link" label="External Link"}}}
+                            {{{ManagerFieldEmbedded . name="image_individual" manager="Subimages" label="Images"}}}
+                        {{{ManagerFormMainColumnClose}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <br />
-                            {{#FieldFull display_date}}{{/FieldFull}}
+                            {{{ManagerField . class="fluid" name="display_date"}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldLeft featured}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="featured"}}}
                             <br />
-                            {{#FieldLeft pinned}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="pinned"}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldFull categories Categories}}{{/FieldFull}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
-                    </div>
-                    <div class="ui tab" data-tab="Flickr">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft flicker URL}}{{/FieldLeft}}
-                           {{/DocumentFormLeft}}                 
-                        {{#DocumentFormRight}}{{/DocumentFormRight}}
+                            {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="SEO">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                              {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                            {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                            {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>
 HBS;
         return $partial;
     }
-}    
+}

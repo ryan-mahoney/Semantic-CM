@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .3
+ * @version 2
  * @link https://raw.github.com/virtuecenter/manager/master/available/SystemMessages.php
  * @mode upgrade
  * 
@@ -8,7 +8,7 @@
 namespace Manager;
 
 class SystemMessages {
-    public $collection = 'system_messages';
+    public $collection = 'Collection\SystemMessages';
     public $title = 'System Messages';
     public $titleField = 'name';
     public $singular = 'Message';
@@ -20,58 +20,52 @@ class SystemMessages {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'system_messages',
-        'key' => '_id'
-    ];
 
-	  function nameField() {
+    function nameField() {
         return [
             'name'    => 'name',
             'placeholder' => 'Name',
-            'display' => 'InputText',
+            'display' => 'Field\InputText',
             'required'  => true
         ];
     }
   
-  function subjectField() {
-    return [
-      'name'    => 'subject',
-      'placeholder' => 'Subject',
-      'label'   => 'Subject',
-      'display' => 'InputText',
-      'required'  => true
-    ];
-  }
+    function subjectField() {
+        return [
+            'name'    => 'subject',
+            'placeholder' => 'Subject',
+            'display' => 'Field\InputText',
+            'required'  => true
+        ];
+    }
 
-	function bodyField () {
-    return [
-      'name' => 'body',
-      'label' => 'Body',
-      'required' => false,
-      'display' => 'Ckeditor'
-    ];
-  }
+    function bodyField () {
+        return [
+            'name' => 'body',
+            'required' => false,
+            'display' => 'Field\Redactor'
+        ];
+    }
 
-  function fromField() {
-    return [
-      'name'    => 'from',
-      'placeholder' => 'From',
-      'display' => 'InputToTags',
-      'controlled' => false,
-      'multiple' => false,
-      'required'  => true,
-      'options' => function () {
-        return $this->db->distinct('system_messages', 'from');
-      }
-    ];
-  }  
+    function fromField() {
+        return [
+            'name'    => 'from',
+            'placeholder' => 'From',
+            'display' => 'Field\InputToTags',
+            'controlled' => false,
+            'multiple' => false,
+            'required'  => true,
+            'options' => function () {
+                return $this->db->distinct('system_messages', 'from');
+            }
+        ];
+    }  
 
-  function replyToField() {
-    return [
-      'name'    => 'replyTo',
+    function replyToField() {
+        return [
+      'name'    => 'reply_to',
       'placeholder' => 'Reply To',
-      'display' => 'InputToTags',
+      'display' => 'Field\InputToTags',
       'controlled' => false,
       'multiple' => false,
       'required'  => false,
@@ -85,7 +79,7 @@ class SystemMessages {
     return [
       'name'    => 'cc',
       'placeholder' => 'CC',
-      'display' => 'InputToTags',
+      'display' => 'Field\InputToTags',
       'multiple' => true,
       'controlled' => false,
       'required'  => false,
@@ -99,7 +93,7 @@ class SystemMessages {
     return [
       'name'    => 'bcc',
       'placeholder' => 'Bcc',
-      'display' => 'InputToTags',
+      'display' => 'Field\InputToTags',
       'multiple' => true,
       'controlled' => false,
       'required'  => false,
@@ -120,7 +114,7 @@ class SystemMessages {
         }
         return $this->field->csvToArray($data);
       },
-      'display' => 'InputToTags',
+      'display' => 'Field\InputToTags',
       'multiple' => true,
       'controlled' => false,
       'options' => function () {
@@ -132,13 +126,13 @@ class SystemMessages {
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
            <div class="bottom-container">
               {{#if system_messages}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                 
                     <table class="ui large table segment manager">
                          <thead>
@@ -164,10 +158,10 @@ class SystemMessages {
                             {{/each}}
                          </tbody>
                     </table>
-                     {{#CollectionPagination}}{{/CollectionPagination}}
+                     {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-					 {{#CollectionEmpty}}{{/CollectionEmpty}}
-	          {{/if}}
+                     {{{ManagerIndexBlankSlate metadata=metadata}}}
+              {{/if}}
            </div>
 HBS;
         return $partial;
@@ -175,34 +169,35 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-	        {{#Form}}{{/Form}}
-	            <div class="top-container">
-	                {{#DocumentHeader}}{{/DocumentHeader}}
-	                {{#DocumentTabs}}{{/DocumentTabs}}
-	            </div>
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
+                <div class="top-container">
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
+                </div>
 
-	            <div class="bottom-container">
-	            	<div class="ui tab active" data-tab="Content">
-		                {{#DocumentFormLeft}}
-                        {{#FieldLeft name Name}}{{/FieldLeft}}
-                        {{#FieldLeft subject Subject}}{{/FieldLeft}}
-		                    {{#FieldLeft body Body}}{{/FieldLeft}}
-		                    {{{id}}}
-		                {{/DocumentFormLeft}}                 
-		                
-		                {{#DocumentFormRight}}
-		                	{{#DocumentButton}}{{/DocumentButton}}
-		                	{{#FieldFull from From}}{{/FieldFull}}
-                      {{#FieldFull replyTo "Reply To"}}{{/FieldFull}}
-                      {{#FieldFull cc CC}}{{/FieldFull}}
-                      {{#FieldFull bcc Bcc}}{{/FieldFull}}
-		                	<div class="ui clearing divider"></div>
-                      {{#FieldFull tags Tags}}{{/FieldFull}}
-		                {{/DocumentFormRight}}
-		            </div>	       
-	            </div>
-	        </form>
+                <div class="bottom-container">
+                    <div class="ui tab active" data-tab="Content">
+                        {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="name" label="Name"}}}
+                        {{{ManagerField . class="left" name="subject" label="Subject"}}}
+                            {{{ManagerField . class="left" name="body" label="Body"}}}
+                            {{{id}}}
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
+                        
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="from" label="From"}}}
+                            {{{ManagerField . class="fluid" name="reply_to" label="Reply To"}}}
+                            {{{ManagerField . class="fluid" name="cc" label="CC"}}}
+                            {{{ManagerField . class="fluid" name="bcc" label="Bcc"}}}
+                            <div class="ui clearing divider"></div>
+                            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
+                    </div>         
+                </div>
+            </form>
 HBS;
         return $partial;
     }
-}	
+}   

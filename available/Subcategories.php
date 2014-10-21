@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .8
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Subcategories.php
  * @mode upgrade
  *
@@ -25,19 +25,14 @@ class Subcategories {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'embeddedUpsert';
-    public $notice = 'Subcategory Saved';
     public $embedded = true;
-    public $storage = [
-        'collection' => 'categories',
-        'key' => '_id'
-    ];
 
     function titleField () {
         return [
             'name'          => 'title',
             'label'         => 'Title',
             'required'      => false,
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
@@ -45,13 +40,13 @@ class Subcategories {
         return [
             'name'          => 'image',
             'label'         => 'Image',
-            'display'       => 'InputFile'
+            'display'       => 'Field\InputFile'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
-            {{{EmbeddedCollectionHeader label="Subcategories"}}}
+            {{{ManagerEmbeddedIndexHeader label="Subcategories"}}}
             {{#if subcategory}}
                 <table class="ui table manager segment sortable">
                     <col width="10%">
@@ -75,7 +70,7 @@ class Subcategories {
                     </tbody>
                 </table>
             {{else}}
-                {{{EmbeddedCollectionEmpty singular="Subcategory"}}}
+                {{{ManagerEmbeddedIndexEmpty singular="Subcategory"}}}
             {{/if}}
 HBS;
         return $partial;
@@ -83,12 +78,12 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{{EmbeddedHeader metadata=metadata}}}
-                {{{Field . name="title" label="Title" required="true"}}}
-                {{{Field . name="image" label="Image"}}}
+            {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+                {{{ManagerField . name="title" label="Title" required="true"}}}
+                {{{ManagerField . name="image" label="Image"}}}
                 {{{id}}}
                 {{{form-token}}}
-            {{{EmbeddedFooter}}}
+            {{{ManagerEmbeddedFormFooter}}}
 HBS;
         return $partial;
     }

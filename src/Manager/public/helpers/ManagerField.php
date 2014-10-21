@@ -1,5 +1,14 @@
 <?php
 return function ($args, $named) {
+    if (!isset($args[0])) {
+        return '<!-- Missing context -->';
+    }
+    if (!isset($named['name'])) {
+        return '<!-- Name not specified -->';
+    }
+    if (empty($named['name']) || !is_array($args[0])) {
+        return '<!-- problem -->';
+    }
     $markup = $args[0][$named['name']];
     $required = false;
     if (in_array('required', $named)) {
@@ -11,14 +20,13 @@ return function ($args, $named) {
     }
     $label = false;
     $labeled = '';
-    if (in_array('label', $named)) {
+    if (array_key_exists('label', $named)) {
         $label = $named['label'];
         $labeled = ' labeled ';
     }
-    if (!isset($named['field'])) {
-        $named['field'] = '';
+    if (!isset($named['class'])) {
+        $named['class'] = '';
     }
-
     return '
         <div class="field" data-field="' . $named['name'] . '">' .
             ($label !== false ? '<label>' . $label . '</label>' : '') .

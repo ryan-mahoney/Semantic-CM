@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .6
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/MenuLinks.php
  * @mode upgrade
  *
@@ -13,7 +13,7 @@
 namespace Manager;
 
 class MenuLinks {
-    public $collection = 'menus_links';
+    public $collection = 'Collection\MenusLinks';
     public $title = 'Menus';
     public $titleField = 'title';
     public $singular = 'Menu';
@@ -25,17 +25,13 @@ class MenuLinks {
     public $after = 'function';
     public $function = 'embeddedUpsert';
     public $embedded = true;
-    public $storage = [
-        'collection' => 'menus',
-        'key' => '_id'
-    ];
 
     function urlField () {
         return [
             'name'        => 'url',
             'label'        => 'URL',
             'required'    => false,
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
@@ -44,7 +40,7 @@ class MenuLinks {
             'name'        => 'title',
             'label'        => 'Title',
             'required'    => false,
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
     
@@ -59,7 +55,7 @@ class MenuLinks {
                 '_top'        => 'Top',
                 '_parent'    => 'Parent'
             ],
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'self'
         ];
@@ -69,13 +65,13 @@ class MenuLinks {
         return [
             'name' => 'file',
             'label' => 'Image',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
-            {{#EmbeddedCollectionHeader label="Sub Menus"}}
+            {{{ManagerEmbeddedIndexHeader label="Sub Menus"}}}
             {{#if link}}
                 <table class="ui table manager segment sortable">
                       <col width="10%">
@@ -102,7 +98,7 @@ class MenuLinks {
                     </tbody>
                 </table>
             {{else}}
-                {{#EmbeddedCollectionEmpty singular="submenu"}}
+                {{{ManagerEmbeddedIndexEmpty singular="submenu"}}}
             {{/if}}
 HBS;
         return $partial;
@@ -110,12 +106,13 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#EmbeddedHeader}}
-            {{#FieldFull title Title}}{{/FieldFull}}
-            {{#FieldFull url URL}}{{/FieldFull}}
-            {{#FieldFull target Target}}{{/FieldFull}}
-            {{{id}}}
-            {{#EmbeddedFooter}}
+            {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+                {{{ManagerField . class="fluid" name="title" label="Title"}}}
+                {{{ManagerField . class="fluid" name="url" label="URL"}}}
+                {{{ManagerField . class="fluid" name="target" label="Target"}}}
+                {{{id}}}
+                {{{form-token}}}
+            {{{ManagerEmbeddedFormFooter}}}
         
 HBS;
         return $partial;

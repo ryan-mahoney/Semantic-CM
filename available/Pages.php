@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .5
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Pages.php
  * @mode upgrade
  *
@@ -10,7 +10,7 @@
 namespace Manager;
 
 class Pages {
-    public $collection = 'pages';
+    public $collection = 'Collection\Pages';
     public $title = 'Pages';
     public $titleField = 'title';
     public $singular = 'Page';
@@ -22,24 +22,20 @@ class Pages {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'pages',
-        'key' => '_id'
-    ];
     
     function titleField () {
         return [
             'name' => 'title',
             'label' => 'Title',
             'required' => true,
-            'display' => 'InputText'            
+            'display' => 'Field\InputText'            
         ];
     }
 
     function bodyField () {
         return [
             'name' => 'body',
-            'display' => 'Ckeditor'    
+            'display' => 'Field\Redactor'    
         ];
     }
 
@@ -51,7 +47,7 @@ class Pages {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -60,21 +56,21 @@ class Pages {
     function code_nameField () {
         return [
             'name' => 'code_name',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metakeywordsField () {
         return [
             'name' => 'metadata_keywords',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name' => 'metadata_description',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
@@ -90,7 +86,7 @@ class Pages {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('pages', 'tags');
@@ -111,7 +107,7 @@ class Pages {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
+            'display'    => 'Field\InputToTags',
             'controlled' => true,
             'multiple' => true
         );
@@ -120,13 +116,13 @@ class Pages {
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                {{#if pages}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
+                        {{{ManagerIndexButtons metadata=metadata}}}
                         
                         <table class="ui large table segment manager sortable">
                             <col width="60%">
@@ -145,7 +141,7 @@ class Pages {
                                     <tr data-id="{{dbURI}}">
                                        
                                         <td>{{title}}</td>
-                                        <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+                                        <td>{{{Capitalize status}}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
@@ -156,9 +152,9 @@ class Pages {
                             </tbody>
                         </table>
 
-                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
                    {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -167,38 +163,39 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
-                     <div class="ui tab active" data-tab="Main">
-                         {{#DocumentFormLeft}}
-                             {{#FieldLeft title Title required}}{{/FieldLeft}}
-                             {{#FieldLeft body Body}}{{/FieldLeft}}
-                             {{{id}}}
-                         {{/DocumentFormLeft}}                 
+                    <div class="ui tab active" data-tab="Main">
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="body" label="Body"}}}
+                            {{{id}}}
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                     
-                         {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <br />
-                            {{#FieldFull categories Categories}}{{/FieldFull}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                         {{/DocumentFormRight}}
-                     </div>
-                     <div class="ui tab" data-tab="SEO">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                              {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                            {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
+                    </div>
+                    <div class="ui tab" data-tab="SEO">
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                            {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                            {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>

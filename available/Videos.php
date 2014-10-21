@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Videos.php
  * @mode upgrade
  *
@@ -12,7 +12,7 @@
 namespace Manager;
 
 class Videos {
-    public $collection = 'videos';
+    public $collection = 'Collection\Videos';
     public $title = 'Videos';
     public $titleField = 'title';
     public $singular = 'Video';
@@ -24,17 +24,13 @@ class Videos {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'videos',
-        'key' => '_id'
-    ];
     
     function titleField () {    
         return [
             'name' => 'title',
             'label' => 'Title',
             'required' => true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
 
@@ -43,7 +39,7 @@ class Videos {
             'name'=>'description',
             'label'=>'Summary',
             'required'=>false,
-            'display' => 'Textarea'
+            'display' => 'Field\Textarea'
         ];
     }
 
@@ -51,7 +47,7 @@ class Videos {
         return [
             'name' => 'image',
             'label' => 'Featured Image',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -60,7 +56,7 @@ class Videos {
             'name' => 'video',
             'label' => 'URL',
             'required' => true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
 
@@ -72,7 +68,7 @@ class Videos {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -82,7 +78,7 @@ class Videos {
         return [
             'name'            => 'display_date',
             'required'        => true,
-            'display'        => 'InputDatePicker',
+            'display'        => 'Field\InputDatePicker',
             'transformIn'    => function ($data) {
                 return new \MongoDate(strtotime($data));
             },
@@ -104,7 +100,7 @@ class Videos {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -118,7 +114,7 @@ class Videos {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -126,21 +122,21 @@ class Videos {
     function code_nameField () {
         return [
             'name' => 'code_name',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metakeywordsField () {
         return [
             'name' => 'metadata_keywords',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name' => 'metadata_description',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
@@ -157,7 +153,7 @@ class Videos {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
+            'display'    => 'Field\InputToTags',
             'controlled' => true,
             'multiple' => true
         );
@@ -174,7 +170,7 @@ class Videos {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('blogs', 'tags');
@@ -185,13 +181,13 @@ class Videos {
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if videos}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
+                        {{{ManagerIndexButtons metadata=metadata}}}
                         
                         <table class="ui large table segment manager soratble">
                             <col width="20%">
@@ -216,9 +212,9 @@ class Videos {
                                        
                                          <td>{{video}}</td>
                                          <td>{{title}}</td>
-                                         <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                         <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
-                                         <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
+                                         <td>{{{Capitalize status}}}</td>
+                                         <td>{{{BooleanReadable featured}}}</td>
+                                         <td>{{{BooleanReadable pinned}}}</td>
                                          <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
@@ -229,9 +225,9 @@ class Videos {
                             </tbody>
                         </table>
 
-                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
                    {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -240,50 +236,51 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft description Summary}}{{/FieldLeft}}
-                            {{#FieldLeft image Featured Image}}{{/FieldLeft}}
-                            {{#FieldLeft video URL}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="description" label="Summary"}}}
+                            {{{ManagerField . class="left" name="image" label="Featured" label="Image"}}}
+                            {{{ManagerField . class="left" name="video" label="URL"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                     
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <br />
-                            {{#FieldFull display_date}}{{/FieldFull}}
+                            {{{ManagerField . class="fluid" name="display_date"}}}
                              <div class="ui clearing divider"></div>
-                            {{#FieldLeft featured}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="featured"}}}
                             <br />
-                            {{#FieldLeft pinned}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="pinned"}}}
                              <div class="ui clearing divider"></div>
-                            {{#FieldFull categories Categories}}{{/FieldFull}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                            {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="SEO">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                              {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                            {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                            {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>
 HBS;
         return $partial;
     }
-}    
+}

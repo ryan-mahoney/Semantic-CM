@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .5
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/PracticeAreas.php
  * @mode upgrade
  *
@@ -10,7 +10,7 @@
 namespace Manager;
 
 class PracticeAreas {
-    public $collection = 'practice_areas';
+    public $collection = 'Collection\PracticeAreas';
     public $title = 'Practice Areas';
     public $titleField = 'title';
     public $singular = 'Practice Area';
@@ -22,23 +22,19 @@ class PracticeAreas {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'practice_areas',
-        'key' => '_id'
-    ];
 
     function titleField () {
         return [
             'name'        => 'title',
             'label'        => 'Title',
             'required'    => true,
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function bodyField () {
         return [
-            'display' => 'Ckeditor',
+            'display' => 'Field\Redactor',
             'name' => 'body'
         ];
     }
@@ -47,7 +43,7 @@ class PracticeAreas {
         return [
             'name' => 'description',
             'label' => 'Summary',
-            'display' => 'Textarea'
+            'display' => 'Field\Textarea'
         ];
     }
 
@@ -59,7 +55,7 @@ class PracticeAreas {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -68,66 +64,34 @@ class PracticeAreas {
     function code_nameField () {
         return [
             'name' => 'code_name',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metakeywordsField () {
         return [
             'name' => 'metadata_keywords',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name' => 'metadata_description',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
-    /*
-    function created_dateField() {
-        return VCPF\DOMFormTableArray::createdDate();
-    }
-
-    function naemField () {
-        return array(
-            'name' => 'name',
-            'label' => 'Name',
-            'required' => true,
-            'display' => VCPF\Field::inputText()
-        );
-    }
-
-    function summaryField () {
-        return array(
-            'name' => 'summary',
-            'label' => 'Short Description',
-            'required' => false,
-            'display' => VCPF\Field::textarea()
-        );
-    }
-
-    function descriptionField () {
-        return [
-            'name' => 'description',
-            'label' => 'Description',
-            'required' => false,
-            'display' => VCPF\Field::ckeditor()
-        ];
-    }        
-*/
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if practice_areas}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                     
                     <table class="ui large table segment manager sortable">
                         <col width="60%">
@@ -146,7 +110,7 @@ class PracticeAreas {
                                 <tr data-id="{{dbURI}}">
                                    
                                     <td>{{title}}</td>
-                                    <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
+                                    <td>{{{Capitalize status}}}</td>
                                     <td>
                                         <div class="manager trash ui icon button">
                                              <i class="trash icon"></i>
@@ -156,9 +120,9 @@ class PracticeAreas {
                             {{/each}}
                         </tbody>
                     </table>
-                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                   {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -167,36 +131,37 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft body Body}}{{/FieldLeft}}
-                            {{#FieldLeft description Summary}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title required="true"}}}
+                            {{{ManagerField . class="left" name="body" label="Body}}}
+                            {{{ManagerField . class="left" name="description" label="Summary}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                     
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="SEO">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                              {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                            {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                              {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>

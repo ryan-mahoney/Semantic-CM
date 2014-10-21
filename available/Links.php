@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .5
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Links.php
  * @mode upgrade
  *
@@ -10,7 +10,7 @@
 namespace Manager;
 
 class Links {
-    public $collection = 'links';
+    public $collection = 'Collection\Links';
     public $title = 'Links';
     public $titleField = 'title';
     public $singular = 'Link';
@@ -22,17 +22,13 @@ class Links {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'links',
-        'key' => '_id'
-    ];
 
     function titleField() {
         return [
             'name'        => 'title',
             'label'        => 'Title',
             'required'    =>    true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
     function urlField() {
@@ -40,7 +36,7 @@ class Links {
             'name'        => 'url',
             'label'        => 'URL',
             'required'    =>    true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
 
@@ -55,7 +51,7 @@ class Links {
                     '_parent'    =>'Parent',
                     '_top'        =>'Top'
         ),
-                'display'    =>'Select',
+                'display'    =>'Field\Select',
                 'default'=> 'self'    
     
         ];
@@ -66,7 +62,7 @@ class Links {
             'name'        => 'description',
             'label'        => 'Description',
             'required'    =>    false,
-            'display' => 'Textarea'
+            'display' => 'Field\Textarea'
         ];
     }
 
@@ -74,53 +70,21 @@ class Links {
         return [
                 'name' => 'image',
                 'label' => 'Image',
-                'display' => 'InputFile',
+                'display' => 'Field\InputFile',
                 'tooltip' => 'An image that will be displayed when the entry is listed.'
         ];
-    }    
-/*
-    
-    function categoriesField () {
-        return array(
-                'name'        => 'categories',
-                'label'        => 'Choose a Category',
-                'required'    => false,
-                'tooltip'    => 'Add one or more categories.',
-                'options'    => function () {
-                return VCPF\Model::db('categories')->
-                find(['section' => 'Links'])->
-                sort(array('title' => 1))->
-                fetchAllGrouped('_id', 'title');
-        },
-        'display'    => VCPF\Field::selectToPill()
-        );
     }
-    
-    public function featuredField() {
-        return array(
-            'name' => 'featured',
-            'label' => False,
-            'required' => false,
-                'options' => array(
-                    't' => 'Yes',
-                    'f' => 'No'
-                ),
-                'display' => VCPF\Field::inputRadioButton(),
-                'default' => 'f'
-        );
-    }
-*/
 
- public function indexPartial () {
+    public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if links}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
+                        {{{ManagerIndexButtons metadata=metadata}}}
                         
                         <table class="ui large table segment manager sortable">
                                 <col width="80%">
@@ -147,9 +111,9 @@ class Links {
                             </tbody>
                         </table>
 
-                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
                    {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -157,32 +121,33 @@ HBS;
     }
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft url URL}}{{/FieldLeft}}
-                            {{#FieldLeft target Target}}{{/FieldLeft}}
-                            {{#FieldLeft description Summary}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="url" label="URL"}}}
+                            {{{ManagerField . class="left" name="target" label="Target"}}}
+                            {{{ManagerField . class="left" name="description" label="Summary"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="Images">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft image Image}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}                 
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="image" label="Image"}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                     
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>
@@ -190,5 +155,3 @@ HBS;
         return $partial;
     }
 }
-
-    

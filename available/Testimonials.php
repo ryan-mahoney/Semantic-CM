@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Testimonials.php
  * @mode upgrade
  *
@@ -12,7 +12,7 @@
 namespace Manager;
 
 class Testimonials {
-    public $collection = 'testimonials';
+    public $collection = 'Collection\Testimonials';
     public $title = 'Testimonials';
     public $titleField = 'name';
     public $singular = 'Testimonial';
@@ -24,57 +24,47 @@ class Testimonials {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'testimonials',
-        'key' => '_id'
-    ];
 
     function titleField () {
         return [
             'name'        => 'name',
-            'label'        => 'Name',
             'required'    => true,
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function locationField(){
         return [
             'name'=>'location',
-            'label'=>'Location',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
     
     function occupationField(){
         return array(
             'name'=>'occupation',
-            'label'=>'Occupation',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         );
     }    
 
     function messageField(){
         return [
             'name'=>'message',
-            'label'=>'Message',
-            'display' => 'Ckeditor',
+            'display' => 'Field\Redactor',
         ];
     }
 
     function messageshortField(){
         return [
             'name'=>'messageshort',
-            'label'=>'"Short Message"',
-            'display' => 'Ckeditor',
+            'display' => 'Field\Redactor',
         ];
     }
 
     function imageField () {
         return [
             'name' => 'image',
-            'label' => 'Image',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -86,7 +76,7 @@ class Testimonials {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -96,7 +86,7 @@ class Testimonials {
         return [
             'name'            => 'display_date',
             'required'        => true,
-            'display'        => 'InputDatePicker',
+            'display'        => 'Field\InputDatePicker',
             'transformIn'    => function ($data) {
                 return new \MongoDate(strtotime($data));
             },
@@ -112,13 +102,12 @@ class Testimonials {
     function featuredField () {
         return [
             'name' => 'featured',
-            'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -131,8 +120,8 @@ class Testimonials {
             'options' => array(
                 't' => 'Yes',
                 'f' => 'No'
-        ),
-            'display' => 'InputRadioButton',
+            ),
+            'display' => 'Field\InputRadioButton',
             'default' => 'f'
         ];
     }
@@ -140,48 +129,45 @@ class Testimonials {
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if testimonials}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
-                        
-                        <table class="ui large table segment manager sortable">
-                                <col width="40%">
-                                <col width="30%">
-                                <col width="20%">
-                                <col width="10%">
-                            <thead>
-                                <tr>
-                                   
-                                    <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Featured</th>
-                                    <th class="trash">Delete</th>
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
+                    
+                    <table class="ui large table segment manager sortable">
+                        <col width="40%">
+                        <col width="30%">
+                        <col width="20%">
+                        <col width="10%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Featured</th>
+                                <th class="trash">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each testimonials}}
+                                <tr data-id="{{dbURI}}">
+                                    <td>{{title}}</td>
+                                    <td>{{{Capitalize status}}}</td>
+                                    <td>{{{BooleanReadable featured}}}</td>
+                                    <td>
+                                        <div class="manager trash ui icon button">
+                                             <i class="trash icon"></i>
+                                         </div>
+                                     </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {{#each testimonials}}
-                                    <tr data-id="{{dbURI}}">
-                                        
-                                        <td>{{title}}</td>
-                                        <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                        <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
-                                        <td>
-                                            <div class="manager trash ui icon button">
-                                                 <i class="trash icon"></i>
-                                             </div>
-                                         </td>
-                                    </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                   {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                {{else}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -190,47 +176,48 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Name required}}{{/FieldLeft}}
-                            {{#FieldLeft location Location required}}{{/FieldLeft}}
-                            {{#FieldLeft occupation Occupation}}{{/FieldLeft}}
-                            {{#FieldLeft message Message}}{{/FieldLeft}}
-                            {{#FieldLeft messageshort "Short Message"}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Name" required="true"}}}
+                            {{{ManagerField . class="left" name="location" label="Location" required="true"}}}
+                            {{{ManagerField . class="left" name="occupation" label="Occupation"}}}
+                            {{{ManagerField . class="left" name="message" label="Message"}}}
+                            {{{ManagerField . class="left" name="messageshort" label="Short Message"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <br />
-                            {{#FieldFull display_date}}{{/FieldFull}}
+                            {{{ManagerField . class="fluid" name="display_date"}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldLeft featured}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="featured"}}}
                             <br />
-                            {{#FieldLeft approved}}{{/FieldLeft}}
-                        {{/DocumentFormRight}}
+                            {{{ManagerField . class="left" name="approved"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
 
                      <div class="ui tab" data-tab="Images">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft image Image}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}                 
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="image" label="Image"}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>
 HBS;
         return $partial;
     }
-}    
+}

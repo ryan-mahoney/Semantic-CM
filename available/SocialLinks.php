@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .8
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/SocialLinks.php
  * @mode upgrade
  *
@@ -13,7 +13,7 @@
 namespace Manager;
 
 class SocialLinks {
-    public $collection = 'social_links';
+    public $collection = 'Collection\SocialLinks';
     public $title = 'Social Links';
     public $titleField = 'url';
     public $singular = 'Social Link';
@@ -25,10 +25,6 @@ class SocialLinks {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'social_links',
-        'key' => '_id'
-    ];
     
     function typeField () {
         return [
@@ -43,7 +39,7 @@ class SocialLinks {
             'flickr'        =>"Flickr",
             'youtube'        =>"YouTube",
         ],
-                'display' => 'Select',
+                'display' => 'Field\Select',
                 'nullable' => true
         ];
     }    
@@ -53,7 +49,7 @@ class SocialLinks {
             'name' => 'url',
             'label' => 'URL',
             'required' => false,
-            'display'    => 'InputText'            
+            'display'    => 'Field\InputText'            
         );
     }
 
@@ -62,7 +58,7 @@ class SocialLinks {
         return [
             'name' => 'headerIcon',
             'label' => 'Header Icon',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -70,20 +66,20 @@ class SocialLinks {
         return [
             'name' => 'footerIcon',
             'label' => 'Footer Icon',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if social_links}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
+                        {{{ManagerIndexButtons metadata=metadata}}}
                         
                         <table class="ui large table segment manager sortable">
                             <col width="10%">
@@ -102,7 +98,7 @@ class SocialLinks {
                                 {{#each social_links}}
                                     <tr data-id="{{dbURI}}">
                                         <td class="handle"><i class="reorder icon"></i></td>
-                                        <td>{{#Capitalize}}{{type}}{{/Capitalize}}</td>
+                                        <td>{{{Capitalize type}}}</td>
                                         <td>{{url}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
@@ -114,9 +110,9 @@ class SocialLinks {
                             </tbody>
                         </table>
 
-                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
                    {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -125,25 +121,26 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
                 <div class="bottom-container">
-                     <div class="ui tab active" data-tab="Main">
-                         {{#DocumentFormLeft}}
-                             {{#FieldLeft type Type required}}{{/FieldLeft}}
-                             {{#FieldLeft url URL required}}{{/FieldLeft}}
-                             {{#FieldLeft headerIcon "Header Icon" required}}{{/FieldLeft}}
-                             {{#FieldLeft footerIcon "Footer Icon" required}}{{/FieldLeft}}
-                             {{{id}}}
-                         {{/DocumentFormLeft}}                 
+                    <div class="ui tab active" data-tab="Main">
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="type" label="Type" required="true"}}}
+                            {{{ManagerField . class="left" name="url" label="URL" required="true"}}}
+                            {{{ManagerField . class="left" name="headerIcon" label="Header Icon" required="true"}}}
+                            {{{ManagerField . class="left" name="footerIcon" label="Footer Icon" required="true"}}}
+                            {{{id}}}
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                     
-                         {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                         {{/DocumentFormRight}}
-                     </div>
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
+                    </div>
                 </div>
             </form>
 HBS;

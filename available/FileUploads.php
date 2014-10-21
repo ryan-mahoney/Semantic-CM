@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .9
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/FileUploads.php
  * @mode upgrade
  *
@@ -13,7 +13,7 @@
 namespace Manager;
 
 class FileUploads {
-    public $collection = 'file_uploads';
+    public $collection = 'Collection\FileUploads';
     public $title = 'File Uploads';
     public $titleField = 'title';
     public $singular = 'File Upload';
@@ -25,17 +25,13 @@ class FileUploads {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'file_uploads',
-        'key' => '_id'
-    ];
 
     function titleField () {
         return [
             'name'      => 'title',
             'label'     => 'Title',
             'required'  => true,
-            'display'   => 'InputText'
+            'display'   => 'Field\InputText'
         ];
     }
     
@@ -43,20 +39,20 @@ class FileUploads {
         return [
             'name' => 'image',
             'label' => 'File Upload',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if file_uploads}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
+                        {{{ManagerIndexButtons metadata=metadata}}}
                         
                         <table class="ui large table segment manager sortable">
                             <col width="60%">
@@ -86,9 +82,9 @@ class FileUploads {
                             </tbody>
                         </table>
 
-                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
                    {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -97,24 +93,24 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
-                            {{#FieldLeft image "File Upload" required}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="image" label="File Upload" required="true"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                     
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>

@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .8
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Publications.php
  * @mode upgrade
  *
@@ -12,7 +12,7 @@
 namespace Manager;
 
 class Publications {
-    public $collection = 'publications';
+    public $collection = 'Collection\Publications';
     public $title = 'Publications';
     public $titleField = 'title';
     public $singular = 'Publication';
@@ -24,17 +24,13 @@ class Publications {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'publications',
-        'key' => '_id'
-    ];
     
     function titleField () {
         return [
             'name'        => 'title',
             'label'        => 'Title',
             'required'    => true,
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
@@ -42,7 +38,7 @@ class Publications {
         return [
             'name' => 'description',
             'label' => 'Summary',
-            'display' => 'Textarea'
+            'display' => 'Field\Textarea'
         ];
     }
 
@@ -50,7 +46,7 @@ class Publications {
         return [
             'name' => 'image',
             'label' => 'List View',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -58,16 +54,15 @@ class Publications {
         return [
             'name' => 'file',
             'label' => 'File Upload',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
-    
     function dateField() {
         return [
             'name'          => 'display_date',
             'required'      => true,
-            'display'       => 'InputDatePicker',
+            'display'       => 'Field\InputDatePicker',
             'transformIn'   => function ($data) {
                 return new \MongoDate(strtotime($data));
             },
@@ -88,7 +83,7 @@ class Publications {
                 'published' => 'Published',
                 'draft'     => 'Draft'
             ),
-            'display'   => 'Select',
+            'display'   => 'Field\Select',
             'nullable'  => false,
             'default'   => 'published'
         ];
@@ -105,7 +100,7 @@ class Publications {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('publications', 'tags');
@@ -126,7 +121,7 @@ class Publications {
                     '_id', 
                     'title');
             },
-            'display'   => 'InputToTags',
+            'display'   => 'Field\InputToTags',
             'controlled' => true,
             'multiple' => true
         );
@@ -135,34 +130,34 @@ class Publications {
     function code_nameField () {
         return [
             'name' => 'code_name',
-            'display'   => 'InputText'
+            'display'   => 'Field\InputText'
         ];
     }
 
     function metakeywordsField () {
         return [
             'name' => 'metadata_keywords',
-            'display'   => 'InputText'
+            'display'   => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name' => 'metadata_description',
-            'display'   => 'InputText'
+            'display'   => 'Field\InputText'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
            <div class="bottom-container">
               {{#if publications}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                 
                     <table class="ui large table segment manager sortable">
                         <col width="90%">
@@ -184,9 +179,9 @@ class Publications {
                             {{/each}}
                          </tbody>
                     </table>
-                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-                     {{#CollectionEmpty}}{{/CollectionEmpty}}
+                     {{{ManagerIndexBlankSlate metadata=metadata}}}
               {{/if}}
            </div>
 HBS;
@@ -195,54 +190,55 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft description Summary}}{{/FieldLeft}}
-                            {{#FieldLeft file "File Upload" required}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="description" label="Summary"}}}
+                            {{{ManagerField . class="left" name="file "File Upload" required="true"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <br />
-                            {{#FieldFull display_date}}{{/FieldFull}}
+                            {{{ManagerField . class="fluid" name="display_date"}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldFull categories Categories}}{{/FieldFull}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                            {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                      <div class="ui tab" data-tab="Images">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft image "List View"}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}                 
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="image" label="List View"}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="SEO">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                            {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                            {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>  
                 </div>
             </form>
 HBS;
         return $partial;
     }
-}    
+}

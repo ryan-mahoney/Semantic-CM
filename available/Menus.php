@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .6
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Menus.php
  * @mode upgrade
  * .6 definiton and description for count added
@@ -9,7 +9,7 @@
 namespace Manager;
 
 class Menus {
-    public $collection = 'menus';
+    public $collection = 'Collection\Menus';
     public $title = 'Menus';
     public $titleField = 'label';
     public $singular = 'Menu';
@@ -21,17 +21,13 @@ class Menus {
     public $after = 'function';
     public $function = 'ManagerSaved';
     public $sort = '{"sort_key":1, "created_date":-1}';
-    public $storage = [
-        'collection' => 'menus',
-        'key' => '_id'
-    ];
 
     function labelField () {
         return [
             'name'        => 'label',
             'placeholder' => 'Title',
             'required'    => true,
-            'display'     => 'InputText'
+            'display'     => 'Field\InputText'
         ];
     }    
 
@@ -40,7 +36,7 @@ class Menus {
             'name'        => 'url',
             'placeholder' => 'URL',
             'required'    => false,
-            'display'     => 'InputText'
+            'display'     => 'Field\InputText'
         ];
     }
 
@@ -48,7 +44,7 @@ class Menus {
         return [
             'name' => 'file',
             'placeholder' => 'Image',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -56,21 +52,21 @@ class Menus {
         return [
             'name' => 'link',
             'required' => false,
-            'display'    =>    'Manager',
-            'manager'    => 'menu_links'
+            'display'    =>    'Field\Manager',
+            'manager'    => 'MenuLinks'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                {{#if menus}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
+                        {{{ManagerIndexButtons metadata=metadata}}}
                         
                         <table class="ui large table segment manager sortable">
                             <col width="10%">
@@ -93,16 +89,16 @@ class Menus {
                                         <td class="handle"><i class="reorder icon"></i></td>
                                         <td>{{label}}</td>
                                         <td>{{url}}</td>
-                                        <td>{{#MongoDate m/d/Y}}{{created_date}}{{/MongoDate}}</td>
+                                        <td>{{{MongoDate created_date format="m/d/Y"}}}</td>
                                         <td><div class="manager trash ui icon button"><i class="trash icon"></i></div></td>
                                     </tr>
                                 {{/each}}
                             </tbody>
                         </table>
 
-                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
                    {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -111,24 +107,25 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
-                    {{#DocumentFormLeft}}
-                        {{#FieldLeft label Title required}}{{/FieldLeft}}
-                        {{#FieldLeft url URL required}}{{/FieldLeft}}
-                        {{#FieldLeft file Image}}{{/FieldLeft}}
-                        {{#FieldEmbedded field="link" manager="menu_links"}}
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="label" label="Title" required="true"}}}
+                        {{{ManagerField . class="left" name="url" label="URL" required="true"}}}
+                        {{{ManagerField . class="left" name="file" label="Image"}}}
+                        {{{ManagerFieldEmbedded . name="link" manager="MenuLiks" label="Links"}}}
                         {{{id}}}
-                    {{/DocumentFormLeft}}                 
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}                 
                     
-                    {{#DocumentFormRight}}
-                        {{#DocumentButton}}{{/DocumentButton}}
-                    {{/DocumentFormRight}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
                 </div>
             </form>
 HBS;

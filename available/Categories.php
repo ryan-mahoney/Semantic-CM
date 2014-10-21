@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .9
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Categories.php
  * @mode upgrade
  *
@@ -28,16 +28,12 @@ class Categories {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'categories',
-        'key' => '_id'
-    ];
 
     function titleField () {
         return [
             'name'          => 'title',
             'required'      => true,
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
@@ -45,7 +41,7 @@ class Categories {
         return [
             'name'          => 'section',
             'required'      => true,
-            'display'       => 'InputToTags',
+            'display'       => 'Field\InputToTags',
             'multiple'      => false,
             'options'       => function () {
                 $existing = $this->db->distinct('categories', 'section');
@@ -63,7 +59,7 @@ class Categories {
     function imageField () {
         return [
             'name'          => 'image',
-            'display'       => 'InputFile'
+            'display'       => 'Field\InputFile'
         ];
     }
 
@@ -71,7 +67,7 @@ class Categories {
         return [
             'name'          => 'subcategory',
             'required'      => false,
-            'display'       => 'Manager',
+            'display'       => 'Field\Manager',
             'manager'       => 'Subcategories'
         ];
     }
@@ -84,7 +80,7 @@ class Categories {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ],
-            'display'       => 'Select',
+            'display'       => 'Field\Select',
             'nullable'      => false,
             'default'       => 'published'
         ];
@@ -98,7 +94,7 @@ class Categories {
                 't' => 'Yes',
                 'f' => 'No'
             ],
-            'display'       => 'InputSlider',
+            'display'       => 'Field\InputSlider',
             'default'       => 'f'
         ];
     }
@@ -106,33 +102,33 @@ class Categories {
     function code_nameField () {
         return [
             'name'          => 'code_name',
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
     function metakeywordsField () {
         return [
             'name'          => 'metadata_keywords',
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name'          => 'metadata_description',
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{{CollectionHeader metadata=metadata pagination=pagination}}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
             <div class="bottom-container">
                 {{#if categories}}
-                    {{{CollectionPagination pagination=pagination}}}
-                    {{{CollectionButtons metadata=metadata}}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                     
                     <table class="ui large table segment manager sortable">
                         <col width="10%">
@@ -162,9 +158,9 @@ class Categories {
                             {{/each}}
                         </tbody>
                     </table>
-                    {{{CollectionPagination pagination=pagination}}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-                    {{{CollectionEmpty metadata=metadata}}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -173,39 +169,39 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-                {{{Form spare=id_spare metadata=metadata}}}
+                {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{{DocumentHeader metadata=metadata}}}
-                    {{{DocumentTabs metadata=metadata}}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{{DocumentFormLeft}}}
-                            {{{Field . name="title" label="Title" required="true" class="left"}}}
-                            {{{Field . name="section" label="Section" required="true" class="left"}}}
-                            {{{Field . name="image" label="Image" class="left"}}}
-                            {{{FieldEmbedded . name="subcategory" manager="Subcategories"}}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . name="title" label="Title" required="true" class="left"}}}
+                            {{{ManagerField . name="section" label="Section" required="true" class="left"}}}
+                            {{{ManagerField . name="image" label="Image" class="left"}}}
+                            {{{ManagerFieldEmbedded . name="subcategory" manager="Subcategories"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{DocumentFormLeftClose}}}
+                        {{{ManagerFormMainColumnClose}}}
                     
-                        {{{DocumentFormRight}}}
-                            {{{DocumentButton modified=modified_date}}}
-                            {{{Field . name="status" class="fluid"}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . name="status" class="fluid"}}}
                             <br />
-                            {{{Field . name="featured" class="left"}}}
-                        {{{DocumentFormRightClose}}}
+                            {{{ManagerField . name="featured" class="left"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="SEO">
-                        {{{DocumentFormLeft}}}
-                            {{{Field . name="code_name" label="Slug" class="left"}}}
-                            {{{Field . name="metadata_description" label="Description" class="left"}}}
-                            {{{Field . name="metadata_keywords" label="Keywords" class="left"}}}
-                        {{{DocumentFormLeftClose}}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . name="code_name" label="Slug" class="left"}}}
+                            {{{ManagerField . name="metadata_description" label="Description" class="left"}}}
+                            {{{ManagerField . name="metadata_keywords" label="Keywords" class="left"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{{DocumentFormRight}}}
-                            {{{DocumentButton modified=modified_date}}}
-                        {{{DocumentFormRightClose}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>

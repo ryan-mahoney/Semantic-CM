@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .4
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/DepartmentProfiles.php
  * @mode upgrade
  * .3 definiton and description for count adde
@@ -9,7 +9,7 @@
 namespace Manager;
 
 class DepartmentProfiles {
-    public $collection = 'department_profiles';
+    public $collection = 'Collection\DepartmentProfiles';
     public $title = 'Profiles';
     public $titleField = 'title';
     public $singular = 'Profile';
@@ -21,17 +21,13 @@ class DepartmentProfiles {
     public $after = 'function';
     public $function = 'embeddedUpsert';
     public $embedded = true;
-    public $storage = [
-        'collection' => 'departments',
-        'key' => '_id'
-    ];
 
     function titleField () {
         return [
             'name'        => 'title',
             'label'        => 'Title',
             'required'    => false,
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
@@ -39,13 +35,13 @@ class DepartmentProfiles {
         return [
             'name' => 'image',
             'label' => 'Image',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
-            {{#EmbeddedCollectionHeader department_profiles}}{{/EmbeddedCollectionHeader}}
+            {{{ManagerEmbeddedIndexHeader label="Profiles"}}}
             {{#if department_profiles}}
                 <table class="ui table manager segment">
                     <thead>
@@ -59,24 +55,21 @@ class DepartmentProfiles {
                         {{/each}}
                     </tbody>
                 </table>
-              {{else}}
-               {{#EmbeddedCollectionEmpty Profile}}{{/EmbeddedCollectionEmpty}}
-           {{/if}}
+            {{else}}
+                {{{ManagerEmbeddedIndexEmpty singular="Profile"}}}
+            {{/if}}
 HBS;
         return $partial;
     }
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#EmbeddedHeader}}{{/EmbeddedHeader}}
-
-                {{#FieldFull title Title}}{{/FieldFull}}
-
-                {{#FieldFull image Image}}{{/FieldFull}}
-
+            {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+                {{{ManagerField . class="fluid" name="title" label="Title"}}}
+                {{{ManagerField . class="fluid" name="image" label="Image"}}}
                 {{{id}}}
-
-            {{#EmbeddedFooter}}{{/EmbeddedFooter}}
+                {{{form-token}}}
+            {{{ManagerEmbeddedFormFooter}}}
 HBS;
         return $partial;
     }

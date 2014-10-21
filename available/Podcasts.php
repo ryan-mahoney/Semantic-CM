@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .8
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Podcasts.php
  * @mode upgrade
  *
@@ -13,7 +13,7 @@
 namespace Manager;
 
 class Podcasts {
-    public $collection = 'podcasts';
+    public $collection = 'Collection\Podcasts';
     public $title = 'Podcasts';
     public $titleField = 'title';
     public $singular = 'Podcast';
@@ -25,17 +25,13 @@ class Podcasts {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'podcasts',
-        'key' => '_id'
-    ];
     
     function titleField () {    
         return [
             'name' => 'title',
             'label' => 'Title',
             'required' => true,
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
@@ -44,16 +40,15 @@ class Podcasts {
             'name'=>'description',
             'label'=>'Summary',
             'required'=>false,
-            'display' => 'Textarea'
+            'display' => 'Field\Textarea'
         ];
     }
-
 
     function imageField () {
         return [
             'name' => 'image',
             'label' => 'List View',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -62,28 +57,28 @@ class Podcasts {
             'name' => 'audio',
             'label' => 'File',
             'required' => false,
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
     function code_nameField () {
         return [
             'name' => 'code_name',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metakeywordsField () {
         return [
             'name' => 'metadata_keywords',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name' => 'metadata_description',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
     
@@ -96,7 +91,7 @@ class Podcasts {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -111,7 +106,7 @@ class Podcasts {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -125,12 +120,12 @@ class Podcasts {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-        function categoriesField () {
+    function categoriesField () {
         return array(
             'name'        => 'categories',
             'label'        => 'Category',
@@ -143,7 +138,7 @@ class Podcasts {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
+            'display'    => 'Field\InputToTags',
             'controlled' => true,
             'multiple' => true
         );
@@ -160,43 +155,24 @@ class Podcasts {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('blogs', 'tags');
             }
         ];
     }
-    /*
-    function dateField() {
-        return array(
-            'name'            => 'display_date',
-            'label'            => 'Display Date',
-            'required'        => true,
-            'display'        => VCPF\Field::inputDatePicker(),
-            'tooltip'        => 'Helpful for back-dating and scheduling future posts.',
-            'transformIn'    => function ($data) {
-                return new \MongoDate(strtotime($data));
-            },
-            'transformOut'    => function ($data) {
-                return date('m/d/Y', $data->sec);
-            },
-            'default'        => function () {
-                return date('m/d/Y');
-            }
-        );
-    }
-    */
+
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if podcasts}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
+                        {{{ManagerIndexButtons metadata=metadata}}}
                         
                         <table class="ui large table segment manager sortable">
                                 <col width="40%">
@@ -206,7 +182,6 @@ class Podcasts {
                                 <col width="10%">
                             <thead>
                                 <tr>
-                                    
                                     <th>Title</th>
                                     <th>Status</th>
                                     <th>Featured</th>
@@ -217,11 +192,10 @@ class Podcasts {
                             <tbody>
                                 {{#each podcasts}}
                                     <tr data-id="{{dbURI}}">
-                                       
                                         <td>{{title}}</td>
-                                        <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                        <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
-                                        <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
+                                        <td>{{{Capitalize status}}}</td>
+                                        <td>{{{BooleanReadable featured}}}</td>
+                                        <td>{{{BooleanReadable pinned}}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
@@ -231,10 +205,9 @@ class Podcasts {
                                 {{/each}}
                             </tbody>
                         </table>
-
-                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
                    {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -243,55 +216,56 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft description Summary}}{{/FieldLeft}}
-                            {{#FieldLeft audio File}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="description" label="Summary"}}}
+                            {{{ManagerField . class="left" name="audio" label="File"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <br>
-                               {{#FieldLeft featured}}{{/FieldLeft}}
-                               {{#FieldLeft pinned}}{{/FieldLeft}}
+                               {{{ManagerField . class="left" name="featured"}}}
+                               {{{ManagerField . class="left" name="pinned"}}}
                                <div class="ui clearing divider"></div>
-                               {{#FieldFull categories Categories}}{{/FieldFull}}
-                               {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                               {{{ManagerField . class="fluid" name="categories" label="Categories}}}
+                               {{{ManagerField . class="fluid" name="tags" label="Tags}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="Images">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft image "List View"}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}                 
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="image" label="List View"}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="SEO">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                              {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                            {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                              {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>
 HBS;
         return $partial;
     }
-}    
+}

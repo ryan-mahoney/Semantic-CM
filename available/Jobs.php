@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .9
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Jobs.php
  * @mode upgrade
  *
@@ -12,7 +12,7 @@
 namespace Manager;
 
 class Jobs {
-    public $collection = 'jobs';
+    public $collection = 'Collection\Jobs';
     public $title = 'Jobs';
     public $titleField = 'job_title';
     public $singular = 'Job';
@@ -24,17 +24,13 @@ class Jobs {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'jobs',
-        'key' => '_id'
-    ];
 
     function company_nameField () {
         return [
             'name'         => 'company_name',
             'label'     => 'Name of Employer or Recruiting Firm',
             'required'    => true,
-            'display'     => 'InputText'
+            'display'     => 'Field\InputText'
         ];
     }
 
@@ -42,7 +38,7 @@ class Jobs {
         return [
             'name'        => 'full_name',
             'placeholder' => 'Full Name',
-            'display'    => 'InputText',
+            'display'    => 'Field\InputText',
             'required'     => true
         ];
     }
@@ -52,7 +48,7 @@ class Jobs {
             'name'         => 'job_title',
             'label'     => 'Job Title',
             'required'     => true,
-            'display'     => 'InputText'
+            'display'     => 'Field\InputText'
         ];
     }
     
@@ -61,7 +57,7 @@ class Jobs {
             'name'         => 'contact_person',
             'label'     => 'Name',
             'required'     => false,
-            'display'     => 'InputText',
+            'display'     => 'Field\InputText',
         ];
     }
     
@@ -70,7 +66,7 @@ class Jobs {
             'name'         => 'contact_title',
             'label'     => 'Job Title of Contact',
             'required'     => false,
-            'display'     => 'InputText',
+            'display'     => 'Field\InputText',
 
         ];
     }
@@ -80,7 +76,7 @@ class Jobs {
             'name'         => 'email',
             'label'     => 'Email',
             'required'     => false,
-            'display'     => 'InputText'    
+            'display'     => 'Field\InputText'    
         ];
     }
     
@@ -89,7 +85,7 @@ class Jobs {
             'name'            => 'job_expiration',
             'label'            => 'Job Expiration Date',
             'required'        => false,
-            'display'        => 'InputDatePicker',
+            'display'        => 'Field\InputDatePicker',
             'transformIn'    => function ($data) {
                 return new \MongoDate(strtotime($data));
             },
@@ -107,7 +103,7 @@ class Jobs {
             'name'         => 'address',
             'label'     => 'Address',
             'required'     => true,
-            'display'     => 'InputText'    
+            'display'     => 'Field\InputText'    
         ];
     }
     
@@ -116,7 +112,7 @@ class Jobs {
             'name'         => 'city',
             'label'     => 'City',
             'required'     => true,
-            'display'     => 'InputText'    
+            'display'     => 'Field\InputText'    
         ];
     }
 
@@ -128,7 +124,7 @@ class Jobs {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -143,7 +139,7 @@ class Jobs {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -157,7 +153,7 @@ class Jobs {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -175,7 +171,7 @@ class Jobs {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
+            'display'    => 'Field\InputToTags',
             'controlled' => true,
             'multiple' => true
         ];
@@ -192,7 +188,7 @@ class Jobs {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('jobs', 'tags');
@@ -268,7 +264,7 @@ class Jobs {
                 'AE'=>"Armed Forces", 
                 'AP'=>"Armed Forces Pacific" 
                     ),
-                'display'     => 'Select',
+                'display'     => 'Field\Select',
                 'nullable'     => true
             ];
         }
@@ -278,7 +274,7 @@ class Jobs {
             'name'         => 'zipcode',
             'label'     => 'Zipcode',
             'required'     => true,
-            'display'     => 'InputText'    
+            'display'     => 'Field\InputText'    
         ];
     }
     
@@ -287,7 +283,7 @@ class Jobs {
             'name'         => 'telephone',
             'label'     => 'Phone Number',
             'required'     => false,
-            'display'     => 'InputText'    
+            'display'     => 'Field\InputText'    
         ];
     }
     
@@ -296,7 +292,7 @@ class Jobs {
             'name'         => 'website',
             'label'     => 'Website',
             'required'     => false,
-            'display'     => 'InputText'    
+            'display'     => 'Field\InputText'    
         ];
     }
     
@@ -305,7 +301,7 @@ class Jobs {
             'name'         => 'file',
             'label'     => 'Attached Job Description',
             'required'     => false,
-            'display'     => 'InputFile',
+            'display'     => 'Field\InputFile',
 
         ];
     }
@@ -314,7 +310,7 @@ class Jobs {
         return [
             'name' => 'description',
             'label' => 'Job Description',
-            'display' => 'Ckeditor',
+            'display' => 'Field\Redactor',
             'required'     => false,
         ];
     }
@@ -328,7 +324,7 @@ class Jobs {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'nullable' => true,
         ];
     }
@@ -342,7 +338,7 @@ class Jobs {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'nullable' => true,
 
             ];
@@ -357,7 +353,7 @@ class Jobs {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'nullable' => true,
 
             ];
@@ -366,20 +362,20 @@ class Jobs {
     function code_nameField () {
         return [
             'name' => 'code_name',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
     function metakeywordsField () {
         return [
             'name' => 'metadata_keywords',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name' => 'metadata_description',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
@@ -388,13 +384,13 @@ class Jobs {
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
            <div class="bottom-container">
               {{#if jobs}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                 
                     <table class="ui large table segment manager sortable">
                         <col width="45%">
@@ -416,10 +412,10 @@ class Jobs {
                             {{#each jobs}}
                                 <tr data-id="{{dbURI}}">
                                     <td>{{job_title}}</td>
-                                    <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                    <td>{{#CategoriesCSV}}{{categories}}{{/CategoriesCSV}}</td>
-                                    <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
-                                    <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
+                                    <td>{{{Capitalize status}}}</td>
+                                    <td>{{{CategoriesCSV categories}}}</td>
+                                    <td>{{{BooleanReadable featured}}}</td>
+                                    <td>{{{BooleanReadable pinned}}}</td>
                                     <td>
                                        <div class="manager trash ui icon button"><i class="trash icon"></i></div>
                                     </td>
@@ -427,9 +423,9 @@ class Jobs {
                             {{/each}}
                          </tbody>
                     </table>
-                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-                     {{#CollectionEmpty}}{{/CollectionEmpty}}
+                     {{{ManagerIndexBlankSlate metadata=metadata}}}
               {{/if}}
            </div>
 HBS;
@@ -438,63 +434,63 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft company_name "Name of Employer or Recruiting Firm" required}}{{/FieldLeft}}
-                            {{#FieldLeft job_title "Job Title" required}}{{/FieldLeft}}
-                            {{#FieldLeft file "Attached Job Description"}}{{/FieldLeft}}
-                            {{#FieldLeft description "Job Description"}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="company_name" label="Name of Employer or Recruiting Firm" required="true"}}}
+                            {{{ManagerField . class="left" name="job_title" label="Job Title" required="true"}}}
+                            {{{ManagerField . class="left" name="file" label="Attached Job Description"}}}
+                            {{{ManagerField . class="left" name="description" label="Job Description"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <br />
-                            {{#FieldFull job_expiration "Job Expiration Date"}}{{/FieldFull}}
+                            {{{ManagerField . class="fluid" name="job_expiration" label="Job Expiration Date"}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldLeft featured}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="featured"}}}
                             <br />
-                            {{#FieldLeft pinned}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="pinned"}}}
                             <br />
-                            {{#FieldFull categories Categories}}{{/FieldFull}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                            {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="Contact Information">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft full_name Name}}{{/FieldLeft}}
-                            {{#FieldLeft job_title "Job Title" required}}{{/FieldLeft}}
-                            {{#FieldLeft email Email}}{{/FieldLeft}}
-                            {{#FieldLeft phone Phone}}{{/FieldLeft}}
-                            {{#FieldLeft address Address}}{{/FieldLeft}}
-                            {{#FieldLeft city City}}{{/FieldLeft}}
-                            {{#FieldLeft state State}}{{/FieldLeft}}
-                            {{#FieldLeft zipcode Zipcode}}{{/FieldLeft}}
-                            {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="full_name" label="Name"}}}
+                            {{{ManagerField . class="left" name="job_title" label="Job Title" required="true"}}}
+                            {{{ManagerField . class="left" name="email" label="Email"}}}
+                            {{{ManagerField . class="left" name="phone" label="Phone"}}}
+                            {{{ManagerField . class="left" name="address" label="Address"}}}
+                            {{{ManagerField . class="left" name="city" label="City"}}}
+                            {{{ManagerField . class="left" name="state" label="State"}}}
+                            {{{ManagerField . class="left" name="zipcode" label="Zipcode"}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     <div class="ui tab" data-tab="SEO">
-                         {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                              {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                         {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                            {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                            {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>            
                 </div>
             </form>

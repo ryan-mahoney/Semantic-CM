@@ -1,6 +1,6 @@
 <?php
 /*
- * @version 1.1
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Subcarousels.php
  * @mode upgrade
  *
@@ -18,7 +18,7 @@
 namespace Manager;
 
 class Subcarousels {
-    public $collection = 'carousels';
+    public $collection = 'Collection\Carousels';
     public $title = 'SubCarousels';
     public $titleField = 'title';
     public $singular = 'SubCarousel';
@@ -31,16 +31,12 @@ class Subcarousels {
     public $embedded = true;
     public $function = 'embeddedUpsert';
     public $notice = 'Carousel Saved';
-    public $storage = [
-        'collection' => 'carousels',
-        'key' => '_id'
-    ];
 
     function imageField () {
         return [
             'name'          => 'file',
             'label'         => 'Image',
-            'display'       => 'InputFile'
+            'display'       => 'Field\InputFile'
         ];
     }
 
@@ -49,7 +45,7 @@ class Subcarousels {
             'name'          => 'url',
             'label'         => 'URL',
             'required'      => false,
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
@@ -64,7 +60,7 @@ class Subcarousels {
                 '_top'          => 'Top',
                 '_parent'       => 'Parent'
             ],
-            'display'       => 'Select',
+            'display'       => 'Field\Select',
             'nullable'      => false,
             'default'       => 'self'
         ];
@@ -75,13 +71,13 @@ class Subcarousels {
             'name'          => 'caption',
             'label'         => 'Caption',
             'required'      => false,
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
     
     public function indexPartial () {
         $partial = <<<'HBS'
-            {{#EmbeddedCollectionHeader label="Images"}}
+            {{{ManagerEmbeddedIndexHeader label="Images"}}}
             {{#if carousel_individual}}
                 <table class="ui table manager segment">
                     <thead>
@@ -100,7 +96,7 @@ class Subcarousels {
                     </tbody>
                 </table>
             {{else}}
-                {{#EmbeddedCollectionEmpty singular="carousel_individual"}}
+                {{{ManagerEmbeddedIndexEmpty singular="carousel_individual"}}}
             {{/if}}
 HBS;
         return $partial;
@@ -108,13 +104,14 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#EmbeddedHeader}}{{/EmbeddedHeader}}                
-            {{#FieldFull file Image}}{{/FieldFull}}
-            {{#FieldFull url URL}}{{/FieldFull}}
-            {{#FieldFull target Target}}{{/FieldFull}}
-            {{#FieldFull caption Caption}}{{/FieldFull}}
-            {{{id}}}
-            {{#EmbeddedFooter}}{{/EmbeddedFooter}}    
+            {{{ManagerEmbeddedFormHeader metadata=metadata}}}                
+                {{{ManagerField . class="fluid" name="file" label="Image"}}}
+                {{{ManagerField . class="fluid" name="url" label="URL"}}}
+                {{{ManagerField . class="fluid" name="target" label="Target"}}}
+                {{{ManagerField . class="fluid" name="caption" label="Caption"}}}
+                {{{id}}}
+                {{{form-token}}}
+            {{{ManagerEmbeddedFormFooter}}}    
 HBS;
         return $partial;
     }

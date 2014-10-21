@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .4
+ * @version 2
  * @link https://raw.github.com/virtuecenter/manager/master/available/EventsDiscounts.php
  * @mode upgrade
  *
@@ -8,7 +8,7 @@
 namespace Manager;
 
 class EventsDiscounts {
-	public $collection = 'events';
+	public $collection = 'Collection\Events';
 	public $title = 'Discount Codes';
 	public $titleField = 'title';
 	public $singular = 'Discount Code';
@@ -21,17 +21,13 @@ class EventsDiscounts {
 	public $function = 'embeddedUpsert';
 	public $notice = 'Discount Saved';
 	public $embedded = true;
-	public $storage = [
-		'collection' => 'events',
-		'key' => '_id'
-	];
 
 	function codeField () {
 		return [
 			'name'		=> 'code',
 			'label'		=> 'Code',
 			'required'	=> true,
-			'display'	=> 'InputText'
+			'display'	=> 'Field\InputText'
 		];
 	}
 
@@ -43,7 +39,7 @@ class EventsDiscounts {
 				'published'	=> 'Percent',
 				'draft'		=> 'Amount'
 			),
-			'display'	=> 'Select',
+			'display'	=> 'Field\Select',
 			'nullable'	=> false,
 			'default'	=> 'Amount'
 		];
@@ -53,7 +49,7 @@ class EventsDiscounts {
 		return [
 			'name'			=> 'expiration_date',
 			'required'		=> true,
-			'display'		=> 'InputDatePicker',
+			'display'		=> 'Field\InputDatePicker',
 			'transformIn'	=> function ($data) {
 				return new \MongoDate(strtotime($data));
 			},
@@ -71,14 +67,13 @@ class EventsDiscounts {
 			'name'		=> 'value',
 			'label'		=> 'Value (Percentage/Amount)',
 			'required'	=> true,
-			'display'	=> 'InputText'
+			'display'	=> 'Field\InputText'
 		];
 	}
 
-
 	public function indexPartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedCollectionHeader label="Discount Codes"}}
+			{{{ManagerEmbeddedIndexHeader label="Discount Codes"}}}
 			{{#if discount_code}}
 				<table class="ui table manager segment">
 					<thead>
@@ -100,7 +95,7 @@ class EventsDiscounts {
 					</tbody>
 				</table>
 		    {{else}}
-			    {{#EmbeddedCollectionEmpty singular="Discount Code"}}
+			    {{{ManagerEmbeddedIndexEmpty singular="Discount Code"}}}
 	        {{/if}}
 HBS;
 		return $partial;
@@ -108,13 +103,14 @@ HBS;
 
 	public function formPartial () {
 		$partial = <<<'HBS'
-			{{#EmbeddedHeader}}
-	        {{#FieldFull code Code}}{{/FieldFull}}
-		    {{#FieldFull type Type}}{{/FieldFull}}
-		    {{#FieldFull expiration_date "Expiration Date"}}{{/FieldFull}}
-		    {{#FieldFull value "Value (Percentage/Amount)"}}{{/FieldFull}}
-		    {{{id}}}
-			{{#EmbeddedFooter}}
+			{{{ManagerEmbeddedFormHeader metadata=metadata}}}
+		        {{{ManagerField . class="fluid" name="code" label="Code"}}}
+			    {{{ManagerField . class="fluid" name="type" label="Type"}}}
+			    {{{ManagerField . class="fluid" name="expiration_date" label="Expiration Date"}}}
+			    {{{ManagerField . class="fluid" name="value" label="Value (Percentage/Amount)"}}}
+			    {{{id}}}
+				{{{form-token}}}
+			{{{ManagerEmbeddedFormFooter}}}
 HBS;
 		return $partial;
 	}

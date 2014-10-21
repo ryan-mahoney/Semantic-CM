@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .1
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Resources.php
  * @mode upgrade
  *
@@ -8,7 +8,7 @@
 namespace Manager;
 
 class Resources {
-    public $collection = 'resources';
+    public $collection = 'Collection\Resources';
     public $title = 'Resources';
     public $titleField = 'title';
     public $singular = 'Resource';
@@ -20,23 +20,19 @@ class Resources {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'resources',
-        'key' => '_id'
-    ];
 
     function titleField () {
         return [
             'name'        => 'title',
             'label'        => 'Title',
             'required'    => true,
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function bodyField () {
         return [
-            'display' => 'Ckeditor',
+            'display' => 'Field\Redactor',
             'name' => 'body'
         ];
     }
@@ -45,7 +41,7 @@ class Resources {
         return [
             'name' => 'image',
             'label' => 'File',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -62,7 +58,7 @@ class Resources {
                 'link' => 'Link',
                 'video' => 'Video'
             ],
-        'display'    => 'Select'
+        'display'    => 'Field\Select'
         ];
     }
     
@@ -70,7 +66,7 @@ class Resources {
         return [
             'name' => 'image',
             'label' => 'List View',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -78,7 +74,7 @@ class Resources {
         return [
             'name' => 'image_feature',
             'label' => 'Featured View',
-            'display' => 'InputFile'
+            'display' => 'Field\InputFile'
         ];
     }
 
@@ -90,7 +86,7 @@ class Resources {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -100,7 +96,7 @@ class Resources {
         return [
             'name'            => 'display_date',
             'required'        => true,
-            'display'        => 'InputDatePicker',
+            'display'        => 'Field\InputDatePicker',
             'transformIn'    => function ($data) {
                 return new \MongoDate(strtotime($data));
             },
@@ -122,7 +118,7 @@ class Resources {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -137,7 +133,7 @@ class Resources {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -153,7 +149,7 @@ class Resources {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('blogs', 'tags');
@@ -174,7 +170,7 @@ class Resources {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
+            'display'    => 'Field\InputToTags',
             'controlled' => true,
             'multiple' => true
         );
@@ -184,83 +180,34 @@ class Resources {
     function code_nameField () {
         return [
             'name' => 'code_name',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metakeywordsField () {
         return [
             'name' => 'metadata_keywords',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name' => 'metadata_description',
-            'display'    => 'InputText'
+            'display'    => 'Field\InputText'
         ];
     }
-    /*
-    function beforeFieldsetTemplate () {
-        return function ($admin, &$fieldsets) {
-            $fieldsets = str_replace('${particle-container}', file_get_contents('/home/webuser/webroots/vc/ms/html/site/form/ParticleResourceAdmin.html'), $fieldsets);
-        };
-    }
-    
-    function afterFieldsetUpdate () {
-        return function ($admin) {
-            $DOM = VCPF\DOMView::getDOM();
-            $DOM['.particle-type-switcher-container']->remove();
-            $DOM['.admin-form']->prepend('<input type="hidden" name="vc_ms_site_admin_resourcesadmin[type]" value="' . $admin->activeRecord['type'] . '" />');
-            $DOM['.' . $admin->activeRecord['type']]->attr('style', 'display: block');
-        };
-    }
-    
-    function speakersField () {
-        return array(
-                'name'            => 'speakers',
-                'label'            => 'Add an Speaker',
-                'required'        => false,
-                'tooltip'        => 'Add one or more speaker.',
-                'options'        => function () {
-                    return VCPF\Model::db('users')->
-                    find(['classification_tags' => 'speaker'])->
-                    sort(array('first_name' => 1))->
-                    fetchAllGrouped('_id', ['first_name', 'last_name']);
-        },
-            'display'        => VCPF\Field::selectToPill()
-        );
-    }
-    
-    function parent_collectionField () {
-        return [
-            'name' => 'parent_collection',
-            'label' => '',
-            'required' => false,
-            'display' => VCPF\Field::inputHidden()
-        ];
-    }
-    
-    function parent_idField () {
-        return [
-            'name' => 'parent_id',
-            'label' => '',
-            'required' => false,
-            'display' => VCPF\Field::inputHidden(),
-        ];
-    }*/
 
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
            <div class="bottom-container">
               {{#if resources}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                 
                     <table class="ui large table segment manager sortable">
                         <col width="45%">
@@ -282,10 +229,10 @@ class Resources {
                             {{#each resources}}
                                 <tr data-id="{{dbURI}}">
                                     <td>{{title}}</td>
-                                    <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                    <td>{{#CategoriesCSV}}{{categories}}{{/CategoriesCSV}}</td>
-                                    <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
-                                    <td>{{#BooleanReadable}}{{pinned}}{{/BooleanReadable}}</td>
+                                    <td>{{{Capitalize status}}}</td>
+                                    <td>{{{CategoriesCSV categories}}}</td>
+                                    <td>{{{BooleanReadable featured}}}</td>
+                                    <td>{{{BooleanReadable pinned}}}</td>
                                     <td>
                                        <div class="manager trash ui icon button"><i class="trash icon"></i></div>
                                     </td>
@@ -293,9 +240,9 @@ class Resources {
                             {{/each}}
                          </tbody>
                     </table>
-                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-                     {{#CollectionEmpty}}{{/CollectionEmpty}}
+                     {{{ManagerIndexBlankSlate metadata=metadata}}}
               {{/if}}
            </div>
 HBS;
@@ -304,63 +251,64 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft body Body}}{{/FieldLeft}}
-                            {{#FieldLeft image File}}{{/FieldLeft}}
-                            {{#FieldLeft format Format}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="body" label="Body"}}}
+                            {{{ManagerField . class="left" name="image" label="File"}}}
+                            {{{ManagerField . class="left" name="format" label="Format"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <br />
-                            {{#FieldFull display_date}}{{/FieldFull}}
+                            {{{ManagerField . class="fluid" name="display_date"}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldLeft featured}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="featured"}}}
                             <br />
-                            {{#FieldLeft pinned}}{{/FieldLeft}}
+                            {{{ManagerField . class="left" name="pinned"}}}
                             <br />
                             <div class="ui clearing divider"></div>
-                            {{#FieldFull categories Categories}}{{/FieldFull}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                            {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
 
                      <div class="ui tab" data-tab="Images">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft image "List View"}}{{/FieldLeft}}
-                            {{#FieldLeft image_feature Featured}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}                 
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="image" label="List View"}}}
+                            {{{ManagerField . class="left" name="image_feature" label="Featured"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
 
                     <div class="ui tab" data-tab="SEO">
-                         {{#DocumentFormLeft}}
-                            {{#FieldLeft code_name Slug}}{{/FieldLeft}}
-                            {{#FieldLeft metadata_description Description}}{{/FieldLeft}}
-                              {{#FieldLeft metadata_keywords Keywords}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}
+                         {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                            {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                            {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>            
                 </div>
             </form>
 HBS;
         return $partial;
     }
-}    
+}

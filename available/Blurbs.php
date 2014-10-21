@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .7
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Blurbs.php
  * @mode upgrade
  *
@@ -11,7 +11,7 @@
 namespace Manager;
 
 class Blurbs {
-    public $collection = 'blurbs';
+    public $collection = 'Collection\Blurbs';
     public $title = 'Blurbs';
     public $titleField = 'title';
     public $singular = 'Blurb';
@@ -22,17 +22,13 @@ class Blurbs {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'blurbs',
-        'key' => '_id'
-    ];
     
     function titleField () {
         return [
             'name' => 'title',
             'placeholder' => 'Title',
             'required' => true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
 
@@ -40,7 +36,7 @@ class Blurbs {
         return [
             'name' => 'body',
             'required' => false,
-            'display' => 'Ckeditor'        
+            'display' => 'Field\Redactor'        
         ];
     }
 
@@ -55,7 +51,7 @@ class Blurbs {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('blurbs', 'tags');
@@ -66,32 +62,30 @@ class Blurbs {
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                 {{#if blurbs}}
-                    {{#CollectionPagination}}{{/CollectionPagination}}
-                    {{#CollectionButtons}}{{/CollectionButtons}}
-                    
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                     <table class="ui large table segment manager sortable">
-                            <col width="60%">
-                            <col width="20%">
-                            <col width="20%">
-                          <thead>
+                        <col width="60%">
+                        <col width="20%">
+                        <col width="20%">
+                        <thead>
                             <tr>
                                 
                                 <th>Title</th>
                                 <th>Tags</th>
                                 <th class="trash">Delete</th>
                             </tr>
-                          </thead>
-                           <tbody>
-                               {{#each blurbs}}
-                                <tr data-id="{{dbURI}}">
-                                    
+                        </thead>
+                        <tbody>
+                            {{#each blurbs}}
+                                <tr data-id="{{dbURI}}">        
                                     <td>{{title}}</td>
-                                    <td>{{#ArrayToCSV}}{{tags}}{{/ArrayToCSV}}</td>
+                                    <td>{{{ArrayToCSV tags}}}</td>
                                     <td>
                                         <div class="manager trash ui icon button">
                                              <i class="trash icon"></i>
@@ -101,10 +95,9 @@ class Blurbs {
                             {{/each}}
                         </tbody>
                     </table>
-
-                    {{#CollectionPagination}}{{/CollectionPagination}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -113,22 +106,23 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft body required}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="body" required="true"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="tags" label="Tags}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>

@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .9
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Blogs.php
  * @mode upgrade
  *
@@ -26,23 +26,18 @@ class Blogs {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'blogs',
-        'key' => '_id'
-    ];
-    
+
     function titleField () {
         return [
             'name'          => 'title',
-            'label'         => 'Title',
             'required'      => true,
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
     function bodyField () {
         return [
-            'display'       => 'Ckeditor',
+            'display'       => 'Field\Redactor',
             'name'          => 'body'
         ];
     }
@@ -50,24 +45,21 @@ class Blogs {
     function descriptionField () {
         return [
             'name'          => 'description',
-            'label'         => 'Summary',
-            'display'       => 'Textarea'
+            'display'       => 'Field\Textarea'
         ];
     }
 
     function imageField () {
         return [
             'name'          => 'image',
-            'label'         => 'List View',
-            'display'       => 'InputFile'
+            'display'       => 'Field\InputFile'
         ];
     }
 
     function imageFeaturedField () {
         return [
             'name'          => 'image_feature',
-            'label'         => 'Featured View',
-            'display'       => 'InputFile'
+            'display'       => 'Field\InputFile'
         ];
     }
 
@@ -79,7 +71,7 @@ class Blogs {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ],
-            'display'       => 'Select',
+            'display'       => 'Field\Select',
             'nullable'      => false,
             'default'       => 'published'
         ];
@@ -94,7 +86,7 @@ class Blogs {
                 't' => 'Yes',
                 'f' => 'No'
             ],
-            'display'       => 'InputSlider',
+            'display'       => 'Field\InputSlider',
             'default'       => 'f'
         ];
     }
@@ -102,36 +94,32 @@ class Blogs {
     function authorField () {
         return [
             'name'          => 'author',
-            'label'         => 'Author',
             'required'      => false,
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
     function publication_nameField () {
         return [
             'name'          => 'publication_name',
-            'label'         => 'Publication',
             'required'      => false,
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
     
     function linkField () {
         return [
             'name'          => 'link',
-            'label'         => 'URL',
             'required'      => false,
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
     
     function date_publishedField() {
         return [
             'name'          => 'date_published',
-            'label'         => 'Date Published',
             'required'      => false,
-            'display'       => 'InputDatePicker',
+            'display'       => 'Field\InputDatePicker',
             'transformIn'   => function ($data) {
                 return new MongoDate(strtotime($data));
             },
@@ -153,7 +141,7 @@ class Blogs {
                 't' => 'Yes',
                 'f' => 'No'
             ],
-            'display'       => 'InputSlider',
+            'display'       => 'Field\InputSlider',
             'default'       => 'f'
         ];
     }
@@ -167,7 +155,7 @@ class Blogs {
                 't' => 'Yes',
                 'f' => 'No'
             ],
-            'display'       => 'InputSlider',
+            'display'       => 'Field\InputSlider',
             'default'       => 'f'
         ];
     }
@@ -176,7 +164,7 @@ class Blogs {
         return [
             'name'          => 'display_date',
             'required'      => true,
-            'display'       => 'InputDatePicker',
+            'display'       => 'Field\InputDatePicker',
             'transformIn'   => function ($data) {
                 return new MongoDate(strtotime($data));
             },
@@ -192,14 +180,13 @@ class Blogs {
      function code_nameField () {
         return [
             'name'          => 'code_name',
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
     function tagsField () {
         return [
             'name'          => 'tags',
-            'label'         => 'Tags',
             'required'      => false,
             'transformIn'   => function ($data) {
                 if (is_array($data)) {
@@ -207,7 +194,7 @@ class Blogs {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display'       => 'InputToTags',
+            'display'       => 'Field\InputToTags',
             'multiple'      => true,
             'options'       => function () {
                 return $this->db->distinct('blogs', 'tags');
@@ -218,7 +205,6 @@ class Blogs {
     function categoriesField () {
         return [
             'name'          => 'categories',
-            'label'         => 'Category',
             'required'      => false,
             'options'       => function () {
                 return $this->db->fetchAllGrouped(
@@ -228,7 +214,7 @@ class Blogs {
                     '_id', 
                     'title');
             },
-            'display'       => 'InputToTags',
+            'display'       => 'Field\InputToTags',
             'controlled'    => true,
             'multiple'      => true
         ];
@@ -237,7 +223,6 @@ class Blogs {
     function authorsField () {
         return [
             'name'          => 'authors',
-            'label'         => 'Authors',
             'required'      => false,
             'options'       => function () {
                 return $this->db->fetchAllGrouped(
@@ -247,7 +232,7 @@ class Blogs {
                     '_id', 
                     'title');
             },
-            'display'       => 'InputToTags',
+            'display'       => 'Field\InputToTags',
             'controlled'    => true,
             'multiple'      => true
         ];
@@ -256,27 +241,26 @@ class Blogs {
     function metakeywordsField () {
         return [
             'name'          => 'metadata_keywords',
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
     function metadescriptionField () {
         return [
             'name'          => 'metadata_description',
-            'display'       => 'InputText'
+            'display'       => 'Field\InputText'
         ];
     }
 
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{{CollectionHeader metadata=metadata pagination=pagination}}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
-
-           <div class="bottom-container">
-              {{#if blogs}}
-                    {{{CollectionPagination pagination=pagination}}}
-                    {{{CollectionButtons metadata=metadata}}}
+            <div class="bottom-container">
+                {{#if blogs}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
                 
                     <table class="ui large table segment manager sortable">
                         <col width="45%">
@@ -309,9 +293,9 @@ class Blogs {
                             {{/each}}
                          </tbody>
                     </table>
-                    {{{CollectionPagination pagination=pagination}}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
-                    {{{CollectionEmpty metadata=metadata}}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
               {{/if}}
            </div>
 HBS;
@@ -320,74 +304,70 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{{Form spare=id_spare metadata=metadata}}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{{DocumentHeader metadata=metadata}}}
-                    {{{DocumentTabs metadata=metadata}}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
-
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{{DocumentFormLeft}}}
-                            {{{Field . name="title" class="left" label="Title" required="true"}}}
-                            {{{Field . name="body" class="left" label="Body"}}}
-                            {{{Field . name="description" class="left" label="Summary"}}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . name="title" class="left" label="Title" required="true"}}}
+                            {{{ManagerField . name="body" class="left" label="Body"}}}
+                            {{{ManagerField . name="description" class="left" label="Summary"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{DocumentFormLeftClose}}}
-                        
-                        {{{DocumentFormRight}}}
-                            {{{DocumentButton modified=modified_date}}}
-                            {{{Field . name="status" class="fluid"}}}
+                        {{{ManagerFormMainColumnClose}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . name="status" class="fluid"}}}
                             <br />
-                            {{{Field . name="display_date" class="fluid"}}}
+                            {{{ManagerField . name="display_date" class="fluid"}}}
                             <div class="ui clearing divider"></div>
-                            {{{Field . name="featured" class="left"}}}
+                            {{{ManagerField . name="featured" class="left"}}}
                             <br />
-                            {{{Field . name="pinned" class="left"}}}
+                            {{{ManagerField . name="pinned" class="left"}}}
                             <br />
-                            {{{Field . name="comments" class="left"}}}
+                            {{{ManagerField . name="comments" class="left"}}}
                             <div class="ui clearing divider"></div>
-                            {{{Field . name="categories" class="fluid" label="Categories"}}}
-                            {{{Field . name="authors" class="fluid" label="Authors"}}}
-                            {{{Field . name="tags" class="fluid" label="Tags"}}}
-                        {{{DocumentFormRightClose}}}
+                            {{{ManagerField . name="categories" class="fluid" label="Categories"}}}
+                            {{{ManagerField . name="authors" class="fluid" label="Authors"}}}
+                            {{{ManagerField . name="tags" class="fluid" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
 
                     <div class="ui tab" data-tab="Images">
-                        {{{DocumentFormLeft}}}
-                            {{{Field . name="image" class="left" label="List View"}}}
-                            {{{Field . name="image_feature" class="left" label="Featured"}}}
-                        {{{DocumentFormLeftClose}}}
-
-                        {{{DocumentFormRight}}}
-                            {{{DocumentButton modified=modified_date}}}
-                        {{{DocumentFormRightClose}}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . name="image" class="left" label="List View"}}}
+                            {{{ManagerField . name="image_feature" class="left" label="Featured"}}}
+                        {{{ManagerFormMainColumnClose}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
 
                     <div class="ui tab" data-tab="External Article">
-                         {{{DocumentFormLeft}}}
-                            {{{Field . name="author" class="left" label="Author"}}}
-                            {{{Field . name="publication_name" class="left" label="Publication"}}}
-                            {{{Field . name="link" class="left" label="URL"}}}
-                            {{{Field . name="date_published" class="left" label="Date Published"}}}
-                        {{{DocumentFormLeftClose}}}
-
-                        {{{DocumentFormRight}}}
-                            {{{DocumentButton modified=modified_date}}}
-                        {{{DocumentFormRightClose}}}
+                         {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . name="author" class="left" label="Author"}}}
+                            {{{ManagerField . name="publication_name" class="left" label="Publication"}}}
+                            {{{ManagerField . name="link" class="left" label="URL"}}}
+                            {{{ManagerField . name="date_published" class="left" label="Date Published"}}}
+                        {{{ManagerFormMainColumnClose}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                     
                     <div class="ui tab" data-tab="SEO">
-                        {{{DocumentFormLeft}}}
-                            {{{Field . name="code_name" class="left" label="Slug"}}}
-                            {{{Field . name="metadata_description" class="left" label="Description"}}}
-                            {{{Field . name="metadata_keywords" class="left" label="Keywords"}}}
-                        {{{DocumentFormLeftClose}}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . name="code_name" class="left" label="Slug"}}}
+                            {{{ManagerField . name="metadata_description" class="left" label="Description"}}}
+                            {{{ManagerField . name="metadata_keywords" class="left" label="Keywords"}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{{DocumentFormRight}}}
-                            {{{DocumentButton modified=modified_date}}}
-                        {{{DocumentFormRightClose}}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>
             </form>

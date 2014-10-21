@@ -1,6 +1,6 @@
 <?php
 /*
- * @version .6
+ * @version 2
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Sponsors.php
  * @mode upgrade
  *
@@ -12,7 +12,7 @@
 namespace Manager;
 
 class Sponsors {
-    public $collection = 'sponsors';
+    public $collection = 'Collection\Sponsors';
     public $title = 'Sponsors';
     public $titleField = 'title';
     public $singular = 'Sponsor';
@@ -24,17 +24,13 @@ class Sponsors {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    public $storage = [
-        'collection' => 'sponsors',
-        'key' => '_id'
-    ];
 
     function titleField() {
         return [
             'name'        => 'title',
             'label'        => 'Title',
             'required'    =>    true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
 
@@ -43,7 +39,7 @@ class Sponsors {
             'name'        => 'description',
             'label'        => 'Description',
             'required'    =>    false,
-            'display' => 'Textarea'
+            'display' => 'Field\Textarea'
         ];
     }
 
@@ -52,7 +48,7 @@ class Sponsors {
             'name'        => 'url',
             'label'        => 'URL',
             'required'    =>    true,
-            'display' => 'InputText'
+            'display' => 'Field\InputText'
         ];
     }
 
@@ -62,23 +58,22 @@ class Sponsors {
             'label'        => 'Target',
             'required'    => false,
             'options'    => array(
-                    '_blank'        =>'New Window',
-                    '_self'        =>'Self',
-                    '_parent'    =>'Parent',
-                    '_top'        =>'Top'
-        ),
-                'display'    =>'Select',
-                'default'=> 'self'    
-    
+                '_blank'        =>'New Window',
+                '_self'        =>'Self',
+                '_parent'    =>'Parent',
+                '_top'        =>'Top'
+            ),
+            'display'    =>'Field\Select',
+            'default'=> 'self'    
         ];
     }
 
     function imageField () {
         return [
-                'name' => 'image',
-                'label' => 'Logo',
-                'display' => 'InputFile',
-                'tooltip' => 'An image that will be displayed when the entry is listed.'
+            'name' => 'image',
+            'label' => 'Logo',
+            'display' => 'Field\InputFile',
+            'tooltip' => 'An image that will be displayed when the entry is listed.'
         ];
     }
 
@@ -90,7 +85,7 @@ class Sponsors {
                 'published'    => 'Published',
                 'draft'        => 'Draft'
             ),
-            'display'    => 'Select',
+            'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'published'
         ];
@@ -105,7 +100,7 @@ class Sponsors {
                 't' => 'Yes',
                 'f' => 'No'
             ),
-            'display' => 'InputSlider',
+            'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
@@ -121,7 +116,7 @@ class Sponsors {
                 }
                 return $this->field->csvToArray($data);
             },
-            'display' => 'InputToTags',
+            'display' => 'Field\InputToTags',
             'multiple' => true,
             'options' => function () {
                 return $this->db->distinct('blogs', 'tags');
@@ -142,7 +137,7 @@ class Sponsors {
                     '_id', 
                     'title');
             },
-            'display'    => 'InputToTags',
+            'display'    => 'Field\InputToTags',
             'controlled' => true,
             'multiple' => true
         );
@@ -151,13 +146,13 @@ class Sponsors {
     public function indexPartial () {
         $partial = <<<'HBS'
             <div class="top-container">
-                {{#CollectionHeader}}{{/CollectionHeader}}
+                {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
 
             <div class="bottom-container">
                     {{#if sponsors}}
-                        {{#CollectionPagination}}{{/CollectionPagination}}
-                        {{#CollectionButtons}}{{/CollectionButtons}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
+                        {{{ManagerIndexButtons metadata=metadata}}}
                         
                         <table class="ui large table segment manager sortable">
                                 <col width="40%">
@@ -176,10 +171,9 @@ class Sponsors {
                             <tbody>
                                 {{#each sponsors}}
                                     <tr data-id="{{dbURI}}">
-                                        
                                         <td>{{title}}</td>
-                                        <td>{{#Capitalize}}{{status}}{{/Capitalize}}</td>
-                                        <td>{{#BooleanReadable}}{{featured}}{{/BooleanReadable}}</td>
+                                        <td>{{{Capitalize status}}}</td>
+                                        <td>{{{BooleanReadable featured}}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
                                                  <i class="trash icon"></i>
@@ -189,10 +183,9 @@ class Sponsors {
                                 {{/each}}
                             </tbody>
                         </table>
-
-                        {{#CollectionPagination}}{{/CollectionPagination}}
+                        {{{ManagerIndexPagination pagination=pagination}}}
                    {{else}}
-                    {{#CollectionEmpty}}{{/CollectionEmpty}}
+                    {{{ManagerIndexBlankSlate metadata=metadata}}}
                 {{/if}}
             </div>
 HBS;
@@ -201,41 +194,42 @@ HBS;
 
     public function formPartial () {
         $partial = <<<'HBS'
-            {{#Form}}{{/Form}}
+            {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
-                    {{#DocumentHeader}}{{/DocumentHeader}}
-                    {{#DocumentTabs}}{{/DocumentTabs}}
+                    {{{ManagerFormHeader metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata}}}
                 </div>
 
                 <div class="bottom-container">
                     <div class="ui tab active" data-tab="Main">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft title Title required}}{{/FieldLeft}}
-                            {{#FieldLeft description Description}}{{/FieldLeft}}
-                            {{#FieldLeft url URL}}{{/FieldLeft}}
-                            {{#FieldLeft target Target}}{{/FieldLeft}}
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                            {{{ManagerField . class="left" name="description" label="Description"}}}
+                            {{{ManagerField . class="left" name="url" label="URL"}}}
+                            {{{ManagerField . class="left" name="target" label="Target"}}}
                             {{{id}}}
-                        {{/DocumentFormLeft}}                 
+                            {{{form-token}}}
+                        {{{ManagerFormMainColumnClose}}}
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                            {{#FieldFull status}}{{/FieldFull}}
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                            {{{ManagerField . class="fluid" name="status"}}}
                             <div class="ui clearing divider"></div>
-                            {{#FieldLeft featured}}{{/FieldLeft}}
-                            {{#FieldFull categories Categories}}{{/FieldFull}}
-                            {{#FieldFull tags Tags}}{{/FieldFull}}
-                        {{/DocumentFormRight}}
+                            {{{ManagerField . class="left" name="featured"}}}
+                            {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                        {{{ManagerFormSideColumnClose}}}
                     </div>
 
                      <div class="ui tab" data-tab="Images">
-                        {{#DocumentFormLeft}}
-                            {{#FieldLeft image Logo}}{{/FieldLeft}}
-                        {{/DocumentFormLeft}}                 
+                        {{{ManagerFormMainColumn}}}
+                            {{{ManagerField . class="left" name="image" label="Logo"}}}
+                        {{{ManagerFormMainColumnClose}}}                 
                         
-                        {{#DocumentFormRight}}
-                            {{#DocumentButton}}{{/DocumentButton}}
-                        {{/DocumentFormRight}}
-                    </div>        
+                        {{{ManagerFormSideColumn}}}
+                            {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerFormSideColumnClose}}}
+                    </div>
                 </div>
             </form>
 HBS;

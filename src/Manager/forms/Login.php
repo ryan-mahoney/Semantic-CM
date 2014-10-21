@@ -36,7 +36,7 @@ class Login {
         return [
             'name' => 'email',
             'placeholder' => 'Email',
-            'display' => 'InputText',
+            'display' => 'Field\InputText',
             'required' => true
         ];
     }
@@ -45,7 +45,7 @@ class Login {
         return [
             'name' => 'password',
             'placeholder' => 'Password',
-            'display' => 'InputPassword',
+            'display' => 'Field\InputPassword',
             'required' => true
         ];
     }

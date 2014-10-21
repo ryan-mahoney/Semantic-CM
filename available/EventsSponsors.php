@@ -1,18 +1,18 @@
 <?php
 /*
  * @version 2
- * @link https://raw.github.com/virtuecenter/manager/master/available/EventsExceptions.php
+ * @link https://raw.github.com/virtuecenter/manager/master/available/EventsSponsors.php
  * @mode upgrade
  *
  */
 namespace Manager;
 
-class EventsExceptions {
+class EventsSponsors {
     public $collection = 'Collection\Events';
-    public $title = 'Exception Dates';
+    public $title = 'Sponsors';
     public $titleField = 'title';
-    public $singular = 'Exception Date';
-    public $description = '{{count}} exceptions';
+    public $singular = 'Sponsor';
+    public $description = '{{count}} sponsors';
     public $definition = 'Coming Soon';
     public $acl = ['content', 'admin', 'superadmin'];
     public $icon = 'browser';
@@ -20,38 +20,37 @@ class EventsExceptions {
     public $after = 'function';
     public $function = 'embeddedUpsert';
     public $embedded = true;
-    
-    function dateField() {
-        return [
-            'name'          => 'date',
-            'required'      => true,
-            'display'       => 'Field\InputDatePicker',
-            'transformIn'   => function ($data) {
-                return new \MongoDate(strtotime($data));
-            },
-            'transformOut'  => function ($data) {
-                return date('m/d/Y', $data->sec);
-            },
-            'default'       => function () {
-                return date('m/d/Y');
-            }
-        ];
-    }
 
-    function noticeField () {
+    function titleField () {
         return [
-            'name'      => 'notice',
-            'label'     => 'Notice',
-            'required'  => true,
+            'name'      => 'name',
+            'label'     => 'Name',
+            'required'  => false,
             'display'   => 'Field\InputText'
         ];
     }
 
+    function urlField () {
+        return [
+            'name'      => 'url',
+            'label'     => 'URL',
+            'required'  => false,
+            'display'   => 'Field\InputText'
+        ];
+    }
+
+    function imageField () {
+        return [
+            'name' => 'file',
+            'label' => 'Image',
+            'display' => 'Field\InputFile'
+        ];
+    }
 
     public function indexPartial () {
         $partial = <<<'HBS'
-            {{{ManagerEmbeddedIndexHeader label="Exceptions Dates"}}}
-            {{#if exception_date}}
+            {{{ManagerEmbeddedIndexHeader label="Sponsors"}}}
+            {{#if sponsor_sub}}
                 <table class="ui table manager segment">
                     <thead>
                         <tr>
@@ -60,17 +59,18 @@ class EventsExceptions {
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each exception_date}}
+                        {{#each sponsor_sub}}
                             <tr data-id="{{dbURI}}">
-                                <td>{{date}}</td>
-                                <td>{{notice}}</td>
+                                <td>{{image}}</td>
+                                <td>{{name}}</td>
+                                <td>{{url}}</td>
                                 <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
                             </tr>
                         {{/each}}
                     </tbody>
                 </table>
             {{else}}
-                {{{ManagerEmbeddedIndexEmpty singular="Exception Date"}}}
+                {{{ManagerEmbeddedIndexEmpty singular="Sponsor"}}}
             {{/if}}
 HBS;
         return $partial;
@@ -79,8 +79,9 @@ HBS;
     public function formPartial () {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
-                {{{ManagerField . class="fluid" name="date" label="Date"}}}
-                {{{ManagerField . class="fluid" name="notice" label="Notice"}}}
+                {{{ManagerField . class="fluid" name="name" label="Name"}}}
+                {{{ManagerField . class="fluid" name="url" label="URL"}}}
+                {{{ManagerField . class="fluid" name="file" label="Image"}}}
                 {{{id}}}
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
