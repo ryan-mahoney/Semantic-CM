@@ -13,4 +13,4 @@ services:
         arguments: ['%root%', '@manager', '@db', '@bundleRoute', '@collection', '@collectionModel', '@post', '@person']
     managerView:
         class:     'Opine\Manager\View'
-        arguments: ['@managerModel', '@separation']
+        arguments: ['@managerModel', '@layout']

@@ -269,7 +269,7 @@ class Model {
                     'collection' => $managerInstance->collection,
                     'link' => $linkPrefix . $manager,
                     'bundle' => $bundleByPath[$searchPath],
-                    'namespace' => $namespacesByPath[$searchPath],
+                    // 'namespace' => $namespacesByPath[$searchPath],
                     'class' => (($namespacesByPath[$searchPath] != '') ? $namespacesByPath[$searchPath] . '\\' : '') . 'Manager\\' . $manager
                 ];
                 if (method_exists($managerInstance, 'formPartial')) {

@@ -19,8 +19,8 @@ services:
     topic:
         class:     'Opine\Topic'
         arguments: ['@container']
-    separation:
-        class:     'Opine\Separation'
+    layout:
+        class:     'Opine\Layout'
         arguments: ['%root%', '@handlebars', '@cache', '@config', '@yamlSlow', '@route']
     field:
         class:     'Opine\Field'
@@ -66,7 +66,7 @@ services:
         arguments: ['@db', '@config']
     errors:
         class:     'Opine\Errors'
-        arguments: ['@config', '@topic', '@separation']
+        arguments: ['@config', '@topic', '@layout']
     queueGateway: 
         class:     'Pheanstalk_Pheanstalk'
         arguments: ['127.0.0.1']

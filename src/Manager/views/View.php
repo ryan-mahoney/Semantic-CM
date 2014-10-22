@@ -25,12 +25,12 @@
 namespace Opine\Manager;
 
 class View {
-	private $separation;
+	private $layout;
     private $model;
 
-	public function __construct ($model, $separation) {
+	public function __construct ($model, $layout) {
 		$this->model = $model;
-        $this->separation = $separation;
+        $this->layout = $layout;
 	}
 
     private function resolvePaths (&$manager, &$namespace) {
@@ -41,14 +41,14 @@ class View {
     }
 
 	public function login () {
-        $this->separation->app('../bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
+        $this->layout->app('../bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
     }
 
     public function add ($linkName, $layout='Manager/forms/any') {
         $this->resolvePaths($linkName, $bundle);
         $url = '/Manager/api/document/' . $linkName;
         $partial = 'Manager/forms/' . $linkName . '.hbs';
-        $this->separation->
+        $this->layout->
             app('../bundles/Manager/app/forms/any')->
             layout($layout)->
             partial('form', $partial)->
@@ -60,7 +60,7 @@ class View {
     public function edit ($linkName, $layout='Manager/app/forms/any', $id) {
         $url = '/Manager/api/document/' . $linkName;
         $partial = 'Manager/forms/' . $linkName . '.hbs';
-        $this->separation->
+        $this->layout->
             app('../bundles/Manager/app/forms/any')->
             layout($layout)->
             partial('form', $partial)->
@@ -80,7 +80,7 @@ class View {
             $url = '/Manager/api/index/' . $linkName . '/manager/50/0/' . $sort;
         }
         $partial = 'Manager/indexes/' . $linkName . '.hbs';
-        $this->separation->
+        $this->layout->
             app('../bundles/Manager/app/collections/any')->
             layout($layout)->
             partial('table', $partial)->
@@ -90,7 +90,7 @@ class View {
     }
 
     public function dashboard ($section) {
-        $this->separation->app('../bundles/Manager/app/dashboard')->
+        $this->layout->app('../bundles/Manager/app/dashboard')->
             layout('Manager/dashboard.html')->
             url('managers', '/Manager/api/managers?category=' . $section)->
             template()->
@@ -98,7 +98,7 @@ class View {
     }
  
     public function header () {
-        $this->separation->
+        $this->layout->
             app('../bundles/Manager/app/header')->
             layout('Manager/header')->
             template()->

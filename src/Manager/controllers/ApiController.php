@@ -101,8 +101,8 @@ class ApiController {
         $manager = $this->model->managerGetByLink($linkName);
         $collection = $this->model->collectionGetByClass($manager['collection']);
         $collectionPath = '';
-        if ($collection['namespace'] != '') {
-            $collectionPath .= '/' . $collection['namespace']; 
+        if ($collection['bundle'] != '') {
+            $collectionPath .= '/' . $collection['bundle']; 
         }
         $collectionPath .= '/api/collection/' . $collection['name'];
         $collectionJson = $this->route->run('GET', $collectionPath . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);

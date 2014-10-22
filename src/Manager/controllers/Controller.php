@@ -93,7 +93,7 @@ class Controller {
                 array_pop($parts);
             }
             $layout = 'Manager/collections/embedded';
-            $url = (($collectionData['namespace'] != '') ? '/' . $collectionData['namespace'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . implode(':', $parts);
+            $url = (($collectionData['bundle'] != '') ? '/' . $collectionData['bundle'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . implode(':', $parts);
         } elseif (isset($_GET['naked']) && isset($_GET['embedded']) && $_GET['embedded'] == 1) {
             $layout = 'Manager/collections/embedded';
         } elseif (isset($_GET['naked'])) {
@@ -110,7 +110,7 @@ class Controller {
             array_pop($parts);
         }
         $layout = 'Manager/collections/embedded';
-        $url = (($collectionData['namespace'] != '') ? '/' . $collectionData['namespace'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . $dbURI . ':' . $field;
+        $url = (($collectionData['bundle'] != '') ? '/' . $collectionData['bundle'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . $dbURI . ':' . $field;
         $this->view->index($linkName, $layout, $url);
     }
 

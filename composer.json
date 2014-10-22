@@ -30,7 +30,7 @@
         "opine/pubsub": "dev-master",
         "opine/queue": "dev-master",
         "opine/search": "dev-master",
-        "opine/separation": "dev-master",
+        "opine/layout": "dev-master",
         "opine/bundle": "dev-master",
         "opine/uploadwrapper": "dev-master",
         "opine/route": "dev-master"
