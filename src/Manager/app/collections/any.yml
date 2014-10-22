@@ -1,4 +1,4 @@
-binding:
+regions:
     header:
         url: '/Manager/header'
         type: 'html'

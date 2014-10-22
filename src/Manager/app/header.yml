@@ -1,4 +1,4 @@
-binding:
+regions:
     managers:
         url: '/Manager/api/managers'
         partial: 'Manager/omnisearch-items.hbs'

@@ -1,4 +1,4 @@
-binding:
+regions:
     login:
         url: '/Manager/api/form/Login'
         args: []

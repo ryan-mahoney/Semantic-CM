@@ -1,4 +1,4 @@
-binding:
+regions:
     blurbs:
         url: '/api/form/Blurbs'
         args: []
