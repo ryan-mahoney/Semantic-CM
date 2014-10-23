@@ -140,7 +140,7 @@ class Model {
     }
 
     public function loggedIn () {
-        return $this->personService->sessionCheck();
+        return $this->personService->available();
     }
 
     public function logout () {
@@ -209,6 +209,8 @@ class Model {
             $this->postService->errorFieldSet($context['formMarker'], 'Credentials do not match. Please check your email or password and try again.');
             return;    
         }
+        $person = $this->personService->get();
+        $this->postService->responseFieldsSet(['api_token' => (string)$person['api_token']]);
         $this->postService->statusSaved();
     }
 
@@ -269,7 +271,6 @@ class Model {
                     'collection' => $managerInstance->collection,
                     'link' => $linkPrefix . $manager,
                     'bundle' => $bundleByPath[$searchPath],
-                    // 'namespace' => $namespacesByPath[$searchPath],
                     'class' => (($namespacesByPath[$searchPath] != '') ? $namespacesByPath[$searchPath] . '\\' : '') . 'Manager\\' . $manager
                 ];
                 if (method_exists($managerInstance, 'formPartial')) {
