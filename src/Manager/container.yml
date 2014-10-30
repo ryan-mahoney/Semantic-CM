@@ -10,7 +10,7 @@ services:
         arguments: ['@managerModel', '@form', '@search', '@uploadwrapper', '@slugify', '@route']
     managerModel:
         class:     'Opine\Manager\Model'
-        arguments: ['%root%', '@manager', '@db', '@bundleRoute', '@collection', '@collectionModel', '@post', '@person']
+        arguments: ['%root%', '@manager', '@db', '@bundleModel', '@collection', '@collectionModel', '@post', '@person']
     managerView:
         class:     'Opine\Manager\View'
         arguments: ['@managerModel', '@layout']

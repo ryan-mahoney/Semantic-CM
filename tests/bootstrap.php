@@ -11,7 +11,7 @@ foreach (glob($root . '/../managers/*.php') as $filename) {
 	require_once $filename;
 }
 
-$bundleRoute = $container->bundleRoute;
-$bundleRoute->build();
+$bundleModel = $container->bundleModel;
+$bundleModel->build();
 $managerModel = $container->managerModel;
 $managerModel->build();

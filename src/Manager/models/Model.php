@@ -28,17 +28,17 @@ use Exception;
 class Model {
 	private $root;
 	private $manager;
-	private $bundleRoute;
+	private $bundleModel;
 	private $db;
 	private $cacheFile;
     private $collectionModel;
     private $collectionService;
     private $postService;
 
-	public function __construct ($root, $manager, $db, $bundleRoute, $collectionService, $collectionModel, $postService, $personService) {
+	public function __construct ($root, $manager, $db, $bundleModel, $collectionService, $collectionModel, $postService, $personService) {
 		$this->root = $root;
 		$this->manager = $manager;
-		$this->bundleRoute = $bundleRoute;
+		$this->bundleModel = $bundleModel;
 		$this->db = $db;
         $this->collectionService = $collectionService;
         $this->collectionModel = $collectionModel;
@@ -215,7 +215,7 @@ class Model {
     }
 
 	public function build () {
-        $bundles = $this->bundleRoute->bundles();
+        $bundles = $this->bundleModel->bundles();
         $namespacesByPath = [
             '/../managers' => ''
         ];
