@@ -130,7 +130,7 @@ class Model {
         $collection = $this->collectionGetByCollection($collectionName);
         $collectionClass = $collection['class'];
         $collectionInstance = $this->collectionService->factory(new $collectionClass());
-        if ($collectionInstance === false) {
+        if ($collectionInstance === false) {    
             return;
         }
         $managerUrl = '/Manager/item/' . $linkName . '/' . $context['dbURI'];
@@ -255,6 +255,8 @@ class Model {
                 $managerInstance = new $managerClassName();
                 $groups = ['manager', 'manager-' . $managerInstance->category, 'manager-specific-' . $manager];
                 $linkPrefix = (($bundleByPath[$searchPath] != null) ? $bundleByPath[$searchPath] . '-' : '');
+                $collection = $managerInstance->collection;
+                $collectionInstance = $this->collectionService->factory(new $collection());
                 $managers[] = [
                     'manager' => $manager,
                     'title' => $managerInstance->title,
@@ -269,6 +271,7 @@ class Model {
                     'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : []),
                     'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":-1}'),
                     'collection' => $managerInstance->collection,
+                    'collection_' => $collectionInstance->collection,
                     'link' => $linkPrefix . $manager,
                     'bundle' => $bundleByPath[$searchPath],
                     'class' => (($namespacesByPath[$searchPath] != '') ? $namespacesByPath[$searchPath] . '\\' : '') . 'Manager\\' . $manager

@@ -11,7 +11,7 @@ return function ($args, $named) {
     $buffer .= '
         <div class="ui huge breadcrumb container">
             <a class="section" href="/Manager"><h2>Dashboard</h2></a><i class="right arrow icon divider"></i>
-            <a class="section" href="/Manager?' . $metadata['category'] . '"><h2>' . $metadata['category'] . '</h2></a>
+            <a class="section" href="/Manager/section/' . $metadata['category'] . '"><h2>' . $metadata['category'] . '</h2></a>
             <i class="right arrow icon divider"></i>
             <a class="active section"><h2>' . $metadata['title'] . '</h2></a>
         </div>

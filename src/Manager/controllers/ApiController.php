@@ -55,10 +55,10 @@ class ApiController {
                     continue;
                 }
             }
-            if (isset($manager['collection']) && isset($counts[$manager['collection']])) {
-                $manager['count'] = $counts[$manager['collection']]['count'];
-                if (isset ($counts[$manager['collection']]['modified_date'])) {
-                    $manager['modified_date'] = $counts[$manager['collection']]['modified_date'];
+            if (isset($manager['collection_']) && isset($counts[$manager['collection_']])) {
+                $manager['count'] = $counts[$manager['collection_']]['count'];
+                if (isset ($counts[$manager['collection_']]['modified_date'])) {
+                    $manager['modified_date'] = $counts[$manager['collection_']]['modified_date'];
                 }
             } else {
                 $manager['count'] = 0;
