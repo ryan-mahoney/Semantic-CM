@@ -5,3 +5,5 @@ imports:
     - 'vendor/opine/form/package-container.yml'
 
 services:
+    slugify:
+        class:     'Cocur\Slugify\Slugify'

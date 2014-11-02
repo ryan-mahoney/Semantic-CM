@@ -33,7 +33,8 @@
         "opine/layout": "dev-master",
         "opine/bundle": "dev-master",
         "opine/uploadwrapper": "dev-master",
-        "opine/route": "dev-master"
+        "opine/route": "dev-master",
+        "opine/uploadwrapper": "dev-master"
     },
     "autoload": {
         "classmap": [

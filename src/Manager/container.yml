@@ -1,3 +1,6 @@
+imports:
+    - 'vendor/opine/uploadwrapper/package-container.yml'
+
 services:
     managerRoute:
         class:     'Opine\Manager\Route'
