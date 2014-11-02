@@ -262,7 +262,7 @@ class Model {
                     'title' => $managerInstance->title,
                     'singular' => $managerInstance->singular,
                     'titleField' => (property_exists($managerInstance, 'titleField') ? $managerInstance->titleField : ''),
-                    'description' => $managerInstance->description,
+                    'description' => (property_exists($managerInstance, 'description') ? $managerInstance->description : ''),
                     'definition' => $managerInstance->definition,
                     'acl' => $groups,
                     'icon' => $managerInstance->icon,

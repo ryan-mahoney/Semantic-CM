@@ -97,7 +97,7 @@ class ApiController {
         echo json_encode($out);
     }
 
-    public function collection ($linkName, $method, $limit=50, $page=1, $sort='{}') {
+    public function collection ($linkName, $method='manager', $limit=50, $page=1, $sort='{}') {
         $manager = $this->model->managerGetByLink($linkName);
         $collection = $this->model->collectionGetByClass($manager['collection']);
         $collectionPath = '';

@@ -1,6 +1,6 @@
 <?php
 /*
- * @version 2
+ * @version .9
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Blogs.php
  * @mode upgrade
  *
@@ -18,7 +18,7 @@ class Blogs {
     public $title = 'Blogs';
     public $titleField = 'title';
     public $singular = 'Blog';
-    public $description = '{{count}} blogs';
+    public $description = '{{count}}';
     public $definition = 'Regularly updated content can be added through blog posts. Entries are displayed in a list view where the most recent appears first. ';
     public $acl = ['content', 'admin', 'superadmin'];
     public $tabs = ['Main', 'Images', 'External Article', 'SEO'];
@@ -27,7 +27,7 @@ class Blogs {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField () {
         return [
             'name'          => 'title',
             'required'      => true,
@@ -35,35 +35,35 @@ class Blogs {
         ];
     }
 
-    function bodyField () {
+    public function bodyField () {
         return [
             'display'       => 'Field\Redactor',
             'name'          => 'body'
         ];
     }
 
-    function descriptionField () {
+    public function descriptionField () {
         return [
             'name'          => 'description',
             'display'       => 'Field\Textarea'
         ];
     }
 
-    function imageField () {
+    public function imageField () {
         return [
             'name'          => 'image',
             'display'       => 'Field\InputFile'
         ];
     }
 
-    function imageFeaturedField () {
+    public function imageFeaturedField () {
         return [
             'name'          => 'image_feature',
             'display'       => 'Field\InputFile'
         ];
     }
 
-    function statusField () {
+    public function statusField () {
         return [
             'name'          => 'status',
             'required'      => true,
@@ -77,7 +77,7 @@ class Blogs {
         ];
     }
 
-    function featuredField () {
+    public function featuredField () {
         return [
             'name'          => 'featured',
             'label'         => 'Feature',
@@ -91,7 +91,7 @@ class Blogs {
         ];
     }
 
-    function authorField () {
+    public function authorField () {
         return [
             'name'          => 'author',
             'required'      => false,
@@ -99,7 +99,7 @@ class Blogs {
         ];
     }
 
-    function publication_nameField () {
+    public function publication_nameField () {
         return [
             'name'          => 'publication_name',
             'required'      => false,
@@ -107,7 +107,7 @@ class Blogs {
         ];
     }
     
-    function linkField () {
+    public function linkField () {
         return [
             'name'          => 'link',
             'required'      => false,
@@ -115,7 +115,7 @@ class Blogs {
         ];
     }
     
-    function date_publishedField() {
+    public function date_publishedField() {
         return [
             'name'          => 'date_published',
             'required'      => false,
@@ -132,7 +132,7 @@ class Blogs {
         ];
     }
 
-    function commentsField () {
+    public function commentsField () {
         return [
             'name'          => 'comments',
             'label'         => 'Comments',
@@ -146,7 +146,7 @@ class Blogs {
         ];
     }
 
-    function pinnedField () {
+    public function pinnedField () {
         return [
             'name'          => 'pinned',
             'label'         => 'Pin',
@@ -160,7 +160,7 @@ class Blogs {
         ];
     }
 
-    function dateField() {
+    public function dateField() {
         return [
             'name'          => 'display_date',
             'required'      => true,
@@ -177,14 +177,14 @@ class Blogs {
         ];
     }
 
-     function code_nameField () {
+    public function code_nameField () {
         return [
             'name'          => 'code_name',
             'display'       => 'Field\InputText'
         ];
     }
 
-    function tagsField () {
+    public function tagsField () {
         return [
             'name'          => 'tags',
             'required'      => false,
@@ -202,7 +202,7 @@ class Blogs {
         ];
     }
 
-    function categoriesField () {
+    public function categoriesField () {
         return [
             'name'          => 'categories',
             'required'      => false,
@@ -220,7 +220,44 @@ class Blogs {
         ];
     }
 
-    function authorsField () {
+    public function languageField () {
+        return [
+            'name'          => 'language',
+            'required'      => false,
+            'options'       => function () {
+                return $this->db->fetchAllGrouped(
+                    $this->db->collection('languages')->
+                        find()->
+                        sort(['name' => 1]),
+                    'code_name', 
+                    'name');
+            },
+            'display'       => 'Field\InputToTags',
+            'controlled'    => true,
+            'multiple'      => false
+        ];
+    }
+
+    public function aclField () {
+        return [
+            'name'          => 'acl',
+            'required'      => false,
+            'options'       => function () {
+                return $this->db->fetchAllGrouped(
+                    $this->db->collection('user_groups')->
+                        find()->
+                        sort(['name' => 1]),
+                    'name', 
+                    'name');
+            },
+            'display'       => 'Field\InputToTags',
+            'controlled'    => true,
+            'multiple'      => true,
+            'default'       => 'public'
+        ];
+    }
+
+    public function authorsField () {
         return [
             'name'          => 'authors',
             'required'      => false,
@@ -238,14 +275,14 @@ class Blogs {
         ];
     }
 
-    function metakeywordsField () {
+    public function metakeywordsField () {
         return [
             'name'          => 'metadata_keywords',
             'display'       => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField () {
         return [
             'name'          => 'metadata_description',
             'display'       => 'Field\InputText'
@@ -296,8 +333,8 @@ class Blogs {
                     {{{ManagerIndexPagination pagination=pagination}}}
                 {{else}}
                     {{{ManagerIndexBlankSlate metadata=metadata}}}
-              {{/if}}
-           </div>
+               {{/if}}
+            </div>
 HBS;
         return $partial;
     }
@@ -333,6 +370,8 @@ HBS;
                             {{{ManagerField . name="categories" class="fluid" label="Categories"}}}
                             {{{ManagerField . name="authors" class="fluid" label="Authors"}}}
                             {{{ManagerField . name="tags" class="fluid" label="Tags"}}}
+                            {{{ManagerField . name="language" class="fluid" label="Language"}}}
+                            {{{ManagerField . name="acl" class="fluid" label="Access Groups"}}}
                         {{{ManagerFormSideColumnClose}}}
                     </div>
 
