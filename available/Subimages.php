@@ -1,6 +1,6 @@
 <?php
 /*
- * @version 2
+ * @version .6
  * @link https://raw.github.com/Opine-Org/Semantic-CM/master/available/Subimages.php
  * @mode upgrade
  *
@@ -13,7 +13,7 @@
 namespace Manager;
 
 class Subimages {
-    public $collection = 'Collection\Subimages';
+    public $collection = 'Collection\PhotoGalleries';
     public $title = 'Subimage';
     public $titleField = 'title';
     public $singular = 'Image';
@@ -24,8 +24,11 @@ class Subimages {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'embeddedUpsert';
-    public $notice = 'Subimages';
     public $embedded = true;
+    public $storage = [
+        'collection' => 'photo_galleries',
+        'key' => '_id'
+    ];
 
     function captionField () {
         return [

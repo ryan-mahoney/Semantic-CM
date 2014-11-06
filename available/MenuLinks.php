@@ -13,7 +13,7 @@
 namespace Manager;
 
 class MenuLinks {
-    public $collection = 'Collection\MenusLinks';
+    public $collection = 'Collection\Menus';
     public $title = 'Menus';
     public $titleField = 'title';
     public $singular = 'Menu';
