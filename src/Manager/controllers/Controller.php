@@ -29,7 +29,6 @@ class Controller {
     private $model;
     private $view;
     private $manager;
-    private $authentication;
     private $form;
     private $search;
     private $upload;

@@ -20,7 +20,6 @@
         "opine/http": "dev-master",
         "opine/db": "dev-master",
         "cocur/slugify": "v0.2.3",
-        "opine/authentication": "dev-master",
         "opine/build": "dev-master",
         "opine/cache": "dev-master",
         "opine/collection": "dev-master",
