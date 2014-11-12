@@ -129,7 +129,6 @@ class Categories {
                 {{#if categories}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                    
                     <table class="ui large table segment manager sortable">
                         <col width="10%">
                         <col width="60%">
@@ -184,7 +183,6 @@ HBS;
                             {{{id}}}
                             {{{form-token}}}
                         {{{ManagerFormMainColumnClose}}}
-                    
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . name="status" class="fluid"}}}
@@ -198,7 +196,6 @@ HBS;
                             {{{ManagerField . name="metadata_description" label="Description" class="left"}}}
                             {{{ManagerField . name="metadata_keywords" label="Keywords" class="left"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}

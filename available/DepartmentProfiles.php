@@ -24,17 +24,17 @@ class DepartmentProfiles {
 
     function titleField () {
         return [
-            'name'        => 'title',
-            'label'        => 'Title',
-            'required'    => false,
-            'display'    => 'Field\InputText'
+            'name'     => 'title',
+            'label'    => 'Title',
+            'required' => false,
+            'display'  => 'Field\InputText'
         ];
     }
 
     function imageField () {
         return [
-            'name' => 'image',
-            'label' => 'Image',
+            'name'    => 'image',
+            'label'   => 'Image',
             'display' => 'Field\InputFile'
         ];
     }
