@@ -130,7 +130,7 @@ class Model {
         $collection = $this->collectionGetByCollection($collectionName);
         $collectionClass = $collection['class'];
         $collectionInstance = $this->collectionService->factory(new $collectionClass());
-        if ($collectionInstance === false) {    
+        if ($collectionInstance === false) {
             return;
         }
         $managerUrl = '/Manager/item/' . $linkName . '/' . $context['dbURI'];
@@ -167,7 +167,7 @@ class Model {
         if (substr_count($uri, '/Manager/index/') == 1) {
             return $this->authGroupsForManager($parts[2]);
         }
-    
+
         //item
         if (substr_count($uri, '/Manager/item/') == 1) {
             return $this->authGroupsForManager($parts[2]);
@@ -207,7 +207,7 @@ class Model {
         $try = $this->personService->login($document['email'], $document['password']);
         if ($try === false) {
             $this->postService->errorFieldSet($context['formMarker'], 'Credentials do not match. Please check your email or password and try again.');
-            return;    
+            return;
         }
         $person = $this->personService->get();
         $this->postService->responseFieldsSet(['api_token' => (string)$person['api_token']]);
@@ -226,7 +226,7 @@ class Model {
             '/../managers' => null
         ];
         foreach ($bundles as $bundle) {
-            $searchPath = '/../bundles/' . $bundle['name'] . '/managers';
+            $searchPath = $bundle['root'] . '/../managers';
             $namespacesByPath[$searchPath] = $bundle['name'] . '\Manager';
             $bundleByPath[$searchPath] = $bundle['name'];
         }
@@ -240,7 +240,7 @@ class Model {
             $managersRoot = $this->root . $searchPath;
             if (!file_exists($managersRoot)) {
                 continue;
-            }            
+            }
             $dirFiles = glob($managersRoot . '/*.php');
             if (!is_array($dirFiles) || empty($dirFiles)) {
                 continue;

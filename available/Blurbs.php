@@ -22,7 +22,7 @@ class Blurbs {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    
+
     function titleField () {
         return [
             'name' => 'title',
@@ -36,7 +36,7 @@ class Blurbs {
         return [
             'name' => 'body',
             'required' => false,
-            'display' => 'Field\Redactor'        
+            'display' => 'Field\Redactor'
         ];
     }
 
@@ -75,7 +75,6 @@ class Blurbs {
                         <col width="20%">
                         <thead>
                             <tr>
-                                
                                 <th>Title</th>
                                 <th>Tags</th>
                                 <th class="trash">Delete</th>
@@ -83,7 +82,7 @@ class Blurbs {
                         </thead>
                         <tbody>
                             {{#each blurbs}}
-                                <tr data-id="{{dbURI}}">        
+                                <tr data-id="{{dbURI}}">
                                     <td>{{title}}</td>
                                     <td>{{{ArrayToCSV tags}}}</td>
                                     <td>

@@ -10,10 +10,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -41,7 +41,7 @@ class View {
     }
 
 	public function login () {
-        $this->layout->app('../bundles/Manager/app/forms/login')->layout('Manager/forms/login')->template()->write();
+        $this->layout->app('Manager/forms/login')->layout('Manager/forms/login')->write();
     }
 
     public function add ($linkName, $layout='Manager/forms/any') {
@@ -49,11 +49,10 @@ class View {
         $url = '/Manager/api/document/' . $linkName;
         $partial = 'Manager/forms/' . $linkName . '.hbs';
         $this->layout->
-            app('../bundles/Manager/app/forms/any')->
+            app('Manager/forms/any')->
             layout($layout)->
             partial('form', $partial)->
             url('form', $url)->
-            template()->
             write();
     }
 
@@ -61,12 +60,11 @@ class View {
         $url = '/Manager/api/document/' . $linkName;
         $partial = 'Manager/forms/' . $linkName . '.hbs';
         $this->layout->
-            app('../bundles/Manager/app/forms/any')->
+            app('Manager/forms/any')->
             layout($layout)->
             partial('form', $partial)->
             url('form', $url)->
             args('form', ['id' => $id])->
-            template()->
             write();
     }
 
@@ -81,27 +79,24 @@ class View {
         }
         $partial = 'Manager/indexes/' . $linkName . '.hbs';
         $this->layout->
-            app('../bundles/Manager/app/collections/any')->
+            app('Manager/collections/any')->
             layout($layout)->
             partial('table', $partial)->
             url('table', $url)->
-            template()->
             write();
     }
 
     public function dashboard ($section) {
-        $this->layout->app('../bundles/Manager/app/dashboard')->
+        $this->layout->app('Manager/dashboard')->
             layout('Manager/dashboard.html')->
             url('managers', '/Manager/api/managers?category=' . $section)->
-            template()->
             write();
     }
- 
+
     public function header () {
         $this->layout->
-            app('../bundles/Manager/app/header')->
+            app('Manager/header')->
             layout('Manager/header')->
-            template()->
             write();
     }
 }
