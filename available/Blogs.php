@@ -106,7 +106,7 @@ class Blogs {
             'display'       => 'Field\InputText'
         ];
     }
-    
+
     public function linkField () {
         return [
             'name'          => 'link',
@@ -114,7 +114,7 @@ class Blogs {
             'display'       => 'Field\InputText'
         ];
     }
-    
+
     public function date_publishedField() {
         return [
             'name'          => 'date_published',
@@ -211,7 +211,7 @@ class Blogs {
                     $this->db->collection('categories')->
                         find(['section' => 'Blog'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'       => 'Field\InputToTags',
@@ -229,7 +229,7 @@ class Blogs {
                     $this->db->collection('languages')->
                         find()->
                         sort(['name' => 1]),
-                    'code_name', 
+                    'code_name',
                     'name');
             },
             'display'       => 'Field\InputToTags',
@@ -247,7 +247,7 @@ class Blogs {
                     $this->db->collection('user_groups')->
                         find()->
                         sort(['name' => 1]),
-                    'name', 
+                    'name',
                     'name');
             },
             'display'       => 'Field\InputToTags',
@@ -266,7 +266,7 @@ class Blogs {
                     $this->db->collection('profiles')->
                         find()->
                         sort(['first_name' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'       => 'Field\InputToTags',
@@ -298,7 +298,6 @@ class Blogs {
                 {{#if blogs}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                
                     <table class="ui large table segment manager sortable">
                         <col width="45%">
                         <col width="25%">
@@ -396,14 +395,12 @@ HBS;
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
                     </div>
-                    
                     <div class="ui tab" data-tab="SEO">
                         {{{ManagerFormMainColumn}}}
                             {{{ManagerField . name="code_name" class="left" label="Slug"}}}
                             {{{ManagerField . name="metadata_description" class="left" label="Description"}}}
                             {{{ManagerField . name="metadata_keywords" class="left" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
