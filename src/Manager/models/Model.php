@@ -134,7 +134,7 @@ class Model {
             return;
         }
         $managerUrl = '/Manager/item/' . $linkName . '/' . $context['dbURI'];
-        $collectionInstance->index($id, $document, $managerUrl);
+        $collectionInstance->indexSearch($id, $document, $managerUrl);
         $collectionInstance->views('upsert', $id, $document);
         $collectionInstance->statsUpdate($context['dbURI']);
     }
@@ -293,53 +293,6 @@ class Model {
             }
         }
         $this->cacheWrite($managers);
-    }
-
-    public function upgrade () {
-        $manifest = (array)json_decode(file_get_contents('https://raw.github.com/Opine-Org/Semantic-CM/master/available/manifest.json'), true);
-        $upgraded = 0;
-        foreach (glob($this->root . '/../managers/*.php') as $filename) {
-            $lines = file($filename);
-            $version = false;
-            $mode = false;
-            $link = false;
-            foreach ($lines as $line) {
-                if (substr_count($line, ' * @') != 1) {
-                    continue;
-                }
-                if (substr_count($line, '* @mode') == 1) {
-                    $mode = trim(str_replace('* @mode', '', $line));
-                    continue;
-                }
-                if (substr_count($line, '* @version') == 1) {
-                    $version = floatval(trim(str_replace('* @version', '', $line)));
-                    continue;
-                }
-                if (substr_count($line, '* @link') == 1) {
-                    $link = trim(str_replace('* @link', '', $line));
-                    continue;
-                }
-            }
-            if ($mode === false || $version === false || $link === false) {
-                continue;
-            }
-            if ($version == '' || $link == '' || $mode == '') {
-                continue;
-            }
-            if ($mode != 'upgrade') {
-                continue;
-            }
-            if ($version == $manifest['managers'][basename($filename, '.php')]) {
-                continue;
-            }
-            $newVersion = floatval($manifest['managers'][basename($filename, '.php')]);
-            if ($newVersion > $version) {
-                file_put_contents($filename, file_get_contents($link));
-                echo 'Upgraded Manager: ', basename($filename, '.php'), ' to version: ', $newVersion, "\n";
-                $upgraded++;
-            }
-        }
-        echo 'Upgraded ', $upgraded, ' managers.', "\n";
     }
 
     public function sort ($post) {
