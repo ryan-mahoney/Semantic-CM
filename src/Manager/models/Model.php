@@ -102,7 +102,7 @@ class Model {
 	}
 
     public function delete ($dbURI) {
-        $result = $this->db->documentStage($dbURI)->remove();
+        $result = $this->db->document($dbURI)->remove();
         if (isset($result['ok']) && $result['ok'] == 1) {
             return true;
         }
@@ -121,7 +121,7 @@ class Model {
         if ($document === false || empty($document)) {
             throw new Exception('Document not found in post');
         }
-        $documentInstance = $this->db->documentStage($context['dbURI'], $document);
+        $documentInstance = $this->db->document($context['dbURI'], $document);
         $documentInstance->upsert();
         $this->postService->statusSaved();
         $document = $documentInstance->current();
@@ -316,7 +316,7 @@ class Model {
         } else {
             $parts = explode(':', $sample);
             $dbURI = $parts[0] . ':' . $parts[1];
-            $documentInstance = $this->db->documentStage($dbURI);
+            $documentInstance = $this->db->document($dbURI);
             $document = $documentInstance->current();
             if ($depth == 3) {
                 $embedded = $parts[($depth - 1)];
@@ -330,7 +330,7 @@ class Model {
                     }
                 }
                 $document[$embedded] = $newDocument;
-                $this->db->documentStage($dbURI, $document)->upsert();
+                $this->db->document($dbURI, $document)->upsert();
                 echo json_encode(['success' => true]);
                 return;
             } elseif ($depth == 5) {

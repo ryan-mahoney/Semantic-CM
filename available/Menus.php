@@ -123,11 +123,10 @@ HBS;
                         {{{ManagerField . class="left" name="url" label="URL" required="true"}}}
                         {{{ManagerField . class="left" name="file" label="Image"}}}
                         {{{ManagerField . class="left" name="css" label="Optional CSS Classes"}}}
-                        {{{ManagerFieldEmbedded . name="link" manager="MenuLiks" label="Links"}}}
+                        {{{ManagerFieldEmbedded . name="link" manager="MenuLinks" label="Links"}}}
                         {{{id}}}
                         {{{form-token}}}
-                    {{{ManagerFormMainColumnClose}}}                 
-                    
+                    {{{ManagerFormMainColumnClose}}}
                     {{{ManagerFormSideColumn}}}
                         {{{ManagerFormButton modified=modified_date}}}
                     {{{ManagerFormSideColumnClose}}}
