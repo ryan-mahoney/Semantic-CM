@@ -226,6 +226,9 @@ class Model {
             '/../managers' => null
         ];
         foreach ($bundles as $bundle) {
+            if (!isset($bundle['root'])) {
+                continue;
+            }
             $searchPath = $bundle['root'] . '/../managers';
             $namespacesByPath[$searchPath] = $bundle['name'] . '\Manager';
             $bundleByPath[$searchPath] = $bundle['name'];
