@@ -41,7 +41,8 @@
             "src/Manager/controllers",
             "src/Manager/views",
             "src/Manager/models",
-            "src/Manager/Route.php"
+            "src/Manager/Route.php",
+            "src/Manager/helpers"
         ]
     }
 }
