@@ -217,19 +217,19 @@ class Model {
 	public function build () {
         $bundles = $this->bundleModel->bundles();
         $namespacesByPath = [
-            '/../managers' => ''
+            '/../config/managers' => ''
         ];
         $searchPaths = [
-            '/../managers'
+            '/../config/managers'
         ];
         $bundleByPath = [
-            '/../managers' => null
+            '/../config/managers' => null
         ];
         foreach ($bundles as $bundle) {
             if (!isset($bundle['root'])) {
                 continue;
             }
-            $searchPath = $bundle['root'] . '/../managers';
+            $searchPath = $bundle['root'] . '/../config/managers';
             $namespacesByPath[$searchPath] = $bundle['name'] . '\Manager';
             $bundleByPath[$searchPath] = $bundle['name'];
         }
