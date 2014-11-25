@@ -37,12 +37,12 @@
     },
     "autoload": {
         "classmap": [
-            "src/Manager/forms",
-            "src/Manager/controllers",
-            "src/Manager/views",
-            "src/Manager/models",
-            "src/Manager/Route.php",
-            "src/Manager/helpers"
+            "src/Manager/config/forms",
+            "src/Manager/app/controllers",
+            "src/Manager/app/views",
+            "src/Manager/app/models",
+            "src/Manager/app/Route.php",
+            "src/Manager/app/helpers"
         ]
     }
 }

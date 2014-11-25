@@ -1,5 +1,5 @@
 imports:
-    - 'vendor/opine/uploadwrapper/package-container.yml'
+    - 'vendor/opine/uploadwrapper/config/package-container.yml'
 
 services:
     managerRoute:

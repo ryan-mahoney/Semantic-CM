@@ -42,7 +42,7 @@ class Model {
 		$this->db = $db;
         $this->collectionService = $collectionService;
         $this->collectionModel = $collectionModel;
-		$this->cacheFile = $this->root . '/../cache/managers.json';
+		$this->cacheFile = $this->root . '/../var/cache/managers.json';
         $this->postService = $postService;
         $this->personService = $personService;
 	}

@@ -1,0 +1,9 @@
+imports:
+    - 'src/Manager/config/container.yml'
+    - 'vendor/opine/collection/config/package-container.yml'
+    - 'vendor/opine/route/config/package-container.yml'
+    - 'vendor/opine/form/config/package-container.yml'
+
+services:
+    slugify:
+        class:     'Cocur\Slugify\Slugify'
