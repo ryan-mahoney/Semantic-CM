@@ -10,10 +10,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 namespace Opine\Manager;
+
 use Exception;
 
 class Controller {
@@ -57,7 +58,7 @@ class Controller {
         }
         $uri = $_SERVER['REQUEST_URI'];
         if (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '') {
-            $uri = str_replace('?' . $_SERVER['QUERY_STRING'], '', $uri);    
+            $uri = str_replace('?' . $_SERVER['QUERY_STRING'], '', $uri);
         }
         if ($this->model->loggedIn() === false || $this->model->authCheckPath($uri) === false) {
             return $this->route->redirect()->to('/Manager/login');
@@ -70,7 +71,7 @@ class Controller {
         if (isset($_GET['embedded'])) {
             $layout = 'Manager/forms/embedded';
         }
-        $this->view->add($manager, $layout);        
+        $this->view->add($manager, $layout);
     }
 
     public function edit ($linkName, $id) {

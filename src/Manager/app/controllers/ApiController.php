@@ -10,10 +10,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 namespace Opine\Manager;
+
 use Exception;
 
 class ApiController {
@@ -63,11 +64,9 @@ class ApiController {
             } else {
                 $manager['count'] = 0;
             }
-            
             if (!$this->model->authManagerCheck($manager)) {
                 continue;
             }
-
             $managersOut[] = $manager;
         }
         echo json_encode(['managers' => $managersOut], JSON_PRETTY_PRINT);
@@ -102,7 +101,7 @@ class ApiController {
         $collection = $this->model->collectionGetByClass($manager['collection']);
         $collectionPath = '';
         if ($collection['bundle'] != '') {
-            $collectionPath .= '/' . $collection['bundle']; 
+            $collectionPath .= '/' . $collection['bundle'];
         }
         $collectionPath .= '/api/collection/' . $collection['name'];
         $collectionJson = $this->route->run('GET', $collectionPath . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
@@ -111,7 +110,7 @@ class ApiController {
             $collectionJson['metadata'] = array_merge($collectionJson['metadata'], $manager);
             $collectionJson = json_encode($collectionJson);
         }
-        echo $collectionJson;        
+        echo $collectionJson;
     }
 
     public function upsert ($linkName) {
@@ -171,7 +170,7 @@ class ApiController {
             var_dump($upload->getErrors());
             return;
         }
-        echo json_encode($data, JSON_PRETTY_PRINT);        
+        echo json_encode($data, JSON_PRETTY_PRINT);
     }
 
     public function sort () {
