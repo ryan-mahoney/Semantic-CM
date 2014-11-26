@@ -24,11 +24,13 @@
  */
 namespace Opine\Manager;
 
+use Opine\Interfaces\Layout as LayoutInterface;
+
 class View {
 	private $layout;
     private $model;
 
-	public function __construct ($model, $layout) {
+	public function __construct ($model, LayoutInterface $layout) {
 		$this->model = $model;
         $this->layout = $layout;
 	}
@@ -41,7 +43,7 @@ class View {
     }
 
 	public function login () {
-        $this->layout->app('Manager/forms/login')->layout('Manager/forms/login')->write();
+        $this->layout->config('Manager/forms/login')->container('Manager/forms/login')->write();
     }
 
     public function add ($linkName, $layout='Manager/forms/any') {
@@ -49,8 +51,8 @@ class View {
         $url = '/Manager/api/document/' . $linkName;
         $partial = 'Manager/forms/' . $linkName . '.hbs';
         $this->layout->
-            app('Manager/forms/any')->
-            layout($layout)->
+            config('Manager/forms/any')->
+            container($layout)->
             partial('form', $partial)->
             url('form', $url)->
             write();
@@ -60,8 +62,8 @@ class View {
         $url = '/Manager/api/document/' . $linkName;
         $partial = 'Manager/forms/' . $linkName . '.hbs';
         $this->layout->
-            app('Manager/forms/any')->
-            layout($layout)->
+            config('Manager/forms/any')->
+            container($layout)->
             partial('form', $partial)->
             url('form', $url)->
             args('form', ['id' => $id])->
@@ -79,24 +81,24 @@ class View {
         }
         $partial = 'Manager/indexes/' . $linkName . '.hbs';
         $this->layout->
-            app('Manager/collections/any')->
-            layout($layout)->
+            config('Manager/collections/any')->
+            container($layout)->
             partial('table', $partial)->
             url('table', $url)->
             write();
     }
 
     public function dashboard ($section) {
-        $this->layout->app('Manager/dashboard')->
-            layout('Manager/dashboard.html')->
+        $this->layout->config('Manager/dashboard')->
+            container('Manager/dashboard.html')->
             url('managers', '/Manager/api/managers?category=' . $section)->
             write();
     }
 
     public function header () {
         $this->layout->
-            app('Manager/header')->
-            layout('Manager/header')->
+            config('Manager/header')->
+            container('Manager/header')->
             write();
     }
 }
