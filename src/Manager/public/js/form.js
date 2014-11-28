@@ -56,7 +56,7 @@ var FormError = function (errors) {
     $('.form-notice').sidebar({overlay: true}).sidebar('show');
     setTimeout(function () {
         $('.form-notice').sidebar({overlay: true}).sidebar('hide');
-    }, 5000);   
+    }, 5000);
 };
 
 var saveDropdownInitialize = function () {

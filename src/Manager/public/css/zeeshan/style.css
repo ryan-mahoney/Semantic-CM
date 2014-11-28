@@ -37,7 +37,7 @@ body {
 }
 
 /******************************************
-/* LAYOUT                   
+/* LAYOUT
 /*******************************************/
 
 .ui.main.menu div.menu div.item a {
@@ -548,3 +548,18 @@ div.form-notice > .container {
   overflow-y: hidden !important;
 }
 
+
+.field select {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.3125em;
+    box-shadow: 0 0 rgba(0, 0, 0, 0.3) inset;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 0.875em;
+    margin: 0;
+    outline: 0 none;
+    padding: 0.85em 1.2em;
+    transition: background-color 0.3s ease-out 0s, box-shadow 0.2s ease 0s, border-color 0.2s ease 0s;
+}
