@@ -234,7 +234,7 @@ Ryan
  */
 
 .main.menu {
-    top 0 !important;
+    top: 0 !important;
     margin-top: 0 !important;
     z-index: 10000 !important;
 }

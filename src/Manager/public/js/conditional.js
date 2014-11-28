@@ -7,10 +7,10 @@ if ($('body.semantic-cm').length) {
         require('watch');
         require('typeahead.js');
         require('semantic');
-        require('manager.js');
-        require('search.js');
-        require('table.js');
-        require('dashboard.js');
+        require('./manager.js');
+        require('./search.js');
+        require('./table.js');
+        require('./dashboard.js');
         require('../css/typeahead.js/typeahead.css');
         require('../css/zeeshan/style.css');
     });
