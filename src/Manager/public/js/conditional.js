@@ -11,6 +11,9 @@ if ($('body.semantic-cm').length) {
         require('./manager.js');
         require('./search.js');
         require('./table.js');
+        if ($('#manager-dashboard-cards').length) {
+            require('./dashboard.js');
+        }
         require('../css/typeahead.js/typeahead.css');
         require('../css/style.css');
     });

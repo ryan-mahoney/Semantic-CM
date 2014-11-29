@@ -1,17 +1,23 @@
-<div class="ui five items" style="margin-top: 20px;">
 {{#each managers}}
-	<div class="manager item" style="min-height: auto">
-		<a class="star ui corner label">
-        	<i class="star icon"></i>
-      	</a>
-      	<h3 class="ui header center aligned" style="margin: 10px">{{title}}</h3>
-      	<div class="ui basic center aligned segment" style="margin-top: 0; margin-bottom: 10px">
-	      	<a href="/Manager/index/{{link}}"><i class="icon {{icon}} circular inverted category-{{category}}" style="font-size: 55px; margin: 0"></i></a>
-	      	<p>{{{ManagerDescription . }}}</p>
-	    </div>
-	    <div class="ui buttons">
-			<a href="/Manager/item/{{link}}" class="ui button">Add</a><a href="/Manager/index/{{link}}" class="ui button">List</a>
-		</div>
-  	</div>
-{{/each}}
+<div class="column">
+    <div class="ui fluid card">
+        <div class="dimmable content clickable" data-link="/Manager/index/{{link}}">
+            <div class="ui dimmer clickable" data-link="/Manager/index/{{link}}">
+                <div class="content">
+                    <div class="center">
+                        <a href="/Manager/index/{{link}}" class="ui inverted button">Show {{title}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="header">{{title}}</div>
+            <i class="huge {{icon}} icon circular inverted blue"></i>
+        </div>
+        <div class="extra content">
+            <a href="/Manager/item/{{link}}"><i class="plus icon"></i>Add</a>
+            <a href="/Manager/index/{{link}}" class="right floated created">
+                {{{ManagerDescription . }}}
+            </a>
+        </div>
+    </div>
 </div>
+{{/each}}
