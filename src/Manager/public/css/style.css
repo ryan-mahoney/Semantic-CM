@@ -1,0 +1,11 @@
+#manager-login-form {
+    width: 50%;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    #manager-login-form {
+        width: 100%;
+        margin: none;
+    }
+}

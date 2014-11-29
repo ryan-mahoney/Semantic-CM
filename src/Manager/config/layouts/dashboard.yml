@@ -3,6 +3,3 @@ regions:
         url: '/Manager/api/managers'
         partial: 'Manager/manager-items.hbs'
         type: 'json'
-    header:
-        url: '/Manager/header'
-        type: 'html'

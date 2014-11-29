@@ -78,6 +78,8 @@ define(function (require) {
                 $(this).val(tmpSearch);
             }
         });
+
+        $('#omnifilter').dropdown();
     });
 
     return function () {};

@@ -1,57 +1,60 @@
 imports:
-    - 'vendor/opine/uploadwrapper/config/package-container.yml'
+    - vendor/opine/uploadwrapper/config/package-container.yml
 
 services:
     managerRoute:
-        class:     'Opine\Manager\Route'
-        arguments: ['@route']
+        class:      Opine\Manager\Route
+        arguments:  ['@route']
     managerController:
-        class:     'Opine\Manager\Controller'
-        arguments: ['@managerModel', '@managerView', '@manager', '@form', '@search', '@uploadwrapper', '@slugify', '@route', '@redirect']
+        class:      Opine\Manager\Controller
+        arguments:  ['@managerModel', '@managerView', '@manager', '@form', '@search', '@uploadwrapper', '@slugify', '@route', '@redirect']
     managerApiController:
-        class:     'Opine\Manager\ApiController'
-        arguments: ['@managerModel', '@form', '@search', '@uploadwrapper', '@slugify', '@route']
+        class:      Opine\Manager\ApiController
+        arguments:  ['@managerModel', '@form', '@search', '@uploadwrapper', '@slugify', '@route']
     managerModel:
-        class:     'Opine\Manager\Model'
-        arguments: ['%root%', '@manager', '@db', '@bundleModel', '@collection', '@collectionModel', '@post', '@person']
+        class:      Opine\Manager\Model
+        arguments:  ['%root%', '@manager', '@db', '@bundleModel', '@collection', '@collectionModel', '@post', '@person']
     managerView:
-        class:     'Opine\Manager\View'
-        arguments: ['@managerModel', '@layout']
+        class:      Opine\Manager\View
+        arguments:  ['@managerModel', '@layout']
+    helperManagerHeader:
+        class:      Helper\Manager\ManagerHeader
+        arguments:  ['@layout']
     helperManagerDescription:
-        class: Helper\Manager\ManagerDescription
+        class:      Helper\Manager\ManagerDescription
     helperManagerEmbeddedFormFooter:
-        class: Helper\Manager\ManagerEmbeddedFormFooter
+        class:      Helper\Manager\ManagerEmbeddedFormFooter
     helperManagerEmbeddedFormHeader:
-        class: Helper\Manager\ManagerEmbeddedFormHeader
+        class:      Helper\Manager\ManagerEmbeddedFormHeader
     helperManagerEmbeddedIndexEmpty:
-        class: Helper\Manager\ManagerEmbeddedIndexEmpty
+        class:      Helper\Manager\ManagerEmbeddedIndexEmpty
     helperManagerEmbeddedIndexHeader:
-        class: Helper\Manager\ManagerEmbeddedIndexHeader
+        class:      Helper\Manager\ManagerEmbeddedIndexHeader
     helperManagerFieldEmbedded:
-        class: Helper\Manager\ManagerFieldEmbedded
+        class:      Helper\Manager\ManagerFieldEmbedded
     helperManagerField:
-        class: Helper\Manager\ManagerField
+        class:      Helper\Manager\ManagerField
     helperManagerFormButton:
-        class: Helper\Manager\ManagerFormButton
+        class:      Helper\Manager\ManagerFormButton
     helperManagerFormHeader:
-        class: Helper\Manager\ManagerFormHeader
+        class:      Helper\Manager\ManagerFormHeader
     helperManagerFormMainColumnClose:
-        class: Helper\Manager\ManagerFormMainColumnClose
+        class:      Helper\Manager\ManagerFormMainColumnClose
     helperManagerFormMainColumn:
-        class: Helper\Manager\ManagerFormMainColumn
+        class:      Helper\Manager\ManagerFormMainColumn
     helperManagerForm:
-        class: Helper\Manager\ManagerForm
+        class:      Helper\Manager\ManagerForm
     helperManagerFormSideColumnClose:
-        class: Helper\Manager\ManagerFormSideColumnClose
+        class:      Helper\Manager\ManagerFormSideColumnClose
     helperManagerFormSideColumn:
-        class: Helper\Manager\ManagerFormSideColumn
+        class:      Helper\Manager\ManagerFormSideColumn
     helperManagerFormTabs:
-        class: Helper\Manager\ManagerFormTabs
+        class:      Helper\Manager\ManagerFormTabs
     helperManagerIndexBlankSlate:
-        class: Helper\Manager\ManagerIndexBlankSlate
+        class:      Helper\Manager\ManagerIndexBlankSlate
     helperManagerIndexButtons:
-        class: Helper\Manager\ManagerIndexButtons
+        class:      Helper\Manager\ManagerIndexButtons
     helperManagerIndexHeader:
-        class: Helper\Manager\ManagerIndexHeader
+        class:      Helper\Manager\ManagerIndexHeader
     helperManagerIndexPagination:
-        class: Helper\Manager\ManagerIndexPagination
+        class:      Helper\Manager\ManagerIndexPagination

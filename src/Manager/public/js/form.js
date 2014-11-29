@@ -1,8 +1,7 @@
 define(function (require) {
     var $ = require('jquery'),
         slugg = require('slugg'),
-        watch = require('watch'),
-        window = require('window');
+        watchJS = require('watch');
 
     window.ManagerSaved = function (form, data) {
         var message = 'Information Saved.';
@@ -31,7 +30,7 @@ define(function (require) {
 
         //loop over embedded documents, update
         $(form).find('.field.embedded').each(function () {
-            var embeddedDbURI = dbURI + ':' + $(this).attr('data-field'); 
+            var embeddedDbURI = dbURI + ':' + $(this).attr('data-field');
             var embeddedManager = $(this).attr('data-manager');
             var embeddedContainer = this;
             $.ajax({
@@ -164,7 +163,7 @@ define(function (require) {
         $(titleDom).bind("change keyup input", function () {
             watchedObject.value = $(this).val();
         });
-        watch(watchedObject, "value", function () {
+        watchJS.watch(watchedObject, "value", function () {
             $(crumbDom).html(watchedObject.value);
             if (mode == 'add') {
                 $(slugDom).val(slugg(watchedObject.value, '-'));

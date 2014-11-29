@@ -1,7 +1,4 @@
 regions:
-    header:
-        url: '/Manager/header'
-        type: 'html'
     table:
         url: '/Manager/data/?/all/50/0/{"created_date":-1}'
         partial: 'Manager/forms/?.hbs'

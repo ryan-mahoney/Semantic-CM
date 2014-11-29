@@ -7,12 +7,12 @@ if ($('body.semantic-cm').length) {
         require('watch');
         require('typeahead.js');
         require('semantic');
+        require('./form.js');
         require('./manager.js');
         require('./search.js');
         require('./table.js');
-        require('./dashboard.js');
         require('../css/typeahead.js/typeahead.css');
-        require('../css/zeeshan/style.css');
+        require('../css/style.css');
     });
 } else {
     console.log("Skipping Loading Opine Semantic CM");
