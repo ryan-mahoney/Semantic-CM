@@ -10,10 +10,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -33,7 +33,7 @@ class Route {
     }
 
     public function paths () {
-        $this->route->get('managerController@authFilter', 
+        $this->route->get('managerController@authFilter',
             '/Manager', [
                 ''                                                  => 'managerController@dashboard',
                 '/section/{section}'                                => 'managerController@dashboard',
@@ -50,7 +50,7 @@ class Route {
         ]);
 
         $this->route->get('managerController@authFilter',
-            '/Manager/api', [     
+            '/Manager/api', [
                 '/managers'                                         => 'managerApiController@managers',
                 '/search'                                           => 'managerApiController@search',
                 '/index/{manager}'                                  => 'managerApiController@collection',
@@ -61,7 +61,7 @@ class Route {
                 '/document/{manager}'                               => 'managerApiController@form'
         ]);
 
-        $this->route->post('managerController@authFilter', 
+        $this->route->post('managerController@authFilter',
             '/Manager/api', [
                 '/upload/{manager}/{field}'                         => 'managerApiController@upload',
                 '/sort'                                             => 'managerApiController@sort',

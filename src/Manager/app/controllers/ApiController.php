@@ -88,12 +88,14 @@ class ApiController {
                 continue;
             }
             $out[] = [
-                'id' => $hit['_source']['url_manager'],
-                'type' => ucwords(str_replace('_', ' ', $hit['_source']['collection'])),
-                'value' => $hit['_source']['title']
+                'url' => $hit['_source']['url_manager'],
+                //'type' => ucwords(str_replace('_', ' ', $hit['_source']['collection'])),
+                //'image' => $hit['_source']['image'],
+                'title' => '<div class="ui purple horizontal label">' . ucwords(str_replace('_', ' ', $hit['_source']['collection'])) . '</div> ' . $hit['_source']['title'],
+                'description' => $hit['_source']['description']
             ];
         }
-        echo json_encode($out);
+        echo json_encode(['results' => $out]);
     }
 
     public function collection ($linkName, $method='manager', $limit=50, $page=1, $sort='{}') {

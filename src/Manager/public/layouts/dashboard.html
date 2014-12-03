@@ -8,21 +8,17 @@
     </head>
     <body class="dashboard semantic-cm">
         {{{ManagerHeader}}}
-        <div class="top-container">
-            <div class="ui huge breadcrumb container">
-                <a class="active section"><h2>Welcome to Semantic-CM</h2></a>
-            </div>
-            <div class="ui ignored divider container padding"></div>
-            <div class="ui one column grid container padding">
-                <div class="column fontSize">
+        <div class="ui page grid">
+            <div class="row">
+                <div class="column">
+                    <h2 class="ui header">Welcome to Semantic-CM</h2>
                     <p><i class="help icon"></i> Click a card below to begin, or enter a search above.</p>
                 </div>
             </div>
-            <div class="ui ignored divider"></div>
-        </div>
-        <div class="ui page grid" id="manager-dashboard-cards">
-            <div class="doubling six column row">
-                {{{managers}}}
+            <div id="manager-dashboard-cards" class="ui grid">
+                <div class="doubling five column row">
+                    {{{managers}}}
+                </div>
             </div>
         </div>
     </body>

@@ -12,8 +12,6 @@
     "watch": "*",
     "html.sortable": "0.1.8",
     "moment": "2.8.4",
-    "slugg": "bengourley/slugg#v0.1.2",
-    "typeahead.js": "0.10.5",
-    "requirejs-hogan-plugin": "0.3.1"
+    "slugg": "bengourley/slugg#v0.1.2"
   }
 }

@@ -14,9 +14,7 @@
         </div>
         <div class="extra content">
             <a href="/Manager/item/{{link}}"><i class="plus icon"></i>Add</a>
-            <a href="/Manager/index/{{link}}" class="right floated created">
-                {{{ManagerDescription . }}}
-            </a>
+            <a href="/Manager/index/{{link}}" class="right floated created">{{#if count}}{{count}}{{/if}}</a>
         </div>
     </div>
 </div>
