@@ -1,7 +1,8 @@
 define(function (require) {
     var $ = require('jquery'),
         slugg = require('slugg'),
-        watchJS = require('watch');
+        watchJS = require('watch'),
+        timeago = require('jquery-timeago');
 
     window.ManagerSaved = function (form, data) {
         var message = 'Information Saved.';
@@ -125,9 +126,11 @@ define(function (require) {
                 $(container).find('a').removeClass('active');
                 $(this).addClass('active');
                 $('.ui.tab[data-tab="' + activePrev + '"]').css({display: 'block', position: 'absolute', visibility: 'hidden'});
+                $('.ui.tab[data-tab="' + activePrev + '"] .redactor-toolbar').css({position: 'absolute', visibility: 'hidden'});
                 $('.ui.tab[data-tab="' + active + '"]').css({display: 'block', position: 'relative', visibility: 'visible'});
+                $('.ui.tab[data-tab="' + active + '"] .redactor-toolbar').css({position: 'relative', visibility: 'visible'});
             }
-        }, '.ui.tabular.menu > a');
+        }, '.ui.menu > a.item');
         $('.ui.tab').each(function () {
             if ($(this).hasClass('active')) {
                 $(this).css({display: 'block', position: 'relative', visibility: 'visible'});
@@ -153,7 +156,7 @@ define(function (require) {
         var managerClass = $formDom.attr('data-class');
         var titleFieldName = managerClass + '[' + titleField + ']';
         var slugFieldName = managerClass + '[code_name]';
-        var crumbDom = $('.top-container .breadcrumb a:last-child > h2');
+        var crumbDom = $('.top-container .breadcrumb div');
         var titleDom = $('input[name="' + titleFieldName + '"]');
         var slugDom = $('input[name="' + slugFieldName + '"]');
         var watchedObject = {

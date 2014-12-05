@@ -8,10 +8,11 @@
   ],
   "dependencies": {
     "jquery": ">=2.1.1",
-    "semantic": "1.0.0",
+    "semantic": "1.1.2",
     "watch": "*",
     "html.sortable": "0.1.8",
     "moment": "2.8.4",
-    "slugg": "bengourley/slugg#v0.1.2"
+    "slugg": "bengourley/slugg#v0.1.2",
+    "jquery-timeago": "1.4.1"
   }
 }

@@ -5,7 +5,6 @@ if ($('body.semantic-cm').length) {
         require('html.sortable');
         require('slugg');
         require('watch');
-        require('typeahead.js');
         require('semantic');
         require('./form.js');
         require('./manager.js');
@@ -14,7 +13,6 @@ if ($('body.semantic-cm').length) {
         if ($('#manager-dashboard-cards').length) {
             require('./dashboard.js');
         }
-        require('../css/typeahead.js/typeahead.css');
         require('../css/style.css');
     });
 } else {

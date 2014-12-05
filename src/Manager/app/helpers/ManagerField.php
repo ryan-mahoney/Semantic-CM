@@ -32,12 +32,9 @@ class ManagerField {
             $options['class'] = '';
         }
         return '
-            <div class="field" data-field="' . $options['name'] . '">' .
+            <div class="field ' . ($required !== false ? ' required ' : '') . ' ' . $options['class'] . ' ' . '" data-field="' . $options['name'] . '">' .
                 ($label !== false ? '<label>' . $label . '</label>' : '') .
-                '<div class="ui ' . $options['class'] . ' ' . $labeled . ' input">' .
-                    $markup .
-                    ($required !== false ? '<div class="ui corner label"><i class="icon asterisk"></i></div>' : '') . 
-                '</div>
+                $markup . '
             </div>';
     }
 }

@@ -233,5 +233,10 @@ define(function (require) {
         }, '.manager.add');
     });
 
+    $('.combo.dropdown')
+        .dropdown({
+            action: 'combo'
+        });
+
     return function () {};
 });

@@ -58,3 +58,5 @@ services:
         class:      Helper\Manager\ManagerIndexHeader
     helperManagerIndexPagination:
         class:      Helper\Manager\ManagerIndexPagination
+    helperManagerIndexTableHeader:
+        class:      Helper\Manager\ManagerIndexTableHeader

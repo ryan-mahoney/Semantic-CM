@@ -12,26 +12,32 @@ class ManagerIndexHeader {
         }
         $start = (($pagination['page'] -1) * $pagination['limit']) + 1;
         $buffer .= '
-            <div class="ui huge breadcrumb container">
-                <a class="section" href="/Manager"><h2>Dashboard</h2></a><i class="right arrow icon divider"></i>
-                <a class="section" href="/Manager/section/' . $metadata['category'] . '"><h2>' . $metadata['category'] . '</h2></a>
-                <i class="right arrow icon divider"></i>
-                <a class="active section"><h2>' . $metadata['title'] . '</h2></a>
-            </div>
-            <div class="ui ignored divider container padding"></div>
-            <div class="ui two column grid container padding">
-                <div class="column fontSize">
-                    <p>' . (isset($metadata['definition']) ? $metadata['definition'] : '') . '</p>
-                </div>';
-        if ($pagination['total'] > 0) {
-            $buffer .= '
-                <div id="right" class="column fontSize">
-                    <p>' . $start . '-' . $stop . ' of ' . $pagination['total'] . '
-                </div>';
-        }
-        $buffer .= '
-              </div>
-            <div class="ui ignored divider"></div>';
+            <div class="ui page grid">
+                <div class="row">
+                    <div class="column">
+                        <div id="manager-index-breadcrumbs" class="ui huge breadcrumb">
+                            <a class="section" href="/Manager">Dashboard</a>
+                            <i class="right chevron icon divider"></i>
+                            <a class="section" href="/Manager/section/' . $metadata['category'] . '">' . $metadata['category'] . '</a>
+                            <i class="right chevron icon divider"></i>
+                            <div class="active section">' . $metadata['title'] . '</div>
+                        </div>
+                        <div class="ui ignored divider manager-index-description"></div>
+                        <div class="manager-index-description" class="ui two column grid">
+                            <div class="column">
+                                ' . (isset($metadata['definition']) ? $metadata['definition'] : '') . '
+                            </div>';
+                            if ($pagination['total'] > 0) {
+                                $buffer .= '
+                                    <div class="column" style="text-align: right">
+                                        ' . $start . '-' . $stop . ' of ' . $pagination['total'] . '
+                                    </div>';
+                            }
+                            $buffer .= '
+                        </div>
+                    <div class="ui ignored divider manager-index-description"></div>
+                </div>
+            </div>';
 
         return $buffer;
     }

@@ -1,7 +1,7 @@
 <div id="manager-topbar" class="ui page grid">
     <div class="row">
         <div class="column">
-            <div class="ui fixed transparent inverted main menu">
+            <div class="ui transparent inverted main menu">
                 <div class="item link">
                     <a href="/Manager">Dashboard</a>
                 </div>
@@ -14,25 +14,7 @@
                 <div class="item link">
                     <a href="/Manager/section/People">People</a>
                 </div>
-
-                <div class="ui black buttons profile" style="float:right;margin-top:8.5px">
-                    <div class="ui button padding" style="height: 26px">
-                        <i class="user icon"></i>
-                    </div>
-                    <div class="ui floating dropdown icon tiny button padding" style="height: 26px;">
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <div class="item">
-                                <i class="user icon"></i>
-                                <a href="/Manager/logout">Logout</a>
-                            </div>
-                            <div class="item">
-                                <i class="setting icon"></i>
-                                Update Password
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a id="manager-nav-logout" class="ui tiny inverted basic button" href="/Manager/logout">Logout</a>
             </div>
         </div>
     </div>
