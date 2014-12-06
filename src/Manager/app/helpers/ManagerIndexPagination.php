@@ -20,7 +20,7 @@ class ManagerIndexPagination {
         }
 
         $buffer .= '
-            <div class="ui borderless pagination menu small container">';
+            <div class="ui borderless pagination menu small">';
         if ($startPage > 1) {
             $buffer .= '
                 <a class="item">

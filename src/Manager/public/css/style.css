@@ -123,9 +123,13 @@
 
 /* INDEX SECTION */
 
-#manager-index-breadcrumbs {
+#manager-breadcrumbs {
     margin-bottom: 0px !important;
     padding-top: 1em;
+}
+
+#manager-breadcrumbs a {
+    color: #858585 !important;
 }
 
 @media (max-width: 768px) {
@@ -148,12 +152,17 @@
     .manager-index-description {
         display: none
     }
+
+    table.manager.table td {
+        border-top: 1px solid #d4d4d5 !important;
+        padding-top: 1em !important;
+        padding-bottom: 1em !important;
+    }
 }
 
 /* FORM */
 
 #manager-form-tabs {
-    padding-top: 2rem;
     margin-bottom: 2rem;
     position: relative;
 }
@@ -161,7 +170,7 @@
 #manager-form-update {
     position: absolute;
     right: 0;
-    bottom: 6px;
+    bottom: 10px;
 }
 
 #manager-form-modtime {
@@ -178,4 +187,30 @@
     #manager-form-modtime {
         display: none;
     }
+}
+
+div.manager.main {
+    width: 70% !important;
+}
+
+div.manager.rightside {
+    width: 30%  !important;
+}
+
+@media (max-width: 768px) {
+    div.manager.main {
+        width: 100%  !important;
+    }
+
+    div.manager.rightside {
+        width: 100%  !important;
+    }
+}
+
+#manager-form-row {
+    background-color: #fff;
+    margin-left: 14px !important;
+    margin-right: 14px !important;
+    margin-top: -27px !important;
+    padding-top: 14px !important;
 }

@@ -27,7 +27,7 @@ class ManagerFormTabs {
                     <table><tbody><tr><td>
                         <div id="manager-form-modtime"><i class="time icon"></i> ' . $modifiedMarkup . '</div>
                     </td><td>
-                        <div class="ui primary buttons">
+                        <div class="ui large primary buttons">
                             <div class="ui icon button manager submit">
                                 <i class="' . $metadata['icon'] . ' icon"></i> Save ' . $metadata['singular'] . '
                             </div>

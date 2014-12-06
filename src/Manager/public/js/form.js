@@ -2,7 +2,10 @@ define(function (require) {
     var $ = require('jquery'),
         slugg = require('slugg'),
         watchJS = require('watch'),
-        timeago = require('jquery-timeago');
+        moment = require('moment');
+
+    require('../../../../bower_components/livestampjs/livestamp.js');
+
 
     window.ManagerSaved = function (form, data) {
         var message = 'Information Saved.';

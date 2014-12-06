@@ -24,7 +24,7 @@ class ManagerIndexTableHeader {
         }
 
         $buffer .= '
-                                <div class="ui borderless pagination menu small container">';
+                                <div class="ui borderless pagination menu small">';
         if ($startPage > 1) {
             $buffer .= '
                                     <a class="item">
@@ -50,7 +50,7 @@ class ManagerIndexTableHeader {
                                 </div>
                             </div>
                             <div class="column" style="text-align: right">
-                                <div id="manager-index-add" class="ui primary buttons">
+                                <div id="manager-index-add" class="ui primary large buttons">
                                     <div class="ui icon button manager add">
                                         <i class="' . $metadata['icon'] . ' icon"></i> Add ' . $metadata['singular'] . '
                                     </div>

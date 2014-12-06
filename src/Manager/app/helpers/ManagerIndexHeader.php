@@ -15,7 +15,7 @@ class ManagerIndexHeader {
             <div class="ui page grid">
                 <div class="row">
                     <div class="column">
-                        <div id="manager-index-breadcrumbs" class="ui huge breadcrumb">
+                        <div id="manager-breadcrumbs" class="ui large breadcrumb">
                             <a class="section" href="/Manager">Dashboard</a>
                             <i class="right chevron icon divider"></i>
                             <a class="section" href="/Manager/section/' . $metadata['category'] . '">' . $metadata['category'] . '</a>
