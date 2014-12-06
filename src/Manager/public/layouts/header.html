@@ -1,34 +1,49 @@
 <div id="manager-topbar" class="ui page grid">
     <div class="row">
         <div class="column">
-            <div class="ui transparent inverted main menu">
-                <div class="item link">
-                    <a href="/Manager">Dashboard</a>
+            <div class="ui grid">
+                <div class="one wide column">
+                    <div id="hamburger"><div class="menui top-menu"></div><div class="menui mid-menu"></div><div class="menui bottom-menu"></div>
+                    </div>
                 </div>
-                <div class="item link">
-                    <a href="/Manager/section/Content">Content</a>
+                <div class="fourteen wide column">
+
+                <div class="ui large form">
+                    <div id="manager-search" class="ui fluid category field search">
+                        <div class="ui icon input">
+                            <input class="prompt" placeholder="Search" type="text">
+                            <i class="search inverted icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
                 </div>
-                <div class="item link">
-                    <a href="/Manager/section/Reports">Reports</a>
                 </div>
-                <div class="item link">
-                    <a href="/Manager/section/People">People</a>
+                <div id="manager-header-profile" class="one wide column">
+                    <img class="ui avatar image" src="/images/Manager/default-profile.jpg">
                 </div>
-                <a id="manager-nav-logout" class="ui tiny inverted basic button" href="/Manager/logout">Logout</a>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="column">
-            <div class="ui large form">
-                <div id="manager-search" class="ui fluid category field search">
-                    <div class="ui icon input">
-                        <input class="prompt" placeholder="Search" type="text">
-                        <i class="search icon"></i>
-                    </div>
-                    <div class="results"></div>
-                </div>
-            </div>
-        </div>
+</div>
+<div id="manager-main-nav">
+    <div class="ui page grid">
+        <a href="/Manager"><h1 class="ui inverted header">Dashboard</h1></a>
+        <div class="ui inverted divider"></div>
+        <a href="/Manager/section/Content"><h1 class="ui inverted header">Content</h1></a>
+        <div class="ui inverted divider"></div>
+        <a href="/Manager/section/Reports"><h1 class="ui inverted header">Reports</h1></a>
+        <div class="ui inverted divider"></div>
+        <a href="/Manager/section/People"><h1 class="ui inverted header">People</h1></a>
+    </div>
+</div>
+<div id="manager-profile-nav">
+    <div class="ui page grid">
+        <i id="manager-profile-nav-close" class="remove icon inverted"></i>
+        <br>
+        <img class="ui small circular image" src="/images/Manager/default-profile.jpg" style="margin-bottom: 0 20px">
+        <br>
+        <a href="/Manager/profile"><h1 class="ui inverted header">Update Profile</h1></a>
+        <div class="ui inverted divider"></div>
+        <a href="/Manager/logout"><h1 class="ui inverted header">Logout</h1></a>
     </div>
 </div>

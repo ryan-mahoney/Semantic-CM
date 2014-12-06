@@ -2,19 +2,24 @@ define(function (require) {
     var $ = require('jquery'),
         semantic = require('semantic');
 
-    var headerDropdownInitialize = function () {
-        $('.main.menu .ui.dropdown').each(function () {
-            var uniqid = 'dropdown-' + Math.random().toString(36).substr(2, 7);
-            if (typeof($(this).attr('data-id')) != 'undefined') {
-                return;
-            }
-            $(this).attr('data-id', uniqid);
-            $(this).dropdown();
-        });
-    };
-
     $(document).ready(function () {
-        headerDropdownInitialize();
+        $("#hamburger").click(function () {
+            $(".top-menu").toggleClass("top-animate");
+            $(".mid-menu").toggleClass("mid-animate");
+            $(".bottom-menu").toggleClass("bottom-animate");
+            $("#manager-main-nav").fadeToggle(500);
+        });
+
+        $("#manager-header-profile").click(function () {
+            $("#manager-profile-nav").fadeToggle(500);
+        });
+
+        $('#manager-profile-nav-close').click(function () {
+            $("#manager-profile-nav").fadeToggle(500);
+        });
+
+        $("#manager-main-nav").appendTo("body");
+        $("#manager-profile-nav").appendTo("body");
     });
 
     return function () {};

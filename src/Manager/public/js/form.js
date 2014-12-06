@@ -12,11 +12,12 @@ define(function (require) {
         if ($(form).attr('data-singular') !== "undefined") {
             message = $(form).attr('data-singular') + ' Saved.';
         }
-        $('.form-notice').addClass('teal').removeClass('red');
-        $('.form-notice > .container').html('<div class="header item"><h1>' + message + '</h1></div>');
-        $('.form-notice').sidebar({overlay: true}).sidebar('show');
+        $('#manager-form-notice').css({position: 'fixed'});
+        $('#manager-form-notice').addClass('positive').removeClass('error');
+        $('.form-notice > .header').html(message);
+        $('#manager-form-notice').transition('slide down');
         setTimeout(function () {
-            $('.form-notice').sidebar({overlay: true}).sidebar('hide');
+            $('#manager-form-notice').transition('slide down');
         }, 1500);
         $('abbr.time').each(function () {
             var now = new Date();
@@ -52,11 +53,12 @@ define(function (require) {
     };
 
     window.FormError = function (errors) {
-        $('.form-notice').addClass('red').removeClass('teal');
-        $('.form-notice > .container').html('<div class="header item"><h1>Error in Form</h1></div>');
-        $('.form-notice').sidebar({overlay: true}).sidebar('show');
+        $('#manager-form-notice').css({position: 'relative'});
+        $('#manager-form-notice').addClass('error').removeClass('positive');
+        $('.form-notice > .header').html('Error in Form');
+        $('#manager-form-notice').transition('slide down');
         setTimeout(function () {
-            $('.form-notice').sidebar({overlay: true}).sidebar('hide');
+            $('#manager-form-notice').transition('slide down');
         }, 5000);
     };
 

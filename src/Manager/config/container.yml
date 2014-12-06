@@ -60,3 +60,5 @@ services:
         class:      Helper\Manager\ManagerIndexPagination
     helperManagerIndexTableHeader:
         class:      Helper\Manager\ManagerIndexTableHeader
+    helperManagerDashboardBreadcrumbs:
+        class:      Helper\Manager\ManagerDashboardBreadcrumbs

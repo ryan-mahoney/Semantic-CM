@@ -2,26 +2,24 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <title>{{page_title}}</title>
-        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700" rel="stylesheet" type="text/css" />
         <script src="/build/manager-bundle.js"></script>
     </head>
     <body class="dashboard semantic-cm">
         {{{ManagerHeader}}}
-        <div class="ui page grid">
-            <div class="row">
-                <div class="column">
-                    <div id="manager-index-breadcrumbs" class="ui huge breadcrumb">
-                        <div class="active section">Dashboard</div>
+        <div id="manager-gray-bar">
+            <div class="ui page grid">
+                <div class="row">
+                    <div class="column">
+                        <div id="manager-breadcrumbs" class="ui large breadcrumb">
+                            {{{ManagerDashboardBreadcrumbs}}}
+                        </div>
                     </div>
-                    <div class="ui ignored divider"></div>
-                    <div class="ui one column grid">
-                        <div class="column">Click a card below to begin, or enter a search above.</div>
-                    </div>
-                <div class="ui ignored divider"></div>
+                </div>
             </div>
         </div>
-        <div id="manager-dashboard-cards" class="ui grid">
+        <div id="manager-dashboard-cards" class="ui page grid">
             <div class="doubling five column row">
                 {{{managers}}}
             </div>
