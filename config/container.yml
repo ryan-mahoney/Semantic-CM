@@ -1,8 +1,8 @@
 imports:
-    - 'src/Manager/config/container.yml'
-    - 'vendor/opine/collection/config/package-container.yml'
-    - 'vendor/opine/route/config/package-container.yml'
-    - 'vendor/opine/form/config/package-container.yml'
+    - '../src/Manager/config/container.yml'
+    - '../../collection/config/package-container.yml'
+    - '../../route/config/package-container.yml'
+    - '../../form/config/package-container.yml'
 
 services:
     slugify:

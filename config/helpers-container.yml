@@ -1,0 +1,46 @@
+services:
+    helperManagerHeader:
+        class:      Helper\Manager\ManagerHeader
+        arguments:  ['@layout']
+    helperManagerDescription:
+        class:      Helper\Manager\ManagerDescription
+    helperManagerEmbeddedFormFooter:
+        class:      Helper\Manager\ManagerEmbeddedFormFooter
+    helperManagerEmbeddedFormHeader:
+        class:      Helper\Manager\ManagerEmbeddedFormHeader
+    helperManagerEmbeddedIndexEmpty:
+        class:      Helper\Manager\ManagerEmbeddedIndexEmpty
+    helperManagerEmbeddedIndexHeader:
+        class:      Helper\Manager\ManagerEmbeddedIndexHeader
+    helperManagerFieldEmbedded:
+        class:      Helper\Manager\ManagerFieldEmbedded
+    helperManagerField:
+        class:      Helper\Manager\ManagerField
+    helperManagerFormButton:
+        class:      Helper\Manager\ManagerFormButton
+    helperManagerFormHeader:
+        class:      Helper\Manager\ManagerFormHeader
+    helperManagerFormMainColumnClose:
+        class:      Helper\Manager\ManagerFormMainColumnClose
+    helperManagerFormMainColumn:
+        class:      Helper\Manager\ManagerFormMainColumn
+    helperManagerForm:
+        class:      Helper\Manager\ManagerForm
+    helperManagerFormSideColumnClose:
+        class:      Helper\Manager\ManagerFormSideColumnClose
+    helperManagerFormSideColumn:
+        class:      Helper\Manager\ManagerFormSideColumn
+    helperManagerFormTabs:
+        class:      Helper\Manager\ManagerFormTabs
+    helperManagerIndexBlankSlate:
+        class:      Helper\Manager\ManagerIndexBlankSlate
+    helperManagerIndexButtons:
+        class:      Helper\Manager\ManagerIndexButtons
+    helperManagerIndexHeader:
+        class:      Helper\Manager\ManagerIndexHeader
+    helperManagerIndexPagination:
+        class:      Helper\Manager\ManagerIndexPagination
+    helperManagerIndexTableHeader:
+        class:      Helper\Manager\ManagerIndexTableHeader
+    helperManagerDashboardBreadcrumbs:
+        class:      Helper\Manager\ManagerDashboardBreadcrumbs
