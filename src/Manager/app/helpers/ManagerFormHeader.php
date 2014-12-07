@@ -13,7 +13,7 @@ class ManagerFormHeader {
                             <div id="manager-breadcrumbs" class="ui large breadcrumb">
                                 <a class="section" href="/Manager">Dashboard</a>
                                 <i class="right arrow icon divider"></i>
-                                <a class="section" href="/Manager?' . $metadata['category'] . '">' . $metadata['category'] . '</a>
+                                <a class="section" href="/Manager/section/' . $metadata['category'] . '">' . $metadata['category'] . '</a>
                                 <i class="right arrow icon divider"></i>
                                 <a class="section" href="/Manager/index/' . $metadata['link'] . '">' . $metadata['title'] . '</a>
                                 <i class="right arrow icon divider"></i>
