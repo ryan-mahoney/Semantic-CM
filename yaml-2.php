@@ -1,6 +1,8 @@
 <?php
 namespace Manager;
 
+
+//tmp
 $managers = 'Blogs
 Blurbs
 Books
