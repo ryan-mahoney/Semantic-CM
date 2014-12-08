@@ -1,0 +1,60 @@
+manager:
+    slug: EventsSponsors
+    collection: Collection\Events
+    title: Sponsors
+    titleField: title
+    singular: Sponsor
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        name:
+            label: Name
+            required: false
+            display: fieldInputText@render
+        url:
+            label: URL
+            required: false
+            display: fieldInputText@render
+        file:
+            label: Image
+            display: fieldInputFile@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Sponsors"}}}
+        {{#if sponsor_sub}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each sponsor_sub}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{image}}</td>
+                            <td>{{name}}</td>
+                            <td>{{url}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Sponsor"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="name" label="Name"}}}
+            {{{ManagerField . class="fluid" name="url" label="URL"}}}
+            {{{ManagerField . class="fluid" name="file" label="Image"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

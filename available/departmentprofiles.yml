@@ -1,0 +1,49 @@
+manager:
+    slug: DepartmentProfiles
+    collection: Collection\DepartmentProfiles
+    title: Profiles
+    titleField: title
+    singular: Profile
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        title:
+            label: Title
+            required: false
+            display: fieldInputText@render
+        image:
+            label: Image
+            display: fieldInputFile@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Profiles"}}}
+        {{#if department_profiles}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr><th>Title</th></tr>
+                </thead>
+                <tbody>
+                    {{#each department_profiles}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{title}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Profile"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="title" label="Title"}}}
+            {{{ManagerField . class="fluid" name="image" label="Image"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

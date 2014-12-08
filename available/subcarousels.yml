@@ -1,0 +1,69 @@
+manager:
+    slug: Subcarousels
+    collection: Collection\Carousels
+    title: SubCarousels
+    titleField: title
+    singular: SubCarousel
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    embedded: true
+    function: embeddedUpsert
+    notice: Carousel Saved
+
+    fields:
+        file:
+            label: Image
+            display: fieldInputFile@render
+        url:
+            label: URL
+            required: false
+            display: fieldInputText@render
+        target:
+            label: Redirect
+            required: true
+            options:
+                type: array
+                value: [Self, Blank, Top, Parent]
+            display: fieldSelect@render
+            nullable: false
+            default: self
+        caption:
+            label: Caption
+            required: false
+            display: fieldInputText@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Images"}}}
+        {{#if carousel_individual}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Caption</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each carousel_individual}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{caption}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="carousel_individual"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="file" label="Image"}}}
+            {{{ManagerField . class="fluid" name="url" label="URL"}}}
+            {{{ManagerField . class="fluid" name="target" label="Target"}}}
+            {{{ManagerField . class="fluid" name="caption" label="Caption"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

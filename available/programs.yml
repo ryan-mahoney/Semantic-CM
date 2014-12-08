@@ -1,0 +1,165 @@
+manager:
+    slug: Programs
+    collection: Collection\Programs
+    title: Programs
+    titleField: title
+    singular: Program
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    tabs: [Main, Images, SEO]
+    icon: grid layout
+    category: Content
+    after: function
+    function: ManagerSaved
+
+    fields:
+        title:
+            label: Title
+            required: true
+            display: fieldInputText@render
+        body:
+            display: fieldRedactor@render
+        description:
+            label: Summary
+            display: fieldTextarea@render
+        location:
+            label: Address
+            required: false
+            display: fieldTextarea@render
+        image:
+            label: List View
+            display: fieldInputFile@render
+        image_feature:
+            label: Featured View
+            display: fieldInputFile@render
+        code_name:
+            display: fieldInputText@render
+        metadata_keywords:
+            display: fieldInputText@render
+        metadata_description:
+            display: fieldInputText@render
+        status:
+            required: true
+            options:
+                type: array
+                value: [Published, Draft]
+            display: fieldSelect@render
+            nullable: false
+            default: published
+        featured:
+            label: Feature
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        pinned:
+            label: Pin
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        tags:
+            label: Tags
+            required: false
+            transformIn: XXX tags transformIn
+            display: fieldInputToTags@render
+            multiple: true
+            options: XXX tags options
+
+    indexPartial: |
+        <div class="top-container">
+            {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
+        </div>
+        <div class="bottom-container">
+            {{#if programs}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
+                    <table class="ui large table segment manager sortable">
+                            <col width="40%">
+                            <col width="30%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Featured</th>
+                                <th>Pinned</th>
+                                <th class="trash">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each programs}}
+                                <tr data-id="{{dbURI}}">
+                                    <td>{{title}}</td>
+                                    <td>{{{Capitalize status}}}</td>
+                                    <td>{{{BooleanReadable featured}}}</td>
+                                    <td>{{{BooleanReadable pinned}}}</td>
+                                    <td>
+                                        <div class="manager trash ui icon button">
+                                             <i class="trash icon"></i>
+                                         </div>
+                                     </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    {{{ManagerIndexPagination pagination=pagination}}}
+               {{else}}
+                {{{ManagerIndexBlankSlate metadata=metadata}}}
+            {{/if}}
+        </div>
+
+    formPartial: |
+        {{{ManagerForm spare=id_spare metadata=metadata}}}
+            <div class="top-container">
+                {{{ManagerFormHeader metadata=metadata}}}
+                {{{ManagerFormTabs metadata=metadata}}}
+            </div>
+            <div class="bottom-container">
+                <div class="ui tab active" data-tab="Main">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                        {{{ManagerField . class="left" name="body" label="Body"}}}
+                        {{{ManagerField . class="left" name="description" label="Summary"}}}
+                        {{{ManagerField . class="left" name="location" label="Address"}}}
+                        {{{id}}}
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerField . class="fluid" name="status"}}}
+                        <div class="ui clearing divider"></div>
+                        {{{ManagerField . class="left" name="featured"}}}
+                        <br />
+                        {{{ManagerField . class="left" name="pinned"}}}
+                        <div class="ui clearing divider"></div>
+                        {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                 <div class="ui tab" data-tab="Images">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="image" label="List View"}}}
+                        {{{ManagerField . class="left" name="image_feature" label="Featured"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="SEO">
+                     {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                        {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                        {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+            </div>
+        </form>

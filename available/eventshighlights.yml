@@ -1,0 +1,56 @@
+manager:
+    slug: EventsHighlights
+    collection: Collection\Events
+    title: Highlight Images
+    titleField: title
+    singular: Highlight Image
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        image:
+            label: Image
+            display: fieldInputFile@render
+        heading:
+            required: true
+            display: fieldInputText@render
+        description:
+            display: fieldTextarea@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Highlight Images"}}}
+        {{#if highlight_images}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each highlight_images}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{image}}</td>
+                            <td>{{heading}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Highlight Image"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="image" label="Image"}}}
+            {{{ManagerField . class="fluid" name="heading" label="Heading"}}}
+            {{{ManagerField . class="fluid" name="description" label="Description"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

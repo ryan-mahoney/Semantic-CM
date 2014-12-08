@@ -11,6 +11,7 @@ use Opine\Config\Service as Config;
 class SemanticCMTest extends PHPUnit_Framework_TestCase {
     private $route;
     private $managerRoute;
+    private $managerModel;
 
     public function setup () {
         $root = __DIR__ . '/../public';
@@ -19,10 +20,20 @@ class SemanticCMTest extends PHPUnit_Framework_TestCase {
         $container = Container::instance($root, $config, $root . '/../config/container.yml');
         $this->route = $container->get('route');
         $this->managerRoute = $container->get('managerRoute');
+        $this->managerModel = $container->get('managerModel');
         $this->route->testMode();
         $this->managerRoute->paths();
     }
 
+    public function testBuild () {
+        $cache = json_decode($this->managerModel->build(), true);
+        echo "\n\n", 'TEST!', "\n\n";
+        var_dump($cache);
+        //$this->formModel->cacheSet($cache);
+        //$this->assertTrue('contact' === $cache['contact']['name']);
+    }
+
+/*
     public function testApiManagersNoSession () {
         $_SESSION['user']['groups'] = [];
         $json = json_decode($this->route->run('GET', '/Manager/api/managers'), true);
@@ -39,4 +50,5 @@ class SemanticCMTest extends PHPUnit_Framework_TestCase {
         $response = $this->route->run('GET', '/Manager/header');
         $this->assertTrue(substr_count($response, '<strong>Manager:</strong>') > 0);
     }
+*/
 }

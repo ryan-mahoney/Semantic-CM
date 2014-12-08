@@ -1,0 +1,154 @@
+manager:
+    slug: Profiles
+    collection: Collection\Profiles
+    title: Profiles
+    titleField: title
+    singular: Profile
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    tabs: [Main, Images]
+    icon: text file
+    category: Content
+    after: function
+    function: ManagerSaved
+
+    fields:
+        first_name:
+            placeholder: First Name
+            display: fieldInputText@render
+            required: true
+        last_name:
+            placeholder: Last Name
+            label: Last Name
+            display: fieldInputText@render
+            required: true
+        full_name:
+            label: FullName
+            required: true
+            display: fieldInputText@render
+        title:
+            label: Title
+            required: true
+            display: fieldInputText@render
+        email:
+            label: Email
+            required: true
+            display: fieldInputText@render
+        homepage:
+            display: fieldInputText@render
+        phone:
+            label: Phone
+            required: true
+            display: fieldInputText@render
+        description:
+            label: Summary
+            display: fieldTextarea@render
+        status:
+            required: true
+            options:
+                type: array
+                value: [Published, Draft]
+            display: fieldSelect@render
+            nullable: false
+            default: published
+        featured:
+            label: Feature
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        pinned:
+            label: Pin
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        image:
+            label: List View
+            display: fieldInputFile@render
+        image_feature:
+            label: Featured View
+            display: fieldInputFile@render
+
+    indexPartial: |
+        <div class="top-container">
+            {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
+        </div>
+        <div class="bottom-container">
+            {{#if profiles}}
+                {{{ManagerIndexPagination pagination=pagination}}}
+                {{{ManagerIndexButtons metadata=metadata}}}
+                <table class="ui large table segment manager">
+                     <thead>
+                           <tr>
+                              <th>Title</th>
+                              <th>Category</th>
+                              <th>Status</th>
+                              <th class="trash">Delete</th>
+                           </tr>
+                     </thead>
+                     <tbody>
+                        {{#each profiles}}
+                             <tr data-id="{{dbURI}}">
+                                 <td>{{title}}</td>
+                                 <td>{{category}}</td>
+                                 <td>{{status}}</td>
+                                <td>
+                                   <div class="manager trash ui icon button">
+                                       <i class="trash icon"></i>
+                                   </div>
+                                </td>
+                             </tr>
+                        {{/each}}
+                     </tbody>
+                </table>
+                {{{ManagerIndexPagination pagination=pagination}}}
+            {{else}}
+                {{{ManagerIndexBlankSlate metadata=metadata}}}
+            {{/if}}
+        </div>
+
+    formPartial: |
+        {{{ManagerForm spare=id_spare metadata=metadata}}}
+            <div class="top-container">
+                {{{ManagerFormHeader metadata=metadata}}}
+                {{{ManagerFormTabs metadata=metadata}}}
+            </div>
+            <div class="bottom-container">
+                <div class="ui tab active" data-tab="Main">
+                    {{{ManagerFormMainColumn}}}
+                    {{{ManagerField . class="left" name="first_name" label="First Name"}}}
+                    {{{ManagerField . class="left" name="last_name" label="Last Name"}}}
+                        {{{ManagerField . class="left" name="full_name" label="Full Name"}}}
+                        {{{ManagerField . class="left" name="title" label="Title"}}}
+                        {{{ManagerField . class="left" name="email" label="Email"}}}
+                        {{{ManagerField . class="left" name="homepage" label="Homepage"}}}
+                        {{{ManagerField . class="left" name="phone" label="Phone"}}}
+                        {{{ManagerField . class="left" name="description" label="Summary"}}}
+                        {{{id}}}
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerField . class="fluid" name="status"}}}
+                        <div class="ui clearing divider"></div>
+                        {{{ManagerField . class="left" name="featured"}}}
+                        <br />
+                        {{{ManagerField . class="left" name="pinned"}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="Images">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="image" label="List View"}}}
+                        {{{ManagerField . class="left" name="image_feature" label="Featured"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+            </div>
+        </form>

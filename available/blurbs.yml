@@ -1,0 +1,89 @@
+manager:
+    slug: Blurbs
+    collection: Collection\Blurbs
+    title: Blurbs
+    titleField: title
+    singular: Blurb
+    definition: Blurbs are small blocks of content that don't fit the conventions of a whole web page. Many appear on multiple pages in the same format. 
+    acl: [content, admin, superadmin]
+    icon: basic content
+    category: Content
+    after: function
+    function: ManagerSaved
+
+    fields:
+        title:
+            placeholder: Title
+            required: true
+            display: fieldInputText@render
+        body:
+            required: false
+            display: fieldRedactor@render
+        tags:
+            label: Tags
+            required: false
+            transformIn: XXX tags transformIn
+            display: fieldInputToTags@render
+            multiple: true
+            options: XXX tags options
+
+    indexPartial: |
+        <div class="top-container">
+            {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
+        </div>
+        <div class="bottom-container">
+            {{#if blurbs}}
+                {{{ManagerIndexPagination pagination=pagination}}}
+                {{{ManagerIndexButtons metadata=metadata}}}
+                <table class="ui large table segment manager sortable">
+                    <col width="60%">
+                    <col width="20%">
+                    <col width="20%">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Tags</th>
+                            <th class="trash">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each blurbs}}
+                            <tr data-id="{{dbURI}}">
+                                <td>{{title}}</td>
+                                <td>{{{ArrayToCSV tags}}}</td>
+                                <td>
+                                    <div class="manager trash ui icon button">
+                                         <i class="trash icon"></i>
+                                     </div>
+                                 </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{{ManagerIndexPagination pagination=pagination}}}
+            {{else}}
+                {{{ManagerIndexBlankSlate metadata=metadata}}}
+            {{/if}}
+        </div>
+
+    formPartial: |
+        {{{ManagerForm spare=id_spare metadata=metadata}}}
+            <div class="top-container">
+                {{{ManagerFormHeader metadata=metadata}}}
+                {{{ManagerFormTabs metadata=metadata}}}
+            </div>
+            <div class="bottom-container">
+                <div class="ui tab active" data-tab="Main">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                        {{{ManagerField . class="left" name="body" required="true"}}}
+                        {{{id}}}
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerField . class="fluid" name="tags" label="Tags}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+            </div>
+        </form>

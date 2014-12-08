@@ -1,0 +1,66 @@
+manager:
+    slug: Subimages
+    collection: Collection\PhotoGalleries
+    title: Subimage
+    titleField: title
+    singular: Image
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+    storage: [photo_galleries, _id]
+
+    fields:
+        caption:
+            required: false
+            display: fieldInputText@render
+        copyright:
+            required: false
+            display: fieldInputText@render
+        title:
+            required: false
+            display: fieldInputText@render
+        file:
+            display: fieldInputFile@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Images"}}}
+        {{#if image_individual}}
+            <table class="ui table manager segment manager sortable">
+                <col width="10%">
+                <col width="40%">
+                <col width="40%">
+                <col width="10%">
+                <thead>
+                    <tr>
+                        <th><i class="shuffle basic icon"></i></th>
+                        <th>Image</th>
+                        <th>Caption</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each image_individual}}
+                        <tr data-id="{{dbURI}}">
+                            <td class="handle"><i class="reorder icon"></i></td>
+                            <td>{{{ImageResize file}}}</td>
+                            <td>{{caption}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="image"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="file" label="Image"}}}
+            {{{ManagerField . class="fluid" name="caption" label="Caption"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

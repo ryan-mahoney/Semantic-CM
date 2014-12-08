@@ -294,45 +294,50 @@ class Blogs {
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
             </div>
-            <div class="bottom-container">
-                {{#if blogs}}
-                    {{{ManagerIndexPagination pagination=pagination}}}
-                    {{{ManagerIndexButtons metadata=metadata}}}
-                    <table class="ui large table segment manager sortable">
-                        <col width="45%">
-                        <col width="25%">
-                        <col width="15%">
-                        <col width="15%">
-                        <col width="10%">
-                        <thead>
-                               <tr>
-                                  <th>Title</th>
-                                  <th>Status</th>
-                                  <th>Categories</th>
-                                  <th>Featured</th>
-                                  <th>Pinned</th>
-                                  <th class="trash">Delete</th>
-                               </tr>
-                        </thead>
-                        <tbody>
-                            {{#each blogs}}
-                                <tr data-id="{{dbURI}}">
-                                    <td>{{title}}</td>
-                                    <td>{{{Capitalize status}}}</td>
-                                    <td>{{{CategoriesCSV categories}}}</td>
-                                    <td>{{{BooleanReadable featured}}}</td>
-                                    <td>{{{BooleanReadable pinned}}}</td>
-                                    <td>
-                                       <div class="manager trash ui icon button"><i class="trash icon"></i></div>
-                                    </td>
-                                 </tr>
-                            {{/each}}
-                         </tbody>
-                    </table>
-                    {{{ManagerIndexPagination pagination=pagination}}}
-                {{else}}
-                    {{{ManagerIndexBlankSlate metadata=metadata}}}
-               {{/if}}
+            <div class="bottom-container ui page grid">
+                <div class="row">
+                    <div class="column">
+                        {{#if blogs}}
+                            <table class="ui large table segment manager sortable">
+                                <col width="30%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="10%">
+                                {{{ManagerIndexTableHeader pagination=pagination metadata=metadata columns="6"}}}
+                                <thead>
+                                       <tr>
+                                          <th>Title</th>
+                                          <th>Status</th>
+                                          <th>Categories</th>
+                                          <th>Featured</th>
+                                          <th>Pinned</th>
+                                          <th class="trash">Delete</th>
+                                       </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each blogs}}
+                                        <tr data-id="{{dbURI}}">
+                                            <td>{{title}}</td>
+                                            <td>{{{Capitalize status}}}</td>
+                                            <td>{{{CategoriesCSV categories}}}</td>
+                                            <td>{{{BooleanReadable featured}}}</td>
+                                            <td>{{{BooleanReadable pinned}}}</td>
+                                            <td>
+                                               <div class="manager trash ui icon button"><i class="trash icon"></i></div>
+                                            </td>
+                                         </tr>
+                                    {{/each}}
+                                 </tbody>
+                                 <tfoot class="full-width">
+                            </table>
+                            {{{ManagerIndexPagination pagination=pagination}}}
+                        {{else}}
+                            {{{ManagerIndexBlankSlate metadata=metadata}}}
+                       {{/if}}
+                    </div>
+                </div>
             </div>
 HBS;
         return $partial;
@@ -343,9 +348,9 @@ HBS;
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
                     {{{ManagerFormHeader metadata=metadata}}}
-                    {{{ManagerFormTabs metadata=metadata}}}
+                    {{{ManagerFormTabs metadata=metadata modified=modified_date}}}
                 </div>
-                <div class="bottom-container">
+                <div class="bottom-container ui page grid">
                     <div class="ui tab active" data-tab="Main">
                         {{{ManagerFormMainColumn}}}
                             {{{ManagerField . name="title" class="left" label="Title" required="true"}}}
@@ -355,7 +360,6 @@ HBS;
                             {{{form-token}}}
                         {{{ManagerFormMainColumnClose}}}
                         {{{ManagerFormSideColumn}}}
-                            {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . name="status" class="fluid"}}}
                             <br />
                             {{{ManagerField . name="display_date" class="fluid"}}}
@@ -380,7 +384,6 @@ HBS;
                             {{{ManagerField . name="image_feature" class="left" label="Featured"}}}
                         {{{ManagerFormMainColumnClose}}}
                         {{{ManagerFormSideColumn}}}
-                            {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
                     </div>
 
@@ -392,9 +395,9 @@ HBS;
                             {{{ManagerField . name="date_published" class="left" label="Date Published"}}}
                         {{{ManagerFormMainColumnClose}}}
                         {{{ManagerFormSideColumn}}}
-                            {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
                     </div>
+
                     <div class="ui tab" data-tab="SEO">
                         {{{ManagerFormMainColumn}}}
                             {{{ManagerField . name="code_name" class="left" label="Slug"}}}
@@ -402,7 +405,6 @@ HBS;
                             {{{ManagerField . name="metadata_keywords" class="left" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
                         {{{ManagerFormSideColumn}}}
-                            {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
                     </div>
                 </div>

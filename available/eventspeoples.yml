@@ -1,0 +1,75 @@
+manager:
+    slug: EventsPeoples
+    collection: Collection\Events
+    title: Peoples
+    titleField: title
+    singular: People
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        first_name:
+            placeholder: First Name
+            display: fieldInputText@render
+            required: true
+        last_name:
+            placeholder: Last Name
+            label: Last Name
+            display: fieldInputText@render
+            required: true
+        email:
+            label: Email
+            required: true
+            display: fieldInputText@render
+        phone:
+            label: Phone
+            required: true
+            display: fieldInputText@render
+        role:
+            label: Role
+            required: true
+            display: fieldInputText@render
+        bio:
+            display: fieldRedactor@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Peoples"}}}
+        {{#if people_sub}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each people_sub}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{first_name}}</td>
+                            <td>{{role}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="People"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="first_name" label="First Name"}}}
+            {{{ManagerField . class="fluid" name="last_name" label="Last Name"}}}
+            {{{ManagerField . class="fluid" name="email" label="Email"}}}
+            {{{ManagerField . class="fluid" name="phone" label="Phone"}}}
+            {{{ManagerField . class="fluid" name="role" label="Role"}}}
+            {{{ManagerField . class="fluid" name="bio" label="Bio"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}
+        <div style="padding-bottom:100px"></div>

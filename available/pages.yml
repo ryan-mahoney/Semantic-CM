@@ -1,0 +1,123 @@
+manager:
+    slug: Pages
+    collection: Collection\Pages
+    title: Pages
+    titleField: title
+    singular: Page
+    definition: Individual content pages can be created and linked to your site through menus. 
+    acl: [content, admin, superadmin]
+    tabs: [Main, SEO]
+    icon: copy
+    category: Content
+    after: function
+    function: ManagerSaved
+
+    fields:
+        title:
+            label: Title
+            required: true
+            display: fieldInputText@render
+        body:
+            display: fieldRedactor@render
+        status:
+            required: true
+            options:
+                type: array
+                value: [Published, Draft]
+            display: fieldSelect@render
+            nullable: false
+            default: published
+        code_name:
+            display: fieldInputText@render
+        metadata_keywords:
+            display: fieldInputText@render
+        metadata_description:
+            display: fieldInputText@render
+        tags:
+            label: Tags
+            required: false
+            transformIn: XXX tags transformIn
+            display: fieldInputToTags@render
+            multiple: true
+            options: XXX tags options
+        categories:
+            label: Category
+            required: false
+            options: XXX categories options
+            display: fieldInputToTags@render
+            controlled: true
+            multiple: true
+
+    indexPartial: |
+        <div class="top-container">
+            {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
+        </div>
+        <div class="bottom-container">
+           {{#if pages}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
+                    <table class="ui large table segment manager sortable">
+                        <col width="60%">
+                        <col width="20%">
+                        <col width="20%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th class="trash">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each pages}}
+                                <tr data-id="{{dbURI}}">
+                                    <td>{{title}}</td>
+                                    <td>{{{Capitalize status}}}</td>
+                                    <td>
+                                        <div class="manager trash ui icon button">
+                                             <i class="trash icon"></i>
+                                         </div>
+                                     </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    {{{ManagerIndexPagination pagination=pagination}}}
+               {{else}}
+                {{{ManagerIndexBlankSlate metadata=metadata}}}
+            {{/if}}
+        </div>
+
+    formPartial: |
+        {{{ManagerForm spare=id_spare metadata=metadata}}}
+            <div class="top-container">
+                {{{ManagerFormHeader metadata=metadata}}}
+                {{{ManagerFormTabs metadata=metadata}}}
+            </div>
+            <div class="bottom-container">
+                <div class="ui tab active" data-tab="Main">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                        {{{ManagerField . class="left" name="body" label="Body"}}}
+                        {{{id}}}
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerField . class="fluid" name="status"}}}
+                        <br />
+                        {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                        {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="SEO">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                        {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                        {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+            </div>
+        </form>

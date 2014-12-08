@@ -23,7 +23,9 @@
  * THE SOFTWARE.
  */
 namespace Opine\Manager;
+
 use Exception;
+use Symfony\Component\Yaml\Yaml;
 
 class Model {
 	private $root;
@@ -48,21 +50,21 @@ class Model {
 	}
 
     public function cacheWrite (Array $managers) {
-        file_put_contents($this->cacheFile, json_encode(['managers' => $managers], JSON_PRETTY_PRINT));
+        $json = json_encode(['managers' => $managers], JSON_PRETTY_PRINT);
+        file_put_contents($this->cacheFile, $json);
+        return $json;
     }
 
     public function cacheRead () {
-        return json_decode(file_get_contents($this->cacheFile), true);
+        return json_decode(file_get_contents($this->cacheFile), true)['managers'];
     }
 
-    public function managerGetByLink ($linkName) {
+    public function managerGetByLink ($slug) {
         $managers = $this->cacheRead();
-        foreach ($managers['managers'] as $manager) {
-            if ($manager['link'] == $linkName) {
-                return $manager;
-            }
+        if (!isset($managers[$slug])) {
+            throw new Exception('can not get manager by link: ' . $slug);
         }
-        throw new Exception('can not get manager by link: ' . $linkName);
+        return $managers[$slug];
     }
 
     public function collectionGetByCollection ($collectionName) {
@@ -110,14 +112,11 @@ class Model {
     }
 
     public function post ($context) {
-        $linkName = $context['formObject']->manager['link'];
+        $slug = $context['formObject']->manager['slug'];
         if (!isset($context['dbURI']) || empty($context['dbURI'])) {
             throw new Exception('Context does not contain a dbURI');
         }
-        if (!isset($context['formMarker'])) {
-            throw new Exception('Form marker not set in post');
-        }
-        $document = $this->postService->{$context['formMarker']};
+        $document = $this->postService->get($slug);
         if ($document === false || empty($document)) {
             throw new Exception('Document not found in post');
         }
@@ -133,7 +132,7 @@ class Model {
         if ($collectionInstance === false) {
             return;
         }
-        $managerUrl = '/Manager/item/' . $linkName . '/' . $context['dbURI'];
+        $managerUrl = '/Manager/item/' . $slug . '/' . $context['dbURI'];
         $collectionInstance->indexSearch($id, $document, $managerUrl);
         $collectionInstance->views('upsert', $id, $document);
         $collectionInstance->statsUpdate($context['dbURI']);
@@ -176,8 +175,8 @@ class Model {
         return false;
     }
 
-    private function authGroupsForManager ($linkName) {
-        $metadata = $this->managerGetByLink($linkName);
+    private function authGroupsForManager ($slug) {
+        $metadata = $this->managerGetByLink($slug);
         return $this->authManagerCheck($metadata);
     }
 
@@ -233,7 +232,6 @@ class Model {
             $namespacesByPath[$searchPath] = $bundle['name'] . '\Manager';
             $bundleByPath[$searchPath] = $bundle['name'];
         }
-        $manageprivate = $this->root . $searchPaths[0];
         $managers = [];
         if (!file_exists($this->cacheFile)) {
             @mkdir($managersRoot);
@@ -244,58 +242,50 @@ class Model {
             if (!file_exists($managersRoot)) {
                 continue;
             }
-            $dirFiles = glob($managersRoot . '/*.php');
+            $dirFiles = glob($managersRoot . '/*.yml');
             if (!is_array($dirFiles) || empty($dirFiles)) {
                 continue;
             }
-            foreach ($dirFiles as $managerClassFile) {
-                $manager = basename($managerClassFile, '.php');
-                $managerClassName = (($namespacesByPath[$searchPath] != '') ? $namespacesByPath[$searchPath] . '\\' : '') . '\Manager\\' . $manager;
-                if (!class_exists($managerClassName)) {
-                    echo 'Problem: Manager build: ', $managerClassName, ': not autoloaded.', "\n\n";
-                    continue;
+            foreach ($dirFiles as $managerPath) {
+                $managerInstance = $this->yaml($managerPath)['manager'];
+                $manager = $managerInstance['slug'];
+                $groups = ['manager', 'manager-' . $managerInstance['category'], 'manager-specific-' . $manager];
+                $collection = $managerInstance['collection'];
+                $collectionName = '';
+                if (class_exists($collection)) {
+                    $collectionInstance = $this->collectionService->factory(new $collection());
+                    $collectionName = $collectionInstance->collection;
                 }
-                $managerInstance = new $managerClassName();
-                $groups = ['manager', 'manager-' . $managerInstance->category, 'manager-specific-' . $manager];
-                $linkPrefix = (($bundleByPath[$searchPath] != null) ? $bundleByPath[$searchPath] . '-' : '');
-                $collection = $managerInstance->collection;
-                $collectionInstance = $this->collectionService->factory(new $collection());
-                $managers[] = [
+                if (isset($managerInstance['formPartial'])) {
+                    $dst = $this->root . '/partials/Manager/forms/' . $managerInstance['slug'] . '.hbs';
+                    if (!file_exists(dirname($dst))) {
+                        @mkdir(dirname($dst), 0777, true);
+                    }
+                    file_put_contents($dst, $managerInstance['formPartial']);
+                    unset($managerInstance['formPartial']);
+                }
+                if (isset($managerInstance['indexPartial'])) {
+                    $dst = $this->root . '/partials/Manager/indexes/' . $managerInstance['slug'] . '.hbs';
+                    if (!file_exists(dirname($dst))) {
+                        @mkdir(dirname($dst), 0777, true);
+                    }
+                    file_put_contents($dst, $managerInstance['indexPartial']);
+                    unset($managerInstance['indexPartial']);
+                }
+                foreach ($managerInstance['fields'] as $key => &$value) {
+                    $value['name'] = $key;
+                    $value['marker'] = $managerInstance['slug'];
+                }
+                $managers[$managerInstance['slug']] = array_merge($managerInstance, [
                     'manager' => $manager,
-                    'title' => $managerInstance->title,
-                    'singular' => $managerInstance->singular,
-                    'titleField' => (property_exists($managerInstance, 'titleField') ? $managerInstance->titleField : ''),
-                    'description' => (property_exists($managerInstance, 'description') ? $managerInstance->description : ''),
-                    'definition' => $managerInstance->definition,
-                    'acl' => $groups,
-                    'icon' => $managerInstance->icon,
-                    'category' => $managerInstance->category,
-                    'embedded' => (property_exists($managerInstance, 'embedded') ? 1 : 0),
-                    'tabs' => (property_exists($managerInstance, 'tabs') ? $managerInstance->tabs : []),
-                    'sort' => (property_exists($managerInstance, 'sort') ? $managerInstance->sort : '{"created_date":-1}'),
-                    'collection' => $managerInstance->collection,
-                    'collection_' => $collectionInstance->collection,
-                    'link' => $linkPrefix . $manager,
+                    'collection_name' => $collectionName,
+                    'link' => $managerInstance['slug'],
                     'bundle' => $bundleByPath[$searchPath],
-                    'class' => (($namespacesByPath[$searchPath] != '') ? $namespacesByPath[$searchPath] . '\\' : '') . 'Manager\\' . $manager
-                ];
-                if (method_exists($managerInstance, 'formPartial')) {
-                    $dst = $this->root . '/partials/Manager/forms/' . $linkPrefix . $manager . '.hbs';
-                    if (!file_exists(dirname($dst))) {
-                        @mkdir(dirname($dst), 0777, true);
-                    }
-                    file_put_contents($dst, $managerInstance->formPartial());
-                }
-                if (method_exists($managerInstance, 'indexPartial')) {
-                    $dst = $this->root . '/partials/Manager/indexes/' . $linkPrefix . $manager . '.hbs';
-                    if (!file_exists(dirname($dst))) {
-                        @mkdir(dirname($dst), 0777, true);
-                    }
-                    file_put_contents($dst, $managerInstance->indexPartial());
-                }
+                    'name' => $managerInstance['slug'],
+                ]);
             }
         }
-        $this->cacheWrite($managers);
+        return $this->cacheWrite($managers);
     }
 
     public function sort ($post) {
@@ -343,6 +333,17 @@ class Model {
             } else {
                 echo 'Wow!  That is a deep sort!';
             }
+        }
+    }
+
+    private function yaml ($file) {
+        try {
+            if (function_exists('yaml_parse_file')) {
+                return yaml_parse_file($file);
+            }
+            return Yaml::parse(file_get_contents($file));
+        } catch (Exception $e) {
+            throw new Exception('Can not parse file: ' . $file . ', ' . $e->getMessage());
         }
     }
 }

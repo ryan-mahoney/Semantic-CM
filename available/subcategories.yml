@@ -1,0 +1,58 @@
+manager:
+    slug: Subcategories
+    collection: Collection\Categories
+    title: Subcategories
+    titleField: title
+    singular: Subcategory
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        title:
+            label: Title
+            required: false
+            display: fieldInputText@render
+        image:
+            label: Image
+            display: fieldInputFile@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Subcategories"}}}
+        {{#if subcategory}}
+            <table class="ui table manager segment sortable">
+                <col width="10%">
+                <col width="80%">
+                <col width="10%">
+                <thead>
+                    <tr>
+                        <th><i class="shuffle basic icon"></i></th>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each subcategory}}
+                        <tr data-id="{{dbURI}}">
+                            <td class="handle"><i class="reorder icon"></i></td>
+                            <td>{{title}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Subcategory"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . name="title" label="Title" required="true"}}}
+            {{{ManagerField . name="image" label="Image"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

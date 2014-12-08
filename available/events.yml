@@ -1,0 +1,360 @@
+manager:
+    slug: Events
+    collection: Collection\Events
+    title: Events
+    titleField: title
+    singular: Event
+    definition: These content blocks appear on event streams and calendars. They are organized by date and time, typically include an image, short description, and occasionally, a registration option. 
+    acl: [content, admin, superadmin]
+    tabs: [Main, Views, Venue, Registration, Advanced, Images, SEO]
+    icon: empty calendar
+    category: Content
+    after: function
+    function: ManagerSaved
+
+    fields:
+        title:
+            label: Title
+            required: true
+            display: fieldInputText@render
+        body:
+            label: Body
+            required: false
+            display: fieldRedactor@render
+        description:
+            label: Summary
+            display: fieldTextarea@render
+        time:
+            label: Time Description
+            required: false
+            display: fieldInputText@render
+        cost:
+            label: Cost Description
+            required: false
+            display: fieldInputText@render
+        image:
+            label: List View
+            display: fieldInputFile@render
+        image_feature:
+            label: Featured View
+            display: fieldInputFile@render
+        venue:
+            label: Venue
+            required: false
+            display: fieldInputText@render
+        venue_description:
+            label: Description
+            required: false
+            display: fieldTextarea@render
+        location:
+            label: Address
+            required: false
+            display: fieldTextarea@render
+        contact_info:
+            label: Contact Information
+            required: false
+            display: fieldTextarea@render
+        url:
+            label: URL
+            required: false
+            display: fieldInputText@render
+        map_url:
+            label: Map URL
+            required: false
+            display: fieldInputText@render
+        code_name:
+            display: fieldInputText@render
+        metadata_keywords:
+            display: fieldInputText@render
+        metadata_description:
+            display: fieldInputText@render
+        categories:
+            label: Category
+            required: false
+            options: XXX categories options
+            display: fieldInputToTags@render
+            controlled: true
+            multiple: true
+        tags:
+            label: Tags
+            required: false
+            transformIn: XXX tags transformIn
+            display: fieldInputToTags@render
+            multiple: true
+            options: XXX tags options
+        status:
+            required: true
+            options:
+                type: array
+                value: [Published, Draft]
+            display: fieldSelect@render
+            nullable: false
+            default: published
+        display_date:
+            required: true
+            display: fieldInputDatePicker@render
+            transformIn: XXX display_date transformIn
+            transformOut: XXX display_date transformOut
+            default: XXX display_date default
+        featured:
+            label: Feature
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        pinned:
+            label: Pin
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        comments:
+            label: Comments
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        header_image:
+            label: Header Image
+            display: fieldInputFile@render
+        footer_image:
+            label: Footer Image
+            display: fieldInputFile@render
+        ticket_image:
+            label: Ticket Background Image 
+            display: fieldInputFile@render
+        image_sub:
+            label: Venue Images
+            required: false
+            display: fieldManager@render
+            manager: EventsImages
+        registration_options:
+            label: Registration Options
+            required: false
+            display: fieldManager@render
+            manager: EventsRegistrations
+        discount_code:
+            label: Discount Codes
+            required: false
+            display: fieldManager@render
+            manager: EventsDiscounts
+        highlight_images:
+            label: Highlight Images
+            required: false
+            display: fieldManager@render
+            manager: EventsHighlights
+        link_sub:
+            label: Link / Menu
+            required: false
+            display: fieldManager@render
+            manager: EventsLinks
+        people_sub:
+            label: People
+            required: false
+            display: fieldManager@render
+            manager: EventsPeoples
+        sponsor_sub:
+            label: Sponsor
+            required: false
+            display: fieldManager@render
+            manager: EventsSponsors
+        email_sub:
+            label: Email
+            required: false
+            display: fieldManager@render
+            manager: EventsEmails
+        require_attendee_names:
+            label: Attendee Names Required
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        config_options_app:
+            label: config_options_app
+            display: fieldInputText@render
+        config_attendees_app:
+            label:  config_attendees_app
+            display: fieldInputText@render
+        config_payment_app:
+            label:  config_payment_app
+            display: fieldInputText@render
+        config_receipt_app:
+            label:  config_receipt_app
+            display: fieldInputText@render
+        config_options_layout:
+            label: config_options_layout
+            display: fieldInputText@render
+        config_attendees_layout:
+            label:  config_attendees_layout
+            display: fieldInputText@render
+        config_payment_layout:
+            label:  config_payment_layout
+            display: fieldInputText@render
+        config_receipt_layout:
+            label:  config_receipt_layout
+            display: fieldInputText@render
+
+    indexPartial: |
+        <div class="top-container">
+            {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
+        </div>
+        <div class="bottom-container">
+            {{#if events}}
+                {{{ManagerIndexPagination pagination=pagination}}}
+                {{{ManagerIndexButtons metadata=metadata}}}
+                <table class="ui large table segment manager sortable">
+                    <col width="40%">
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Cost</th>
+                            <th>Status</th>
+                            <th class="trash">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each events}}
+                            <tr data-id="{{dbURI}}">
+                                <td>{{title}}</td>
+                                <td>{{{MongoDate display_date}}}</td>
+                                <td>{{time}}</td>
+                                <td>{{cost}}</td>
+                                <td>{{{Capitalize status}}}</td>
+                                <td>
+                                    <div class="manager trash ui icon button">
+                                         <i class="trash icon"></i>
+                                     </div>
+                                 </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{{ManagerIndexPagination pagination=pagination}}}
+            {{else}}
+                {{{ManagerIndexBlankSlate metadata=metadata}}}
+            {{/if}}
+        </div>
+
+    formPartial: |
+        {{{ManagerForm spare=id_spare metadata=metadata}}}
+            <div class="top-container">
+                {{{ManagerFormHeader metadata=metadata}}}
+                {{{ManagerFormTabs metadata=metadata}}}
+            </div>
+            <div class="bottom-container">
+                <div class="ui tab active" data-tab="Main">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                        {{{ManagerField . class="left" name="body Body}}}
+                        {{{ManagerField . class="left" name="description" label="Summary"}}}
+                        {{{ManagerField . class="left" name="time" label="Time Description"}}}
+                        {{{ManagerField . class="left" name="cost" label="Cost Description"}}}
+                        {{{id}}}
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerField . class="fluid" name="status"}}}
+                        <br />
+                        {{{ManagerField . class="fluid" name="display_date" label="Date"}}}
+                        <div class="ui clearing divider"></div>
+                        {{{ManagerField . class="left" name="featured"}}}
+                        <br />
+                        {{{ManagerField . class="left" name="pinned"}}}
+                        <br />
+                        {{{ManagerField . class="left" name="comments}}}
+                        <div class="ui clearing divider"></div>
+                        {{{ManagerField . class="fluid" name="categories" label="Categories"}}}
+                        {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="Views">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="image" label="List View"}}}
+                        {{{ManagerField . class="left" name="image_feature" label="Featured"}}}
+                        {{{ManagerFieldEmbedded . name="image_sub" manager="EventsImages"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="Venue">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="venue" label="Venue"}}}
+                        {{{ManagerField . class="left" name="venue_description" label="Description"}}}
+                        {{{ManagerField . class="left" name="location" label="Address"}}}
+                        {{{ManagerField . class="left" name="contact_info" label="Contact Information"}}}
+                        {{{ManagerField . class="left" name="url" label="URL"}}}
+                        {{{ManagerField . class="left" name="map_url" label="Map URL"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="Registration">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerFieldEmbedded . name="registration_options" manager="EventsRegistrations" label="Registration Options"}}}
+                        {{{ManagerFieldEmbedded . name="discount_code" manager="EventsDiscounts" label="Discount Codes"}}}
+                        {{{ManagerField . class="left" name="require_attendee_names" label="Require Attendee Names"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="Advanced">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerFieldEmbedded . name="link_sub" manager="EventsLinks" label="Links"}}}
+                        {{{ManagerFieldEmbedded . name="people_sub" manager="EventsPeoples" label="People"}}}
+                        {{{ManagerFieldEmbedded . name="sponsor_sub" manager="EventsSponsors" label="Sponsors"}}}
+                        {{{ManagerFieldEmbedded . name="email_sub" manager="EventsEmails" label="Email Messages"}}}
+                        {{{ManagerField . class="left" name="config_options_app" label="config_options_app"}}}
+                        {{{ManagerField . class="left" name="config_attendees_app" label="config_attendees_app"}}}
+                        {{{ManagerField . class="left" name="config_payment_app" label="config_payment_app"}}}
+                        {{{ManagerField . class="left" name="config_receipt_app" label="config_receipt_app"}}}
+                        {{{ManagerField . class="left" name="config_options_layout" label="config_options_layout"}}}
+                        {{{ManagerField . class="left" name="config_attendees_layout" label="config_attendees_layout"}}}
+                        {{{ManagerField . class="left" name="config_payment_layout" label="config_payment_layout"}}}
+                        {{{ManagerField . class="left" name="config_receipt_layout" label="config_receipt_layout"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="Images">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="header_image" label="Header Image"}}}
+                        {{{ManagerField . class="left" name="footer_image" label="Footer Image"}}}
+                        {{{ManagerField . class="left" name="ticket_image" label="Ticket Image"}}}
+                        {{{ManagerFieldEmbedded . name="highlight_images" manager="EventsHighlights" label="Highlight Images"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="SEO">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="code_name" label="Slug"}}}
+                        {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
+                        {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+            </div>
+        </form>

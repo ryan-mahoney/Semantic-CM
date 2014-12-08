@@ -1,0 +1,56 @@
+manager:
+    slug: EventsPlus
+    collection: Collection\Events
+    title: Included Dates
+    titleField: title
+    singular: Included Date
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        date:
+            required: true
+            display: fieldInputDatePicker@render
+            transformIn: XXX date transformIn
+            transformOut: XXX date transformOut
+            default: XXX date default
+        notice:
+            label: Notice
+            display: fieldInputText@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Included Dates"}}}
+        {{#if plus_date}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each plus_date}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{date}}</td>
+                            <td>{{notice}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Included Date"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="date" label="Date"}}}
+            {{{ManagerField . class="fluid" name="notice" label="Notice"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

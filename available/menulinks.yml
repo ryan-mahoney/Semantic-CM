@@ -1,0 +1,75 @@
+manager:
+    slug: MenuLinks
+    collection: Collection\Menus
+    title: Menus
+    titleField: title
+    singular: Menu
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        url:
+            label: URL
+            required: false
+            display: fieldInputText@render
+        title:
+            label: Title
+            required: false
+            display: fieldInputText@render
+        target:
+            label: Redirect
+            required: true
+            options:
+                type: array
+                value: [Self, Blank, Top, Parent]
+            display: fieldSelect@render
+            nullable: false
+            default: self
+        file:
+            label: Image
+            display: fieldInputFile@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Sub Menus"}}}
+        {{#if link}}
+            <table class="ui table manager segment sortable">
+                  <col width="10%">
+                  <col width="40%">
+                  <col width="40%">
+                  <col width="10%">
+                <thead>
+                    <tr>
+                        <th><i class="shuffle basic icon"></i></th>
+                        <th>Title</th>
+                        <th>URL</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each link}}
+                        <tr data-id="{{dbURI}}">
+                            <td class="handle"><i class="reorder icon"></i></td>
+                            <td>{{title}}</td>
+                            <td>{{url}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="submenu"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="title" label="Title"}}}
+            {{{ManagerField . class="fluid" name="url" label="URL"}}}
+            {{{ManagerField . class="fluid" name="target" label="Target"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

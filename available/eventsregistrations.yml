@@ -1,0 +1,81 @@
+manager:
+    slug: EventsRegistrations
+    collection: Collection\Events
+    title: Registrations Options
+    titleField: title
+    singular: Registration Options
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        title:
+            label: Name
+            required: true
+            display: fieldInputText@render
+        description:
+            label: Summary
+            display: fieldRedactor@render
+        price:
+            label: Cost
+            required: false
+            display: fieldInputText@render
+        maximum_units_per_customer:
+            label: "Maximum Units Per Customer"
+            required: false
+            options: XXX maximum_units_per_customer options
+            display: fieldSelect@render
+        quantity:
+            label: "Attendees Per Item"
+            required: false
+            options:
+                type: array
+                value: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            display: fieldSelect@render
+        form:
+            label: Form
+            required: false
+            options:
+                type: array
+                value: [1, 2, 3]
+            display: fieldSelect@render
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Registration Options"}}}
+        {{#if registration_options}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each registration_options}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{title}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Registration Options"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="title" label="Title"}}}
+            {{{ManagerField . class="fluid" name="description" label="Summary"}}}
+            {{{ManagerField . class="fluid" name="price" label="Cost"}}}
+            {{{ManagerField . class="fluid" name="maximum_units_per_customer" label="Maximum Units Per Customer"}}}
+            {{{ManagerField . class="fluid" name="quantity" label="Attendees Per Item"}}}
+            {{{ManagerField . class="fluid" name="form" label="Form"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}
+        <div style="padding-bottom:100px"></div>

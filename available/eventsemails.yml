@@ -1,0 +1,93 @@
+manager:
+    slug: EventsEmails
+    collection: Collection\Events
+    title: Emails
+    titleField: title
+    singular: Email
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        email_subject:
+            label: Subject
+            required: true
+            display: fieldInputText@render
+        email_body:
+            display: fieldRedactor@render
+        title:
+            label: Title
+            required: true
+            display: fieldInputText@render
+        send_date:
+            required: true
+            display: fieldInputDatePicker@render
+            transformIn: XXX send_date transformIn
+            transformOut: XXX send_date transformOut
+            default: XXX send_date default
+        type:
+            label: Type
+            required: true
+            display: fieldInputToTags@render
+            multiple: false
+            options: XXX type options
+        cc:
+            label: Carbon Copy To
+            required: true
+            display: fieldInputText@render
+        bcc:
+            label: Blind Carbon Copy To
+            required: true
+            display: fieldInputText@render
+        tags:
+            label: Tags
+            required: false
+            transformIn: XXX tags transformIn
+            display: fieldInputToTags@render
+            multiple: true
+            options: XXX tags options
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Emails"}}}
+        {{#if email_sub}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each email_sub}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{title}}</td>
+                            <td>{{email_subject}}</td>
+                            <td>{{type}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Email"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="from_address" label="From Address"}}}
+            {{{ManagerField . class="fluid" name="email_subject"}}}
+            {{{ManagerField . class="fluid" name="email_body"}}}
+            {{{ManagerField . class="fluid" name="title" label="Title}}}
+            {{{ManagerField . class="fluid" name="send_date" label="Send Date"}}}
+            {{{ManagerField . class="fluid" name="type" label="Type"}}}
+            {{{ManagerField . class="fluid" name="cc" label="CarbonCopy To"}}}
+            {{{ManagerField . class="fluid" name="bcc" label="Blind Carbon Copy To"}}}
+            {{{ManagerField . class="fluid" name="tags" label="Tags"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}
+        <div style="padding-bottom:100px"></div>

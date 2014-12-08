@@ -1,0 +1,65 @@
+manager:
+    slug: EventsLinks
+    collection: Collection\Events
+    title: Link/Menu
+    titleField: title
+    singular: Link/Menu
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    embedded: true
+
+    fields:
+        url:
+            label: URL
+            required: false
+            display: fieldInputText@render
+        title:
+            label: Title
+            required: false
+            display: fieldInputText@render
+        target:
+            label: Redirect
+            required: true
+            options:
+                type: array
+                value: [Self, Blank, Top, Parent]
+            display: fieldSelect@render
+            nullable: false
+            default: self
+
+    indexPartial: |
+        {{{ManagerEmbeddedIndexHeader label="Link / Menu"}}}
+        {{#if link_sub}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each link_sub}}
+                        <tr data-id="{{dbURI}}">
+                            <td>{{url}}</td>
+                            <td>{{title}}</td>
+                            <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Link / Menu"}}}
+        {{/if}}
+
+    formPartial: |
+        {{{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="url" label="URL"}}}
+            {{{ManagerField . class="fluid" name="title" label="Title"}}}
+            {{{ManagerField . class="fluid" name="target" label="Redirect"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{{ManagerEmbeddedFormFooter}}}

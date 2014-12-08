@@ -1,0 +1,138 @@
+manager:
+    slug: Testimonials
+    collection: Collection\Testimonials
+    title: Testimonials
+    titleField: name
+    singular: Testimonial
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    tabs: [Main, Images]
+    icon: chat
+    category: Content
+    after: function
+    function: ManagerSaved
+
+    fields:
+        name:
+            required: true
+            display: fieldInputText@render
+        location:
+            display: fieldInputText@render
+        occupation:
+            display: fieldInputText@render
+        message:
+            display: fieldRedactor@render
+        messageshort:
+            display: fieldRedactor@render
+        image:
+            display: fieldInputFile@render
+        status:
+            required: true
+            options:
+                type: array
+                value: [Published, Draft]
+            display: fieldSelect@render
+            nullable: false
+            default: published
+        display_date:
+            required: true
+            display: fieldInputDatePicker@render
+            transformIn: XXX display_date transformIn
+            transformOut: XXX display_date transformOut
+            default: XXX display_date default
+        featured:
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputSlider@render
+            default: f
+        approved:
+            label: false
+            required: false
+            options:
+                type: array
+                value: [Yes, No]
+            display: fieldInputRadioButton@render
+            default: f
+
+    indexPartial: |
+        <div class="top-container">
+            {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
+        </div>
+        <div class="bottom-container">
+            {{#if testimonials}}
+                {{{ManagerIndexPagination pagination=pagination}}}
+                {{{ManagerIndexButtons metadata=metadata}}}
+                <table class="ui large table segment manager sortable">
+                    <col width="40%">
+                    <col width="30%">
+                    <col width="20%">
+                    <col width="10%">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Featured</th>
+                            <th class="trash">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each testimonials}}
+                            <tr data-id="{{dbURI}}">
+                                <td>{{title}}</td>
+                                <td>{{{Capitalize status}}}</td>
+                                <td>{{{BooleanReadable featured}}}</td>
+                                <td>
+                                    <div class="manager trash ui icon button">
+                                         <i class="trash icon"></i>
+                                     </div>
+                                 </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{{ManagerIndexPagination pagination=pagination}}}
+            {{else}}
+                {{{ManagerIndexBlankSlate metadata=metadata}}}
+            {{/if}}
+        </div>
+
+    formPartial: |
+        {{{ManagerForm spare=id_spare metadata=metadata}}}
+            <div class="top-container">
+                {{{ManagerFormHeader metadata=metadata}}}
+                {{{ManagerFormTabs metadata=metadata}}}
+            </div>
+            <div class="bottom-container">
+                <div class="ui tab active" data-tab="Main">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="title" label="Name" required="true"}}}
+                        {{{ManagerField . class="left" name="location" label="Location" required="true"}}}
+                        {{{ManagerField . class="left" name="occupation" label="Occupation"}}}
+                        {{{ManagerField . class="left" name="message" label="Message"}}}
+                        {{{ManagerField . class="left" name="messageshort" label="Short Message"}}}
+                        {{{id}}}
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                        {{{ManagerField . class="fluid" name="status"}}}
+                        <br />
+                        {{{ManagerField . class="fluid" name="display_date"}}}
+                        <div class="ui clearing divider"></div>
+                        {{{ManagerField . class="left" name="featured"}}}
+                        <br />
+                        {{{ManagerField . class="left" name="approved"}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                 <div class="ui tab" data-tab="Images">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="image" label="Image"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+            </div>
+        </form>

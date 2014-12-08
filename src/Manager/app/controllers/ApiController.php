@@ -47,8 +47,8 @@ class ApiController {
         $counts = $this->model->collectionCounts();
         $managers = $this->model->cacheRead();
         $managersOut = [];
-        foreach ($managers['managers'] as $manager) {
-            if ($manager['embedded'] == 1) {
+        foreach ($managers as $manager) {
+            if (isset($manager['embedded']) && $manager['embedded'] == 1) {
                 continue;
             }
             if (!empty($_GET['category'])) {
@@ -56,10 +56,10 @@ class ApiController {
                     continue;
                 }
             }
-            if (isset($manager['collection_']) && isset($counts[$manager['collection_']])) {
-                $manager['count'] = $counts[$manager['collection_']]['count'];
-                if (isset ($counts[$manager['collection_']]['modified_date'])) {
-                    $manager['modified_date'] = $counts[$manager['collection_']]['modified_date'];
+            if (isset($manager['collection_name']) && isset($counts[$manager['collection_name']])) {
+                $manager['count'] = $counts[$manager['collection_name']]['count'];
+                if (isset ($counts[$manager['collection_name']]['modified_date'])) {
+                    $manager['modified_date'] = $counts[$manager['collection_name']]['modified_date'];
                 }
             } else {
                 $manager['count'] = 0;
@@ -117,8 +117,7 @@ class ApiController {
 
     public function upsert ($linkName) {
         $manager = $this->model->managerGetByLink($linkName);
-        $class = $manager['class'];
-        $formObject = $this->form->factory(new $class);
+        $formObject = $this->form->factory($manager);
         $formObject->manager = $manager;
         $formObject->topicSaved = 'ManagerSaved';
         $formObject->topicSave = 'ManagerSave';
@@ -133,8 +132,7 @@ class ApiController {
             $id = $_GET['id'];
         }
         $manager = $this->model->managerGetByLink($linkName);
-        $class = $manager['class'];
-        $formObject = $this->form->factory(new $class, $id);
+        $formObject = $this->form->factory($manager, $id);
         $formJson = $this->form->json($formObject);
         $formJson = json_decode($formJson, true);
         $formJson['metadata'] = $manager;

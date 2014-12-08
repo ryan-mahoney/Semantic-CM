@@ -1,0 +1,74 @@
+manager:
+    slug: EventsDiscounts
+    collection: Collection\Events
+    title: Discount Codes
+    titleField: title
+    singular: Discount Code
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    icon: browser
+    category: Content
+    after: function
+    function: embeddedUpsert
+    notice: Discount Saved
+    embedded: true
+
+    fields:
+        code:
+            label: Code
+            required: true
+            display: fieldInputText@render
+        type:
+            required: true
+            options:
+                type: array
+                value: [Percent, Amount]
+            display: fieldSelect@render
+            nullable: false
+            default: Amount
+        expiration_date:
+            required: true
+            display: fieldInputDatePicker@render
+            transformIn: XXX expiration_date transformIn
+            transformOut: XXX expiration_date transformOut
+            default: XXX expiration_date default
+        value:
+            label: Value (Percentage/Amount)
+            required: true
+            display: fieldInputText@render
+
+    indexPartial: |
+        {{ManagerEmbeddedIndexHeader label="Discount Codes"}}}
+        {#if discount_code}}
+            <table class="ui table manager segment">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="trash">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each discount_code}}
+                    <tr data-id="{{dbURI}}">
+                        <td>{{code}}</td>
+                        <td>{{type}}</td>
+                        <td>{{expiration_date}}</td>
+                        <td>{{value}}</td>
+                        <td><div class="manager trash ui icon button"><i class="trash icon small"></i></div></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            {{{ManagerEmbeddedIndexEmpty singular="Discount Code"}}}
+        {{/if}}
+
+    formPartial: |
+        {{ManagerEmbeddedFormHeader metadata=metadata}}}
+            {{{ManagerField . class="fluid" name="code" label="Code"}}}
+            {{{ManagerField . class="fluid" name="type" label="Type"}}}
+            {{{ManagerField . class="fluid" name="expiration_date" label="Expiration Date"}}}
+            {{{ManagerField . class="fluid" name="value" label="Value (Percentage/Amount)"}}}
+            {{{id}}}
+            {{{form-token}}}
+        {{ManagerEmbeddedFormFooter}}}

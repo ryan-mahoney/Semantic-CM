@@ -1,0 +1,106 @@
+manager:
+    slug: Links
+    collection: Collection\Links
+    title: Links
+    titleField: title
+    singular: Link
+    definition: Coming Soon
+    acl: [content, admin, superadmin]
+    tabs: [Main, Images]
+    icon: url
+    category: Content
+    after: function
+    function: ManagerSaved
+
+    fields:
+        title:
+            label: Title
+            required: true
+            display: fieldInputText@render
+        url:
+            label: URL
+            required: true
+            display: fieldInputText@render
+        target:
+            label: Target
+            required: false
+            options:
+                type: array
+                value: [New Window, Self, Parent, Top]
+            display: fieldSelect@render
+            default: self
+        description:
+            label: Description
+            required: false
+            display: fieldTextarea@render
+        image:
+            label: Image
+            display: fieldInputFile@render
+            tooltip: An image that will be displayed when the entry is listed.
+
+    indexPartial: |
+        <div class="top-container">
+            {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
+        </div>
+        <div class="bottom-container">
+            {{#if links}}
+                    {{{ManagerIndexPagination pagination=pagination}}}
+                    {{{ManagerIndexButtons metadata=metadata}}}
+                    <table class="ui large table segment manager sortable">
+                            <col width="80%">
+                            <col width="20%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th class="trash">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each links}}
+                                <tr data-id="{{dbURI}}">
+                                    <td>{{title}}</td>
+                                    <td>
+                                        <div class="manager trash ui icon button">
+                                             <i class="trash icon"></i>
+                                         </div>
+                                     </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    {{{ManagerIndexPagination pagination=pagination}}}
+               {{else}}
+                {{{ManagerIndexBlankSlate metadata=metadata}}}
+            {{/if}}
+        </div>
+
+    formPartial: |
+        {{{ManagerForm spare=id_spare metadata=metadata}}}
+            <div class="top-container">
+                {{{ManagerFormHeader metadata=metadata}}}
+                {{{ManagerFormTabs metadata=metadata}}}
+            </div>
+            <div class="bottom-container">
+                <div class="ui tab active" data-tab="Main">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="title" label="Title" required="true"}}}
+                        {{{ManagerField . class="left" name="url" label="URL"}}}
+                        {{{ManagerField . class="left" name="target" label="Target"}}}
+                        {{{ManagerField . class="left" name="description" label="Summary"}}}
+                        {{{id}}}
+                        {{{form-token}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+                <div class="ui tab" data-tab="Images">
+                    {{{ManagerFormMainColumn}}}
+                        {{{ManagerField . class="left" name="image" label="Image"}}}
+                    {{{ManagerFormMainColumnClose}}}
+                    {{{ManagerFormSideColumn}}}
+                        {{{ManagerFormButton modified=modified_date}}}
+                    {{{ManagerFormSideColumnClose}}}
+                </div>
+            </div>
+        </form>

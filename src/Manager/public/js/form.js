@@ -26,8 +26,7 @@ define(function (require) {
 
         var mode = $('body').attr('date-savemode');
         var manager = $('.manager form').attr('data-manager');
-        var managerClass = $('.manager form').attr('data-class');
-        var dbURI = $('input[name="' + managerClass + '\\[id\\]"]').val();
+        var dbURI = $('input[name="' + manager + '\\[id\\]"]').val();
         if (mode == 'another') {
             window.location = '/Manager/item/' + manager;
             return;
@@ -147,18 +146,17 @@ define(function (require) {
 
     var formSubmitInitialize = function () {
         $('.ui.button.manager.submit').click(function () {
-            console.log('clicked');
             $(this).parents('form').submit();
         });
     };
 
     var titleInitialize = function () {
-        var $formDom = $('form');
+        var $formDom = $('form.manager');
         var titleField = $formDom.attr('data-titlefield');
         if (titleField == '' || typeof(titleField) == 'undefined') {
             return;
         }
-        var managerClass = $formDom.attr('data-class');
+        var managerClass = $formDom.attr('data-manager');
         var titleFieldName = managerClass + '[' + titleField + ']';
         var slugFieldName = managerClass + '[code_name]';
         var crumbDom = $('.top-container .breadcrumb div');

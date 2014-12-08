@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
+        "symfony/yaml": "2.6.1",
         "opine/http": "dev-master",
         "opine/db": "dev-master",
         "cocur/slugify": "v0.2.3",
