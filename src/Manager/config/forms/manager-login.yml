@@ -1,0 +1,16 @@
+form:
+    slug: manager-login
+    storage:
+        collection: login_attempts
+        key: _id
+    after: redirect
+    redirect: /Manager
+    fields:
+        email:
+            placeholder: Email
+            display: fieldInputText@render
+            required: true
+        password:
+            placeholder: Password
+            display: fieldInputPassword@render
+            required: true

@@ -16,15 +16,15 @@ manager:
     fields:
         caption:
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         copyright:
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         title:
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         file:
-            display: fieldInputFile@render
+            display: fieldFile@render
 
     indexPartial: |
         {{{ManagerEmbeddedIndexHeader label="Images"}}}

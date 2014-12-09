@@ -16,11 +16,11 @@ manager:
         url:
             label: URL
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         title:
             label: Title
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         target:
             label: Redirect
             required: true

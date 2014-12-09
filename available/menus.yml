@@ -16,21 +16,21 @@ manager:
         label:
             placeholder: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         url:
             placeholder: URL
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         file:
             placeholder: Image
-            display: fieldInputFile@render
+            display: fieldFile@render
         link:
             required: false
             display: fieldManager@render
             manager: MenuLinks
         css:
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         <div class="top-container">

@@ -16,7 +16,7 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         description:
             label: Summary
             display: fieldTextarea@render
@@ -31,7 +31,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         pinned:
             label: Pin
@@ -39,7 +39,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
 
     indexPartial: |

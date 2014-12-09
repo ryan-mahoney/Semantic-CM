@@ -1,4 +1,4 @@
-<form id="manager-login-form" class="ui form segment" data-xhr="true" method="post" action="/Manager/api/form/Login">
+<form id="manager-login-form" class="ui form segment" data-xhr="true" method="post" action="/Manager/api/form/manager-login">
     <div class="ui top attached label">Semantic CM Login</div>
     <div class="ui warning message">
         <div class="header">There was a problem</div>
@@ -14,6 +14,6 @@
     </div>
     {{{id}}}
     {{{form-token}}}
-    <input type="hidden" name="Manager__Form__Login[route]" value="/Manager">
+    <input type="hidden" name="manager-login[route]" value="/Manager">
     <input type="submit" class="fluid ui blue submit button" value="Login">
 </form>

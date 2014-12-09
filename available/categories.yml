@@ -16,14 +16,14 @@ manager:
     fields:
         title:
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         section:
             required: true
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: false
             options: XXX section options
         image:
-            display: fieldInputFile@render
+            display: fieldFile@render
         subcategory:
             required: false
             display: fieldManager@render
@@ -41,14 +41,14 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         code_name:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_keywords:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_description:
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         <div class="top-container">

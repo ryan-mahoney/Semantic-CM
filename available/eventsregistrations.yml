@@ -16,14 +16,14 @@ manager:
         title:
             label: Name
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         description:
             label: Summary
             display: fieldRedactor@render
         price:
             label: Cost
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         maximum_units_per_customer:
             label: "Maximum Units Per Customer"
             required: false

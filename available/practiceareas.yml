@@ -16,7 +16,7 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         body:
             display: fieldRedactor@render
         description:
@@ -31,11 +31,11 @@ manager:
             nullable: false
             default: published
         code_name:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_keywords:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_description:
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         <div class="top-container">

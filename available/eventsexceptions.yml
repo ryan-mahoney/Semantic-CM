@@ -15,14 +15,14 @@ manager:
     fields:
         date:
             required: true
-            display: fieldInputDatePicker@render
+            display: fieldDatePicker@render
             transformIn: XXX date transformIn
             transformOut: XXX date transformOut
             default: XXX date default
         notice:
             label: Notice
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         {{{ManagerEmbeddedIndexHeader label="Exceptions Dates"}}}

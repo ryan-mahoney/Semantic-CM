@@ -16,7 +16,7 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         body:
             label: Body
             required: false
@@ -27,21 +27,21 @@ manager:
         time:
             label: Time Description
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         cost:
             label: Cost Description
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         image:
             label: List View
-            display: fieldInputFile@render
+            display: fieldFile@render
         image_feature:
             label: Featured View
-            display: fieldInputFile@render
+            display: fieldFile@render
         venue:
             label: Venue
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         venue_description:
             label: Description
             required: false
@@ -57,29 +57,29 @@ manager:
         url:
             label: URL
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         map_url:
             label: Map URL
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         code_name:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_keywords:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_description:
-            display: fieldInputText@render
+            display: fieldText@render
         categories:
             label: Category
             required: false
             options: XXX categories options
-            display: fieldInputToTags@render
+            display: fieldTags@render
             controlled: true
             multiple: true
         tags:
             label: Tags
             required: false
             transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             options: XXX tags options
         status:
@@ -92,7 +92,7 @@ manager:
             default: published
         display_date:
             required: true
-            display: fieldInputDatePicker@render
+            display: fieldDatePicker@render
             transformIn: XXX display_date transformIn
             transformOut: XXX display_date transformOut
             default: XXX display_date default
@@ -102,7 +102,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         pinned:
             label: Pin
@@ -110,7 +110,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         comments:
             label: Comments
@@ -118,17 +118,17 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         header_image:
             label: Header Image
-            display: fieldInputFile@render
+            display: fieldFile@render
         footer_image:
             label: Footer Image
-            display: fieldInputFile@render
+            display: fieldFile@render
         ticket_image:
             label: Ticket Background Image 
-            display: fieldInputFile@render
+            display: fieldFile@render
         image_sub:
             label: Venue Images
             required: false
@@ -175,32 +175,32 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         config_options_app:
             label: config_options_app
-            display: fieldInputText@render
+            display: fieldText@render
         config_attendees_app:
             label:  config_attendees_app
-            display: fieldInputText@render
+            display: fieldText@render
         config_payment_app:
             label:  config_payment_app
-            display: fieldInputText@render
+            display: fieldText@render
         config_receipt_app:
             label:  config_receipt_app
-            display: fieldInputText@render
+            display: fieldText@render
         config_options_layout:
             label: config_options_layout
-            display: fieldInputText@render
+            display: fieldText@render
         config_attendees_layout:
             label:  config_attendees_layout
-            display: fieldInputText@render
+            display: fieldText@render
         config_payment_layout:
             label:  config_payment_layout
-            display: fieldInputText@render
+            display: fieldText@render
         config_receipt_layout:
             label:  config_receipt_layout
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         <div class="top-container">

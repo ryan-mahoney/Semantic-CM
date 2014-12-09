@@ -15,17 +15,17 @@ manager:
     fields:
         name:
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         location:
-            display: fieldInputText@render
+            display: fieldText@render
         occupation:
-            display: fieldInputText@render
+            display: fieldText@render
         message:
             display: fieldRedactor@render
         messageshort:
             display: fieldRedactor@render
         image:
-            display: fieldInputFile@render
+            display: fieldFile@render
         status:
             required: true
             options:
@@ -36,7 +36,7 @@ manager:
             default: published
         display_date:
             required: true
-            display: fieldInputDatePicker@render
+            display: fieldDatePicker@render
             transformIn: XXX display_date transformIn
             transformOut: XXX display_date transformOut
             default: XXX display_date default
@@ -45,7 +45,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         approved:
             label: false
@@ -53,7 +53,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputRadioButton@render
+            display: fieldRadioButton@render
             default: f
 
     indexPartial: |

@@ -15,7 +15,7 @@ manager:
     fields:
         name:
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         <div class="top-container">

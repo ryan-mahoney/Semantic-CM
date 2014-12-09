@@ -15,7 +15,7 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         description:
             label: Description
             display: fieldTextarea@render
@@ -23,7 +23,7 @@ manager:
             label: Tags
             required: false
             transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             options: XXX tags options
         carousel_individual:

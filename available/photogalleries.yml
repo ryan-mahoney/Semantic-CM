@@ -4,7 +4,7 @@ manager:
     title: Photo Galleries
     titleField: title
     singular: Photo Gallery
-    definition: Upload and arrange photo galleries with captions. 
+    definition: Upload and arrange photo galleries with captions.
     acl: [content, admin, superadmin]
     tabs: [Main, SEO]
     icon: photo
@@ -16,13 +16,13 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         description:
             label: Summary
             display: fieldTextarea@render
         image:
             label: Featured Image
-            display: fieldInputFile@render
+            display: fieldFile@render
         status:
             required: true
             options:
@@ -33,7 +33,7 @@ manager:
             default: published
         display_date:
             required: true
-            display: fieldInputDatePicker@render
+            display: fieldDatePicker@render
             transformIn: XXX display_date transformIn
             transformOut: XXX display_date transformOut
             default: XXX display_date default
@@ -43,37 +43,37 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         external_link:
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         pinned:
             label: Pin
             required: false
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         code_name:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_keywords:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_description:
-            display: fieldInputText@render
+            display: fieldText@render
         categories:
             label: Category
             required: false
             options: XXX categories options
-            display: fieldInputToTags@render
+            display: fieldTags@render
             controlled: true
             multiple: true
         tags:
             label: Tags
             required: false
             transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             options: XXX tags options
         image_individual:

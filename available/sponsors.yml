@@ -16,7 +16,7 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         description:
             label: Description
             required: false
@@ -24,7 +24,7 @@ manager:
         url:
             label: URL
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         target:
             label: Target
             required: false
@@ -35,7 +35,7 @@ manager:
             default: self
         image:
             label: Logo
-            display: fieldInputFile@render
+            display: fieldFile@render
             tooltip: An image that will be displayed when the entry is listed.
         status:
             required: true
@@ -51,20 +51,20 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         tags:
             label: Tags
             required: false
             transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             options: XXX tags options
         categories:
             label: Category
             required: false
             options: XXX categories options
-            display: fieldInputToTags@render
+            display: fieldTags@render
             controlled: true
             multiple: true
 

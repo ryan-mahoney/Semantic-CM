@@ -16,42 +16,42 @@ manager:
         company_name:
             label: Name of Employer or Recruiting Firm
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         full_name:
             placeholder: Full Name
-            display: fieldInputText@render
+            display: fieldText@render
             required: true
         job_title:
             label: Job Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         contact_person:
             label: Name
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         contact_title:
             label: Job Title of Contact
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         email:
             label: Email
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         job_expiration:
             label: Job Expiration Date
             required: false
-            display: fieldInputDatePicker@render
+            display: fieldDatePicker@render
             transformIn: XXX job_expiration transformIn
             transformOut: XXX job_expiration transformOut
             default: XXX job_expiration default
         address:
             label: Address
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         city:
             label: City
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         status:
             required: true
             options:
@@ -66,7 +66,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         pinned:
             label: Pin
@@ -74,20 +74,20 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         categories:
             label: Category
             required: false
             options: XXX categories options
-            display: fieldInputToTags@render
+            display: fieldTags@render
             controlled: true
             multiple: true
         tags:
             label: Tags
             required: false
             transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             options: XXX tags options
         state:
@@ -101,19 +101,19 @@ manager:
         zipcode:
             label: Zipcode
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         telephone:
             label: Phone Number
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         website:
             label: Website
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         file:
             label: Attached Job Description
             required: false
-            display: fieldInputFile@render
+            display: fieldFile@render
         description:
             label: Job Description
             display: fieldRedactor@render
@@ -124,7 +124,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             nullable: true
         display_address:
             label: Display Address On Listing
@@ -132,7 +132,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             nullable: true
         display_name:
             label: Display Name On Listing
@@ -140,14 +140,14 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             nullable: true
         code_name:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_keywords:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_description:
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         <div class="top-container">

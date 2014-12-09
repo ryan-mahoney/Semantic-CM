@@ -15,12 +15,12 @@ manager:
     fields:
         name:
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         charset:
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         code_name:
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         <div class="top-container">

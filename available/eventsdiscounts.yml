@@ -17,7 +17,7 @@ manager:
         code:
             label: Code
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         type:
             required: true
             options:
@@ -28,14 +28,14 @@ manager:
             default: Amount
         expiration_date:
             required: true
-            display: fieldInputDatePicker@render
+            display: fieldDatePicker@render
             transformIn: XXX expiration_date transformIn
             transformOut: XXX expiration_date transformOut
             default: XXX expiration_date default
         value:
             label: Value (Percentage/Amount)
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         {{ManagerEmbeddedIndexHeader label="Discount Codes"}}}

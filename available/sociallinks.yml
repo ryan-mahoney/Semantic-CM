@@ -24,13 +24,13 @@ manager:
         url:
             label: URL
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         headerIcon:
             label: Header Icon
-            display: fieldInputFile@render
+            display: fieldFile@render
         footerIcon:
             label: Footer Icon
-            display: fieldInputFile@render
+            display: fieldFile@render
 
     indexPartial: |
         <div class="top-container">

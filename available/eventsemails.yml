@@ -16,38 +16,38 @@ manager:
         email_subject:
             label: Subject
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         email_body:
             display: fieldRedactor@render
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         send_date:
             required: true
-            display: fieldInputDatePicker@render
+            display: fieldDatePicker@render
             transformIn: XXX send_date transformIn
             transformOut: XXX send_date transformOut
             default: XXX send_date default
         type:
             label: Type
             required: true
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: false
             options: XXX type options
         cc:
             label: Carbon Copy To
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         bcc:
             label: Blind Carbon Copy To
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         tags:
             label: Tags
             required: false
             transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             options: XXX tags options
 

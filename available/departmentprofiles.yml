@@ -16,10 +16,10 @@ manager:
         title:
             label: Title
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         image:
             label: Image
-            display: fieldInputFile@render
+            display: fieldFile@render
 
     indexPartial: |
         {{{ManagerEmbeddedIndexHeader label="Profiles"}}}

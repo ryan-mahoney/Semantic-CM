@@ -16,7 +16,7 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         description:
             label: Body
             display: fieldRedactor@render
@@ -25,21 +25,21 @@ manager:
             display: fieldTextarea@render
         image:
             label: Book Cover Image
-            display: fieldInputFile@render
+            display: fieldFile@render
         image:
             label: List View
-            display: fieldInputFile@render
+            display: fieldFile@render
         image_feature:
             label: Featured View
-            display: fieldInputFile@render
+            display: fieldFile@render
         link:
             label: URL
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         price:
             label: Price
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         status:
             required: true
             options:
@@ -54,26 +54,26 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         code_name:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_keywords:
-            display: fieldInputText@render
+            display: fieldText@render
         metadata_description:
-            display: fieldInputText@render
+            display: fieldText@render
         tags:
             label: Tags
             required: false
             transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             options: XXX tags options
         categories:
             label: Category
             required: false
             options: XXX categories options
-            display: fieldInputToTags@render
+            display: fieldTags@render
             controlled: true
             multiple: true
 

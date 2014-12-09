@@ -16,11 +16,11 @@ manager:
     fields:
         file:
             label: Image
-            display: fieldInputFile@render
+            display: fieldFile@render
         url:
             label: URL
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         target:
             label: Redirect
             required: true
@@ -33,7 +33,7 @@ manager:
         caption:
             label: Caption
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         {{{ManagerEmbeddedIndexHeader label="Images"}}}

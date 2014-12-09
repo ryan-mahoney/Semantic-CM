@@ -16,10 +16,10 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         image:
             label: File Upload
-            display: fieldInputFile@render
+            display: fieldFile@render
 
     indexPartial: |
         <div class="top-container">

@@ -15,105 +15,154 @@ manager:
     fields:
         title:
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
+
         body:
             display: fieldRedactor@render
+
         description:
             display: fieldTextarea@render
+
         image:
-            display: fieldInputFile@render
+            display: fieldFile@render
+
         image_feature:
-            display: fieldInputFile@render
+            display: fieldFile@render
+
         status:
             required: true
             options:
                 type: array
-                value: [Published, Draft]
+                value: {published: Published, draft: Draft}
             display: fieldSelect@render
             nullable: false
             default: published
+
         featured:
             label: Feature
             required: false
             options:
                 type: array
-                value: [Yes, No]
-            display: fieldInputSlider@render
+                value: {t: Yes, f: No}
+            display: fieldSlider@render
             default: f
+
         author:
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
+
         publication_name:
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
+
         link:
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
+
         date_published:
             required: false
-            display: fieldInputDatePicker@render
-            transformIn: XXX date_published transformIn
-            transformOut: XXX date_published transformOut
-            default: XXX date_published default
+            display: fieldDatePicker@render
+            transformIn: fieldDatePicker@stringToObject
+            transformOut: fieldDatePicker@objectToString
+
         comments:
             label: Comments
             required: false
             options:
                 type: array
-                value: [Yes, No]
-            display: fieldInputSlider@render
+                value: {t: Yes, f: No}
+            display: fieldSlider@render
             default: f
+
         pinned:
             label: Pin
             required: false
             options:
                 type: array
-                value: [Yes, No]
-            display: fieldInputSlider@render
+                value: {t: Yes, f: No}
+            display: fieldSlider@render
             default: f
+
         display_date:
             required: true
-            display: fieldInputDatePicker@render
-            transformIn: XXX display_date transformIn
-            transformOut: XXX display_date transformOut
-            default: XXX display_date default
+            display: fieldDatePicker@render
+            transformIn: fieldDatePicker@stringToObject
+            transformOut: fieldDatePicker@objectToString
+            default: fieldDatePicker@nowString
+
         code_name:
-            display: fieldInputText@render
+            display: fieldText@render
+
         tags:
             required: false
-            transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            transformIn: fieldTags@csvToArray
+            display: fieldTags@render
             multiple: true
-            options: XXX tags options
+            options:
+                type: queryDistinct
+                collection: blogs
+                field: tags
+
         categories:
             required: false
-            options: XXX categories options
-            display: fieldInputToTags@render
+            options:
+                type: query
+                collection: categories
+                criteria:
+                    section: Blog
+                sort:
+                    title: 1
+                key: _id
+                label: title
+            display: fieldTags@render
             controlled: true
             multiple: true
+
         language:
             required: false
-            options: XXX language options
-            display: fieldInputToTags@render
+            options:
+                type: query
+                collection: languages
+                sort:
+                    name: 1
+                key: code_name
+                label: name
+            display: fieldTags@render
             controlled: true
             multiple: false
+
         acl:
             required: false
-            options: XXX acl options
-            display: fieldInputToTags@render
+            options:
+                type: query
+                collection: user_groups
+                sort:
+                    name: 1
+                key: name
+                label: name
+            display: fieldTags@render
             controlled: true
             multiple: true
             default: public
+
         authors:
             required: false
-            options: XXX authors options
-            display: fieldInputToTags@render
+            options:
+                type: query
+                collection: profiles
+                sort:
+                    first_name: 1
+                key: _id
+                label: title
+            display: fieldTags@render
             controlled: true
             multiple: true
+
         metadata_keywords:
-            display: fieldInputText@render
+            display: fieldText@render
+
         metadata_description:
-            display: fieldInputText@render
+            display: fieldText@render
 
     indexPartial: |
         <div class="top-container">

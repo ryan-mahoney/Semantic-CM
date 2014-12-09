@@ -15,10 +15,10 @@ manager:
     fields:
         image:
             label: Image
-            display: fieldInputFile@render
+            display: fieldFile@render
         heading:
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         description:
             display: fieldTextarea@render
 

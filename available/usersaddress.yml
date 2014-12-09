@@ -33,7 +33,7 @@ manager:
         city:
             label: City
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         state:
             label: State
             required: false
@@ -45,14 +45,14 @@ manager:
         zip:
             label: Zip
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         primary:
             label: Primary
             required: false
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
 
     indexPartial: |

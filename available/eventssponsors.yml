@@ -16,14 +16,14 @@ manager:
         name:
             label: Name
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         url:
             label: URL
             required: false
-            display: fieldInputText@render
+            display: fieldText@render
         file:
             label: Image
-            display: fieldInputFile@render
+            display: fieldFile@render
 
     indexPartial: |
         {{{ManagerEmbeddedIndexHeader label="Sponsors"}}}

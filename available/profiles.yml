@@ -15,31 +15,31 @@ manager:
     fields:
         first_name:
             placeholder: First Name
-            display: fieldInputText@render
+            display: fieldText@render
             required: true
         last_name:
             placeholder: Last Name
             label: Last Name
-            display: fieldInputText@render
+            display: fieldText@render
             required: true
         full_name:
             label: FullName
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         email:
             label: Email
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         homepage:
-            display: fieldInputText@render
+            display: fieldText@render
         phone:
             label: Phone
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         description:
             label: Summary
             display: fieldTextarea@render
@@ -57,7 +57,7 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         pinned:
             label: Pin
@@ -65,14 +65,14 @@ manager:
             options:
                 type: array
                 value: [Yes, No]
-            display: fieldInputSlider@render
+            display: fieldSlider@render
             default: f
         image:
             label: List View
-            display: fieldInputFile@render
+            display: fieldFile@render
         image_feature:
             label: Featured View
-            display: fieldInputFile@render
+            display: fieldFile@render
 
     indexPartial: |
         <div class="top-container">

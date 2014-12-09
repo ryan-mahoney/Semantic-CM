@@ -195,7 +195,7 @@ class Model {
         if (!isset($context['formMarker'])) {
             throw new Exception('Form marker not set in post');
         }
-        $document = $this->postService->{$context['formMarker']};
+        $document = $this->postService->get($context['formMarker']);
         if ($document === false || empty($document)) {
             throw new Exception('Document not found in post');
         }

@@ -1,6 +1,5 @@
 regions:
     login:
-        url: '/Manager/api/form/Login'
-        args: []
-        partial: 'Manager/login.hbs'
-        type: 'Form'
+        url: /Manager/api/form/manager-login
+        partial: Manager/login.hbs
+        type: Form

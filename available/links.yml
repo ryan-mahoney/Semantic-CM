@@ -16,11 +16,11 @@ manager:
         title:
             label: Title
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         url:
             label: URL
             required: true
-            display: fieldInputText@render
+            display: fieldText@render
         target:
             label: Target
             required: false
@@ -35,7 +35,7 @@ manager:
             display: fieldTextarea@render
         image:
             label: Image
-            display: fieldInputFile@render
+            display: fieldFile@render
             tooltip: An image that will be displayed when the entry is listed.
 
     indexPartial: |

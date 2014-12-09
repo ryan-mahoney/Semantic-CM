@@ -15,39 +15,39 @@ manager:
     fields:
         name:
             placeholder: Name
-            display: fieldInputText@render
+            display: fieldText@render
             required: true
         subject:
             placeholder: Subject
-            display: fieldInputText@render
+            display: fieldText@render
             required: true
         body:
             required: false
             display: fieldRedactor@render
         from:
             placeholder: From
-            display: fieldInputToTags@render
+            display: fieldTags@render
             controlled: false
             multiple: false
             required: true
             options: XXX from options
         reply_to:
             placeholder: Reply To
-            display: fieldInputToTags@render
+            display: fieldTags@render
             controlled: false
             multiple: false
             required: false
             options: XXX reply_to options
         cc:
             placeholder: CC
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             controlled: false
             required: false
             options: XXX cc options
         bcc:
             placeholder: Bcc
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             controlled: false
             required: false
@@ -56,7 +56,7 @@ manager:
             label: Tags
             required: false
             transformIn: XXX tags transformIn
-            display: fieldInputToTags@render
+            display: fieldTags@render
             multiple: true
             controlled: false
             options: XXX tags options

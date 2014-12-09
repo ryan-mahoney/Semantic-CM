@@ -1,5 +1,5 @@
 topics:
-    Manager__Form__Login-save:
+    'FORM:SAVE:manager-login':
         - managerModel@authenticate
     ManagerSave:
         - managerModel@post
