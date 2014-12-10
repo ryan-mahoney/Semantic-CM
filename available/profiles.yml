@@ -47,7 +47,7 @@ manager:
             required: true
             options:
                 type: array
-                value: [Published, Draft]
+                value: {published: Published, draft: Draft}
             display: fieldSelect@render
             nullable: false
             default: published
@@ -56,7 +56,7 @@ manager:
             required: false
             options:
                 type: array
-                value: [Yes, No]
+                value: {t: Yes, f: No}
             display: fieldSlider@render
             default: f
         pinned:
@@ -64,7 +64,7 @@ manager:
             required: false
             options:
                 type: array
-                value: [Yes, No]
+                value: {t: Yes, f: No}
             display: fieldSlider@render
             default: f
         image:

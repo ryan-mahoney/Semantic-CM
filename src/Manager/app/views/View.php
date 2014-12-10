@@ -75,6 +75,9 @@ class View {
         $sort = '{"created_date":-1}';
         if (isset($manager['sort'])) {
             $sort = $manager['sort'];
+            if (is_array($manager['sort'])) {
+                $sort = json_encode($manager['sort']);
+            }
         }
         if ($url === false) {
             $url = '/Manager/api/index/' . $linkName . '/manager/50/0/' . $sort;

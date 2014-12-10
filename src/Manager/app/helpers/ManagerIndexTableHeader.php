@@ -58,7 +58,7 @@ class ManagerIndexTableHeader {
                                         <i class="dropdown icon"></i>
                                         <div class="menu">
                                             <div class="item"><i class="cloud download icon"></i> Export</div>
-                                            <div class="item"><i class="filter icon"></i> Filter</div>
+                                            <!-- <div class="item"><i class="filter icon"></i> Filter</div> -->
                                         </div>
                                     </div>
                                 </div>

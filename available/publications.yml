@@ -36,7 +36,7 @@ manager:
             required: true
             options:
                 type: array
-                value: [Published, Draft]
+                value: {published: Published, draft: Draft}
             display: fieldSelect@render
             nullable: false
             default: published

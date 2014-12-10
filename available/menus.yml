@@ -10,7 +10,9 @@ manager:
     category: Content
     after: function
     function: ManagerSaved
-    sort: '{"sort_key":1, "created_date":-1}'
+    sort:
+        sort_key: 1
+        created_date: 1
 
     fields:
         label:

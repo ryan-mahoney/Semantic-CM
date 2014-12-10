@@ -62,7 +62,7 @@ class Model {
     public function managerGetByLink ($slug) {
         $managers = $this->cacheRead();
         if (!isset($managers[$slug])) {
-            throw new Exception('can not get manager by link: ' . $slug);
+            throw new Exception('can not get manager by slug: ' . $slug);
         }
         return $managers[$slug];
     }

@@ -165,10 +165,8 @@ manager:
             display: fieldText@render
 
     indexPartial: |
-        <div class="top-container">
-            {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
-        </div>
-        <div class="bottom-container ui page grid">
+        {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
+        <div class="ui page grid">
             <div class="row">
                 <div class="column">
                     {{#if blogs}}
@@ -204,7 +202,6 @@ manager:
                                      </tr>
                                 {{/each}}
                              </tbody>
-                             <tfoot class="full-width">
                         </table>
                         {{{ManagerIndexPagination pagination=pagination}}}
                     {{else}}
@@ -216,11 +213,9 @@ manager:
 
     formPartial: |
         {{{ManagerForm spare=id_spare metadata=metadata}}}
-            <div class="top-container">
-                {{{ManagerFormHeader metadata=metadata}}}
-                {{{ManagerFormTabs metadata=metadata modified=modified_date}}}
-            </div>
-            <div class="bottom-container ui page grid">
+            {{{ManagerFormHeader metadata=metadata}}}
+            {{{ManagerFormTabs metadata=metadata modified=modified_date}}}
+            <div class="ui page grid">
                 <div class="ui tab active" data-tab="Main">
                     {{{ManagerFormMainColumn}}}
                         {{{ManagerField . name="title" class="left" label="Title" required="true"}}}

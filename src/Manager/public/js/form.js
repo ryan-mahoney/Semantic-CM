@@ -6,7 +6,6 @@ define(function (require) {
 
     require('../../../../bower_components/livestampjs/livestamp.js');
 
-
     window.ManagerSaved = function (form, data) {
         var message = 'Information Saved.';
         if ($(form).attr('data-singular') !== "undefined") {
@@ -159,7 +158,7 @@ define(function (require) {
         var managerClass = $formDom.attr('data-manager');
         var titleFieldName = managerClass + '[' + titleField + ']';
         var slugFieldName = managerClass + '[code_name]';
-        var crumbDom = $('.top-container .breadcrumb div');
+        var crumbDom = $('#manager-breadcrumbs div');
         var titleDom = $('input[name="' + titleFieldName + '"]');
         var slugDom = $('input[name="' + slugFieldName + '"]');
         var watchedObject = {

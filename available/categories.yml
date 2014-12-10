@@ -8,7 +8,9 @@ manager:
     acl: [content, admin, superadmin]
     tabs: [Main, SEO]
     icon: checkmark sign
-    sort: '{"sort_key":1, "title":1}'
+    sort:
+        - sort_key: 1
+        - title: 1
     category: Content
     after: function
     function: ManagerSaved
@@ -32,7 +34,7 @@ manager:
             required: true
             options:
                 type: array
-                value: [Published, Draft]
+                value: {published: Published, draft: Draft}
             display: fieldSelect@render
             nullable: false
             default: published
@@ -40,7 +42,7 @@ manager:
             required: false
             options:
                 type: array
-                value: [Yes, No]
+                value: {t: Yes, f: No}
             display: fieldSlider@render
             default: f
         code_name:

@@ -326,14 +326,13 @@
     padding-top: 14px;
 }
 
-#manager-index .bottom-container {
+#manager-index > div:last-child {
     margin-top: -28px;
 }
 
 /* FORM */
 
 #manager-form-tabs {
-    margin-bottom: 15px;
     position: relative;
     margin-top: 28px;
 }

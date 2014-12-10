@@ -51,7 +51,7 @@ manager:
             required: false
             options:
                 type: array
-                value: [Yes, No]
+                value: {t: Yes, f: No}
             display: fieldSlider@render
             default: f
 

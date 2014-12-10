@@ -74,15 +74,15 @@ class Controller {
         $this->view->add($manager, $layout);
     }
 
-    public function edit ($linkName, $id) {
+    public function edit ($slug, $id) {
         $layout = 'Manager/forms/any';
         if (isset($_GET['embedded'])) {
             $layout = 'Manager/forms/embedded';
         }
-        $this->view->edit($linkName, $layout, $id);
+        $this->view->edit($slug, $layout, $id);
     }
 
-    public function index ($linkName) {
+    public function index ($slug) {
         $layout = 'Manager/collections/any';
         $url = false;
         if (isset($_GET['embedded']) && isset($_GET['dbURI'])) {
@@ -99,10 +99,10 @@ class Controller {
         } elseif (isset($_GET['naked'])) {
             $layout = 'Manager/collections/naked';
         }
-        $this->view->index($linkName, $layout, $url);
+        $this->view->index($slug, $layout, $url);
     }
 
-    public function indexEmbedded ($linkName, $field, $dbURI) {
+    public function indexEmbedded ($slug, $field, $dbURI) {
         $parts = explode(':', $dbURI);
         $collection = $parts[0];
         $collectionData = $this->model->collectionGetByCollection($collection);
@@ -111,7 +111,7 @@ class Controller {
         }
         $layout = 'Manager/collections/embedded';
         $url = (($collectionData['bundle'] != '') ? '/' . $collectionData['bundle'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . $dbURI . ':' . $field;
-        $this->view->index($linkName, $layout, $url);
+        $this->view->index($slug, $layout, $url);
     }
 
     public function logout () {
