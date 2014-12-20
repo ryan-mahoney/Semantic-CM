@@ -126,9 +126,7 @@ class Model {
         $document = $documentInstance->current();
         $id = $documentInstance->id();
         $collectionName = $documentInstance->collection();
-        $collection = $this->collectionGetByCollection($collectionName);
-        $collectionClass = $collection['class'];
-        $collectionInstance = $this->collectionService->factory(new $collectionClass());
+        $collectionInstance = $this->collectionService->factory($collectionName);
         if ($collectionInstance === false) {
             return;
         }
@@ -253,7 +251,7 @@ class Model {
                 $collection = $managerInstance['collection'];
                 $collectionName = '';
                 if (class_exists($collection)) {
-                    $collectionInstance = $this->collectionService->factory(new $collection());
+                    $collectionInstance = $this->collectionService->factory($collection);
                     $collectionName = $collectionInstance->collection;
                 }
                 if (isset($managerInstance['formPartial'])) {
