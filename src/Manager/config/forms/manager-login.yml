@@ -8,9 +8,9 @@ form:
     fields:
         email:
             placeholder: Email
-            display: fieldInputText@render
+            display: fieldText@render
             required: true
         password:
             placeholder: Password
-            display: fieldInputPassword@render
+            display: fieldPassword@render
             required: true

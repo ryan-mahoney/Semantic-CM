@@ -1,0 +1,25 @@
+route:
+    GET:
+        /Manager:
+        /Manager:                                                       [managerController@dashboard, {before: managerController@authFilter}]
+        /Manager/section/{section}:                                     [managerController@dashboard, {before: managerController@authFilter}]
+        /Manager/header:                                                [managerController@header, {before: managerController@authFilter}]
+        /Manager/item/{manager}:                                        [managerController@add, {before: managerController@authFilter}]
+        /Manager/item/{manager}/{dbURI}:                                [managerController@edit, {before: managerController@authFilter}]
+        /Manager/index/{manager}:                                       [managerController@index, {before: managerController@authFilter}]
+        /Manager/login:                                                 managerController@login
+        /Manager/logout:                                                managerController@logout
+        /Manager/api/managers:                                          [managerApiController@managers, {before: managerController@authFilter}]
+        /Manager/api/search:                                            [managerApiController@search, {before: managerController@authFilter}]
+        /Manager/api/index/{manager}:                                   [managerApiController@collection, {before: managerController@authFilter}]
+        /Manager/api/index/{manager}/{method}:                          [managerApiController@collection, {before: managerController@authFilter}]
+        /Manager/api/index/{manager}/{method}/{limit}:                  [managerApiController@collection, {before: managerController@authFilter}]
+        /Manager/api/index/{manager}/{method}/{limit}/{page}:           [managerApiController@collection, {before: managerController@authFilter}]
+        /Manager/api/index/{manager}/{method}/{limit}/{page}/{sort}:    [managerApiController@collection, {before: managerController@authFilter}]
+        /Manager/api/document/{manager}:                                [managerApiController@form, {before: managerController@authFilter}]
+    POST:
+        /Manager/api/upload/{manager}/{field}:                          [managerApiController@upload, {before: managerController@authFilter}]
+        /Manager/api/sort:                                              [managerApiController@sort, {before: managerController@authFilter}]
+        /Manager/api/upsert/{manager}:                                  [managerApiController@upsert, {before: managerController@authFilter}]
+    DELETE:
+        /Manager/api/{dbURI}:                                           [managerApiController@delete, {before: managerController@authFilter}]
