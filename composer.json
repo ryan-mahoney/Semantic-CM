@@ -1,5 +1,5 @@
 {
-    "name": "opine\/semantic-cm",
+    "name": "opine/semantic-cm",
     "type": "library",
     "minimum-stability": "dev",
     "description": "Semantic-CM, the Opine-PHP and Semantic-UI based Management System",
@@ -9,33 +9,33 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Ryan Mahoney",
-            "email": "ryan@virtuecenter.com",
-            "homepage": "http:\/\/opine-php.org",
-            "role": "Developer"
+            "name"    : "Ryan Mahoney",
+            "email"   : "ryan@virtuecenter.com",
+            "homepage": "http:/opine-php.org",
+            "role"    : "Developer"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "symfony/yaml": "2.6.1",
-        "opine/http": "dev-master",
-        "opine/db": "dev-master",
-        "cocur/slugify": "v0.2.3",
-        "opine/build": "dev-master",
-        "opine/cache": "dev-master",
-        "opine/collection": "dev-master",
-        "opine/config": "dev-master",
-        "opine/container": "dev-master",
-        "opine/form": "dev-master",
-        "opine/pubsub": "dev-master",
-        "opine/queue": "dev-master",
-        "opine/search": "dev-master",
-        "opine/layout": "dev-master",
-        "opine/bundle": "dev-master",
+        "php"                : ">=5.4.0",
+        "symfony/yaml"       : "2.6.1",
+        "opine/http"         : "dev-master",
+        "opine/db"           : "dev-master",
+        "cocur/slugify"      : "v0.2.3",
+        "opine/build"        : "dev-master",
+        "opine/cache"        : "dev-master",
+        "opine/collection"   : "dev-master",
+        "opine/config"       : "dev-master",
+        "opine/container"    : "dev-master",
+        "opine/form"         : "dev-master",
+        "opine/pubsub"       : "dev-master",
+        "opine/queue"        : "dev-master",
+        "opine/search"       : "dev-master",
+        "opine/layout"       : "dev-master",
+        "opine/bundle"       : "dev-master",
         "opine/uploadwrapper": "dev-master",
-        "opine/route": "dev-master",
+        "opine/route"        : "3.0.1",
         "opine/uploadwrapper": "dev-master",
-        "opine/interfaces": "dev-master"
+        "opine/interfaces"   : "dev-master"
     },
     "autoload": {
         "classmap": [
