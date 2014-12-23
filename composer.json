@@ -43,7 +43,6 @@
             "src/Manager/app/controllers",
             "src/Manager/app/views",
             "src/Manager/app/models",
-            "src/Manager/app/Route.php",
             "src/Manager/app/helpers"
         ]
     }
