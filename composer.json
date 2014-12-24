@@ -18,20 +18,20 @@
     "require": {
         "php"                : ">=5.4.0",
         "symfony/yaml"       : "2.6.1",
-        "opine/http"         : "dev-master",
-        "opine/db"           : "dev-master",
+        "opine/http"         : "2.0.0",
+        "opine/db"           : "2.0.0",
         "cocur/slugify"      : "v0.2.3",
-        "opine/cache"        : "2.0.2",
-        "opine/collection"   : "dev-master",
+        "opine/cache"        : "2.0.3",
+        "opine/collection"   : "2.0.0",
         "opine/config"       : "3.0.0",
-        "opine/container"    : "2.0.2",
-        "opine/form"         : "dev-master",
-        "opine/pubsub"       : "dev-master",
-        "opine/queue"        : "dev-master",
-        "opine/search"       : "dev-master",
-        "opine/layout"       : "dev-master",
-        "opine/bundle"       : "1.9.0",
-        "opine/route"        : "3.0.1",
+        "opine/container"    : "2.0.3",
+        "opine/form"         : "2.0.0",
+        "opine/pubsub"       : "2.0.0",
+        "opine/queue"        : "2.0.0",
+        "opine/search"       : "2.0.0",
+        "opine/layout"       : "2.0.0",
+        "opine/bundle"       : "2.0.0",
+        "opine/route"        : "3.0.2",
         "opine/uploadwrapper": "dev-master",
         "opine/interfaces"   : "1.0.0"
     },
@@ -43,5 +43,6 @@
             "src/Manager/app/models",
             "src/Manager/app/helpers"
         ]
-    }
+    },
+    "version": "1.5.7"
 }
