@@ -24,9 +24,9 @@
  */
 namespace Opine\Manager;
 
-use Exception;
 
-class Controller {
+class Controller
+{
     private $model;
     private $view;
     private $manager;
@@ -37,7 +37,8 @@ class Controller {
     private $redirect;
     private $route;
 
-    public function __construct ($model, $view, $service, $form, $search, $upload, $slugify, $route) {
+    public function __construct($model, $view, $service, $form, $search, $upload, $slugify, $route)
+    {
         $this->model = $model;
         $this->view = $view;
         $this->manager = $service;
@@ -48,25 +49,29 @@ class Controller {
         $this->route = $route;
     }
 
-    public function login () {
+    public function login()
+    {
         $this->view->login();
     }
 
-    public function authFilter () {
+    public function authFilter()
+    {
         if (!isset($_SERVER['REQUEST_URI'])) {
             return false;
         }
         $uri = $_SERVER['REQUEST_URI'];
         if (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '') {
-            $uri = str_replace('?' . $_SERVER['QUERY_STRING'], '', $uri);
+            $uri = str_replace('?'.$_SERVER['QUERY_STRING'], '', $uri);
         }
         if ($this->model->loggedIn() === false || $this->model->authCheckPath($uri) === false) {
             return $this->route->redirect()->to('/Manager/login');
         }
+
         return true;
     }
 
-    public function add ($manager) {
+    public function add($manager)
+    {
         $layout = 'Manager/forms/any';
         if (isset($_GET['embedded'])) {
             $layout = 'Manager/forms/embedded';
@@ -74,7 +79,8 @@ class Controller {
         $this->view->add($manager, $layout);
     }
 
-    public function edit ($slug, $id) {
+    public function edit($slug, $id)
+    {
         $layout = 'Manager/forms/any';
         if (isset($_GET['embedded'])) {
             $layout = 'Manager/forms/embedded';
@@ -82,7 +88,8 @@ class Controller {
         $this->view->edit($slug, $layout, $id);
     }
 
-    public function index ($slug) {
+    public function index($slug)
+    {
         $layout = 'Manager/collections/any';
         $url = false;
         if (isset($_GET['embedded']) && isset($_GET['dbURI'])) {
@@ -93,7 +100,7 @@ class Controller {
                 array_pop($parts);
             }
             $layout = 'Manager/collections/embedded';
-            $url = (($collectionData['bundle'] != '') ? '/' . $collectionData['bundle'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . implode(':', $parts);
+            $url = (($collectionData['bundle'] != '') ? '/'.$collectionData['bundle'] : '').'/api/collection/'.$collectionData['name'].'/byEmbeddedField-'.implode(':', $parts);
         } elseif (isset($_GET['naked']) && isset($_GET['embedded']) && $_GET['embedded'] == 1) {
             $layout = 'Manager/collections/embedded';
         } elseif (isset($_GET['naked'])) {
@@ -102,7 +109,8 @@ class Controller {
         $this->view->index($slug, $layout, $url);
     }
 
-    public function indexEmbedded ($slug, $field, $dbURI) {
+    public function indexEmbedded($slug, $field, $dbURI)
+    {
         $parts = explode(':', $dbURI);
         $collection = $parts[0];
         $collectionData = $this->model->collectionGetByCollection($collection);
@@ -110,20 +118,23 @@ class Controller {
             array_pop($parts);
         }
         $layout = 'Manager/collections/embedded';
-        $url = (($collectionData['bundle'] != '') ? '/' . $collectionData['bundle'] : '') . '/api/collection/' . $collectionData['name'] . '/byEmbeddedField-' . $dbURI . ':' . $field;
+        $url = (($collectionData['bundle'] != '') ? '/'.$collectionData['bundle'] : '').'/api/collection/'.$collectionData['name'].'/byEmbeddedField-'.$dbURI.':'.$field;
         $this->view->index($slug, $layout, $url);
     }
 
-    public function logout () {
+    public function logout()
+    {
         $this->model->logout();
         header('Location: /Manager/login');
     }
 
-    public function header () {
+    public function header()
+    {
         $this->view->header();
     }
 
-    public function dashboard ($section='') {
+    public function dashboard($section = '')
+    {
         $this->view->dashboard($section);
     }
 }

@@ -12,7 +12,8 @@
  */
 namespace Manager;
 
-class Subimages {
+class Subimages
+{
     public $collection = 'Collection\PhotoGalleries';
     public $title = 'Subimage';
     public $titleField = 'title';
@@ -27,10 +28,11 @@ class Subimages {
     public $embedded = true;
     public $storage = [
         'collection' => 'photo_galleries',
-        'key' => '_id'
+        'key' => '_id',
     ];
 
-    function captionField () {
+    public function captionField()
+    {
         return [
             'name'        => 'caption',
             'required'    => false,
@@ -38,7 +40,8 @@ class Subimages {
         ];
     }
 
-    function copyrightField () {
+    public function copyrightField()
+    {
         return [
             'name'        => 'copyright',
             'required'    => false,
@@ -46,7 +49,8 @@ class Subimages {
         ];
     }
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'required'    => false,
@@ -54,14 +58,16 @@ class Subimages {
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name' => 'file',
             'display' => 'Field\InputFile'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Images"}}}
             {{#if image_individual}}
@@ -93,18 +99,21 @@ class Subimages {
                 {{{ManagerEmbeddedIndexEmpty singular="image"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
-            {{{ManagerEmbeddedFormHeader metadata=metadata}}}                
+            {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="file" label="Image"}}}
                 {{{ManagerField . class="fluid" name="caption" label="Caption"}}}
                 {{{id}}}
                 {{{form-token}}}
-            {{{ManagerEmbeddedFormFooter}}}    
+            {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }

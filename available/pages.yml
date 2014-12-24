@@ -4,7 +4,7 @@ manager:
     title: Pages
     titleField: title
     singular: Page
-    definition: Individual content pages can be created and linked to your site through menus. 
+    definition: Individual content pages can be created and linked to your site through menus.
     acl: [content, admin, superadmin]
     tabs: [Main, SEO]
     icon: copy

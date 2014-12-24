@@ -9,7 +9,8 @@
  */
 namespace Manager;
 
-class Links {
+class Links
+{
     public $collection = 'Collection\Links';
     public $title = 'Links';
     public $titleField = 'title';
@@ -23,7 +24,8 @@ class Links {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField() {
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -31,7 +33,8 @@ class Links {
             'display' => 'Field\InputText'
         ];
     }
-    function urlField() {
+    public function urlField()
+    {
         return [
             'name'        => 'url',
             'label'        => 'URL',
@@ -40,24 +43,26 @@ class Links {
         ];
     }
 
-    public function targetField(){
+    public function targetField()
+    {
         return [
-            'name'        =>'target',
+            'name'        => 'target',
             'label'        => 'Target',
             'required'    => false,
             'options'    => array(
-                    '_blank'        =>'New Window',
-                    '_self'        =>'Self',
-                    '_parent'    =>'Parent',
-                    '_top'        =>'Top'
+                    '_blank'        => 'New Window',
+                    '_self'        => 'Self',
+                    '_parent'    => 'Parent',
+                    '_top'        => 'Top',
         ),
-                'display'    =>'Field\Select',
-                'default'=> 'self'    
-    
+                'display'    => 'Field\Select',
+                'default' => 'self'
+
         ];
     }
 
-    function descriptionField() {
+    public function descriptionField()
+    {
         return [
             'name'        => 'description',
             'label'        => 'Description',
@@ -66,7 +71,8 @@ class Links {
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
                 'name' => 'image',
                 'label' => 'Image',
@@ -75,7 +81,8 @@ class Links {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -85,13 +92,13 @@ class Links {
                 {{#if links}}
                         {{{ManagerIndexPagination pagination=pagination}}}
                         {{{ManagerIndexButtons metadata=metadata}}}
-                        
+
                         <table class="ui large table segment manager sortable">
                                 <col width="80%">
                                 <col width="20%">
                             <thead>
                                 <tr>
-                                    
+
                                     <th>Title</th>
                                     <th class="trash">Delete</th>
                                 </tr>
@@ -99,7 +106,7 @@ class Links {
                             <tbody>
                                 {{#each links}}
                                     <tr data-id="{{dbURI}}">
-                                        
+
                                         <td>{{title}}</td>
                                         <td>
                                             <div class="manager trash ui icon button">
@@ -117,9 +124,11 @@ class Links {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -143,8 +152,8 @@ HBS;
                     <div class="ui tab" data-tab="Images">
                         {{{ManagerFormMainColumn}}}
                             {{{ManagerField . class="left" name="image" label="Image"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -152,6 +161,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

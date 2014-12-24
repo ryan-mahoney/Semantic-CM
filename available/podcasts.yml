@@ -4,7 +4,7 @@ manager:
     title: Podcasts
     titleField: title
     singular: Podcast
-    definition: Upload MP3 files with descriptions and photos here. 
+    definition: Upload MP3 files with descriptions and photos here.
     acl: [content, admin, superadmin]
     tabs: [Main, Images, SEO]
     icon: headphones

@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsHighlights {
+class EventsHighlights
+{
     public $collection = 'Collection\Events';
     public $title = 'Highlight Images';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class EventsHighlights {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'label' => 'Image',
@@ -29,7 +31,8 @@ class EventsHighlights {
         ];
     }
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'      => 'heading',
             'required'  => true,
@@ -37,14 +40,16 @@ class EventsHighlights {
         ];
     }
 
-    function descriptionField () {
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'display' => 'Field\Textarea'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Highlight Images"}}}
             {{#if highlight_images}}
@@ -69,10 +74,12 @@ class EventsHighlights {
                 {{{ManagerEmbeddedIndexEmpty singular="Highlight Image"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="image" label="Image"}}}
@@ -82,7 +89,7 @@ HBS;
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }
-

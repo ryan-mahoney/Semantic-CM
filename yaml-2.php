@@ -1,7 +1,6 @@
 <?php
 namespace Manager;
 
-
 //tmp
 $managers = 'Blogs
 Blurbs
@@ -51,8 +50,8 @@ Videos';
 $managers = explode("\n", $managers);
 
 foreach ($managers as $manager) {
-    require_once(__DIR__ . '/available/' . $manager . '.php');
-    $class = 'Manager\\' . $manager;
+    require_once __DIR__.'/available/'.$manager.'.php';
+    $class = 'Manager\\'.$manager;
     $obj = new $class();
     $reflect = new \ReflectionClass($obj);
     $properties = $reflect->getProperties();
@@ -60,7 +59,8 @@ foreach ($managers as $manager) {
     format($manager, $class, $obj, $properties, $methods);
 }
 
-function format ($manager, $class, $obj, $properties, $methods) {
+function format($manager, $class, $obj, $properties, $methods)
+{
     ob_start();
     echo 'manager:', "\n";
     echo '    slug: ', $manager, "\n";
@@ -93,7 +93,7 @@ function format ($manager, $class, $obj, $properties, $methods) {
                 break;
 
             default:
-                exit ('unknown type: ' . gettype($value) . ', for: ' . $propName);
+                exit('unknown type: '.gettype($value).', for: '.$propName);
         }
     }
     echo "\n", '    fields:', "\n";
@@ -139,7 +139,7 @@ function format ($manager, $class, $obj, $properties, $methods) {
                     break;
 
                 default:
-                    exit ('unknown type: ' . gettype($value) . ', for: ' . $key);
+                    exit('unknown type: '.gettype($value).', for: '.$key);
             }
         }
     }
@@ -164,9 +164,10 @@ function format ($manager, $class, $obj, $properties, $methods) {
         echo substr(rtrim($line), 4), "\n";
     }
     $data = ob_get_clean();
-    file_put_contents(__DIR__ . '/available/' . strtolower($manager) . '.yml', $data);
+    file_put_contents(__DIR__.'/available/'.strtolower($manager).'.yml', $data);
 }
 
-function arrayFormat (&$array) {
-    return '[' . implode(', ', $array) . ']';
+function arrayFormat(&$array)
+{
+    return '['.implode(', ', $array).']';
 }

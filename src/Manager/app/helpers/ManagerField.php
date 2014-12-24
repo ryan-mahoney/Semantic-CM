@@ -1,9 +1,10 @@
 <?php
 namespace Helper\Manager;
 
-class ManagerField {
-
-    public function render (Array $args, Array $options) {
+class ManagerField
+{
+    public function render(Array $args, Array $options)
+    {
         if (!isset($args[0])) {
             return '<!-- Missing context -->';
         }
@@ -31,10 +32,11 @@ class ManagerField {
         if (!isset($options['class'])) {
             $options['class'] = '';
         }
+
         return '
-            <div class="field ' . ($required !== false ? ' required ' : '') . ' ' . $options['class'] . ' ' . '" data-field="' . $options['name'] . '">' .
-                ($label !== false ? '<label>' . $label . '</label>' : '') .
-                $markup . '
+            <div class="field '.($required !== false ? ' required ' : '').' '.$options['class'].' '.'" data-field="'.$options['name'].'">'.
+                ($label !== false ? '<label>'.$label.'</label>' : '').
+                $markup.'
             </div>';
     }
 }

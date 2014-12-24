@@ -11,13 +11,14 @@
  * .7 bad field name
  * .8 wrong collection
  * .9 mark as embedded
- * 1.0 delete feature 
+ * 1.0 delete feature
  * 1.1 definition and description for count added
  * 1.2 name attributes
  */
 namespace Manager;
 
-class Subcarousels {
+class Subcarousels
+{
     public $collection = 'Collection\Carousels';
     public $title = 'SubCarousels';
     public $titleField = 'title';
@@ -32,7 +33,8 @@ class Subcarousels {
     public $function = 'embeddedUpsert';
     public $notice = 'Carousel Saved';
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name'          => 'file',
             'label'         => 'Image',
@@ -40,7 +42,8 @@ class Subcarousels {
         ];
     }
 
-    function urlField () {
+    public function urlField()
+    {
         return [
             'name'          => 'url',
             'label'         => 'URL',
@@ -49,7 +52,8 @@ class Subcarousels {
         ];
     }
 
-    function targetField () {
+    public function targetField()
+    {
         return [
             'name'          => 'target',
             'label'         => 'Redirect',
@@ -58,7 +62,7 @@ class Subcarousels {
                 '_self'         => 'Self',
                 '_blank'        => 'Blank',
                 '_top'          => 'Top',
-                '_parent'       => 'Parent'
+                '_parent'       => 'Parent',
             ],
             'display'       => 'Field\Select',
             'nullable'      => false,
@@ -66,7 +70,8 @@ class Subcarousels {
         ];
     }
 
-    function captionField () {
+    public function captionField()
+    {
         return [
             'name'          => 'caption',
             'label'         => 'Caption',
@@ -74,8 +79,9 @@ class Subcarousels {
             'display'       => 'Field\InputText'
         ];
     }
-    
-    public function indexPartial () {
+
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Images"}}}
             {{#if carousel_individual}}
@@ -99,20 +105,23 @@ class Subcarousels {
                 {{{ManagerEmbeddedIndexEmpty singular="carousel_individual"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
-            {{{ManagerEmbeddedFormHeader metadata=metadata}}}                
+            {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="file" label="Image"}}}
                 {{{ManagerField . class="fluid" name="url" label="URL"}}}
                 {{{ManagerField . class="fluid" name="target" label="Target"}}}
                 {{{ManagerField . class="fluid" name="caption" label="Caption"}}}
                 {{{id}}}
                 {{{form-token}}}
-            {{{ManagerEmbeddedFormFooter}}}    
+            {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }

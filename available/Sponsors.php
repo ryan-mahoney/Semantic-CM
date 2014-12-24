@@ -11,7 +11,8 @@
  */
 namespace Manager;
 
-class Sponsors {
+class Sponsors
+{
     public $collection = 'Collection\Sponsors';
     public $title = 'Sponsors';
     public $titleField = 'title';
@@ -25,7 +26,8 @@ class Sponsors {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField() {
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -34,7 +36,8 @@ class Sponsors {
         ];
     }
 
-    function descriptionField() {
+    public function descriptionField()
+    {
         return [
             'name'        => 'description',
             'label'        => 'Description',
@@ -43,7 +46,8 @@ class Sponsors {
         ];
     }
 
-    function urlField() {
+    public function urlField()
+    {
         return [
             'name'        => 'url',
             'label'        => 'URL',
@@ -52,23 +56,25 @@ class Sponsors {
         ];
     }
 
-    public function targetField(){
+    public function targetField()
+    {
         return [
-            'name'        =>'target',
+            'name'        => 'target',
             'label'        => 'Target',
             'required'    => false,
             'options'    => array(
-                '_blank'        =>'New Window',
-                '_self'        =>'Self',
-                '_parent'    =>'Parent',
-                '_top'        =>'Top'
+                '_blank'        => 'New Window',
+                '_self'        => 'Self',
+                '_parent'    => 'Parent',
+                '_top'        => 'Top',
             ),
-            'display'    =>'Field\Select',
-            'default'=> 'self'    
+            'display'    => 'Field\Select',
+            'default' => 'self'
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'label' => 'Logo',
@@ -77,13 +83,14 @@ class Sponsors {
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -91,21 +98,23 @@ class Sponsors {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -114,6 +123,7 @@ class Sponsors {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -124,7 +134,8 @@ class Sponsors {
         ];
     }
 
-    function categoriesField () {
+    public function categoriesField()
+    {
         return array(
             'name'        => 'categories',
             'label'        => 'Category',
@@ -134,16 +145,17 @@ class Sponsors {
                     $this->db->collection('categories')->
                         find(['section' => 'Sponsors'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'    => 'Field\InputToTags',
             'controlled' => true,
-            'multiple' => true
+            'multiple' => true,
         );
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -153,7 +165,7 @@ class Sponsors {
                     {{#if sponsors}}
                         {{{ManagerIndexPagination pagination=pagination}}}
                         {{{ManagerIndexButtons metadata=metadata}}}
-                        
+
                         <table class="ui large table segment manager sortable">
                                 <col width="40%">
                                 <col width="30%">
@@ -161,7 +173,7 @@ class Sponsors {
                                 <col width="10%">
                             <thead>
                                 <tr>
-                                   
+
                                     <th>Title</th>
                                     <th>Status</th>
                                     <th>Featured</th>
@@ -189,10 +201,12 @@ class Sponsors {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -210,7 +224,7 @@ HBS;
                             {{{id}}}
                             {{{form-token}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -224,8 +238,8 @@ HBS;
                      <div class="ui tab" data-tab="Images">
                         {{{ManagerFormMainColumn}}}
                             {{{ManagerField . class="left" name="image" label="Logo"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -233,6 +247,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

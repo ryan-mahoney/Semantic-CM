@@ -26,30 +26,35 @@ namespace Opine\Manager;
 
 use Opine\Interfaces\Layout as LayoutInterface;
 
-class View {
-	private $layout;
+class View
+{
+    private $layout;
     private $model;
 
-	public function __construct ($model, LayoutInterface $layout) {
-		$this->model = $model;
+    public function __construct($model, LayoutInterface $layout)
+    {
+        $this->model = $model;
         $this->layout = $layout;
-	}
+    }
 
-    private function resolvePaths (&$manager, &$namespace) {
+    private function resolvePaths(&$manager, &$namespace)
+    {
         if (substr_count($manager, '-') == 1) {
             list($namespace, $manager) = explode('-', $manager);
             $namespace .= '-';
         }
     }
 
-	public function login () {
+    public function login()
+    {
         $this->layout->config('Manager/forms/login')->container('Manager/forms/login')->write();
     }
 
-    public function add ($linkName, $layout='Manager/forms/any') {
+    public function add($linkName, $layout = 'Manager/forms/any')
+    {
         $this->resolvePaths($linkName, $bundle);
-        $url = '/Manager/api/document/' . $linkName;
-        $partial = 'Manager/forms/' . $linkName . '.hbs';
+        $url = '/Manager/api/document/'.$linkName;
+        $partial = 'Manager/forms/'.$linkName.'.hbs';
         $this->layout->
             config('Manager/forms/any')->
             container($layout)->
@@ -58,9 +63,10 @@ class View {
             write();
     }
 
-    public function edit ($linkName, $layout='Manager/app/forms/any', $id) {
-        $url = '/Manager/api/document/' . $linkName;
-        $partial = 'Manager/forms/' . $linkName . '.hbs';
+    public function edit($linkName, $layout = 'Manager/app/forms/any', $id)
+    {
+        $url = '/Manager/api/document/'.$linkName;
+        $partial = 'Manager/forms/'.$linkName.'.hbs';
         $this->layout->
             config('Manager/forms/any')->
             container($layout)->
@@ -70,7 +76,8 @@ class View {
             write();
     }
 
-    public function index ($linkName, $layout='Manager/collections/any', $url=false) {
+    public function index($linkName, $layout = 'Manager/collections/any', $url = false)
+    {
         $manager = $this->model->managerGetByLink($linkName);
         $sort = '{"created_date":-1}';
         if (isset($manager['sort'])) {
@@ -80,9 +87,9 @@ class View {
             }
         }
         if ($url === false) {
-            $url = '/Manager/api/index/' . $linkName . '/manager/50/0/' . $sort;
+            $url = '/Manager/api/index/'.$linkName.'/manager/50/0/'.$sort;
         }
-        $partial = 'Manager/indexes/' . $linkName . '.hbs';
+        $partial = 'Manager/indexes/'.$linkName.'.hbs';
         $this->layout->
             config('Manager/collections/any')->
             container($layout)->
@@ -91,14 +98,16 @@ class View {
             write();
     }
 
-    public function dashboard ($section) {
+    public function dashboard($section)
+    {
         $this->layout->config('Manager/dashboard')->
             container('Manager/dashboard.html')->
-            url('managers', '/Manager/api/managers?category=' . $section)->
+            url('managers', '/Manager/api/managers?category='.$section)->
             write();
     }
 
-    public function header () {
+    public function header()
+    {
         $this->layout->
             config('Manager/header')->
             container('Manager/header')->

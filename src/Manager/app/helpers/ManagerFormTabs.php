@@ -1,14 +1,16 @@
 <?php
 namespace Helper\Manager;
 
-class ManagerFormTabs {
-    public function render (Array $args, Array $options) {
+class ManagerFormTabs
+{
+    public function render(Array $args, Array $options)
+    {
         $buffer = '';
         $metadata = $options['metadata'];
 
         $modifiedMarkup = '<abbr class="time" title="">Not yet saved</abbr>';
         if (!empty($options['modified'])) {
-            $modifiedMarkup = '<abbr class="time" data-livestamp="' . $options['modified'] . '"></abbr>';
+            $modifiedMarkup = '<abbr class="time" data-livestamp="'.$options['modified'].'"></abbr>';
         }
 
         $buffer .= '
@@ -22,7 +24,7 @@ class ManagerFormTabs {
         }
         $active = 'active align-left ';
         foreach ($metadata['tabs'] as $tab) {
-            $buffer .= '    <a class="' . $active . 'item" data-tab="' . $tab . '">' . $tab . '</a>';
+            $buffer .= '    <a class="'.$active.'item" data-tab="'.$tab.'">'.$tab.'</a>';
             $active = '';
         }
         $buffer .= '
@@ -31,12 +33,12 @@ class ManagerFormTabs {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div id="manager-form-modtime"><i class="time icon"></i> ' . $modifiedMarkup . '</div>
+                                                <div id="manager-form-modtime"><i class="time icon"></i> '.$modifiedMarkup.'</div>
                                             </td>
                                             <td>
                                                 <div class="ui large primary buttons">
                                                     <div class="ui icon button manager submit">
-                                                        <i class="' . $metadata['icon'] . ' icon"></i> Save ' . $metadata['singular'] . '
+                                                        <i class="'.$metadata['icon'].' icon"></i> Save '.$metadata['singular'].'
                                                     </div>
                                                     <div class="ui combo top right pointing dropdown icon button">
                                                         <i class="dropdown icon"></i>

@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsExceptions {
+class EventsExceptions
+{
     public $collection = 'Collection\Events';
     public $title = 'Exception Dates';
     public $titleField = 'title';
@@ -20,8 +21,9 @@ class EventsExceptions {
     public $after = 'function';
     public $function = 'embeddedUpsert';
     public $embedded = true;
-    
-    function dateField() {
+
+    public function dateField()
+    {
         return [
             'name'          => 'date',
             'required'      => true,
@@ -38,7 +40,8 @@ class EventsExceptions {
         ];
     }
 
-    function noticeField () {
+    public function noticeField()
+    {
         return [
             'name'      => 'notice',
             'label'     => 'Notice',
@@ -47,8 +50,8 @@ class EventsExceptions {
         ];
     }
 
-
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Exceptions Dates"}}}
             {{#if exception_date}}
@@ -73,10 +76,12 @@ class EventsExceptions {
                 {{{ManagerEmbeddedIndexEmpty singular="Exception Date"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="date" label="Date"}}}
@@ -85,6 +90,7 @@ HBS;
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }

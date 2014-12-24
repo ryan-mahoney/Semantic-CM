@@ -13,7 +13,8 @@
  */
 namespace Manager;
 
-class Subcategories {
+class Subcategories
+{
     public $collection = 'Collection\Categories';
     public $title = 'Subcategories';
     public $titleField = 'title';
@@ -27,7 +28,8 @@ class Subcategories {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'          => 'title',
             'label'         => 'Title',
@@ -36,7 +38,8 @@ class Subcategories {
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name'          => 'image',
             'label'         => 'Image',
@@ -44,14 +47,15 @@ class Subcategories {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Subcategories"}}}
             {{#if subcategory}}
                 <table class="ui table manager segment sortable">
                     <col width="10%">
                     <col width="80%">
-                    <col width="10%">    
+                    <col width="10%">
                     <thead>
                         <tr>
                             <th><i class="shuffle basic icon"></i></th>
@@ -73,10 +77,12 @@ class Subcategories {
                 {{{ManagerEmbeddedIndexEmpty singular="Subcategory"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . name="title" label="Title" required="true"}}}
@@ -85,6 +91,7 @@ HBS;
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }

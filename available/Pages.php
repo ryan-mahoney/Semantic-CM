@@ -9,7 +9,8 @@
  */
 namespace Manager;
 
-class Pages {
+class Pages
+{
     public $collection = 'Collection\Pages';
     public $title = 'Pages';
     public $titleField = 'title';
@@ -22,30 +23,33 @@ class Pages {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    
-    function titleField () {
+
+    public function titleField()
+    {
         return [
             'name' => 'title',
             'label' => 'Title',
             'required' => true,
-            'display' => 'Field\InputText'            
+            'display' => 'Field\InputText'
         ];
     }
 
-    function bodyField () {
+    public function bodyField()
+    {
         return [
             'name' => 'body',
-            'display' => 'Field\Redactor'    
+            'display' => 'Field\Redactor'
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -53,29 +57,32 @@ class Pages {
         ];
     }
 
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name' => 'code_name',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name' => 'metadata_keywords',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name' => 'metadata_description',
             'display'    => 'Field\InputText'
         ];
     }
 
-    
-    function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -84,6 +91,7 @@ class Pages {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -94,7 +102,8 @@ class Pages {
         ];
     }
 
-    function categoriesField () {
+    public function categoriesField()
+    {
         return array(
             'name'        => 'categories',
             'label'        => 'Category',
@@ -104,16 +113,17 @@ class Pages {
                     $this->db->collection('categories')->
                         find(['section' => 'Pages'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'    => 'Field\InputToTags',
             'controlled' => true,
-            'multiple' => true
+            'multiple' => true,
         );
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -123,14 +133,14 @@ class Pages {
                {{#if pages}}
                         {{{ManagerIndexPagination pagination=pagination}}}
                         {{{ManagerIndexButtons metadata=metadata}}}
-                        
+
                         <table class="ui large table segment manager sortable">
                             <col width="60%">
                             <col width="20%">
                             <col width="20%">
                             <thead>
                                 <tr>
-                                    
+
                                     <th>Title</th>
                                     <th>Status</th>
                                     <th class="trash">Delete</th>
@@ -139,7 +149,7 @@ class Pages {
                             <tbody>
                                 {{#each pages}}
                                     <tr data-id="{{dbURI}}">
-                                       
+
                                         <td>{{title}}</td>
                                         <td>{{{Capitalize status}}}</td>
                                         <td>
@@ -158,10 +168,12 @@ class Pages {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -176,8 +188,8 @@ HBS;
                             {{{ManagerField . class="left" name="body" label="Body"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -192,7 +204,7 @@ HBS;
                             {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
                             {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -200,6 +212,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

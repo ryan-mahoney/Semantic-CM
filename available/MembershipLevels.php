@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class MembershipLevels {
+class MembershipLevels
+{
     public $collection = 'Collection\MembershipLevels';
     public $title = 'Membership';
     public $titleField = 'title';
@@ -20,8 +21,9 @@ class MembershipLevels {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    
-    function titleField () {
+
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -30,7 +32,8 @@ class MembershipLevels {
         ];
     }
 
-    function priceField () {
+    public function priceField()
+    {
         return [
             'name' => 'price',
             'label' => 'Price',
@@ -39,7 +42,8 @@ class MembershipLevels {
         ];
     }
 
-    function termField () {
+    public function termField()
+    {
         return [
             'name'         => 'term',
             'label'     => 'Term',
@@ -47,29 +51,31 @@ class MembershipLevels {
             'display'     => 'Field\Select',
             'options'    => [
                 'Annual'    => 'Annual',
-                'Perpetual'    => 'Perpetual'
+                'Perpetual'    => 'Perpetual',
             ],
             'default' => null,
             'nullable'    => 'Choose...'
         ];
     }
 
-    function descriptionField () {
+    public function descriptionField()
+    {
         return array(
             'name' => 'description',
             'label' => 'Description',
             'required' => false,
-            'display' => 'Field\Redactor'
+            'display' => 'Field\Redactor',
         );
     }
-    
-    function statusField () {
+
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -77,7 +83,8 @@ class MembershipLevels {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -87,7 +94,7 @@ class MembershipLevels {
                 {{#if membership_levels}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                    
+
                     <table class="ui large table segment manager sortable">
                         <col width="10%">
                         <col width="40%">
@@ -128,10 +135,12 @@ class MembershipLevels {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -148,8 +157,8 @@ HBS;
                             {{{ManagerField . class="left" name="description" label="Description"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -159,6 +168,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
-}    
+}

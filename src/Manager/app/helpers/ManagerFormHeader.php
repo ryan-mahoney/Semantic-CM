@@ -1,10 +1,12 @@
 <?php
 namespace Helper\Manager;
 
-class ManagerFormHeader {
-
-    public function render (Array $args, Array $options) {
+class ManagerFormHeader
+{
+    public function render(Array $args, Array $options)
+    {
         $metadata = $options['metadata'];
+
         return '
             <div id="manager-gray-bar">
                 <div class="ui page grid">
@@ -13,11 +15,11 @@ class ManagerFormHeader {
                             <div id="manager-breadcrumbs" class="ui large breadcrumb">
                                 <a class="section" href="/Manager">Dashboard</a>
                                 <i class="right arrow icon divider"></i>
-                                <a class="section" href="/Manager/section/' . $metadata['category'] . '">' . $metadata['category'] . '</a>
+                                <a class="section" href="/Manager/section/'.$metadata['category'].'">'.$metadata['category'].'</a>
                                 <i class="right arrow icon divider"></i>
-                                <a class="section" href="/Manager/index/' . $metadata['link'] . '">' . $metadata['title'] . '</a>
+                                <a class="section" href="/Manager/index/'.$metadata['link'].'">'.$metadata['title'].'</a>
                                 <i class="right arrow icon divider"></i>
-                                <div class="active section">' . $metadata['singular'] . '</div>
+                                <div class="active section">'.$metadata['singular'].'</div>
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsPlus {
+class EventsPlus
+{
     public $collection = 'Collection\Events';
     public $title = 'Included Dates';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class EventsPlus {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function dateField() {
+    public function dateField()
+    {
         return [
             'name'          => 'date',
             'required'      => true,
@@ -38,7 +40,8 @@ class EventsPlus {
         ];
     }
 
-    function noticeField () {
+    public function noticeField()
+    {
         return [
             'name' => 'notice',
             'label' => 'Notice',
@@ -46,7 +49,8 @@ class EventsPlus {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Included Dates"}}}
             {{#if plus_date}}
@@ -71,10 +75,12 @@ class EventsPlus {
                 {{{ManagerEmbeddedIndexEmpty singular="Included Date"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="date" label="Date"}}}
@@ -83,6 +89,7 @@ HBS;
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }

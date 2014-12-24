@@ -12,7 +12,8 @@
  */
 namespace Manager;
 
-class SocialLinks {
+class SocialLinks
+{
     public $collection = 'Collection\SocialLinks';
     public $title = 'Social Links';
     public $titleField = 'url';
@@ -25,36 +26,38 @@ class SocialLinks {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    
-    function typeField () {
+
+    public function typeField()
+    {
         return [
         'name' => 'type',
         'label' => 'Type',
         'required' => false,
         'options' => [
-            'facebook'        =>"Facebook",
-            'twitter'        =>"Twitter",
-            'googleplus'    =>"Google +",
-            'linkedin'        =>"LinkedIn",
-            'flickr'        =>"Flickr",
-            'youtube'        =>"YouTube",
+            'facebook'        => "Facebook",
+            'twitter'        => "Twitter",
+            'googleplus'    => "Google +",
+            'linkedin'        => "LinkedIn",
+            'flickr'        => "Flickr",
+            'youtube'        => "YouTube",
         ],
                 'display' => 'Field\Select',
                 'nullable' => true
         ];
-    }    
-    
-    function urlField () {
+    }
+
+    public function urlField()
+    {
         return array(
             'name' => 'url',
             'label' => 'URL',
             'required' => false,
-            'display'    => 'Field\InputText'            
+            'display'    => 'Field\InputText',
         );
     }
 
-
-    function headerField () {
+    public function headerField()
+    {
         return [
             'name' => 'headerIcon',
             'label' => 'Header Icon',
@@ -62,7 +65,8 @@ class SocialLinks {
         ];
     }
 
-    function footerField () {
+    public function footerField()
+    {
         return [
             'name' => 'footerIcon',
             'label' => 'Footer Icon',
@@ -70,7 +74,8 @@ class SocialLinks {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -80,7 +85,7 @@ class SocialLinks {
                 {{#if social_links}}
                         {{{ManagerIndexPagination pagination=pagination}}}
                         {{{ManagerIndexButtons metadata=metadata}}}
-                        
+
                         <table class="ui large table segment manager sortable">
                             <col width="10%">
                             <col width="40%">
@@ -116,10 +121,12 @@ class SocialLinks {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -135,8 +142,8 @@ HBS;
                             {{{ManagerField . class="left" name="footerIcon" label="Footer Icon" required="true"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -144,6 +151,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

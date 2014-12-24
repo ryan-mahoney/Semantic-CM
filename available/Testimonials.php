@@ -11,7 +11,8 @@
  */
 namespace Manager;
 
-class Testimonials {
+class Testimonials
+{
     public $collection = 'Collection\Testimonials';
     public $title = 'Testimonials';
     public $titleField = 'name';
@@ -25,7 +26,8 @@ class Testimonials {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'        => 'name',
             'required'    => true,
@@ -33,48 +35,54 @@ class Testimonials {
         ];
     }
 
-    function locationField(){
+    public function locationField()
+    {
         return [
-            'name'=>'location',
+            'name' => 'location',
             'display'    => 'Field\InputText'
         ];
     }
-    
-    function occupationField(){
+
+    public function occupationField()
+    {
         return array(
-            'name'=>'occupation',
-            'display'    => 'Field\InputText'
+            'name' => 'occupation',
+            'display'    => 'Field\InputText',
         );
-    }    
+    }
 
-    function messageField(){
+    public function messageField()
+    {
         return [
-            'name'=>'message',
+            'name' => 'message',
             'display' => 'Field\Redactor',
         ];
     }
 
-    function messageshortField(){
+    public function messageshortField()
+    {
         return [
-            'name'=>'messageshort',
+            'name' => 'messageshort',
             'display' => 'Field\Redactor',
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'display' => 'Field\InputFile'
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -82,7 +90,8 @@ class Testimonials {
         ];
     }
 
-    function dateField() {
+    public function dateField()
+    {
         return [
             'name'            => 'display_date',
             'required'        => true,
@@ -99,34 +108,37 @@ class Testimonials {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function approvedField () {
+    public function approvedField()
+    {
         return [
             'name' => 'approved',
             'label' => false,
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputRadioButton',
             'default' => 'f'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -136,7 +148,7 @@ class Testimonials {
                 {{#if testimonials}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                    
+
                     <table class="ui large table segment manager sortable">
                         <col width="40%">
                         <col width="30%">
@@ -171,10 +183,12 @@ class Testimonials {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -192,8 +206,8 @@ HBS;
                             {{{ManagerField . class="left" name="messageshort" label="Short Message"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -209,8 +223,8 @@ HBS;
                      <div class="ui tab" data-tab="Images">
                         {{{ManagerFormMainColumn}}}
                             {{{ManagerField . class="left" name="image" label="Image"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -218,6 +232,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

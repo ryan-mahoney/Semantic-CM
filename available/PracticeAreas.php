@@ -9,7 +9,8 @@
  */
 namespace Manager;
 
-class PracticeAreas {
+class PracticeAreas
+{
     public $collection = 'Collection\PracticeAreas';
     public $title = 'Practice Areas';
     public $titleField = 'title';
@@ -23,7 +24,8 @@ class PracticeAreas {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -32,14 +34,16 @@ class PracticeAreas {
         ];
     }
 
-    function bodyField () {
+    public function bodyField()
+    {
         return [
             'display' => 'Field\Redactor',
             'name' => 'body'
         ];
     }
 
-    function descriptionField () {
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'label' => 'Summary',
@@ -47,13 +51,14 @@ class PracticeAreas {
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -61,28 +66,32 @@ class PracticeAreas {
         ];
     }
 
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name' => 'code_name',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name' => 'metadata_keywords',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name' => 'metadata_description',
             'display'    => 'Field\InputText'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -92,14 +101,14 @@ class PracticeAreas {
                 {{#if practice_areas}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                    
+
                     <table class="ui large table segment manager sortable">
                         <col width="60%">
                         <col width="20%">
                         <col width="20%">
                         <thead>
                             <tr>
-                                
+
                                 <th>Title</th>
                                 <th>Status</th>
                                 <th class="trash">Delete</th>
@@ -108,7 +117,7 @@ class PracticeAreas {
                         <tbody>
                             {{#each practice _areas}}
                                 <tr data-id="{{dbURI}}">
-                                   
+
                                     <td>{{title}}</td>
                                     <td>{{{Capitalize status}}}</td>
                                     <td>
@@ -126,10 +135,12 @@ class PracticeAreas {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -145,8 +156,8 @@ HBS;
                             {{{ManagerField . class="left" name="description" label="Summary}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -158,7 +169,7 @@ HBS;
                             {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
                               {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -166,6 +177,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
-}    
+}

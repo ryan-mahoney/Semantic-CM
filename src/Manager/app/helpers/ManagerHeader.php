@@ -3,14 +3,17 @@ namespace Helper\Manager;
 
 use Opine\Interfaces\Layout as LayoutInterface;
 
-class ManagerHeader {
+class ManagerHeader
+{
     private $layout;
 
-    public function __construct (LayoutInterface $layout) {
+    public function __construct(LayoutInterface $layout)
+    {
         $this->layout = $layout;
     }
 
-    public function render (Array $args, Array $options) {
+    public function render(Array $args, Array $options)
+    {
         return $this->layout->make('Manager/header');
     }
 }

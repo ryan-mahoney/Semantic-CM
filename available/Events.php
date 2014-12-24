@@ -13,7 +13,8 @@
  */
 namespace Manager;
 
-class Events {
+class Events
+{
     public $collection = 'Collection\Events';
     public $title = 'Events';
     public $titleField = 'title';
@@ -27,7 +28,8 @@ class Events {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    public function titleField () {
+    public function titleField()
+    {
         return [
             'name' => 'title',
             'label' => 'Title',
@@ -36,7 +38,8 @@ class Events {
         ];
     }
 
-    public function bodyField () {
+    public function bodyField()
+    {
         return [
             'name' => 'body',
             'label' => 'Body',
@@ -45,7 +48,8 @@ class Events {
         ];
     }
 
-    public function descriptionField () {
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'label' => 'Summary',
@@ -53,7 +57,8 @@ class Events {
         ];
     }
 
-    public function timeField () {
+    public function timeField()
+    {
         return [
             'name' => 'time',
             'label' => 'Time Description',
@@ -62,7 +67,8 @@ class Events {
         ];
     }
 
-    public function costField () {
+    public function costField()
+    {
         return [
             'name' => 'cost',
             'label' => 'Cost Description',
@@ -71,7 +77,8 @@ class Events {
         ];
     }
 
-    public function imageListField () {
+    public function imageListField()
+    {
         return [
             'name' => 'image',
             'label' => 'List View',
@@ -79,7 +86,8 @@ class Events {
         ];
     }
 
-    public function imageFeaturedField () {
+    public function imageFeaturedField()
+    {
         return [
             'name' => 'image_feature',
             'label' => 'Featured View',
@@ -87,7 +95,8 @@ class Events {
         ];
     }
 
-    public function venueField () {
+    public function venueField()
+    {
         return [
             'name' => 'venue',
             'label' => 'Venue',
@@ -96,7 +105,8 @@ class Events {
         ];
     }
 
-    public function venue_descriptionField () {
+    public function venue_descriptionField()
+    {
         return [
             'name' => 'venue_description',
             'label' => 'Description',
@@ -105,8 +115,8 @@ class Events {
         ];
     }
 
-
-    public function locationField () {
+    public function locationField()
+    {
         return [
             'name' => 'location',
             'label' => 'Address',
@@ -114,8 +124,9 @@ class Events {
             'display' => 'Field\Textarea'
         ];
     }
-    
-    public function contact_infoField () {
+
+    public function contact_infoField()
+    {
         return [
             'name' => 'contact_info',
             'label' => 'Contact Information',
@@ -124,7 +135,8 @@ class Events {
         ];
     }
 
-    public function urlField () {
+    public function urlField()
+    {
         return [
             'name' => 'url',
             'label' => 'URL',
@@ -133,7 +145,8 @@ class Events {
         ];
     }
 
-    public function mapField () {
+    public function mapField()
+    {
         return [
             'name' => 'map_url',
             'label' => 'Map URL',
@@ -142,28 +155,32 @@ class Events {
         ];
     }
 
-    public function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name' => 'code_name',
             'display'   => 'Field\InputText'
         ];
     }
 
-    public function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name' => 'metadata_keywords',
             'display'   => 'Field\InputText'
         ];
     }
 
-    public function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name' => 'metadata_description',
             'display'   => 'Field\InputText'
         ];
     }
 
-    public function categoriesField () {
+    public function categoriesField()
+    {
         return array(
             'name'      => 'categories',
             'label'     => 'Category',
@@ -173,16 +190,17 @@ class Events {
                     $this->db->collection('categories')->
                         find(['section' => 'Events'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'   => 'Field\InputToTags',
             'controlled' => true,
-            'multiple' => true
+            'multiple' => true,
         );
     }
 
-    public function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -191,6 +209,7 @@ class Events {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -201,13 +220,14 @@ class Events {
         ];
     }
 
-    public function statusField () {
+    public function statusField()
+    {
         return [
             'name'      => 'status',
             'required'  => true,
             'options'   => array(
                 'published' => 'Published',
-                'draft'     => 'Draft'
+                'draft'     => 'Draft',
             ),
             'display'   => 'Field\Select',
             'nullable'  => false,
@@ -215,7 +235,8 @@ class Events {
         ];
     }
 
-    public function dateField() {
+    public function dateField()
+    {
         return [
             'name'          => 'display_date',
             'required'      => true,
@@ -232,65 +253,71 @@ class Events {
         ];
     }
 
-    public function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    public function pinnedField () {
+    public function pinnedField()
+    {
         return [
             'name' => 'pinned',
             'label' => 'Pin',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    public function commentsField () {
+    public function commentsField()
+    {
         return [
             'name' => 'comments',
             'label' => 'Comments',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    public function header_imageField () {
+    public function header_imageField()
+    {
         return [
             'name' => 'header_image',
             'label' => 'Header Image',
             'display' => 'Field\InputFile'
         ];
     }
-    
-    public function footer_imageField () {
+
+    public function footer_imageField()
+    {
         return [
             'name' => 'footer_image',
             'label' => 'Footer Image',
             'display' => 'Field\InputFile'
         ];
     }
-    
-    public function ticket_imageField () {
+
+    public function ticket_imageField()
+    {
         return [
             'name' => 'ticket_image',
             'label' => 'Ticket Background Image ',
@@ -298,7 +325,8 @@ class Events {
         ];
     }
 
-    public function events_images_subField() {
+    public function events_images_subField()
+    {
         return [
             'name' => 'image_sub',
             'label' => 'Venue Images',
@@ -308,7 +336,8 @@ class Events {
         ];
     }
 
-    public function events_registrationsField() {
+    public function events_registrationsField()
+    {
         return [
             'name' => 'registration_options',
             'label' => 'Registration Options',
@@ -318,7 +347,8 @@ class Events {
         ];
     }
 
-    public function events_discountsField() {
+    public function events_discountsField()
+    {
         return [
             'name' => 'discount_code',
             'label' => 'Discount Codes',
@@ -328,7 +358,8 @@ class Events {
         ];
     }
 
-    public function events_highlightsField() {
+    public function events_highlightsField()
+    {
         return [
             'name' => 'highlight_images',
             'label' => 'Highlight Images',
@@ -338,7 +369,8 @@ class Events {
         ];
     }
 
-    public function events_linksField() {
+    public function events_linksField()
+    {
         return [
             'name' => 'link_sub',
             'label' => 'Link / Menu',
@@ -348,7 +380,8 @@ class Events {
         ];
     }
 
-    public function events_peoplesField() {
+    public function events_peoplesField()
+    {
         return [
             'name' => 'people_sub',
             'label' => 'People',
@@ -358,7 +391,8 @@ class Events {
         ];
     }
 
-    public function events_sponsorsField() {
+    public function events_sponsorsField()
+    {
         return [
             'name' => 'sponsor_sub',
             'label' => 'Sponsor',
@@ -368,7 +402,8 @@ class Events {
         ];
     }
 
-    public function events_emailsField() {
+    public function events_emailsField()
+    {
         return [
             'name' => 'email_sub',
             'label' => 'Email',
@@ -378,21 +413,23 @@ class Events {
         ];
     }
 
-    public function requireAttendeesField () {
+    public function requireAttendeesField()
+    {
         return [
             'name' => 'require_attendee_names',
             'label' => 'Attendee Names Required',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    public function config_options_appField () {
+    public function config_options_appField()
+    {
         return [
             'name' => 'config_options_app',
             'label' => 'config_options_app',
@@ -400,7 +437,8 @@ class Events {
         ];
     }
 
-    public function  config_attendees_appField () {
+    public function config_attendees_appField()
+    {
         return [
             'name' => 'config_attendees_app',
             'label' => ' config_attendees_app',
@@ -408,7 +446,8 @@ class Events {
         ];
     }
 
-    public function  config_payment_appField () {
+    public function config_payment_appField()
+    {
         return [
             'name' => 'config_payment_app',
             'label' => ' config_payment_app',
@@ -416,7 +455,8 @@ class Events {
         ];
     }
 
-    public function  config_receipt_appField () {
+    public function config_receipt_appField()
+    {
         return [
             'name' => 'config_receipt_app',
             'label' => ' config_receipt_app',
@@ -424,7 +464,8 @@ class Events {
         ];
     }
 
-    public function config_options_layoutField () {
+    public function config_options_layoutField()
+    {
         return [
             'name' => 'config_options_layout',
             'label' => 'config_options_layout',
@@ -432,7 +473,8 @@ class Events {
         ];
     }
 
-    public function  config_attendees_layoutField () {
+    public function config_attendees_layoutField()
+    {
         return [
             'name' => 'config_attendees_layout',
             'label' => ' config_attendees_layout',
@@ -440,7 +482,8 @@ class Events {
         ];
     }
 
-    public function  config_payment_layoutField () {
+    public function config_payment_layoutField()
+    {
         return [
             'name' => 'config_payment_layout',
             'label' => ' config_payment_layout',
@@ -448,7 +491,8 @@ class Events {
         ];
     }
 
-    public function  config_receipt_layoutField () {
+    public function config_receipt_layoutField()
+    {
         return [
             'name' => 'config_receipt_layout',
             'label' => ' config_receipt_layout',
@@ -456,7 +500,8 @@ class Events {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -466,7 +511,7 @@ class Events {
                 {{#if events}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                    <table class="ui large table segment manager sortable">   
+                    <table class="ui large table segment manager sortable">
                         <col width="40%">
                         <col width="20%">
                         <col width="10%">
@@ -486,7 +531,7 @@ class Events {
                         <tbody>
                             {{#each events}}
                                 <tr data-id="{{dbURI}}">
-                                    
+
                                     <td>{{title}}</td>
                                     <td>{{{MongoDate display_date}}}</td>
                                     <td>{{time}}</td>
@@ -507,10 +552,12 @@ class Events {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -528,8 +575,8 @@ HBS;
                             {{{ManagerField . class="left" name="cost" label="Cost Description"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -551,8 +598,8 @@ HBS;
                             {{{ManagerField . class="left" name="image" label="List View"}}}
                             {{{ManagerField . class="left" name="image_feature" label="Featured"}}}
                             {{{ManagerFieldEmbedded . name="image_sub" manager="EventsImages"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -565,8 +612,8 @@ HBS;
                             {{{ManagerField . class="left" name="contact_info" label="Contact Information"}}}
                             {{{ManagerField . class="left" name="url" label="URL"}}}
                             {{{ManagerField . class="left" name="map_url" label="Map URL"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -577,7 +624,7 @@ HBS;
                             {{{ManagerFieldEmbedded . name="discount_code" manager="EventsDiscounts" label="Discount Codes"}}}
                             {{{ManagerField . class="left" name="require_attendee_names" label="Require Attendee Names"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -597,7 +644,7 @@ HBS;
                             {{{ManagerField . class="left" name="config_payment_layout" label="config_payment_layout"}}}
                             {{{ManagerField . class="left" name="config_receipt_layout" label="config_receipt_layout"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -609,7 +656,7 @@ HBS;
                             {{{ManagerField . class="left" name="ticket_image" label="Ticket Image"}}}
                             {{{ManagerFieldEmbedded . name="highlight_images" manager="EventsHighlights" label="Highlight Images"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -620,7 +667,7 @@ HBS;
                             {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
                             {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -628,6 +675,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

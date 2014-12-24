@@ -6,9 +6,10 @@
  *
  */
 namespace Manager;
-use MongoDate;
 
-class UserGroups {
+
+class UserGroups
+{
     public $collection = 'Collection\UserGroups';
     public $title = 'Groups';
     public $titleField = 'name';
@@ -21,7 +22,8 @@ class UserGroups {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    public function nameField () {
+    public function nameField()
+    {
         return [
             'name'          => 'name',
             'required'      => true,
@@ -29,7 +31,8 @@ class UserGroups {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -64,10 +67,12 @@ class UserGroups {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -88,6 +93,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

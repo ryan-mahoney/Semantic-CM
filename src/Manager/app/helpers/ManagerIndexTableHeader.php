@@ -1,8 +1,10 @@
 <?php
 namespace Helper\Manager;
 
-class ManagerIndexTableHeader {
-    public function render (Array $args, Array $options) {
+class ManagerIndexTableHeader
+{
+    public function render(Array $args, Array $options)
+    {
         $metadata = $options['metadata'];
         $pagination = $options['pagination'];
         $startPage = $pagination['page'] - 4;
@@ -38,7 +40,7 @@ class ManagerIndexTableHeader {
                 $active = ' active';
             }
             $buffer .= '
-                                    <a class="item' . $active . '">' . $i . '</a>';
+                                    <a class="item'.$active.'">'.$i.'</a>';
         }
         if ($endPage < $pagination['pageCount']) {
             $buffer .= '
@@ -52,7 +54,7 @@ class ManagerIndexTableHeader {
                             <div class="column" style="text-align: right">
                                 <div id="manager-index-add" class="ui primary large buttons">
                                     <div class="ui icon button manager add">
-                                        <i class="' . $metadata['icon'] . ' icon"></i> Add ' . $metadata['singular'] . '
+                                        <i class="'.$metadata['icon'].' icon"></i> Add '.$metadata['singular'].'
                                     </div>
                                     <div class="ui combo top right pointing dropdown icon button">
                                         <i class="dropdown icon"></i>

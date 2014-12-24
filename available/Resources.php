@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class Resources {
+class Resources
+{
     public $collection = 'Collection\Resources';
     public $title = 'Resources';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class Resources {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -30,14 +32,16 @@ class Resources {
         ];
     }
 
-    function bodyField () {
+    public function bodyField()
+    {
         return [
             'display' => 'Field\Redactor',
             'name' => 'body'
         ];
     }
 
-    function uploadField () {
+    public function uploadField()
+    {
         return [
             'name' => 'image',
             'label' => 'File',
@@ -45,7 +49,8 @@ class Resources {
         ];
     }
 
-    function formatField () {
+    public function formatField()
+    {
         return [
             'name'        => 'format',
             'label'        => 'Format',
@@ -56,13 +61,14 @@ class Resources {
                 'file' => 'File',
                 'image' => 'Image',
                 'link' => 'Link',
-                'video' => 'Video'
+                'video' => 'Video',
             ],
         'display'    => 'Field\Select'
         ];
     }
-    
-    function imageField () {
+
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'label' => 'List View',
@@ -70,7 +76,8 @@ class Resources {
         ];
     }
 
-    function imageFeaturedField () {
+    public function imageFeaturedField()
+    {
         return [
             'name' => 'image_feature',
             'label' => 'Featured View',
@@ -78,13 +85,14 @@ class Resources {
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -92,7 +100,8 @@ class Resources {
         ];
     }
 
-    function dateField() {
+    public function dateField()
+    {
         return [
             'name'            => 'display_date',
             'required'        => true,
@@ -109,36 +118,38 @@ class Resources {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
-    
 
-    function pinnedField () {
+    public function pinnedField()
+    {
         return [
             'name' => 'pinned',
             'label' => 'Pin',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -147,6 +158,7 @@ class Resources {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -157,7 +169,8 @@ class Resources {
         ];
     }
 
-    function categoriesField () {
+    public function categoriesField()
+    {
         return array(
             'name'        => 'categories',
             'label'        => 'Category',
@@ -167,38 +180,41 @@ class Resources {
                     $this->db->collection('categories')->
                         find(['section' => 'Blog'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'    => 'Field\InputToTags',
             'controlled' => true,
-            'multiple' => true
+            'multiple' => true,
         );
     }
 
-
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name' => 'code_name',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name' => 'metadata_keywords',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name' => 'metadata_description',
             'display'    => 'Field\InputText'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -208,7 +224,7 @@ class Resources {
               {{#if resources}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                
+
                     <table class="ui large table segment manager sortable">
                         <col width="45%">
                         <col width="25%">
@@ -246,10 +262,12 @@ class Resources {
               {{/if}}
            </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -266,8 +284,8 @@ HBS;
                             {{{ManagerField . class="left" name="format" label="Format"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -289,7 +307,7 @@ HBS;
                             {{{ManagerField . class="left" name="image" label="List View"}}}
                             {{{ManagerField . class="left" name="image_feature" label="Featured"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -301,14 +319,15 @@ HBS;
                             {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
                             {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
-                    </div>            
+                    </div>
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

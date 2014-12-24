@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsPeoples {
+class EventsPeoples
+{
     public $collection = 'Collection\Events';
     public $title = 'Peoples';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class EventsPeoples {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function first_nameField() {
+    public function first_nameField()
+    {
         return [
           'name'    => 'first_name',
           'placeholder' => 'First Name',
@@ -30,7 +32,8 @@ class EventsPeoples {
         ];
     }
 
-    function last_nameField() {
+    public function last_nameField()
+    {
         return [
           'name'    => 'last_name',
           'placeholder' => 'Last Name',
@@ -40,7 +43,8 @@ class EventsPeoples {
         ];
     }
 
-    function emailField () {
+    public function emailField()
+    {
         return [
             'name'      => 'email',
             'label'     => 'Email',
@@ -49,7 +53,8 @@ class EventsPeoples {
         ];
     }
 
-    function phoneField () {
+    public function phoneField()
+    {
         return [
             'name'      => 'phone',
             'label'     => 'Phone',
@@ -58,7 +63,8 @@ class EventsPeoples {
         ];
     }
 
-    function roleField () {
+    public function roleField()
+    {
         return [
             'name'      => 'role',
             'label'     => 'Role',
@@ -67,14 +73,16 @@ class EventsPeoples {
         ];
     }
 
-    function bioField () {
+    public function bioField()
+    {
         return [
             'display' => 'Field\Redactor',
             'name' => 'bio'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Peoples"}}}
             {{#if people_sub}}
@@ -99,10 +107,12 @@ class EventsPeoples {
                 {{{ManagerEmbeddedIndexEmpty singular="People"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="first_name" label="First Name"}}}
@@ -116,6 +126,7 @@ HBS;
             {{{ManagerEmbeddedFormFooter}}}
             <div style="padding-bottom:100px"></div>
 HBS;
+
         return $partial;
     }
 }

@@ -7,48 +7,52 @@
  */
 namespace Manager;
 
-class EventsImages {
-	public $collection = 'Collection\Events';
-	public $title = 'Venue Images';
-	public $titleField = 'title';
-	public $singular = 'Venue Image';
-	public $description = '{{count}} images';
-	public $definition = 'Coming Soon';
-	public $acl = ['content', 'admin', 'superadmin'];
-	public $icon = 'browser';
-	public $category = 'Content';
-	public $after = 'function';
-	public $function = 'embeddedUpsert';
-	public $embedded = true;
+class EventsImages
+{
+    public $collection = 'Collection\Events';
+    public $title = 'Venue Images';
+    public $titleField = 'title';
+    public $singular = 'Venue Image';
+    public $description = '{{count}} images';
+    public $definition = 'Coming Soon';
+    public $acl = ['content', 'admin', 'superadmin'];
+    public $icon = 'browser';
+    public $category = 'Content';
+    public $after = 'function';
+    public $function = 'embeddedUpsert';
+    public $embedded = true;
 
-	function imageField () {
-		return [
-			'name' => 'image',
-			'label' => 'Image',
-			'display' => 'Field\InputFile'
-		];
-	}
+    public function imageField()
+    {
+        return [
+            'name' => 'image',
+            'label' => 'Image',
+            'display' => 'Field\InputFile'
+        ];
+    }
 
-	function titleField () {
-		return [
-			'name'		=> 'heading',
-			'label'		=> 'Heading',
-			'required'	=> true,
-			'display'	=> 'Field\InputText'
-		];
-	}
+    public function titleField()
+    {
+        return [
+            'name'        => 'heading',
+            'label'        => 'Heading',
+            'required'    => true,
+            'display'    => 'Field\InputText'
+        ];
+    }
 
-	function descriptionField () {
-		return [
-			'name' => 'description',
-			'label' => 'Description',
-			'display' => 'Field\Textarea'
-		];
-	}
+    public function descriptionField()
+    {
+        return [
+            'name' => 'description',
+            'label' => 'Description',
+            'display' => 'Field\Textarea'
+        ];
+    }
 
-
-	public function indexPartial () {
-		$partial = <<<'HBS'
+    public function indexPartial()
+    {
+        $partial = <<<'HBS'
 			{{{ManagerEmbeddedIndexHeader label="Venue Images"}}}
 			{{#if image_sub}}
 				<table class="ui table manager segment">
@@ -73,11 +77,13 @@ class EventsImages {
 			    {{{ManagerEmbeddedIndexEmpty singular="Venue Image"}}}
 	        {{/if}}
 HBS;
-		return $partial;
-	}
 
-	public function formPartial () {
-		$partial = <<<'HBS'
+        return $partial;
+    }
+
+    public function formPartial()
+    {
+        $partial = <<<'HBS'
 			{{{ManagerEmbeddedFormHeader metadata=metadata}}}
 		        {{{ManagerField . class="fluid" name="image" label="Image"}}}
 			    {{{ManagerField . class="fluid" name="heading" label="Heading"}}}
@@ -87,7 +93,7 @@ HBS;
 			{{{ManagerEmbeddedFormFooter}}}
 			<div style="padding-bottom:100px"></div>
 HBS;
-		return $partial;
-	}
-}
 
+        return $partial;
+    }
+}

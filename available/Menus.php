@@ -9,7 +9,8 @@
  */
 namespace Manager;
 
-class Menus {
+class Menus
+{
     public $collection = 'Collection\Menus';
     public $title = 'Menus';
     public $titleField = 'label';
@@ -22,16 +23,18 @@ class Menus {
     public $function = 'ManagerSaved';
     public $sort = '{"sort_key":1, "created_date":-1}';
 
-    public function labelField () {
+    public function labelField()
+    {
         return [
             'name'          => 'label',
             'placeholder'   => 'Title',
             'required'      => true,
             'display'       => 'Field\InputText'
         ];
-    }    
+    }
 
-    public function urlField () {
+    public function urlField()
+    {
         return [
             'name'          => 'url',
             'placeholder'   => 'URL',
@@ -40,7 +43,8 @@ class Menus {
         ];
     }
 
-    public function imageField () {
+    public function imageField()
+    {
         return [
             'name'          => 'file',
             'placeholder'   => 'Image',
@@ -48,7 +52,8 @@ class Menus {
         ];
     }
 
-    public function linkField() {
+    public function linkField()
+    {
         return [
             'name'          => 'link',
             'required'      => false,
@@ -57,7 +62,8 @@ class Menus {
         ];
     }
 
-    public function cssField() {
+    public function cssField()
+    {
         return [
             'name'          => 'css',
             'required'      => false,
@@ -65,7 +71,8 @@ class Menus {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -107,10 +114,12 @@ class Menus {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -133,6 +142,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

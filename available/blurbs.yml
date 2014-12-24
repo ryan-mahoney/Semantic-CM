@@ -4,7 +4,7 @@ manager:
     title: Blurbs
     titleField: title
     singular: Blurb
-    definition: Blurbs are small blocks of content that don't fit the conventions of a whole web page. Many appear on multiple pages in the same format. 
+    definition: Blurbs are small blocks of content that don't fit the conventions of a whole web page. Many appear on multiple pages in the same format.
     acl: [content, admin, superadmin]
     icon: basic content
     category: Content

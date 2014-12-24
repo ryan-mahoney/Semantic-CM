@@ -1,10 +1,12 @@
 <?php
 namespace Helper\Manager;
 
-class ManagerDashboardBreadcrumbs {
+class ManagerDashboardBreadcrumbs
+{
     private $layout;
 
-    public function render (Array $args, Array $options) {
+    public function render(Array $args, Array $options)
+    {
         if (!isset($_SERVER['REQUEST_URI'])) {
             return '';
         }
@@ -17,9 +19,10 @@ class ManagerDashboardBreadcrumbs {
             return '<div class="active section">Dashboard</div>';
         }
         $name = str_replace('/Manager/section/', '', $uri);
+
         return '
             <a href="/Manager" class="section">Dashboard</a>
             <i class="right chevron icon divider"></i>
-            <div class="active section">' . $name . '</div>';
+            <div class="active section">'.$name.'</div>';
     }
 }

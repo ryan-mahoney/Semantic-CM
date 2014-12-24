@@ -11,7 +11,8 @@
  */
 namespace Manager;
 
-class Books {
+class Books
+{
     public $collection = 'Collection\Books';
     public $title = 'Books';
     public $singular = 'Book';
@@ -25,7 +26,8 @@ class Books {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -34,7 +36,8 @@ class Books {
         ];
     }
 
-    function descriptionField () {
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'label' => 'Body',
@@ -42,7 +45,8 @@ class Books {
         ];
     }
 
-    function short_descriptionField () {
+    public function short_descriptionField()
+    {
         return [
             'name' => 'short_description',
             'label' => 'Summary',
@@ -50,7 +54,8 @@ class Books {
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'label' => 'Book Cover Image',
@@ -58,7 +63,8 @@ class Books {
         ];
     }
 
-    function imageListField () {
+    public function imageListField()
+    {
         return [
             'name' => 'image',
             'label' => 'List View',
@@ -66,7 +72,8 @@ class Books {
         ];
     }
 
-    function imageFeaturedField () {
+    public function imageFeaturedField()
+    {
         return [
             'name' => 'image_feature',
             'label' => 'Featured View',
@@ -74,7 +81,8 @@ class Books {
         ];
     }
 
-    function linkField () {
+    public function linkField()
+    {
         return [
             'name'        => 'link',
             'label'        => 'URL',
@@ -83,7 +91,8 @@ class Books {
         ];
     }
 
-    function priceField () {
+    public function priceField()
+    {
         return [
             'name'        => 'price',
             'label'        => 'Price',
@@ -92,13 +101,14 @@ class Books {
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -106,42 +116,47 @@ class Books {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'label' => 'Feature',
             'required' => false,
             'options' => [
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ],
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name' => 'code_name',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name' => 'metadata_keywords',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name' => 'metadata_description',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -150,6 +165,7 @@ class Books {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -160,7 +176,8 @@ class Books {
         ];
     }
 
-    function categoriesField () {
+    public function categoriesField()
+    {
         return array(
             'name'        => 'categories',
             'label'        => 'Category',
@@ -170,16 +187,17 @@ class Books {
                     $this->db->collection('categories')->
                         find(['section' => 'Books'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'    => 'Field\InputToTags',
             'controlled' => true,
-            'multiple' => true
+            'multiple' => true,
         );
     }
 
-     public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -189,7 +207,7 @@ class Books {
                 {{#if books}}
                         {{{ManagerIndexPagination pagination=pagination}}}
                         {{{ManagerIndexButtons metadata=metadata}}}
-                        
+
                         <table class="ui large table segment manager sortable">
                             <col width="10%">
                             <col width="40%">
@@ -227,10 +245,12 @@ class Books {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -248,8 +268,8 @@ HBS;
                             {{{ManagerField . class="left" name="price" label="Price"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -266,8 +286,8 @@ HBS;
                             {{{ManagerField . class="left" name="image" label="Book Cover"}}}
                             {{{ManagerField . class="left" name="image_list" label="List View"}}}
                             {{{ManagerField . class="left" name="image_feature" label="Featured"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -278,7 +298,7 @@ HBS;
                             {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
                             {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -286,6 +306,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

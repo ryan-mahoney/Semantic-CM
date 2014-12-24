@@ -11,7 +11,8 @@
  */
 namespace Manager;
 
-class Publications {
+class Publications
+{
     public $collection = 'Collection\Publications';
     public $title = 'Publications';
     public $titleField = 'title';
@@ -24,8 +25,9 @@ class Publications {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    
-    function titleField () {
+
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -34,7 +36,8 @@ class Publications {
         ];
     }
 
-    function descriptionField () {
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'label' => 'Summary',
@@ -42,7 +45,8 @@ class Publications {
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'label' => 'List View',
@@ -50,7 +54,8 @@ class Publications {
         ];
     }
 
-    function fileField () {
+    public function fileField()
+    {
         return [
             'name' => 'file',
             'label' => 'File Upload',
@@ -58,7 +63,8 @@ class Publications {
         ];
     }
 
-    function dateField() {
+    public function dateField()
+    {
         return [
             'name'          => 'display_date',
             'required'      => true,
@@ -75,13 +81,14 @@ class Publications {
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'      => 'status',
             'required'  => true,
             'options'   => array(
                 'published' => 'Published',
-                'draft'     => 'Draft'
+                'draft'     => 'Draft',
             ),
             'display'   => 'Field\Select',
             'nullable'  => false,
@@ -89,7 +96,8 @@ class Publications {
         ];
     }
 
-    function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -98,6 +106,7 @@ class Publications {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -108,7 +117,8 @@ class Publications {
         ];
     }
 
-    function categoriesField () {
+    public function categoriesField()
+    {
         return array(
             'name'      => 'categories',
             'label'     => 'Category',
@@ -118,37 +128,41 @@ class Publications {
                     $this->db->collection('categories')->
                         find(['section' => 'Publications'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'   => 'Field\InputToTags',
             'controlled' => true,
-            'multiple' => true
+            'multiple' => true,
         );
     }
 
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name' => 'code_name',
             'display'   => 'Field\InputText'
         ];
     }
 
-    function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name' => 'metadata_keywords',
             'display'   => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name' => 'metadata_description',
             'display'   => 'Field\InputText'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -158,7 +172,7 @@ class Publications {
               {{#if publications}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                
+
                     <table class="ui large table segment manager sortable">
                         <col width="90%">
                         <col width="10%">
@@ -185,10 +199,12 @@ class Publications {
               {{/if}}
            </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -204,8 +220,8 @@ HBS;
                             {{{ManagerField . class="left" name="file "File Upload" required="true"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -219,8 +235,8 @@ HBS;
                      <div class="ui tab" data-tab="Images">
                         {{{ManagerFormMainColumn}}}
                             {{{ManagerField . class="left" name="image" label="List View"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -231,14 +247,15 @@ HBS;
                             {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
                             {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
-                    </div>  
+                    </div>
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsEmails {
+class EventsEmails
+{
     public $collection = 'Collection\Events';
     public $title = 'Emails';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class EventsEmails {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    public function subjectField () {
+    public function subjectField()
+    {
         return [
             'name'      => 'email_subject',
             'label'     => 'Subject',
@@ -30,14 +32,16 @@ class EventsEmails {
         ];
     }
 
-    public function bodyField () {
+    public function bodyField()
+    {
         return [
             'display' => 'Field\Redactor',
             'name' => 'email_body'
         ];
     }
 
-    public function titleField () {
+    public function titleField()
+    {
         return [
             'name'      => 'title',
             'label'     => 'Title',
@@ -46,7 +50,8 @@ class EventsEmails {
         ];
     }
 
-    public function sendDateField() {
+    public function sendDateField()
+    {
         return [
             'name'          => 'send_date',
             'required'      => true,
@@ -63,7 +68,8 @@ class EventsEmails {
         ];
     }
 
-    public function typeField () {
+    public function typeField()
+    {
         return [
             'name' => 'type',
             'label' => 'Type',
@@ -78,30 +84,34 @@ class EventsEmails {
                 $common = ['Choose Message Type', 'Welcome', 'Reminder', 'Thankyou', 'Receiept'];
                 $emailType = array_unique(array_merge($existing, $common));
                 sort($emailType);
+
                 return $emailType;
             }
         ];
     }
 
-    public function ccField () {
+    public function ccField()
+    {
         return array(
             'name' => 'cc',
             'label' => 'Carbon Copy To',
             'required' => true,
-            'display' => 'Field\InputText'
+            'display' => 'Field\InputText',
         );
     }
 
-    public function bccField () {
+    public function bccField()
+    {
         return array(
             'name' => 'bcc',
             'label' => 'Blind Carbon Copy To',
             'required' => true,
-            'display' => 'Field\InputText'
+            'display' => 'Field\InputText',
         );
     }
 
-    public function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -110,6 +120,7 @@ class EventsEmails {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -120,8 +131,8 @@ class EventsEmails {
         ];
     }
 
-
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Emails"}}}
             {{#if email_sub}}
@@ -147,10 +158,12 @@ class EventsEmails {
                 {{{ManagerEmbeddedIndexEmpty singular="Email"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="from_address" label="From Address"}}}
@@ -167,6 +180,7 @@ HBS;
             {{{ManagerEmbeddedFormFooter}}}
             <div style="padding-bottom:100px"></div>
 HBS;
+
         return $partial;
     }
 }

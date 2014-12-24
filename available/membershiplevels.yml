@@ -28,7 +28,7 @@ manager:
             options:
                 type: array
                 value: [Annual, Perpetual]
-            default: 
+            default:
             nullable: Choose...
         description:
             label: Description

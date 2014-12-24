@@ -4,7 +4,7 @@ manager:
     title: Events
     titleField: title
     singular: Event
-    definition: These content blocks appear on event streams and calendars. They are organized by date and time, typically include an image, short description, and occasionally, a registration option. 
+    definition: These content blocks appear on event streams and calendars. They are organized by date and time, typically include an image, short description, and occasionally, a registration option.
     acl: [content, admin, superadmin]
     tabs: [Main, Views, Venue, Registration, Advanced, Images, SEO]
     icon: empty calendar
@@ -127,7 +127,7 @@ manager:
             label: Footer Image
             display: fieldFile@render
         ticket_image:
-            label: Ticket Background Image 
+            label: Ticket Background Image
             display: fieldFile@render
         image_sub:
             label: Venue Images

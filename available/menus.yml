@@ -4,7 +4,7 @@ manager:
     title: Menus
     titleField: label
     singular: Menu
-    definition: Menus determine how a site is organized. Use them as a road map to lay out your content. 
+    definition: Menus determine how a site is organized. Use them as a road map to lay out your content.
     acl: [content, admin, superadmin]
     icon: browser
     category: Content

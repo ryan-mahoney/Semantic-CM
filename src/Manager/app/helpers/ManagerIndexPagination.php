@@ -1,8 +1,10 @@
 <?php
 namespace Helper\Manager;
 
-class ManagerIndexPagination {
-    public function render (Array $args, Array $options) {
+class ManagerIndexPagination
+{
+    public function render(Array $args, Array $options)
+    {
         $buffer = '';
         $pagination = $options['pagination'];
         //if ($pagination['pageCount'] == 1) {
@@ -34,7 +36,7 @@ class ManagerIndexPagination {
                 $active = ' active';
             }
             $buffer .= '
-                <a class="item' . $active . '">' . $i . '</a>';
+                <a class="item'.$active.'">'.$i.'</a>';
         }
         if ($endPage < $pagination['pageCount']) {
             $buffer .= '

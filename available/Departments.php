@@ -10,7 +10,8 @@
 
 namespace Manager;
 
-class Departments {
+class Departments
+{
     public $collection = 'Collection\Departments';
     public $title = 'Departments';
     public $titleField = 'title';
@@ -24,16 +25,18 @@ class Departments {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField()
+    {
         return array(
             'name' => 'title',
             'label' => 'Title',
             'required' => true,
-            'display' => 'Field\InputText'
+            'display' => 'Field\InputText',
         );
     }
 
-    function descriptionField () {
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'label' => 'Summary',
@@ -41,7 +44,8 @@ class Departments {
         ];
     }
 
-    public function department_profilesField() {
+    public function department_profilesField()
+    {
         return [
             'name' => 'department_profiles',
             'label' => 'Department Profiles',
@@ -51,35 +55,38 @@ class Departments {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-     function pinnedField () {
+    public function pinnedField()
+    {
         return [
             'name' => 'pinned',
             'label' => 'Pin',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -117,10 +124,12 @@ class Departments {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
                 {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -136,8 +145,8 @@ HBS;
                             {{{ManagerFieldEmbedded . name="department_profiles" manager="DepartmentProfiles" label="Profiles"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="left" name="featured"}}}
@@ -148,6 +157,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

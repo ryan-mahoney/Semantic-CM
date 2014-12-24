@@ -12,7 +12,8 @@
  */
 namespace Manager;
 
-class MenuLinks {
+class MenuLinks
+{
     public $collection = 'Collection\Menus';
     public $title = 'Menus';
     public $titleField = 'title';
@@ -26,7 +27,8 @@ class MenuLinks {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function urlField () {
+    public function urlField()
+    {
         return [
             'name'        => 'url',
             'label'        => 'URL',
@@ -35,7 +37,8 @@ class MenuLinks {
         ];
     }
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -43,8 +46,9 @@ class MenuLinks {
             'display'    => 'Field\InputText'
         ];
     }
-    
-    function targetField () {
+
+    public function targetField()
+    {
         return [
             'name'        => 'target',
             'label'        => 'Redirect',
@@ -53,15 +57,16 @@ class MenuLinks {
                 '_self'        => 'Self',
                 '_blank'    => 'Blank',
                 '_top'        => 'Top',
-                '_parent'    => 'Parent'
+                '_parent'    => 'Parent',
             ],
             'display'    => 'Field\Select',
             'nullable'    => false,
             'default'    => 'self'
         ];
     }
-    
-    function imageField () {
+
+    public function imageField()
+    {
         return [
             'name' => 'file',
             'label' => 'Image',
@@ -69,7 +74,8 @@ class MenuLinks {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Sub Menus"}}}
             {{#if link}}
@@ -101,10 +107,12 @@ class MenuLinks {
                 {{{ManagerEmbeddedIndexEmpty singular="submenu"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="title" label="Title"}}}
@@ -113,8 +121,9 @@ HBS;
                 {{{id}}}
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
-        
+
 HBS;
+
         return $partial;
     }
 }

@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsRegistrations {
+class EventsRegistrations
+{
     public $collection = 'Collection\Events';
     public $title = 'Registrations Options';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class EventsRegistrations {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'      => 'title',
             'label'     => 'Name',
@@ -30,7 +32,8 @@ class EventsRegistrations {
         ];
     }
 
-    function descriptionField () {
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'label' => 'Summary',
@@ -38,7 +41,8 @@ class EventsRegistrations {
         ];
     }
 
-    function costField () {
+    public function costField()
+    {
         return [
             'name' => 'price',
             'label' => 'Cost',
@@ -47,15 +51,16 @@ class EventsRegistrations {
         ];
     }
 
-    function maximumUnitsPerCustomerField () {
+    public function maximumUnitsPerCustomerField()
+    {
         return [
             'name' => 'maximum_units_per_customer',
             'label' => '"Maximum Units Per Customer"',
             'required' => false,
             'options' => function () {
                 $options = '';
-                for ($i=1; $i<=100; $i++) {
-                    $options .= "<option value='" . $i . "'>" . $i . "</option>";
+                for ($i = 1; $i <= 100; $i++) {
+                    $options .= "<option value='".$i."'>".$i."</option>";
                 }
 
                 return $options;
@@ -64,12 +69,13 @@ class EventsRegistrations {
         ];
     }
 
-    function quantityField () {
+    public function quantityField()
+    {
         return [
             'name' => 'quantity',
             'label' => '"Attendees Per Item"',
             'required' => false,
-            'options' =>[
+            'options' => [
                        '<option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -81,18 +87,19 @@ class EventsRegistrations {
                         <option value="9">9</option>
                         <option value="10">10</option>
                         <option value="11">11</option>
-                        <option value="12">12</option>'
+                        <option value="12">12</option>',
                         ],
             'display' => 'Field\Select'
             ];
     }
 
-    function chooseFormField() {
+    public function chooseFormField()
+    {
         return [
             'name' => 'form',
             'label' => 'Form',
             'required' => false,
-            'options' =>[
+            'options' => [
                 '<option value="Choose Form">1</option>',
                 '<option value="Choose Form">2</option>',
                 '<option value="Choose Form">3</option>',
@@ -101,7 +108,8 @@ class EventsRegistrations {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Registration Options"}}}
             {{#if registration_options}}
@@ -125,10 +133,12 @@ class EventsRegistrations {
                 {{{ManagerEmbeddedIndexEmpty singular="Registration Options"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="title" label="Title"}}}
@@ -142,6 +152,7 @@ HBS;
             {{{ManagerEmbeddedFormFooter}}}
             <div style="padding-bottom:100px"></div>
 HBS;
+
         return $partial;
     }
 }

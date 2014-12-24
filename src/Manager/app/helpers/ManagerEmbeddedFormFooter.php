@@ -1,8 +1,10 @@
 <?php
 namespace Helper\Manager;
 
-class ManagerEmbeddedFormFooter {
-    public function render (Array $args, Array $options) {
+class ManagerEmbeddedFormFooter
+{
+    public function render(Array $args, Array $options)
+    {
         return '
                         </div>
                     </div>

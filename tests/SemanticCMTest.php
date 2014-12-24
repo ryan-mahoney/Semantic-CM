@@ -8,16 +8,18 @@ use Opine\Config\Service as Config;
 /**
  * @backupGlobals disabled
  */
-class SemanticCMTest extends PHPUnit_Framework_TestCase {
+class SemanticCMTest extends PHPUnit_Framework_TestCase
+{
     private $route;
     private $managerRoute;
     private $managerModel;
 
-    public function setup () {
-        $root = __DIR__ . '/../public';
+    public function setup()
+    {
+        $root = __DIR__.'/../public';
         $config = new Config($root);
         $config->cacheSet();
-        $container = Container::instance($root, $config, $root . '/../config/containers/test-container.yml');
+        $container = Container::instance($root, $config, $root.'/../config/containers/test-container.yml');
         $this->route = $container->get('route');
         $this->managerRoute = $container->get('managerRoute');
         $this->managerModel = $container->get('managerModel');
@@ -25,7 +27,8 @@ class SemanticCMTest extends PHPUnit_Framework_TestCase {
         $this->managerRoute->paths();
     }
 
-    public function testBuild () {
+    public function testBuild()
+    {
         $cache = json_decode($this->managerModel->build(), true);
         echo "\n\n", 'TEST!', "\n\n";
         var_dump($cache);

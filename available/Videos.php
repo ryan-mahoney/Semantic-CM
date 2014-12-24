@@ -11,7 +11,8 @@
  */
 namespace Manager;
 
-class Videos {
+class Videos
+{
     public $collection = 'Collection\Videos';
     public $title = 'Videos';
     public $titleField = 'title';
@@ -24,8 +25,9 @@ class Videos {
     public $category = 'Content';
     public $after = 'function';
     public $function = 'ManagerSaved';
-    
-    function titleField () {    
+
+    public function titleField()
+    {
         return [
             'name' => 'title',
             'label' => 'Title',
@@ -34,16 +36,18 @@ class Videos {
         ];
     }
 
-    function descriptionField(){
+    public function descriptionField()
+    {
         return [
-            'name'=>'description',
-            'label'=>'Summary',
-            'required'=>false,
+            'name' => 'description',
+            'label' => 'Summary',
+            'required' => false,
             'display' => 'Field\Textarea'
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'label' => 'Featured Image',
@@ -51,7 +55,8 @@ class Videos {
         ];
     }
 
-    function videoField () {
+    public function videoField()
+    {
         return [
             'name' => 'video',
             'label' => 'URL',
@@ -60,13 +65,14 @@ class Videos {
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -74,7 +80,8 @@ class Videos {
         ];
     }
 
-    function dateField() {
+    public function dateField()
+    {
         return [
             'name'            => 'display_date',
             'required'        => true,
@@ -91,56 +98,62 @@ class Videos {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function pinnedField () {
+    public function pinnedField()
+    {
         return [
             'name' => 'pinned',
             'label' => 'Pin',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name' => 'code_name',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name' => 'metadata_keywords',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name' => 'metadata_description',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function categoriesField () {
+    public function categoriesField()
+    {
         return array(
             'name'        => 'categories',
             'label'        => 'Category',
@@ -150,16 +163,17 @@ class Videos {
                     $this->db->collection('categories')->
                         find(['section' => 'Videos'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'    => 'Field\InputToTags',
             'controlled' => true,
-            'multiple' => true
+            'multiple' => true,
         );
     }
 
-    function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -168,6 +182,7 @@ class Videos {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -178,7 +193,8 @@ class Videos {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -188,7 +204,7 @@ class Videos {
                 {{#if videos}}
                         {{{ManagerIndexPagination pagination=pagination}}}
                         {{{ManagerIndexButtons metadata=metadata}}}
-                        
+
                         <table class="ui large table segment manager soratble">
                             <col width="20%">
                             <col width="40%">
@@ -209,7 +225,7 @@ class Videos {
                             <tbody>
                                 {{#each videos}}
                                     <tr data-id="{{dbURI}}">
-                                       
+
                                          <td>{{video}}</td>
                                          <td>{{title}}</td>
                                          <td>{{{Capitalize status}}}</td>
@@ -231,10 +247,12 @@ class Videos {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -251,8 +269,8 @@ HBS;
                             {{{ManagerField . class="left" name="video" label="URL"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -273,7 +291,7 @@ HBS;
                             {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
                             {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -281,6 +299,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

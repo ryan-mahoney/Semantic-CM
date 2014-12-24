@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class Profiles {
+class Profiles
+{
     public $collection = 'Collection\Profiles';
     public $title = 'Profiles';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class Profiles {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function first_nameField() {
+    public function first_nameField()
+    {
         return [
             'name'    => 'first_name',
             'placeholder' => 'First Name',
@@ -29,8 +31,9 @@ class Profiles {
             'required'  => true
         ];
     }
-  
-    function last_nameField() {
+
+    public function last_nameField()
+    {
         return [
             'name'    => 'last_name',
             'placeholder' => 'Last Name',
@@ -40,7 +43,8 @@ class Profiles {
         ];
     }
 
-    function fullNameField () {
+    public function fullNameField()
+    {
         return [
             'name'        => 'full_name',
             'label'        => 'FullName',
@@ -49,7 +53,8 @@ class Profiles {
         ];
     }
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'        => 'title',
             'label'        => 'Title',
@@ -58,7 +63,8 @@ class Profiles {
         ];
     }
 
-    function emailField () {
+    public function emailField()
+    {
         return [
             'name'        => 'email',
             'label'        => 'Email',
@@ -67,15 +73,16 @@ class Profiles {
         ];
     }
 
-    function homepageField () {
+    public function homepageField()
+    {
         return [
             'display' => 'Field\InputText',
             'name' => 'homepage'
         ];
     }
 
-
-    function phoneField () {
+    public function phoneField()
+    {
         return [
             'name'        => 'phone',
             'label'        => 'Phone',
@@ -84,21 +91,23 @@ class Profiles {
         ];
     }
 
-    function descriptionField () {
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'label' => 'Summary',
             'display' => 'Field\Textarea'
         ];
     }
-    
-    function statusField () {
+
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -106,35 +115,38 @@ class Profiles {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function pinnedField () {
+    public function pinnedField()
+    {
         return [
             'name' => 'pinned',
             'label' => 'Pin',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
-    
-    function imageField () {
+
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'label' => 'List View',
@@ -142,7 +154,8 @@ class Profiles {
         ];
     }
 
-    function imageFeaturedField () {
+    public function imageFeaturedField()
+    {
         return [
             'name' => 'image_feature',
             'label' => 'Featured View',
@@ -150,7 +163,8 @@ class Profiles {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -160,7 +174,7 @@ class Profiles {
               {{#if profiles}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                
+
                     <table class="ui large table segment manager">
                          <thead>
                                <tr>
@@ -191,10 +205,12 @@ class Profiles {
               {{/if}}
            </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -215,8 +231,8 @@ HBS;
                             {{{ManagerField . class="left" name="description" label="Summary"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -225,21 +241,22 @@ HBS;
                             <br />
                             {{{ManagerField . class="left" name="pinned"}}}
                         {{{ManagerFormSideColumnClose}}}
-                    </div>    
-                
+                    </div>
+
                     <div class="ui tab" data-tab="Images">
                         {{{ManagerFormMainColumn}}}
                             {{{ManagerField . class="left" name="image" label="List View"}}}
                             {{{ManagerField . class="left" name="image_feature" label="Featured"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
-                    </div>        
+                    </div>
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
-}    
+}

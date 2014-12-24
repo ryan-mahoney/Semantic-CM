@@ -26,7 +26,8 @@ namespace Opine\Manager;
 
 use Exception;
 
-class ApiController {
+class ApiController
+{
     private $model;
     private $form;
     private $search;
@@ -34,7 +35,8 @@ class ApiController {
     private $slugify;
     private $route;
 
-    public function __construct ($model, $form, $search, $upload, $slugify, $route) {
+    public function __construct($model, $form, $search, $upload, $slugify, $route)
+    {
         $this->model = $model;
         $this->form = $form;
         $this->search = $search;
@@ -43,7 +45,8 @@ class ApiController {
         $this->route = $route;
     }
 
-    public function managers () {
+    public function managers()
+    {
         $counts = $this->model->collectionCounts();
         $managers = $this->model->cacheRead();
         $managersOut = [];
@@ -58,7 +61,7 @@ class ApiController {
             }
             if (isset($manager['collection_name']) && isset($counts[$manager['collection_name']])) {
                 $manager['count'] = $counts[$manager['collection_name']]['count'];
-                if (isset ($counts[$manager['collection_name']]['modified_date'])) {
+                if (isset($counts[$manager['collection_name']]['modified_date'])) {
                     $manager['modified_date'] = $counts[$manager['collection_name']]['modified_date'];
                 }
             } else {
@@ -72,15 +75,18 @@ class ApiController {
         echo json_encode(['managers' => $managersOut], JSON_PRETTY_PRINT);
     }
 
-    public function search () {
+    public function search()
+    {
         if (!isset($_GET['q']) || empty($_GET['q']) || !is_string($_GET['q'])) {
             echo json_encode([]);
+
             return;
         }
         $out = [];
-        $matches = $this->search->search('*' . trim(urldecode($_GET['q'])) . '*');
+        $matches = $this->search->search('*'.trim(urldecode($_GET['q'])).'*');
         if (!isset($matches['hits']) || empty($matches['hits']) || !isset($matches['hits']['hits']) || empty($matches['hits']['hits']) || !is_array($matches['hits']['hits'])) {
             echo json_encode([]);
+
             return;
         }
         foreach ($matches['hits']['hits'] as $hit) {
@@ -91,22 +97,23 @@ class ApiController {
                 'url' => $hit['_source']['url_manager'],
                 //'type' => ucwords(str_replace('_', ' ', $hit['_source']['collection'])),
                 //'image' => $hit['_source']['image'],
-                'title' => '<div class="ui purple horizontal label">' . ucwords(str_replace('_', ' ', $hit['_source']['collection'])) . '</div> ' . $hit['_source']['title'],
-                'description' => $hit['_source']['description']
+                'title' => '<div class="ui purple horizontal label">'.ucwords(str_replace('_', ' ', $hit['_source']['collection'])).'</div> '.$hit['_source']['title'],
+                'description' => $hit['_source']['description'],
             ];
         }
         echo json_encode(['results' => $out]);
     }
 
-    public function collection ($linkName, $method='manager', $limit=50, $page=1, $sort='{}') {
+    public function collection($linkName, $method = 'manager', $limit = 50, $page = 1, $sort = '{}')
+    {
         $manager = $this->model->managerGetByLink($linkName);
         $collection = $this->model->collectionGetByClass($manager['collection']);
         $collectionPath = '';
         if ($collection['bundle'] != '') {
-            $collectionPath .= '/' . $collection['bundle'];
+            $collectionPath .= '/'.$collection['bundle'];
         }
-        $collectionPath .= '/api/collection/' . $collection['name'];
-        $collectionJson = $this->route->run('GET', $collectionPath . '/' . $method . '/' . $limit . '/' . $page . '/' . $sort);
+        $collectionPath .= '/api/collection/'.$collection['name'];
+        $collectionJson = $this->route->run('GET', $collectionPath.'/'.$method.'/'.$limit.'/'.$page.'/'.$sort);
         if ($manager !== false) {
             $collectionJson = json_decode($collectionJson, true);
             $collectionJson['metadata'] = array_merge($collectionJson['metadata'], $manager);
@@ -115,7 +122,8 @@ class ApiController {
         echo $collectionJson;
     }
 
-    public function upsert ($linkName) {
+    public function upsert($linkName)
+    {
         $manager = $this->model->managerGetByLink($linkName);
         $formObject = $this->form->factory($manager);
         $formObject->manager = $manager;
@@ -126,7 +134,8 @@ class ApiController {
         echo $this->form->upsert($formObject);
     }
 
-    public function form ($linkName) {
+    public function form($linkName)
+    {
         $id = false;
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
@@ -140,18 +149,19 @@ class ApiController {
         echo $formJson;
     }
 
-    public function upload ($manager, $field) {
+    public function upload($manager, $field)
+    {
         if (!isset($_FILES)) {
             return;
         }
         $cleanName = $this->slugify->slugify(pathinfo($_FILES[$field]['name'])['filename']);
-        $path = '/storage/' . date('Y-m-d-H');
+        $path = '/storage/'.date('Y-m-d-H');
         $storage = $this->upload->storage($path);
         $upload = $this->upload->file($field, $storage);
         $upload->setName($cleanName);
         if ($manager == 'redactor') {
             $data = [
-                'filelink'   => $path . '/' . $upload->getNameWithExtension()
+                'filelink'   => $path.'/'.$upload->getNameWithExtension(),
             ];
         } else {
             $data = [
@@ -161,27 +171,31 @@ class ApiController {
                 'md5'  => $upload->getMd5(),
                 'width' => $upload->getDimensions()['width'],
                 'height' => $upload->getDimensions()['height'],
-                'url'   => 'http://' . $_SERVER['HTTP_HOST'] . $path . '/' . $upload->getNameWithExtension()
+                'url'   => 'http://'.$_SERVER['HTTP_HOST'].$path.'/'.$upload->getNameWithExtension(),
             ];
         }
         try {
             $result = $upload->upload();
         } catch (Exception $e) {
             var_dump($upload->getErrors());
+
             return;
         }
         echo json_encode($data, JSON_PRETTY_PRINT);
     }
 
-    public function sort () {
+    public function sort()
+    {
         if (!isset($_POST['sorted']) || !is_array($_POST['sorted']) || count($_POST['sorted']) == 0) {
             echo json_encode(['success' => true]);
+
             return;
         }
         $this->model->sort($_POST);
     }
 
-    public function delete ($dbURI) {
+    public function delete($dbURI)
+    {
         $result = $this->model->delete($dbURI);
         echo json_encode(['success' => $result]);
     }

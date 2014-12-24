@@ -12,7 +12,8 @@
  */
 namespace Manager;
 
-class FileUploads {
+class FileUploads
+{
     public $collection = 'Collection\FileUploads';
     public $title = 'File Uploads';
     public $titleField = 'title';
@@ -26,7 +27,8 @@ class FileUploads {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'      => 'title',
             'label'     => 'Title',
@@ -34,8 +36,9 @@ class FileUploads {
             'display'   => 'Field\InputText'
         ];
     }
-    
-    function imageField () {
+
+    public function imageField()
+    {
         return [
             'name' => 'image',
             'label' => 'File Upload',
@@ -43,7 +46,8 @@ class FileUploads {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -53,14 +57,14 @@ class FileUploads {
                 {{#if file_uploads}}
                         {{{ManagerIndexPagination pagination=pagination}}}
                         {{{ManagerIndexButtons metadata=metadata}}}
-                        
+
                         <table class="ui large table segment manager sortable">
                             <col width="60%">
                             <col width="20%">
                             <col width="20%">
                             <thead>
                                 <tr>
-                                    
+
                                     <th>Title</th>
                                     <th>URL</th>
                                     <th class="trash">Delete</th>
@@ -69,7 +73,7 @@ class FileUploads {
                             <tbody>
                                 {{#each file_uploads}}
                                     <tr data-id="{{dbURI}}">
-                                         
+
                                          <td>{{title}}</td>
                                          <td>{{image.url}}</td>
                                          <td>
@@ -88,10 +92,12 @@ class FileUploads {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -106,8 +112,8 @@ HBS;
                             {{{ManagerField . class="left" name="image" label="File Upload" required="true"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                    
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -115,6 +121,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
-}    
+}

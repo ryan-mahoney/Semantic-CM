@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsLinks {
+class EventsLinks
+{
     public $collection = 'Collection\Events';
     public $title = 'Link/Menu';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class EventsLinks {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function urlField () {
+    public function urlField()
+    {
         return [
             'name'      => 'url',
             'label'     => 'URL',
@@ -30,7 +32,8 @@ class EventsLinks {
         ];
     }
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'      => 'title',
             'label'     => 'Title',
@@ -38,8 +41,9 @@ class EventsLinks {
             'display'   => 'Field\InputText'
         ];
     }
-    
-    function targetField () {
+
+    public function targetField()
+    {
         return [
             'name'      => 'target',
             'label'     => 'Redirect',
@@ -48,7 +52,7 @@ class EventsLinks {
                 '_self'     => 'Self',
                 '_blank'    => 'Blank',
                 '_top'      => 'Top',
-                '_parent'   => 'Parent'
+                '_parent'   => 'Parent',
             ],
             'display'   => 'Field\Select',
             'nullable'  => false,
@@ -56,7 +60,8 @@ class EventsLinks {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Link / Menu"}}}
             {{#if link_sub}}
@@ -81,10 +86,12 @@ class EventsLinks {
                 {{{ManagerEmbeddedIndexEmpty singular="Link / Menu"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="url" label="URL"}}}
@@ -94,6 +101,7 @@ HBS;
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }

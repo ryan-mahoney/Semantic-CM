@@ -10,7 +10,8 @@
  */
 namespace Manager;
 
-class Blurbs {
+class Blurbs
+{
     public $collection = 'Collection\Blurbs';
     public $title = 'Blurbs';
     public $titleField = 'title';
@@ -23,7 +24,8 @@ class Blurbs {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name' => 'title',
             'placeholder' => 'Title',
@@ -32,7 +34,8 @@ class Blurbs {
         ];
     }
 
-    function bodyField () {
+    public function bodyField()
+    {
         return [
             'name' => 'body',
             'required' => false,
@@ -40,7 +43,8 @@ class Blurbs {
         ];
     }
 
-    function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -49,6 +53,7 @@ class Blurbs {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -59,7 +64,8 @@ class Blurbs {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -100,10 +106,12 @@ class Blurbs {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -126,6 +134,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

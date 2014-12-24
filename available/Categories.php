@@ -14,7 +14,8 @@
 
 namespace Manager;
 
-class Categories {
+class Categories
+{
     public $collection = 'Collection\Categories';
     public $title = 'Categories';
     public $titleField = 'title';
@@ -29,7 +30,8 @@ class Categories {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'          => 'title',
             'required'      => true,
@@ -37,7 +39,8 @@ class Categories {
         ];
     }
 
-    function sectionField () {
+    public function sectionField()
+    {
         return [
             'name'          => 'section',
             'required'      => true,
@@ -51,19 +54,22 @@ class Categories {
                 $common = ['Blog', 'Books', 'Events', 'Links', 'Pages', 'Galleries', 'Podcasts', 'Sponsors', 'Videos'];
                 $categories = array_unique(array_merge($existing, $common));
                 sort($categories);
+
                 return $categories;
             }
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name'          => 'image',
             'display'       => 'Field\InputFile'
         ];
     }
 
-    public function subcategoryField() {
+    public function subcategoryField()
+    {
         return [
             'name'          => 'subcategory',
             'required'      => false,
@@ -72,13 +78,14 @@ class Categories {
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'          => 'status',
             'required'      => true,
             'options'       => [
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ],
             'display'       => 'Field\Select',
             'nullable'      => false,
@@ -86,41 +93,46 @@ class Categories {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name'          => 'featured',
             'required'      => false,
             'options'       => [
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ],
             'display'       => 'Field\InputSlider',
             'default'       => 'f'
         ];
     }
 
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name'          => 'code_name',
             'display'       => 'Field\InputText'
         ];
     }
 
-    function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name'          => 'metadata_keywords',
             'display'       => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name'          => 'metadata_description',
             'display'       => 'Field\InputText'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -163,10 +175,12 @@ class Categories {
                 {{/if}}
             </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
                 {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -203,6 +217,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsSponsors {
+class EventsSponsors
+{
     public $collection = 'Collection\Events';
     public $title = 'Sponsors';
     public $titleField = 'title';
@@ -21,7 +22,8 @@ class EventsSponsors {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'      => 'name',
             'label'     => 'Name',
@@ -30,7 +32,8 @@ class EventsSponsors {
         ];
     }
 
-    function urlField () {
+    public function urlField()
+    {
         return [
             'name'      => 'url',
             'label'     => 'URL',
@@ -39,7 +42,8 @@ class EventsSponsors {
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name' => 'file',
             'label' => 'Image',
@@ -47,7 +51,8 @@ class EventsSponsors {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Sponsors"}}}
             {{#if sponsor_sub}}
@@ -73,10 +78,12 @@ class EventsSponsors {
                 {{{ManagerEmbeddedIndexEmpty singular="Sponsor"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="name" label="Name"}}}
@@ -86,6 +93,7 @@ HBS;
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }

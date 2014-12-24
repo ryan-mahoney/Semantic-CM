@@ -6,9 +6,10 @@
  *
  */
 namespace Manager;
-use MongoDate;
 
-class Languages {
+
+class Languages
+{
     public $collection = 'Collection\Languages';
     public $title = 'Languages';
     public $titleField = 'name';
@@ -21,7 +22,8 @@ class Languages {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function nameField () {
+    public function nameField()
+    {
         return [
             'name'          => 'name',
             'required'      => true,
@@ -29,7 +31,8 @@ class Languages {
         ];
     }
 
-    function authorField () {
+    public function authorField()
+    {
         return [
             'name'          => 'charset',
             'required'      => true,
@@ -37,14 +40,16 @@ class Languages {
         ];
     }
 
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name'          => 'code_name',
             'display'       => 'Field\InputText'
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -53,7 +58,7 @@ class Languages {
                 {{#if languages}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                
+
                     <table class="ui large table segment manager sortable">
                         <col width="60%">
                         <col width="15%">
@@ -86,10 +91,12 @@ class Languages {
               {{/if}}
            </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -112,6 +119,7 @@ HBS;
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
 }

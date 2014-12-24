@@ -4,7 +4,7 @@ manager:
     title: File Uploads
     titleField: title
     singular: File Upload
-    definition: Files that visitors can download from your site, such as high resolution images, PDF's, and white papers, can be uploaded here. 
+    definition: Files that visitors can download from your site, such as high resolution images, PDF's, and white papers, can be uploaded here.
     acl: [content, admin, superadmin]
     tabs: [Main]
     icon: cloud upload

@@ -7,7 +7,8 @@
  */
 namespace Manager;
 
-class EventsRecurrences {
+class EventsRecurrences
+{
     public $collection = 'Collection\Events';
     public $title = 'Recurrence Rules';
     public $titleField = 'title';
@@ -21,14 +22,15 @@ class EventsRecurrences {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function whichField () {
+    public function whichField()
+    {
         return [
             'name'      => 'which',
             'label' => '"Which Scenario?"',
             'required'  => true,
             'options'   => array(
                 'published' => '"Day Of Week (Sat - Sun)"',
-                'draft'     => '"Number Of Day (1 - 31)"'
+                'draft'     => '"Number Of Day (1 - 31)"',
             ),
             'display'   => 'Field\Select',
             'nullable'  => false,
@@ -36,7 +38,8 @@ class EventsRecurrences {
         ];
     }
 
-    function dayOfWeekField () {
+    public function dayOfWeekField()
+    {
         return [
             'name'      => 'day_of_week',
             'label' => 'Day Of Week',
@@ -56,30 +59,32 @@ class EventsRecurrences {
         ];
     }
 
-    function dayOfWeekTypeField() {
+    public function dayOfWeekTypeField()
+    {
         return [
             'name' => 'day_of_week_type',
             'label' => '"Day Of Week Type"',
             'required' => false,
             'options' => [
-                'first'     =>"First",
-                'second'    =>"Second",
-                'third'     =>"Third",
-                'fourth'    =>"Fourth",
-                'fifth'     =>"Fifth",
-                'last'      =>"Last",
+                'first'     => "First",
+                'second'    => "Second",
+                'third'     => "Third",
+                'fourth'    => "Fourth",
+                'fifth'     => "Fifth",
+                'last'      => "Last",
             ],
                     'display' => 'Field\Select',
                     'nullable' => true
         ];
     }
 
-    function monthField() {
+    public function monthField()
+    {
         return [
             'name' => 'month',
             'label' => '"Day Of Month"',
             'required' => false,
-            'options' =>[
+            'options' => [
                        '<select name="month">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -111,13 +116,14 @@ class EventsRecurrences {
                         <option value="29">29</option>
                         <option value="30">30</option>
                         <option value="31">31</option>
-                        </select>'
+                        </select>',
                         ],
             'display' => 'Field\Select'
             ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Recurrence Rules"}}}
             {{#if recurrence_rules}}
@@ -145,10 +151,12 @@ class EventsRecurrences {
                 {{{ManagerEmbeddedIndexEmpty singular="Recurrence Rule"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="which" label="Which Scenario?"}}}
@@ -160,6 +168,7 @@ HBS;
             {{{ManagerEmbeddedFormFooter}}}
             <div style="padding-bottom:100px"></div>
 HBS;
+
         return $partial;
     }
 }

@@ -8,7 +8,8 @@
  */
 namespace Manager;
 
-class DepartmentProfiles {
+class DepartmentProfiles
+{
     public $collection = 'Collection\DepartmentProfiles';
     public $title = 'Profiles';
     public $titleField = 'title';
@@ -22,7 +23,8 @@ class DepartmentProfiles {
     public $function = 'embeddedUpsert';
     public $embedded = true;
 
-    function titleField () {
+    public function titleField()
+    {
         return [
             'name'     => 'title',
             'label'    => 'Title',
@@ -31,7 +33,8 @@ class DepartmentProfiles {
         ];
     }
 
-    function imageField () {
+    public function imageField()
+    {
         return [
             'name'    => 'image',
             'label'   => 'Image',
@@ -39,7 +42,8 @@ class DepartmentProfiles {
         ];
     }
 
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedIndexHeader label="Profiles"}}}
             {{#if department_profiles}}
@@ -59,10 +63,12 @@ class DepartmentProfiles {
                 {{{ManagerEmbeddedIndexEmpty singular="Profile"}}}
             {{/if}}
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerEmbeddedFormHeader metadata=metadata}}}
                 {{{ManagerField . class="fluid" name="title" label="Title"}}}
@@ -71,6 +77,7 @@ HBS;
                 {{{form-token}}}
             {{{ManagerEmbeddedFormFooter}}}
 HBS;
+
         return $partial;
     }
 }

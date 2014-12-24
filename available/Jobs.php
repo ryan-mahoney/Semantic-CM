@@ -11,7 +11,8 @@
  */
 namespace Manager;
 
-class Jobs {
+class Jobs
+{
     public $collection = 'Collection\Jobs';
     public $title = 'Jobs';
     public $titleField = 'job_title';
@@ -25,7 +26,8 @@ class Jobs {
     public $after = 'function';
     public $function = 'ManagerSaved';
 
-    function company_nameField () {
+    public function company_nameField()
+    {
         return [
             'name'         => 'company_name',
             'label'     => 'Name of Employer or Recruiting Firm',
@@ -34,7 +36,8 @@ class Jobs {
         ];
     }
 
-    function full_nameField() {
+    public function full_nameField()
+    {
         return [
             'name'        => 'full_name',
             'placeholder' => 'Full Name',
@@ -42,8 +45,9 @@ class Jobs {
             'required'     => true
         ];
     }
-    
-    function job_titleField () {
+
+    public function job_titleField()
+    {
         return [
             'name'         => 'job_title',
             'label'     => 'Job Title',
@@ -51,8 +55,9 @@ class Jobs {
             'display'     => 'Field\InputText'
         ];
     }
-    
-    function contact_personField () {
+
+    public function contact_personField()
+    {
         return [
             'name'         => 'contact_person',
             'label'     => 'Name',
@@ -60,8 +65,9 @@ class Jobs {
             'display'     => 'Field\InputText',
         ];
     }
-    
-    function contact_titleField () {
+
+    public function contact_titleField()
+    {
         return [
             'name'         => 'contact_title',
             'label'     => 'Job Title of Contact',
@@ -70,17 +76,19 @@ class Jobs {
 
         ];
     }
-    
-    function emailField () {
+
+    public function emailField()
+    {
         return [
             'name'         => 'email',
             'label'     => 'Email',
             'required'     => false,
-            'display'     => 'Field\InputText'    
+            'display'     => 'Field\InputText'
         ];
     }
-    
-    function job_expirationField() {
+
+    public function job_expirationField()
+    {
         return [
             'name'            => 'job_expiration',
             'label'            => 'Job Expiration Date',
@@ -97,32 +105,35 @@ class Jobs {
             }
         ];
     }
-    
-    function addressField () {
+
+    public function addressField()
+    {
         return [
             'name'         => 'address',
             'label'     => 'Address',
             'required'     => true,
-            'display'     => 'Field\InputText'    
+            'display'     => 'Field\InputText'
         ];
     }
-    
-    function cityField () {
+
+    public function cityField()
+    {
         return [
             'name'         => 'city',
             'label'     => 'City',
             'required'     => true,
-            'display'     => 'Field\InputText'    
+            'display'     => 'Field\InputText'
         ];
     }
 
-    function statusField () {
+    public function statusField()
+    {
         return [
             'name'        => 'status',
             'required'    => true,
             'options'    => array(
                 'published'    => 'Published',
-                'draft'        => 'Draft'
+                'draft'        => 'Draft',
             ),
             'display'    => 'Field\Select',
             'nullable'    => false,
@@ -130,35 +141,38 @@ class Jobs {
         ];
     }
 
-    function featuredField () {
+    public function featuredField()
+    {
         return [
             'name' => 'featured',
             'label' => 'Feature',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function pinnedField () {
+    public function pinnedField()
+    {
         return [
             'name' => 'pinned',
             'label' => 'Pin',
             'required' => false,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'default' => 'f'
         ];
     }
 
-    function categoriesField () {
+    public function categoriesField()
+    {
         return [
             'name'        => 'categories',
             'label'        => 'Category',
@@ -168,7 +182,7 @@ class Jobs {
                     $this->db->collection('categories')->
                         find(['section' => 'Jobs'])->
                         sort(['title' => 1]),
-                    '_id', 
+                    '_id',
                     'title');
             },
             'display'    => 'Field\InputToTags',
@@ -177,7 +191,8 @@ class Jobs {
         ];
     }
 
-    function tagsField () {
+    public function tagsField()
+    {
         return [
             'name' => 'tags',
             'label' => 'Tags',
@@ -186,6 +201,7 @@ class Jobs {
                 if (is_array($data)) {
                     return $data;
                 }
+
                 return $this->field->csvToArray($data);
             },
             'display' => 'Field\InputToTags',
@@ -196,107 +212,112 @@ class Jobs {
         ];
     }
 
-    function stateField () {
+    public function stateField()
+    {
         return [
             'name'         => 'state',
             'label'     => 'State',
             'required'     => false,
             'options'     => array(
-                'AL'=>"Alabama",
-                'AK'=>"Alaska",
-                'AS'=>"American Samoa",
-                'AZ'=>"Arizona",
-                'AR'=>"Arkansas",
-                'CA'=>"California",
-                'CO'=>"Colorado",
-                'CT'=>"Connecticut",
-                'DE'=>"Delaware",
-                'DC'=>"District Of Columbia",
-                'FM'=>"Federated States of Micronesia",
-                'FL'=>"Florida",'GA'=>"Georgia",
-                'GU'=>"Guam",
-                'HI'=>"Hawaii",
-                'ID'=>"Idaho",
-                'IL'=>"Illinois",
-                'IN'=>"Indiana",
-                'IA'=>"Iowa",
-                'KS'=>"Kansas",
-                'KY'=>"Kentucky",
-                'LA'=>"Louisiana",
-                'ME'=>"Maine",
-                'MH'=>"Marshall Islands",
-                'MD'=>"Maryland",
-                'MA'=>"Massachusetts",
-                'MI'=>"Michigan",
-                'MN'=>"Minnesota",
-                'MS'=>"Mississippi",
-                'MO'=>"Missouri",
-                'MT'=>"Montana",
-                'NE'=>"Nebraska",
-                'NV'=>"Nevada",
-                'NH'=>"New Hampshire",
-                'NJ'=>"New Jersey",
-                'NM'=>"New Mexico",
-                'NY'=>"New York",
-                'NC'=>"North Carolina",
-                'ND'=>"North Dakota",
-                'MP'=>"Northern Mariana Islands",
-                'OH'=>"Ohio",
-                'OK'=>"Oklahoma",
-                'OR'=>"Oregon",
-                'PW'=>"Palau",
-                'PA'=>"Pennsylvania",
-                'PR'=>"Puerto Rico",
-                'RI'=>"Rhode Island",
-                'SC'=>"South Carolina",
-                'SD'=>"South Dakota",
-                'TN'=>"Tennessee",
-                'TX'=>"Texas",
-                'UT'=>"Utah",
-                'VT'=>"Vermont",
-                'VI'=>"Virgin Islands",
-                'VA'=>"Virginia",
-                'WA'=>"Washington",
-                'WV'=>"West Virginia",
-                'WI'=>"Wisconsin",
-                'WY'=>"Wyoming",
-                'AA'=>"Armed Forces Americas", 
-                'AE'=>"Armed Forces", 
-                'AP'=>"Armed Forces Pacific" 
+                'AL' => "Alabama",
+                'AK' => "Alaska",
+                'AS' => "American Samoa",
+                'AZ' => "Arizona",
+                'AR' => "Arkansas",
+                'CA' => "California",
+                'CO' => "Colorado",
+                'CT' => "Connecticut",
+                'DE' => "Delaware",
+                'DC' => "District Of Columbia",
+                'FM' => "Federated States of Micronesia",
+                'FL' => "Florida",'GA' => "Georgia",
+                'GU' => "Guam",
+                'HI' => "Hawaii",
+                'ID' => "Idaho",
+                'IL' => "Illinois",
+                'IN' => "Indiana",
+                'IA' => "Iowa",
+                'KS' => "Kansas",
+                'KY' => "Kentucky",
+                'LA' => "Louisiana",
+                'ME' => "Maine",
+                'MH' => "Marshall Islands",
+                'MD' => "Maryland",
+                'MA' => "Massachusetts",
+                'MI' => "Michigan",
+                'MN' => "Minnesota",
+                'MS' => "Mississippi",
+                'MO' => "Missouri",
+                'MT' => "Montana",
+                'NE' => "Nebraska",
+                'NV' => "Nevada",
+                'NH' => "New Hampshire",
+                'NJ' => "New Jersey",
+                'NM' => "New Mexico",
+                'NY' => "New York",
+                'NC' => "North Carolina",
+                'ND' => "North Dakota",
+                'MP' => "Northern Mariana Islands",
+                'OH' => "Ohio",
+                'OK' => "Oklahoma",
+                'OR' => "Oregon",
+                'PW' => "Palau",
+                'PA' => "Pennsylvania",
+                'PR' => "Puerto Rico",
+                'RI' => "Rhode Island",
+                'SC' => "South Carolina",
+                'SD' => "South Dakota",
+                'TN' => "Tennessee",
+                'TX' => "Texas",
+                'UT' => "Utah",
+                'VT' => "Vermont",
+                'VI' => "Virgin Islands",
+                'VA' => "Virginia",
+                'WA' => "Washington",
+                'WV' => "West Virginia",
+                'WI' => "Wisconsin",
+                'WY' => "Wyoming",
+                'AA' => "Armed Forces Americas",
+                'AE' => "Armed Forces",
+                'AP' => "Armed Forces Pacific",
                     ),
                 'display'     => 'Field\Select',
                 'nullable'     => true
             ];
-        }
-    
-    function zipcodeField () {
+    }
+
+    public function zipcodeField()
+    {
         return [
             'name'         => 'zipcode',
             'label'     => 'Zipcode',
             'required'     => true,
-            'display'     => 'Field\InputText'    
+            'display'     => 'Field\InputText'
         ];
     }
-    
-    function telephoneField () {
+
+    public function telephoneField()
+    {
         return [
             'name'         => 'telephone',
             'label'     => 'Phone Number',
             'required'     => false,
-            'display'     => 'Field\InputText'    
+            'display'     => 'Field\InputText'
         ];
     }
-    
-    function websiteField () {
+
+    public function websiteField()
+    {
         return [
             'name'         => 'website',
             'label'     => 'Website',
             'required'     => false,
-            'display'     => 'Field\InputText'    
+            'display'     => 'Field\InputText'
         ];
     }
-    
-    function fileField () {
+
+    public function fileField()
+    {
         return [
             'name'         => 'file',
             'label'     => 'Attached Job Description',
@@ -305,8 +326,9 @@ class Jobs {
 
         ];
     }
-    
-    function descriptionField () {
+
+    public function descriptionField()
+    {
         return [
             'name' => 'description',
             'label' => 'Job Description',
@@ -314,44 +336,47 @@ class Jobs {
             'required'     => false,
         ];
     }
-    
-    function display_emailField(){
+
+    public function display_emailField()
+    {
         return [
-            'name'        =>'display_email',
+            'name'        => 'display_email',
             'label'        => 'Display Email On Listing',
             'required'    => true,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'nullable' => true,
         ];
     }
-    
-    function display_addressField(){
+
+    public function display_addressField()
+    {
         return [
-            'name'        =>'display_address',
+            'name'        => 'display_address',
             'label'        => 'Display Address On Listing',
             'required'    => true,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'nullable' => true,
 
             ];
     }
-    
-    function display_nameField(){
+
+    public function display_nameField()
+    {
         return [
-            'name'        =>'display_name',
+            'name'        => 'display_name',
             'label'        => 'Display Name On Listing',
             'required'    => true,
             'options' => array(
                 't' => 'Yes',
-                'f' => 'No'
+                'f' => 'No',
             ),
             'display' => 'Field\InputSlider',
             'nullable' => true,
@@ -359,29 +384,31 @@ class Jobs {
             ];
     }
 
-    function code_nameField () {
+    public function code_nameField()
+    {
         return [
             'name' => 'code_name',
             'display'    => 'Field\InputText'
         ];
     }
-    function metakeywordsField () {
+    public function metakeywordsField()
+    {
         return [
             'name' => 'metadata_keywords',
             'display'    => 'Field\InputText'
         ];
     }
 
-    function metadescriptionField () {
+    public function metadescriptionField()
+    {
         return [
             'name' => 'metadata_description',
             'display'    => 'Field\InputText'
         ];
     }
 
-    
-
-    public function indexPartial () {
+    public function indexPartial()
+    {
         $partial = <<<'HBS'
             <div class="top-container">
                 {{{ManagerIndexHeader metadata=metadata pagination=pagination}}}
@@ -391,7 +418,7 @@ class Jobs {
               {{#if jobs}}
                     {{{ManagerIndexPagination pagination=pagination}}}
                     {{{ManagerIndexButtons metadata=metadata}}}
-                
+
                     <table class="ui large table segment manager sortable">
                         <col width="45%">
                         <col width="25%">
@@ -429,10 +456,12 @@ class Jobs {
               {{/if}}
            </div>
 HBS;
+
         return $partial;
     }
 
-    public function formPartial () {
+    public function formPartial()
+    {
         $partial = <<<'HBS'
             {{{ManagerForm spare=id_spare metadata=metadata}}}
                 <div class="top-container">
@@ -449,8 +478,8 @@ HBS;
                             {{{ManagerField . class="left" name="description" label="Job Description"}}}
                             {{{id}}}
                             {{{form-token}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                             {{{ManagerField . class="fluid" name="status"}}}
@@ -475,8 +504,8 @@ HBS;
                             {{{ManagerField . class="left" name="city" label="City"}}}
                             {{{ManagerField . class="left" name="state" label="State"}}}
                             {{{ManagerField . class="left" name="zipcode" label="Zipcode"}}}
-                        {{{ManagerFormMainColumnClose}}}                 
-                        
+                        {{{ManagerFormMainColumnClose}}}
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
@@ -487,14 +516,15 @@ HBS;
                             {{{ManagerField . class="left" name="metadata_description" label="Description"}}}
                             {{{ManagerField . class="left" name="metadata_keywords" label="Keywords"}}}
                         {{{ManagerFormMainColumnClose}}}
-                        
+
                         {{{ManagerFormSideColumn}}}
                             {{{ManagerFormButton modified=modified_date}}}
                         {{{ManagerFormSideColumnClose}}}
-                    </div>            
+                    </div>
                 </div>
             </form>
 HBS;
+
         return $partial;
     }
-}    
+}
