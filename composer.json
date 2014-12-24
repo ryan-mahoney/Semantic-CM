@@ -31,7 +31,7 @@
         "opine/queue"        : "dev-master",
         "opine/search"       : "dev-master",
         "opine/layout"       : "dev-master",
-        "opine/bundle"       : "dev-master",
+        "opine/bundle"       : "1.9.0",
         "opine/uploadwrapper": "dev-master",
         "opine/route"        : "3.0.1",
         "opine/uploadwrapper": "dev-master",
