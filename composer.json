@@ -35,7 +35,7 @@
         "opine/uploadwrapper": "dev-master",
         "opine/route"        : "3.0.1",
         "opine/uploadwrapper": "dev-master",
-        "opine/interfaces"   : "dev-master"
+        "opine/interfaces"   : "1.0.0"
     },
     "autoload": {
         "classmap": [
