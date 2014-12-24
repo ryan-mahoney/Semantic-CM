@@ -25,7 +25,7 @@
         "opine/cache"        : "2.0.2",
         "opine/collection"   : "dev-master",
         "opine/config"       : "3.0.0",
-        "opine/container"    : "dev-master",
+        "opine/container"    : "2.0.2",
         "opine/form"         : "dev-master",
         "opine/pubsub"       : "dev-master",
         "opine/queue"        : "dev-master",
