@@ -1,0 +1,12 @@
+imports:
+    - ../../src/Manager/config/containers/package-container.yml
+    - ../../vendor/opine/collection/config/containers/package-container.yml
+    - ../../vendor/opine/route/config/containers/package-container.yml
+    - ../../vendor/opine/form/config/containers/package-container.yml
+    - ../../vendor/opine/bundle/config/containers/package-container.yml
+    - ../../vendor/opine/db/config/containers/package-container.yml
+    - ../../vendor/opine/pubsub/config/containers/package-container.yml
+
+services:
+    slugify:
+        class: Cocur\Slugify\Slugify

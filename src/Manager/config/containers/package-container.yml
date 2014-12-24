@@ -1,5 +1,5 @@
 imports:
-    - ../../../../uploadwrapper/config/package-container.yml
+    - ../../../../../uploadwrapper/config/containers/package-container.yml
     - helpers-container.yml
 
 services:
