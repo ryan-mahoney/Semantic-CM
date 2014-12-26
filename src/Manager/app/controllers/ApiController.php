@@ -107,7 +107,7 @@ class ApiController
     public function collection($linkName, $method = 'manager', $limit = 50, $page = 1, $sort = '{}')
     {
         $manager = $this->model->managerGetByLink($linkName);
-        $collection = $this->model->collectionGetByClass($manager['collection']);
+        $collection = $this->model->collection($manager['collection']);
         $collectionPath = '';
         if ($collection['bundle'] != '') {
             $collectionPath .= '/'.$collection['bundle'];

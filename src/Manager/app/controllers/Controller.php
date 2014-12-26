@@ -95,7 +95,7 @@ class Controller
         if (isset($_GET['embedded']) && isset($_GET['dbURI'])) {
             $parts = explode(':', $_GET['dbURI']);
             $collection = $parts[0];
-            $collectionData = $this->model->collectionGetByCollection($collection);
+            $collectionData = $this->model->collection($collection);
             if ((count($parts) % 2) == 0) {
                 array_pop($parts);
             }
@@ -113,7 +113,7 @@ class Controller
     {
         $parts = explode(':', $dbURI);
         $collection = $parts[0];
-        $collectionData = $this->model->collectionGetByCollection($collection);
+        $collectionData = $this->model->collection($collection);
         if ((count($parts) % 2) == 0) {
             array_pop($parts);
         }

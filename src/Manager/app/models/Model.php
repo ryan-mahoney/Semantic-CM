@@ -74,36 +74,15 @@ class Model
         return $managers[$slug];
     }
 
-    public function collectionGetByCollection($collectionName)
+    public function collection($collectionName)
     {
-        $collections = $this->collectionModel->cacheRead();
-        $collection = false;
-        foreach ($collections as $collectionsData) {
-            if ($collectionName == $collectionsData['collection']) {
-                return $collectionsData;
-            }
-        }
-        if ($collection === false) {
+        $collections = $this->collectionModel->collections();
+        if (!isset($collections[$collectionName])) {
             throw new Exception('Collection not found: '.$collectionName);
         }
-
-        return $collection;
+        return $collections[$collectionName];
     }
 
-    public function collectionGetByClass($class)
-    {
-        $collections = $this->collectionModel->cacheRead();
-        foreach ($collections as $collectionsData) {
-            if ($class == $collectionsData['class']) {
-                return $collectionsData;
-            }
-        }
-        if ($collection === false) {
-            throw new Exception('Collection not found: '.$class);
-        }
-
-        return $collection;
-    }
 
     public function collectionCounts()
     {
@@ -368,10 +347,6 @@ class Model
     private function yaml($file)
     {
         try {
-            if (function_exists('yaml_parse_file')) {
-                return yaml_parse_file($file);
-            }
-
             return Yaml::parse(file_get_contents($file));
         } catch (Exception $e) {
             throw new Exception('Can not parse file: '.$file.', '.$e->getMessage());
